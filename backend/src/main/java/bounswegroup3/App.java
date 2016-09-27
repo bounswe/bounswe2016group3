@@ -21,7 +21,9 @@ import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.db.AccessTokenDAO;
+import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
+import bounswegroup3.resource.UserResource;
 
 class App extends Application<AppConfig> {
 	public static void main(String[] args) throws Exception {
@@ -58,11 +60,17 @@ class App extends Application<AppConfig> {
         jdbi.registerContainerFactory(new OptionalContainerFactory());
         
         final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
+        final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 
+        final UserResource userResource = new UserResource(userDAO);
+        
         env.jersey()
                 .register(AuthFactory.binder(
                         new OAuthFactory<AccessToken>(new OAuthAuthenticator(accessTokenDAO),
                                 conf.getBearerRealm(), AccessToken.class)));
+
+
+        env.jersey().register(userResource);
 	}
 	
     private void configureCors(Environment environment) {

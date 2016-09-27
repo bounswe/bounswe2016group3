@@ -23,8 +23,11 @@
 			</column>
 			
 			<column name="full_name" type="text"></column>
-			<column name="location" type="text"></column>
-			<column name="date_of_birth" type="date"></column>
+			<column name="bio" type="text" defaultValue=""></column>
+			
+			<column name="user_type" type="integer" defaultValue="0"></column>
+			<column name="diet_type" type="integer" defaultValue="0"></column>
+			
 		</createTable>
 	</changeSet>
 	
