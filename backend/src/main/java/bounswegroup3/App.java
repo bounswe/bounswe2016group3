@@ -4,6 +4,12 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.migrations.MigrationsBundle;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.jdbi.OptionalContainerFactory;
+import io.dropwizard.auth.AuthFactory;
+import io.dropwizard.auth.oauth.OAuthFactory;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
@@ -11,9 +17,15 @@ import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
 
+import org.skife.jdbi.v2.DBI;
+
+import bounswegroup3.auth.OAuthAuthenticator;
+import bounswegroup3.db.AccessTokenDAO;
+import bounswegroup3.model.AccessToken;
+
 class App extends Application<AppConfig> {
 	public static void main(String[] args) throws Exception {
-		new App().run();
+		new App().run(args);
 	}
 	
 
@@ -25,11 +37,32 @@ class App extends Application<AppConfig> {
     @Override
     public void initialize(Bootstrap<AppConfig> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
+        
+
+        bootstrap.addBundle(new MigrationsBundle<AppConfig>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(AppConfig config) {
+                return config.getDatabase();
+            }
+        });
     }
     
 	@Override
 	public void run(AppConfig conf, Environment env) throws Exception {
 		configureCors(env);
+
+        // Connect to db
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(env, conf.getDatabase(), "postgresql");
+
+        jdbi.registerContainerFactory(new OptionalContainerFactory());
+        
+        final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
+
+        env.jersey()
+                .register(AuthFactory.binder(
+                        new OAuthFactory<AccessToken>(new OAuthAuthenticator(accessTokenDAO),
+                                conf.getBearerRealm(), AccessToken.class)));
 	}
 	
     private void configureCors(Environment environment) {

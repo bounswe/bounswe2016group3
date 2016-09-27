@@ -1,0 +1,17 @@
+database:
+    driverClass: org.postgresql.Driver
+    user: postgres
+    password: pass
+    url: jdbc:postgresql://localhost/test
+
+server:
+    type: default
+    rootPath: /api/*
+    applicationConnectors:
+        - type: http
+          port: 8080
+    adminConnectors:
+        - type: http
+          port: 8081
+
+bearerRealm: temporary-realm

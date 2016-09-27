@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	<changeSet id="1" author="group1">
+		<createTable tableName="users">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="email" type="text">
+				<constraints unique="true" nullable="false" />
+			</column>
+			
+			<column name="password_hash" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="password_salt" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="full_name" type="text"></column>
+			<column name="location" type="text"></column>
+			<column name="date_of_birth" type="date"></column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="2" author="group1">
+		<createTable tableName="tokens">
+			<column name="access_token" type="uuid">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_session_user" references="users(id)" />
+			</column>
+			<column name="creation_time" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_access_time" type="datetime">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createIndex indexName="idx_user_email" tableName="users" unique="true">
+			<column name="email" type="text" />
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>
