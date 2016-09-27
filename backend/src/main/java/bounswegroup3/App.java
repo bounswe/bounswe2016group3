@@ -23,6 +23,7 @@ import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
+import bounswegroup3.resource.SessionResource;
 import bounswegroup3.resource.UserResource;
 
 class App extends Application<AppConfig> {
@@ -63,7 +64,8 @@ class App extends Application<AppConfig> {
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
 
         final UserResource userResource = new UserResource(userDAO);
-        
+        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO);
+
         env.jersey()
                 .register(AuthFactory.binder(
                         new OAuthFactory<AccessToken>(new OAuthAuthenticator(accessTokenDAO),
@@ -71,6 +73,7 @@ class App extends Application<AppConfig> {
 
 
         env.jersey().register(userResource);
+        env.jersey().register(sessionResource);
 	}
 	
     private void configureCors(Environment environment) {

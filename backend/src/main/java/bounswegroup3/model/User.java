@@ -40,6 +40,11 @@ public class User {
 
     public User() {
         this.id = -1l;
+        
+        this.bio = "";
+        this.fullName = "";
+        this.userType = UserType.REGULAR;
+        this.dietType = DietType.OMNIVORE;
     }
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
@@ -145,23 +150,23 @@ public class User {
 	}
 	
     @JsonGetter("userType")
-    public UserType getUserType() {
-		return userType;
+    public int getUserType() {
+		return userType.ordinal();
 	}
     
     @JsonSetter("userType")
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setUserType(int userType) {
+		this.userType = UserType.values()[userType];
 	}
 
 	@JsonGetter("dietType")
-	public DietType getDietType() {
-		return dietType;
+	public int getDietType() {
+		return dietType.ordinal();
 	}
 
 	@JsonSetter("dietType")
-	public void setDietType(DietType dietType) {
-		this.dietType = dietType;
+	public void setDietType(int dietType) {
+		this.dietType = DietType.values()[dietType];
 	}
 	
 }
