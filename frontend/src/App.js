@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import Header from './components/Header.js';
 
-class App extends Component {
-  render() {
+var App = function(props) {
     return (
       <div className="container">
-        <Header />
-        <div class="row">
-            {this.props.children}
+        <Header location={props.location}/>
+        <div className="row">
+            {props.children}
         </div>
       </div>
     );
-  }
 }
+
 
 export default App;
