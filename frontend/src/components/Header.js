@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-var Header = function(params){
+var Header = function(props){
     return (
         <nav className="navbar navbar-default">
             <div className="container-fluid">
