@@ -5,10 +5,11 @@ import App from './App';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import apiService from './service/apiService';
 import { token, userId } from './reducers/login';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import './index.css';
@@ -16,7 +17,7 @@ import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 
 var reducer = combineReducers({token, userId});
-var store = createStore(reducer);
+var store = createStore(reducer, {}, applyMiddleware(apiService));
 
 ReactDOM.render((
   <Provider store={store}>

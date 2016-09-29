@@ -1,22 +1,49 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/Login'
+import { bindActionCreators } from 'redux'
 
 class Login extends Component {
     render() {
+        var email, password;
+
+        var submitForm = (e) => {
+            let email = document.getElementById("login-email");
+            let password = document.getElementById("login-pass");
+
+            console.log(email);
+            console.log(password);            
+
+            if(email&&password){
+                console.log("yah");
+                this.props.actions.submit(email.value , password.value);
+            }
+
+            return false;
+        };
+
         return (
-            <div>
+            <form onSubmit={submitForm()}>
                 <p>
-                    <input type="text" className="form-control" placeholder="Username" ref={(r) => {this.username = r;}}/>
+                    <input type="email" className="form-control" placeholder="E-mail" id="login-email" />
                 </p>
                 <p>
-                    <input type="password" className="form-control" placeholder="Password"  ref={(r) => {this.username = r;}}/>
+                    <input type="password" className="form-control" placeholder="Password" id="login-pass"/>
                 </p>
 
                 <p>
-                    <button className="btn btn-default" type="button" onClick={this.props.submit}  ref={(r) => {this.username = r;}}>Login</button>
+                    <input type="submit" className="btn btn-default" type="button" value="Login" />
                 </p>
-            </div>
+            </form>
         );
     }
 }
+var mapStateToProps = function(state){
+  return {};
+}
 
-export default Login;
+var mapDispatchToProps = function(dispatch){
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
