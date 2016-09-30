@@ -1,4 +1,5 @@
 import { apiUrl } from './config';
+var request = require('request');
 
 var apiCall = function(url, method, headers={}, body={}){
     let callUrl = apiUrl + url;
@@ -6,11 +7,18 @@ var apiCall = function(url, method, headers={}, body={}){
     var succCb = function() {};
     var errCb = function() {};
 
-    fetch(new Request(callUrl,{mode: 'no-cors', method, body: JSON.stringify(body), headers})).then(function(response){
-        if(response.status === 200){
-            succCb(response.json());
+    headers = Object.assign(headers,{'Content-Type': 'application/json'})
+
+    request({
+        url: callUrl,
+        method: method,
+        headers: headers,
+        body: JSON.stringify(body)
+    }, function(error, response, body){
+        if(!error && response.statusCode === 200){
+            succCb(JSON.parse(body));
         } else {
-            errCb();
+            errCb(error, response);
         }
     });
 

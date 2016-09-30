@@ -59,7 +59,10 @@ var Header = function(props){
 }
 
 var mapStateToProps = function(state){
-  return { uid: state.userId };
+  return { 
+      token: state.token,
+      uid: state.userId 
+    };
 }
 
 var mapDispatchToProps = function(dispatch){

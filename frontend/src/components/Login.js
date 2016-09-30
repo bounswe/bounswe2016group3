@@ -1,45 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/Login'
 import { bindActionCreators } from 'redux'
 
-class Login extends Component {
-    render() {
-        var email, password;
+var Login = function(props) {
+    var submitForm = function(e) {
+        let email = document.getElementById("login-email");
+        let password = document.getElementById("login-pass");
 
-        var submitForm = (e) => {
-            let email = document.getElementById("login-email");
-            let password = document.getElementById("login-pass");
+        if(email&&password){
+            props.actions.submit(email.value , password.value);
+        }
 
-            console.log(email);
-            console.log(password);            
+        e.preventDefault();
+    }
 
-            if(email&&password){
-                console.log("yah");
-                this.props.actions.submit(email.value , password.value);
-            }
+    if(props.token && props.token !== ""){
+        props.history.pushState(null,"/");
+    }
 
-            return false;
-        };
-
+    if(props.loading){
         return (
-            <form onSubmit={submitForm()}>
-                <p>
-                    <input type="email" className="form-control" placeholder="E-mail" id="login-email" />
-                </p>
-                <p>
-                    <input type="password" className="form-control" placeholder="Password" id="login-pass"/>
-                </p>
-
-                <p>
-                    <input type="submit" className="btn btn-default" type="button" value="Login" />
-                </p>
-            </form>
+            <div>
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
         );
     }
+
+    return (
+        <div>
+            <p>
+                <input type="email" className="form-control" placeholder="E-mail" id="login-email" />
+            </p>
+            <p>
+                <input type="password" className="form-control" placeholder="Password" id="login-pass"/>
+            </p>
+
+            <p>
+                <button className="btn btn-default" type="button" onClick={submitForm}>Login</button>
+            </p>
+        </div>
+    );
 }
+
 var mapStateToProps = function(state){
-  return {};
+  return { 
+        loading: state.loading,
+        token: state.token
+    };
 }
 
 var mapDispatchToProps = function(dispatch){

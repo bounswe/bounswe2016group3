@@ -9,9 +9,13 @@ var apiService = function(store) {
                 let userModel = { email: action.email, password: action.pass };
                 
                 apiCall("/session/login", "POST", {}, userModel).success(function(accessToken){
-                    console.log(accessToken);
-                }).error(function(){
-                    console.log("nope");
+                    next({
+                        type: 'LOGIN_DONE',
+                        token: accessToken.accessToken,
+                        id: accessToken.userId
+                    });
+                }).error(function(error, response){
+                    next({type: 'LOGIN_FAIL'})
                 });
                 break;
                 default:
