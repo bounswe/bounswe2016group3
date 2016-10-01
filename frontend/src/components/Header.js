@@ -36,11 +36,19 @@ var Header = function(props){
             </ul>
         );
     } else {
-        userHeader = (
-            <ul className="nav navbar-nav navbar-right">
-                <li><Link to="/user/{props.uid}">{props.fullName}</Link></li>
-            </ul>
-        );
+        if(props.name){
+            userHeader = (
+                <ul className="nav navbar-nav navbar-right">
+                    <li><Link to="/user/{props.uid}">{props.name}</Link></li>
+                </ul>
+            );
+        } else {
+            userHeader = (
+                <ul className="nav navbar-nav navbar-right">
+                    <li><Link to="/user/{props.uid}">Loading ...</Link></li>
+                </ul>
+            );
+        }
     }
 
     return (
@@ -61,6 +69,7 @@ var Header = function(props){
 var mapStateToProps = function(state){
   return { 
       token: state.token,
+      name: state.fullName,
       uid: state.userId 
     };
 }

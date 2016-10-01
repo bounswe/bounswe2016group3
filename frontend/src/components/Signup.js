@@ -1,28 +1,63 @@
-import React, { Component } from 'react';
+import React from 'react';
+import * as actions from '../actions/Login';
+import { bindActionCreators } from 'redux';
 
-class Signup extends Component {
-    render(){
-        return (
-            <div>
-                <p>
-                    <input type="text" className="form-control" placeholder="Username" ref={(r) => {this.username = r;}}/>
-                </p>
-                <p>
-                    <input type="text" className="form-control" placeholder="Full Name" ref={(r) => {this.fullName = r;}}/>
-                </p>
-                <p>
-                    <input type="password" className="form-control" placeholder="Password" ref={(r) => {this.password = r;}}/>
-                </p>
-                <p>
-                    <input type="password" className="form-control" placeholder="Confirm Password" ref={(r) => {this.confirm = r;}}/>
-                </p>
+var Signup = function(props) {
+    var submitForm = function(e) {
 
-                <p>
-                    <button className="btn btn-default" type="button" onClick={this.props.submit}>Signup</button>
-                </p>
-            </div>
-        );
+        let email = document.getElementById("signup-email");
+        let password = document.getElementById("signup-pass");
+        let confirm = document.getElementById("signup-confirm");
+        let name = document.getElementById("signup-name");
+
+        if(email&&password&&confirm&&name){
+            if(password.value === confirm.value){
+                props.actions.submit(email.value, password.value, name.value);
+            } else {
+                props.actions.wrongPassword();
+            }
+            
+        }
+
+        e.preventDefault();
     }
+
+    if(props.success){
+        props.history.pushState(null,"/");
+    }
+
+    return (
+        <div>
+            <p>
+                <input type="text" className="form-control" placeholder="Username" id="signup-email" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Full Name" id="signup-name" />
+            </p>
+            <p>
+                <input type="password" className="form-control" placeholder="Password" id="signup-pass" />
+            </p>
+            <p>
+                <input type="password" className="form-control" placeholder="Confirm Password" id="signup-confirm" />
+            </p>
+
+            <p>
+                <button className="btn btn-default" type="button" onClick={submitForm}>Signup</button>
+            </p>
+        </div>
+    );
 }
 
-export default Signup;
+var mapStateToProps = function(state){
+  return { 
+        loading: state.signup.loading,
+        success: state.signup.success
+    };
+}
+
+var mapDispatchToProps = function(dispatch){
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

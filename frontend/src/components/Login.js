@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions/Login'
-import { bindActionCreators } from 'redux'
+import * as actions from '../actions/Login';
+import { bindActionCreators } from 'redux';
 
 var Login = function(props) {
     var submitForm = function(e) {
@@ -46,7 +46,7 @@ var Login = function(props) {
 
 var mapStateToProps = function(state){
   return { 
-        loading: state.loading,
+        loading: state.login.loading,
         token: state.token
     };
 }

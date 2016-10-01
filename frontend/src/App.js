@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import './App.css';
+import * as actions from './actions/App';
 import Header from './components/Header.js';
 
-var App = function(props) {
-    return (
-      <div className="container">
-        <Header location={props.location}/>
-        <div className="row">
-            {props.children}
+class App extends Component {
+    componentDidMount(){
+      if(localStorage["token"]){
+        this.props.actions.checkToken(localStorage["token"]);
+      }
+    }
+    render(){
+      return (
+        <div className="container">
+          <Header location={this.props.location}/>
+          <div className="row">
+              {props.children}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
 }
 
 
-export default App;
+var mapStateToProps = function(state){
+  return {};
+}
+
+var mapDispatchToProps = function(dispatch){
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
