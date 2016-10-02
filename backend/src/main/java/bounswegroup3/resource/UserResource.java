@@ -2,8 +2,13 @@ package bounswegroup3.resource;
 
 import javax.ws.rs.core.MediaType;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
+import com.google.common.io.CharStreams;
 
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,6 +21,9 @@ import io.dropwizard.auth.Auth;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @Path("/user")
@@ -60,4 +68,5 @@ public class UserResource {
     public User getUser(@PathParam("id") Long id) {
         return dao.getUserById(id);
     }
+    
 }

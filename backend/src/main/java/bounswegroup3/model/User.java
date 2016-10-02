@@ -56,6 +56,7 @@ public class User {
         this.fullName = "";
         this.userType = UserType.REGULAR;
         this.dietType = DietType.OMNIVORE;
+        this.avatarUrl = "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png";
     }
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
