@@ -18,6 +18,11 @@ public class AppConfig extends Configuration {
     @NotEmpty
     private String bearerRealm;
     
+    private String mailjetKey;
+    private String mailjetSecret;
+    
+    private String mailAddress;
+    
     public DataSourceFactory getDatabase() {
         return database;
     }
@@ -25,4 +30,28 @@ public class AppConfig extends Configuration {
     public String getBearerRealm() {
         return bearerRealm;
     }
+
+	public String getMailjetKey() {
+		return mailjetKey;
+	}
+
+	public void setMailjetKey(String mailjetKey) {
+		this.mailjetKey = mailjetKey;
+	}
+
+	public String getMailjetSecret() {
+		return mailjetSecret;
+	}
+
+	public void setMailjetSecret(String mailjetSecret) {
+		this.mailjetSecret = mailjetSecret;
+	}
+
+	public String getMailAddress() {
+		return mailAddress;
+	}
+
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
+	}
 }

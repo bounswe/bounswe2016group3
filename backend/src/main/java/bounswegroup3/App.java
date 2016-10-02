@@ -23,6 +23,7 @@ import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
+import bounswegroup3.mail.Mailer;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.resource.SessionResource;
 import bounswegroup3.resource.UserResource;
@@ -65,9 +66,11 @@ class App extends Application<AppConfig> {
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final FailedLoginDAO failedLoginDAO = jdbi.onDemand(FailedLoginDAO.class);
 
-        final UserResource userResource = new UserResource(userDAO);
+        final Mailer mailer = new Mailer(conf.getMailjetKey(), conf.getMailjetSecret(), getName(), conf.getMailAddress());
+        
+        final UserResource userResource = new UserResource(userDAO, mailer);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO);
-
+        
         env.jersey()
                 .register(AuthFactory.binder(
                         new OAuthFactory<AccessToken>(new OAuthAuthenticator(accessTokenDAO),

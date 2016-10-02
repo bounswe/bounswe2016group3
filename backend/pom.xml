@@ -126,5 +126,12 @@
       <artifactId>jetty-util</artifactId>
       <version>${jetty.version}</version>
     </dependency>
+    
+    <dependency>
+	    <groupId>com.mailjet</groupId>
+	    <artifactId>mailjet-client</artifactId>
+	    <version>4.0.1</version>
+	</dependency>
+    
   </dependencies>
 </project>

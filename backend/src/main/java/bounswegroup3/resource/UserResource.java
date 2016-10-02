@@ -14,6 +14,7 @@ import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.db.UserDAO;
+import bounswegroup3.mail.Mailer;
 
 import java.util.List;
 
@@ -21,9 +22,11 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private UserDAO dao;
-
-    public UserResource(UserDAO dao) {
+    private Mailer mailer;
+    
+    public UserResource(UserDAO dao, Mailer mailer) {
         this.dao = dao;
+        this.mailer = mailer;
     }
 
     @GET
@@ -36,6 +39,8 @@ public class UserResource {
         Long id = dao.addUser(user);
 
         user.setId(id);
+        
+        mailer.sendMail(user.getEmail(), "Welcome", "Welcome");
         
         return user;
     }

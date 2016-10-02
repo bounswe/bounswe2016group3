@@ -15,3 +15,7 @@ server:
           port: 8081
 
 bearerRealm: temporary-realm
+
+mailjetKey: 8ee7695e0908869ac378d4dad4567144
+mailjetSecret: bc2226c23167038f7d8197cd7edf0157
+mailAddress: kuzux92@gmail.com
