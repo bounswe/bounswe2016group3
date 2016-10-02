@@ -1,6 +1,7 @@
 import React from 'react';
 import * as actions from '../actions/Login';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 var Signup = function(props) {
     var submitForm = function(e) {

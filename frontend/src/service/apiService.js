@@ -27,6 +27,7 @@ var apiService = function(store) {
                 next({type: 'LOGIN_FAIL'});
             });
             break;
+            
             case 'SIGNUP_REQ':
             userModel = {email: action.email, password: action.pass, fullName: action.name};
 
@@ -43,6 +44,7 @@ var apiService = function(store) {
             }).error(function(error, response){
                 next({type: 'LOGIN_FAIL'});
             });
+            break;
 
             default:
             break;

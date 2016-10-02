@@ -16,7 +16,7 @@ class App extends Component {
         <div className="container">
           <Header location={this.props.location}/>
           <div className="row">
-              {props.children}
+              {this.props.children}
           </div>
         </div>
       );
