@@ -19,7 +19,10 @@ public class UserMapper implements ResultSetMapper<User> {
         final String bio = rs.getString("bio");
         final UserType ut = UserType.values()[rs.getInt("user_type")];
         final DietType dt = DietType.values()[rs.getInt("diet_type")];
+        final String sq = rs.getString("secret_question");
+        final String saHash = rs.getString("secret_answer_hash");
+        final String saSalt = rs.getString("secret_answer_salt");
 
-        return new User(id, email, passwordHash, passwordSalt, fullName, bio, ut, dt);
+        return new User(id, email, passwordHash, passwordSalt, fullName, bio, ut, dt, sq, saHash, saSalt);
     }
 }

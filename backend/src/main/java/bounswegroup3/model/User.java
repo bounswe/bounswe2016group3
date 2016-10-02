@@ -38,6 +38,15 @@ public class User {
 
 	private DietType dietType;
 
+	@NotNull
+	private String secretQuestion;
+	
+	@NotNull
+	private String secretAnswerHash;
+	
+	@NotNull
+	private String secretAnswerSalt;
+	
     public User() {
         this.id = -1l;
         
@@ -48,7 +57,7 @@ public class User {
     }
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
-            String bio, UserType userType, DietType dietType) {
+            String bio, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, String secretAnswerSalt) {
         super();
         this.id = id;
         this.email = email;
@@ -58,6 +67,9 @@ public class User {
         this.bio = bio;
         this.userType = userType;
         this.dietType = dietType;
+        this.secretQuestion = secretQuestion;
+        this.secretAnswerHash = secretAnswerHash;
+        this.secretAnswerSalt = secretAnswerSalt;
     }
 
     @JsonSetter("password")
@@ -75,6 +87,23 @@ public class User {
 
         this.passwordSalt = Base64.encodeBase64String(salt);
         this.passwordHash = Base64.encodeBase64String(hash);
+    }
+    
+    @JsonSetter("secretAnswer")
+    public void setSecretAnswer(String answer)
+            throws InvalidKeySpecException, NoSuchAlgorithmException {
+        final Random r = new SecureRandom();
+        byte[] salt = new byte[16];
+        r.nextBytes(salt);
+
+        KeySpec spec = new PBEKeySpec(answer.toCharArray(), salt, 65536, 128);
+
+        SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+        byte[] hash = fac.generateSecret(spec).getEncoded();
+
+        this.secretAnswerSalt = Base64.encodeBase64String(salt);
+        this.secretAnswerHash = Base64.encodeBase64String(hash);
     }
 
     public boolean checkPassword(String password)
@@ -96,6 +125,24 @@ public class User {
         System.out.println(Base64.encodeBase64String(hash));
 
         return Base64.encodeBase64String(hash).equals(this.passwordHash);
+    }
+    
+    public boolean checkSecretAnswer(String answer)
+            throws InvalidKeySpecException, NoSuchAlgorithmException {
+        if (answer == null)
+            return false;
+
+        byte[] salt = Base64.decodeBase64(this.secretAnswerSalt);
+
+        KeySpec spec = new PBEKeySpec(answer.toCharArray(), salt, 65536, 128);
+
+        SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+        byte[] hash = fac.generateSecret(spec).getEncoded();
+
+        System.out.println(Base64.encodeBase64String(hash));
+
+        return Base64.encodeBase64String(hash).equals(this.secretAnswerHash);
     }
 
     @JsonGetter("email")
@@ -167,6 +214,26 @@ public class User {
 	@JsonSetter("dietType")
 	public void setDietType(int dietType) {
 		this.dietType = DietType.values()[dietType];
+	}
+
+	@JsonGetter("secretQuestion")
+	public String getSecretQuestion() {
+		return secretQuestion;
+	}
+
+	@JsonSetter("secretQuestion")
+	public void setSecretQuestion(String secretQuestion) {
+		this.secretQuestion = secretQuestion;
+	}
+
+	@JsonIgnore
+	public String getSecretAnswerHash() {
+		return secretAnswerHash;
+	}
+
+	@JsonIgnore
+	public String getSecretAnswerSalt() {
+		return secretAnswerSalt;
 	}
 	
 }

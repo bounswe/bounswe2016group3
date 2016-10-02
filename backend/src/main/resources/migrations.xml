@@ -28,6 +28,18 @@
 			<column name="user_type" type="integer" defaultValue="0"></column>
 			<column name="diet_type" type="integer" defaultValue="0"></column>
 			
+			<column name="secret_question" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="secret_answer_hash" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="secret_answer_salt" type="text">
+				<constraints nullable="false" />
+			</column>
+			
 		</createTable>
 	</changeSet>
 	

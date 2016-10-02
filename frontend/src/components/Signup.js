@@ -10,10 +10,13 @@ var Signup = function(props) {
         let password = document.getElementById("signup-pass");
         let confirm = document.getElementById("signup-confirm");
         let name = document.getElementById("signup-name");
+        let q = document.getElementById("signup-question");
+        let a = document.getElementById("signup-answer");
+
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value, name.value);
+                props.actions.submit(email.value, password.value, name.value, q, a);
             } else {
                 props.actions.wrongPassword();
             }
@@ -40,6 +43,12 @@ var Signup = function(props) {
             </p>
             <p>
                 <input type="password" className="form-control" placeholder="Confirm Password" id="signup-confirm" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Secret Question" id="signup-question" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Secret Answer" id="signup-answer" />
             </p>
 
             <p>

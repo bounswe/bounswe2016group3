@@ -27,9 +27,15 @@ var apiService = function(store) {
                 next({type: 'LOGIN_FAIL'});
             });
             break;
-            
+
             case 'SIGNUP_REQ':
-            userModel = {email: action.email, password: action.pass, fullName: action.name};
+            userModel = {
+                email: action.email, 
+                password: action.pass, 
+                fullName: action.name,
+                secretQuestion: action.question,
+                secretAnswer: action.answer
+            };
 
             apiCall("/user/", "POST", {}, userModel).success(function(user){
                 next({type: 'SIGNUP_DONE'});
