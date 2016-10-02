@@ -22,7 +22,8 @@ public class UserMapper implements ResultSetMapper<User> {
         final String sq = rs.getString("secret_question");
         final String saHash = rs.getString("secret_answer_hash");
         final String saSalt = rs.getString("secret_answer_salt");
+        final String avatarUrl = rs.getString("avatar_url");
 
-        return new User(id, email, passwordHash, passwordSalt, fullName, bio, ut, dt, sq, saHash, saSalt);
+        return new User(id, email, passwordHash, passwordSalt, fullName, bio, ut, dt, sq, saHash, saSalt, avatarUrl);
     }
 }

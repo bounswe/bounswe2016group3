@@ -47,6 +47,8 @@ public class User {
 	@NotNull
 	private String secretAnswerSalt;
 	
+	private String avatarUrl;
+	
     public User() {
         this.id = -1l;
         
@@ -57,7 +59,8 @@ public class User {
     }
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
-            String bio, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, String secretAnswerSalt) {
+            String bio, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, 
+            String secretAnswerSalt, String avatarUrl) {
         super();
         this.id = id;
         this.email = email;
@@ -70,6 +73,7 @@ public class User {
         this.secretQuestion = secretQuestion;
         this.secretAnswerHash = secretAnswerHash;
         this.secretAnswerSalt = secretAnswerSalt;
+        this.avatarUrl = avatarUrl;
     }
 
     @JsonSetter("password")
@@ -234,6 +238,16 @@ public class User {
 	@JsonIgnore
 	public String getSecretAnswerSalt() {
 		return secretAnswerSalt;
+	}
+
+	@JsonGetter("avatarUrl")
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+	
+	@JsonSetter("avatarUrl")
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
 	}
 	
 }

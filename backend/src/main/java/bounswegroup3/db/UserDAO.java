@@ -25,8 +25,7 @@ public interface UserDAO {
 
     @SqlUpdate("update users set password_hash = :passwordHash, password_salt = :passwordSalt,"
             + "full_name = :fullName, bio = :bio, user_type = :userType, diet_type = :dietType,"
-    		+ "secret_question = :secretQuestion, secret_answer_hash = :secretAnswerHash"
-            + "secret_answer_salt = :secretAnswerSalt"
+    		+ "avatar_url = :avatarUrl"
             + "where id = :id")
     void updateUser(@BindBean User user);
 
