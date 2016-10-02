@@ -5,7 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-	<changeSet id="1" author="group1">
+	<changeSet id="1" author="group3">
 		<createTable tableName="users">
 			<column name="id" type="integer" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
@@ -31,7 +31,7 @@
 		</createTable>
 	</changeSet>
 	
-	<changeSet id="2" author="group1">
+	<changeSet id="2" author="group3">
 		<createTable tableName="tokens">
 			<column name="access_token" type="uuid">
 				<constraints primaryKey="true" nullable="false" />
@@ -49,6 +49,23 @@
 		
 		<createIndex indexName="idx_user_email" tableName="users" unique="true">
 			<column name="email" type="text" />
+		</createIndex>
+	</changeSet>
+	
+	<changeSet id="3" author="group3">
+		<createTable tableName="failed_logins">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_session_user" references="users(id)" />
+			</column>
+			
+			<column name="attempt_time" type="datetime">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		
+		<createIndex indexName="idx_login_uid" tableName="failed_logins" unique="false">
+			<column name="user_id" type="integer" />
 		</createIndex>
 	</changeSet>
 </databaseChangeLog>

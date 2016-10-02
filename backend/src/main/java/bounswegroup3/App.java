@@ -21,6 +21,7 @@ import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.db.AccessTokenDAO;
+import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.resource.SessionResource;
@@ -62,9 +63,10 @@ class App extends Application<AppConfig> {
         
         final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
+        final FailedLoginDAO failedLoginDAO = jdbi.onDemand(FailedLoginDAO.class);
 
         final UserResource userResource = new UserResource(userDAO);
-        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO);
+        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO);
 
         env.jersey()
                 .register(AuthFactory.binder(
