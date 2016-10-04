@@ -19,7 +19,7 @@ public interface UserDAO {
     @GetGeneratedKeys
     @SqlUpdate("insert into users (email, password_hash, password_salt, "
             + "full_name, bio, user_type, diet_type, "
-            + "secret_question, secret_answer_hash, secret_answer_salt"
+            + "secret_question, secret_answer_hash, secret_answer_salt,"
             + "avatar_url) "
             + "values (:email, :passwordHash, :passwordSalt, "
             + ":fullName, :bio, :userType, :dietType, "

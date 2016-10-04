@@ -9,6 +9,8 @@ var apiCall = function(url, method, headers={}, body={}){
 
     headers = Object.assign(headers,{'Content-Type': 'application/json'})
 
+    console.log(body);
+
     request({
         url: callUrl,
         method: method,

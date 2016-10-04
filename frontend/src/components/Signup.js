@@ -1,5 +1,5 @@
 import React from 'react';
-import * as actions from '../actions/Login';
+import * as actions from '../actions/Signup';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -16,7 +16,7 @@ var Signup = function(props) {
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value, name.value, q, a);
+                props.actions.submit(email.value, password.value, name.value, q.value, a.value);
             } else {
                 props.actions.wrongPassword();
             }

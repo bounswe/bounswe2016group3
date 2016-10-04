@@ -25,7 +25,8 @@ public class Mailer {
 				.property(Email.FROMNAME, senderName)
 				.property(Email.SUBJECT, title)
 				.property(Email.HTMLPART, body)
-				.property(Email.RECIPIENTS, new JSONArray(new JSONObject().put("Email", recipient)));
+				.property(Email.RECIPIENTS, new JSONArray()
+						.put(new JSONObject().put("Email", recipient)));
 		try {
 			client.post(request);
 		} catch (MailjetException e) {

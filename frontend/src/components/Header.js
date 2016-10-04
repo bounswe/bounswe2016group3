@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { Navbar } from 'react-bootstrap';
+import * as actions from '../actions/Header';
+import { bindActionCreators } from 'redux';
 
 var Header = function(props){
     var userHeader = null;
@@ -28,6 +31,7 @@ var Header = function(props){
 
         return <li key={link.path} className={classes}><Link to={link.path}>{link.text}</Link></li>;
     });
+    
 
     if(props.uid === 0){
         userHeader = (
@@ -39,14 +43,21 @@ var Header = function(props){
         if(props.name){
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
-                    <img src="{props.avatar}" alt="Avatar for user {props.uid}" className="avatar-sm" />
-                    <li><Link to="/user/{props.uid}">{props.name}</Link></li>
+                    <li>
+                        <Link to={`/user/${props.uid}`}>
+                            <img src={props.avatar} alt="Avatar for user {props.uid}" className="avatar-sm" />
+                            {props.name}
+                        </Link>
+                    </li>
+                    <li>
+                        <a href="#" onClick={props.actions.logout()}>Logout</a>
+                    </li>
                 </ul>
             );
         } else {
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
-                    <li><Link to="/user/{props.uid}">Loading ...</Link></li>
+                    <li><Link to="#">Loading ...</Link></li>
                 </ul>
             );
         }
@@ -68,16 +79,16 @@ var Header = function(props){
 }
 
 var mapStateToProps = function(state){
-  return { 
-      token: state.token,
-      uid: state.currentUser.id, 
-      name: state.currentUser.fullName, 
-      avatar: state.currentUser.avatarUrl
+    return { 
+        token: state.token,
+        uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
+        name: state.currentUser.fullName, 
+        avatar: state.currentUser.avatarUrl
     };
 }
 
 var mapDispatchToProps = function(dispatch){
-    return {};
+    return { actions: bindActionCreators(actions, dispatch) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

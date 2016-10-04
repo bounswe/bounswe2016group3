@@ -18,7 +18,7 @@ var userId = function(state=0, action){
 
 var currentUser = function(state={}, action){
     switch(action.type){
-        case 'LOGIN_CONFIRM':
+        case 'LOGIN_CONFIRMED':
         return action.user;
         default:
         return state;

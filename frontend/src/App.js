@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import './App.css';
 import * as actions from './actions/App';
 import Header from './components/Header.js';
+
+import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 
 class App extends Component {
     componentDidMount(){

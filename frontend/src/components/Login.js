@@ -23,7 +23,7 @@ var Login = function(props) {
         return (
             <div>
                 <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
             </div>
         );
     }
