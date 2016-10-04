@@ -39,6 +39,7 @@ var Header = function(props){
         if(props.name){
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
+                    <img src="{props.avatar}" alt="Avatar for user {props.uid}" className="avatar-sm" />
                     <li><Link to="/user/{props.uid}">{props.name}</Link></li>
                 </ul>
             );
@@ -69,8 +70,9 @@ var Header = function(props){
 var mapStateToProps = function(state){
   return { 
       token: state.token,
-      name: state.fullName,
-      uid: state.userId 
+      uid: state.currentUser.id, 
+      name: state.currentUser.fullName, 
+      avatar: state.currentUser.avatarUrl
     };
 }
 

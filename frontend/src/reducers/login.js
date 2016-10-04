@@ -16,4 +16,13 @@ var userId = function(state=0, action){
     }
 }
 
-export { token, userId };
+var currentUser = function(state={}, action){
+    switch(action.type){
+        case 'LOGIN_CONFIRM':
+        return action.user;
+        default:
+        return state;
+    }
+}
+
+export { token, userId, currentUser };
