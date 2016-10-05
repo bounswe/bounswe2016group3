@@ -16,10 +16,7 @@ var Login = function(props) {
     }
 
     if(props.token && props.token !== ""){
-        // this causes problems later
-        // move that to somewhere else
-        // maybe en event?
-        props.history.pushState(null,"/");
+        props.actions.redirectRoot(props.history);
     }
 
     if(props.loading){

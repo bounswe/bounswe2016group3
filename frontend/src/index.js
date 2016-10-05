@@ -5,7 +5,10 @@ import App from './App';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+
 import apiService from './service/apiService';
+import redirectService from './service/redirectService';
+
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
 
@@ -17,7 +20,7 @@ import './index.css';
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 
-var middleware = applyMiddleware(apiService);
+var middleware = applyMiddleware(apiService, redirectService);
 
 var login = combineReducers({ loading, success, error });
 var signup = combineReducers({ loading, success, error }); 
