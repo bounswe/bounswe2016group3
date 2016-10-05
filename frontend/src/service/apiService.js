@@ -69,6 +69,11 @@ var apiService = function(store) {
 
             delete localStorage['token'];
 
+            case 'LOAD_USERS':
+            apiCall("/user/", "GET").success(function(res){
+                next({type: 'USERS_LOADED', users: res});
+            });
+
             default:
             break;
             }              

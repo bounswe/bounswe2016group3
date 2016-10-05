@@ -10,7 +10,7 @@ var Header = function(props){
 
     let links = [
         { text: "Home", path: "/" },
-        { text: "All users", path: "/users" }
+        { text: "All users", path: "/user/all" }
     ];
 
     let loginLinks = [
