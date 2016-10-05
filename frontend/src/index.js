@@ -6,13 +6,14 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import AllUsers from './components/AllUsers';
+import Profile from './components/Profile';
 
 import apiService from './service/apiService';
 import redirectService from './service/redirectService';
 
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
-import { users } from './reducers/users';
+import { users, profile } from './reducers/users';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
@@ -26,7 +27,9 @@ var middleware = applyMiddleware(apiService, redirectService);
 
 var login = combineReducers({ loading, success, error });
 var signup = combineReducers({ loading, success, error }); 
-var reducer = combineReducers({ token, currentUser, login, signup, users });
+var reducer = combineReducers({ token, currentUser, 
+  login, signup, 
+  users, profile });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((
@@ -37,6 +40,7 @@ ReactDOM.render((
         <Route path="login" component={Login} />
         <Route path="signup" component={Signup} />
         <Route path="user/all" component={AllUsers} />
+        <Route path="user/:id" component={Profile} />
       </Route>
     </Router>
   </Provider>

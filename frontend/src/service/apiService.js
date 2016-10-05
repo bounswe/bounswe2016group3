@@ -74,6 +74,11 @@ var apiService = function(store) {
                 next({type: 'USERS_LOADED', users: res});
             });
 
+            case 'LOAD_PROFILE':
+            apiCall("/user/"+action.id+"/", "GET").success(function(res){
+                next({type: 'PROFILE_LOADED', user: res});
+            });
+
             default:
             break;
             }              

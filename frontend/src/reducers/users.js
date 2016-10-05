@@ -8,4 +8,14 @@ var users = function(state=[], action){
     }
 };
 
-export { users }
+var profile = function(state={}, action){
+    switch(action.type){
+        case 'PROFILE_LOADED':
+        return action.user;
+
+        default:
+        return state;
+    }
+}
+
+export { users, profile };
