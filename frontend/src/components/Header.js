@@ -50,7 +50,7 @@ var Header = function(props){
                         </Link>
                     </li>
                     <li>
-                        <a href="#" onClick={props.actions.logout()}>Logout</a>
+                        <a href="#" onClick={() => props.actions.logout(props.token) }>Logout</a>
                     </li>
                 </ul>
             );

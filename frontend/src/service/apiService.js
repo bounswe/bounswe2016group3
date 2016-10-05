@@ -23,6 +23,24 @@ var apiService = function(store) {
                     type: 'LOGIN_CONFIRM',
                     token: accessToken.accessToken
                 });
+
+                // copy-paste that because we don't recurse when calling next
+                // same as the login_confirm bit if we want to refactor that 
+                // to another method
+                apiCall("/session/currentUser", "GET", {"Authorization": "Bearer " + accessToken.accessToken }).success(function(user){
+                    next({type: 'LOGIN_CONFIRMED', user: user});
+                }).error(function(error, response){
+                    next({type: 'LOGIN_FAIL'});
+                });
+            }).error(function(error, response){
+                next({type: 'LOGIN_FAIL'});
+            });
+
+            break;
+
+            case 'LOGIN_CONFIRM':
+            apiCall("/session/currentUser", "GET", {"Authorization": "Bearer " + action.token}).success(function(user){
+                next({type: 'LOGIN_CONFIRMED', user: user});
             }).error(function(error, response){
                 next({type: 'LOGIN_FAIL'});
             });
@@ -44,13 +62,12 @@ var apiService = function(store) {
             });
             break;
 
-            case 'LOGIN_CONFIRM':
-            apiCall("/session/currentUser", "GET", {"Authorization": "Bearer " + action.token}).success(function(user){
-                next({type: 'LOGIN_CONFIRMED', user: user});
-            }).error(function(error, response){
-                next({type: 'LOGIN_FAIL'});
+
+            case 'LOGOUT_REQ':
+            apiCall("/session/logout", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
             });
-            break;
+
+            delete localStorage['token'];
 
             default:
             break;

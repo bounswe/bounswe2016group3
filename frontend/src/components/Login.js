@@ -16,13 +16,16 @@ var Login = function(props) {
     }
 
     if(props.token && props.token !== ""){
+        // this causes problems later
+        // move that to somewhere else
+        // maybe en event?
         props.history.pushState(null,"/");
     }
 
     if(props.loading){
         return (
             <div>
-                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
                 <span className="sr-only">Loading...</span>
             </div>
         );

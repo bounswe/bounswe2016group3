@@ -7,9 +7,7 @@ var apiCall = function(url, method, headers={}, body={}){
     var succCb = function() {};
     var errCb = function() {};
 
-    headers = Object.assign(headers,{'Content-Type': 'application/json'})
-
-    console.log(body);
+    headers = Object.assign(headers,{'Content-Type': 'application/json'});
 
     request({
         url: callUrl,
