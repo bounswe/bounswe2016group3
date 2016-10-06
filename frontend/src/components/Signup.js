@@ -16,7 +16,7 @@ var Signup = function(props) {
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value, name.value, q.value, a.value);
+                props.actions.submit(email.value, password.value, name.value, q.value, a.value, props.userType);
             } else {
                 props.actions.wrongPassword();
             }

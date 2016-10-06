@@ -42,7 +42,8 @@ ReactDOM.render((
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="login" component={Login} />
-        <Route path="signup" component={Signup} />
+        <Route path="signup" component={() => <Signup userType="0" />} />
+        <Route path="serverSignup" component={() => <Signup userType="1" />} />
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
         <Route path="resetPassword" component={ResetPassword} />

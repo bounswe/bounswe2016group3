@@ -1,5 +1,9 @@
-var submit = function(email, pass, name, question, answer){
-    return { type: 'SIGNUP_REQ', email, pass, name, question, answer };
+var submit = function(email, pass, name, question, answer, userType){
+    return { type: 'SIGNUP_REQ', 
+    email: email, pass: pass,
+    name: name,
+    question: question, answer: answer, 
+    userType: Number(userType) };
 };
 
 var wrongPassword = function(){

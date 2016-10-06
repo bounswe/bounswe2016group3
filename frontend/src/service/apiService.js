@@ -52,7 +52,8 @@ var apiService = function(store) {
                 password: action.pass, 
                 fullName: action.name,
                 secretQuestion: action.question,
-                secretAnswer: action.answer
+                secretAnswer: action.answer,
+                userType: action.userType
             };
 
             apiCall("/user/", "POST", {}, req).success(function(user){
