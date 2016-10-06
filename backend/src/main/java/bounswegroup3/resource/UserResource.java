@@ -15,6 +15,8 @@ import io.dropwizard.auth.Auth;
 import bounswegroup3.constant.UserType;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
+import bounswegroup3.mail.Template;
+
 import java.util.List;
 
 @Path("/user")
@@ -39,7 +41,10 @@ public class UserResource {
 
         user.setId(id);
         
-        mailer.sendMail(user.getEmail(), "Welcome", "Welcome");
+        Template tpl = new Template("welcome.st");
+        tpl.add("name", user.getFullName());
+        
+        mailer.sendMail(user.getEmail(), "Welcome", tpl.render());
         
         return user;
     }
