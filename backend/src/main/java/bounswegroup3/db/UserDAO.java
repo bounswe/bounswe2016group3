@@ -37,4 +37,7 @@ public interface UserDAO {
 
     @SqlQuery("select * from users where email = :email")
     User getUserByEmail(@Bind("email") String email);
+    
+    @SqlUpdate("update users set banned = 1 where id = :id")
+    void banUser(@Bind("id") Long id);
 }

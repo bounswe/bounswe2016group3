@@ -2,11 +2,6 @@ package bounswegroup3.resource;
 
 import javax.ws.rs.core.MediaType;
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
-import com.google.common.io.CharStreams;
-
 import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +12,7 @@ import javax.ws.rs.Produces;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
+import bounswegroup3.constant.UserType;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import java.util.List;
@@ -69,5 +65,13 @@ public class UserResource {
     @Path("/byEmail")
     public User getUser(String email){
     	return dao.getUserByEmail(email);
+    }
+    
+    @POST
+    @Path("/ban/{id}")
+    public void banUser(@Auth AccessToken token, @PathParam("id") Long id){
+    	if(UserType.values()[dao.getUserById(token.getUserId()).getUserType()] == UserType.ADMIN){
+    		dao.banUser(id);
+    	}
     }
 }

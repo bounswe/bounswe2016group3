@@ -49,7 +49,9 @@ public class User {
 	
 	private String avatarUrl;
 	
-    public User() {
+	private Boolean isBanned;
+
+	public User() {
         this.id = -1l;
         
         this.bio = "";
@@ -57,11 +59,12 @@ public class User {
         this.userType = UserType.REGULAR;
         this.dietType = DietType.OMNIVORE;
         this.avatarUrl = "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png";
+        this.isBanned = false;
     }
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
             String bio, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, 
-            String secretAnswerSalt, String avatarUrl) {
+            String secretAnswerSalt, String avatarUrl, Boolean isBanned) {
         super();
         this.id = id;
         this.email = email;
@@ -75,6 +78,7 @@ public class User {
         this.secretAnswerHash = secretAnswerHash;
         this.secretAnswerSalt = secretAnswerSalt;
         this.avatarUrl = avatarUrl;
+        this.isBanned = isBanned;
     }
 
     @JsonSetter("password")
@@ -249,6 +253,16 @@ public class User {
 	@JsonSetter("avatarUrl")
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
+	}
+	
+	@JsonGetter("isBanned")
+    public Boolean getIsBanned() {
+		return isBanned;
+	}
+
+	@JsonSetter("isBanned")
+	public void setIsBanned(Boolean isBanned) {
+		this.isBanned = isBanned;
 	}
 	
 }

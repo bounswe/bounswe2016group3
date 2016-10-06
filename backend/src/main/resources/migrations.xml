@@ -40,7 +40,10 @@
 				<constraints nullable="false" />
 			</column>
 			
-			<column name="avatar_url" type="text" defaultValue="http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png" />
+			<column name="avatar_url" type="text" 
+				defaultValue="http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png" />
+			
+			<column name="banned" type="integer" defaultValue="0" />
 		</createTable>
 	</changeSet>
 	
