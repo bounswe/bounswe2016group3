@@ -83,7 +83,7 @@ var apiService = function(store) {
             break;
 
             case 'GET_USER_BY_EMAIL':
-            var req = { email: action.email };
+            var req = action.email;
             apiCall("/user/byEmail", "POST", {}, req).success(function(res){
                 next({type: 'GOT_USER_BY_EMAIL', uid: res.id, question: res.secretQuestion});
             });

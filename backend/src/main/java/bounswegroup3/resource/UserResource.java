@@ -8,7 +8,6 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import com.google.common.io.CharStreams;
 
 import javax.validation.Valid;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,10 +19,6 @@ import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 
 @Path("/user")
@@ -69,4 +64,10 @@ public class UserResource {
         return dao.getUserById(id);
     }
     
+    
+    @POST
+    @Path("/byEmail")
+    public User getUser(String email){
+    	return dao.getUserByEmail(email);
+    }
 }

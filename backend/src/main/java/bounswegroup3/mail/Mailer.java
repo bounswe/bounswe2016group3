@@ -13,7 +13,7 @@ public class Mailer {
 	private String senderName;
 	private String senderMail;
 	
-	public Mailer(String key, String secret, String sendeName, String senderMail){
+	public Mailer(String key, String secret, String senderName, String senderMail){
 		client = new MailjetClient(key, secret);
 		this.senderName = senderName;
 		this.senderMail = senderMail;
