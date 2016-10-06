@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import bounswegroup3.model.AccessToken;
+import bounswegroup3.model.AnswerCredentials;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.constant.UserType;
@@ -17,6 +18,8 @@ import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.mail.Template;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 @Path("/user")
@@ -78,5 +81,23 @@ public class UserResource {
     	if(UserType.values()[dao.getUserById(token.getUserId()).getUserType()] == UserType.ADMIN){
     		dao.banUser(id);
     	}
+    }
+    
+    @POST
+    @Path("/resetPassword")
+    public void resetPassword(@Auth AccessToken token, AnswerCredentials answer){
+    	User user = dao.getUserById(token.getUserId());
+    	try {
+			if(user!=null && user.checkSecretAnswer(answer.getAnswer())){
+			    Template tpl = new Template("password.st");
+			    String res = User.generatePassword();
+			    tpl.add("pwd", res);
+			    mailer.sendMail(user.getEmail(), "Generated Mail", tpl.render());
+			    user.setPassword(res);
+			}
+		} catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

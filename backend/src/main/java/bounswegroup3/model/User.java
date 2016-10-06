@@ -114,7 +114,23 @@ public class User {
         this.secretAnswerSalt = Base64.encodeBase64String(salt);
         this.secretAnswerHash = Base64.encodeBase64String(hash);
     }
+    
+    public boolean checkSecretAnswer(String answer)
+            throws InvalidKeySpecException, NoSuchAlgorithmException {
+        if (answer == null)
+            return false;
 
+        byte[] salt = Base64.decodeBase64(this.secretAnswerSalt);
+
+        KeySpec spec = new PBEKeySpec(answer.toCharArray(), salt, 65536, 128);
+
+        SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+
+        byte[] hash = fac.generateSecret(spec).getEncoded();
+        
+        return Base64.encodeBase64String(hash).equals(this.secretAnswerHash);
+    }
+    
     public boolean checkPassword(String password)
             throws InvalidKeySpecException, NoSuchAlgorithmException {
         if (password == null)
@@ -134,24 +150,6 @@ public class User {
         System.out.println(Base64.encodeBase64String(hash));
 
         return Base64.encodeBase64String(hash).equals(this.passwordHash);
-    }
-    
-    public boolean checkSecretAnswer(String answer)
-            throws InvalidKeySpecException, NoSuchAlgorithmException {
-        if (answer == null)
-            return false;
-
-        byte[] salt = Base64.decodeBase64(this.secretAnswerSalt);
-
-        KeySpec spec = new PBEKeySpec(answer.toCharArray(), salt, 65536, 128);
-
-        SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-
-        byte[] hash = fac.generateSecret(spec).getEncoded();
-
-        System.out.println(Base64.encodeBase64String(hash));
-
-        return Base64.encodeBase64String(hash).equals(this.secretAnswerHash);
     }
 
     @JsonGetter("email")
@@ -263,6 +261,13 @@ public class User {
 	@JsonSetter("isBanned")
 	public void setIsBanned(Boolean isBanned) {
 		this.isBanned = isBanned;
+	}
+	
+	public static String generatePassword(){
+		final Random r = new SecureRandom();
+        byte[] res = new byte[16];
+        r.nextBytes(res);
+        return new Base64().encodeAsString(res);
 	}
 	
 }
