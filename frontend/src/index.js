@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import AllUsers from './components/AllUsers';
 import Profile from './components/Profile';
+import ResetPassword from './components/ResetPassword';
 
 import apiService from './service/apiService';
 import redirectService from './service/redirectService';
@@ -14,6 +15,7 @@ import redirectService from './service/redirectService';
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
 import { users, profile } from './reducers/users';
+import { userId, secretQuestion } from './reducers/pwdReset';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
@@ -26,9 +28,10 @@ import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 var middleware = applyMiddleware(apiService, redirectService);
 
 var login = combineReducers({ loading, success, error });
-var signup = combineReducers({ loading, success, error }); 
+var signup = combineReducers({ loading, success, error });
+var pwdReset = combineReducers({ userId, secretQuestion });
 var reducer = combineReducers({ token, currentUser, 
-  login, signup, 
+  login, signup, pwdReset,
   users, profile });
 var store = createStore(reducer, {}, middleware);
 
@@ -41,6 +44,7 @@ ReactDOM.render((
         <Route path="signup" component={Signup} />
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
+        <Route path="resetPassword" component={ResetPassword} />
       </Route>
     </Router>
   </Provider>

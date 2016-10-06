@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as actions from '../actions/Login';
 import { bindActionCreators } from 'redux';
 
@@ -39,6 +40,7 @@ var Login = function(props) {
 
             <p>
                 <button className="btn btn-default" type="button" onClick={submitForm}>Login</button>
+                <Link to="/resetPassword"> Forgot your password?</Link>
             </p>
         </div>
     );

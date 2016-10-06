@@ -15,7 +15,7 @@ var apiCall = function(url, method, headers={}, body={}){
         headers: headers,
         body: JSON.stringify(body)
     }, function(error, response, body){
-        if(!error && response.statusCode === 200){
+        if(!error && response.statusCode >= 200 && response.statusCode < 300){
             succCb(JSON.parse(body));
         } else {
             errCb(error, response);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Navbar } from 'react-bootstrap';
 import * as actions from '../actions/Header';
 import { bindActionCreators } from 'redux';
 
