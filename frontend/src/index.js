@@ -8,6 +8,7 @@ import Signup from './components/Signup';
 import AllUsers from './components/AllUsers';
 import Profile from './components/Profile';
 import ResetPassword from './components/ResetPassword';
+import NotFound from './components/NotFound';
 
 import apiService from './service/apiService';
 import redirectService from './service/redirectService';
@@ -45,6 +46,7 @@ ReactDOM.render((
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
         <Route path="resetPassword" component={ResetPassword} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   </Provider>
