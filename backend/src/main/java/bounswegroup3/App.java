@@ -36,7 +36,7 @@ class App extends Application<AppConfig> {
 
     @Override
     public String getName() {
-        return "temporary name";
+        return "Eatalyze";
     }
 
     @Override

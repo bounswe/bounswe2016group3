@@ -18,6 +18,11 @@ public class AppConfig extends Configuration {
     @NotEmpty
     private String bearerRealm;
     
+    @Valid
+    @NotNull
+    @NotEmpty
+    private String name;
+    
     private String mailjetKey;
     private String mailjetSecret;
     
@@ -53,5 +58,13 @@ public class AppConfig extends Configuration {
 
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
