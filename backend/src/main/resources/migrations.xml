@@ -43,7 +43,6 @@
 			<column name="avatar_url" type="text" 
 				defaultValue="http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png" />
 			
-			<column name="banned" type="integer" defaultValue="0" />
 		</createTable>
 	</changeSet>
 	
@@ -83,5 +82,71 @@
 		<createIndex indexName="idx_login_uid" tableName="failed_logins" unique="false">
 			<column name="user_id" type="integer" />
 		</createIndex>
+	</changeSet>
+	
+	<changeSet id="4" author="group3">
+		<addColumn tableName="users">
+			<column name="banned" type="integer" defaultValue="0" />
+		</addColumn>
+		
+		<createTable tableName="menus">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_menu_user" references="users(id)" />
+			</column>
+			
+			<column name="name" type="text" />
+		</createTable>
+		
+		<createTable tableName="meals">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="name" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="description" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="photo_url" type="text">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="menu_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_meal_menu" references="menus(id)" />
+			</column>
+		</createTable>
+		
+		<createTable tableName="comments">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_comment_user" references="users(id)" />
+			</column>
+			
+			<column name="meal_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_comment_meal" references="meals(id)" />
+			</column>
+			
+			<column name="content" type="text">
+				<constraints nullable="false" />
+			</column>
+		
+			<column name="creation_time" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="update_time" type="datetime">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 	</changeSet>
 </databaseChangeLog>
