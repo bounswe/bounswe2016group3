@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Eatalyze</string>
+
+    <string name="mail_hint">E-Mail Address</string>
+    <string name="pswd">Password</string>
+    <string name="lgn_btn">LOGIN</string>
+
+</resources>
