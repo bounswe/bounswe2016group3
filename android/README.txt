@@ -1,0 +1,1 @@
+Tested with HTC One - 4.4.4 - API 19 - 1080x1920
