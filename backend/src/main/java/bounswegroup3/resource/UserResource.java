@@ -85,8 +85,8 @@ public class UserResource {
     
     @POST
     @Path("/resetPassword")
-    public void resetPassword(@Auth AccessToken token, AnswerCredentials answer){
-    	User user = dao.getUserById(token.getUserId());
+    public void resetPassword(AnswerCredentials answer){
+    	User user = dao.getUserById(answer.getUserId());
     	try {
 			if(user!=null && user.checkSecretAnswer(answer.getAnswer())){
 			    Template tpl = new Template("password.st");
