@@ -40,4 +40,16 @@ public interface UserDAO {
     
     @SqlUpdate("update users set banned = 1 where id = :id")
     void banUser(@Bind("id") Long id);
+    
+    @SqlQuery("select users.* from users join follow on users.id = follow.followee_id where users.id=:id")
+    List<User> getFollowing(@Bind("id") Long id);
+    
+    @SqlQuery("select users.* from users join follow on users.id = follow.follower_id where users.id=:id")
+    List<User> getFollowers(@Bind("id") Long id);
+    
+    @SqlUpdate("insert into follow (follower_id, followee_id) values (:id1, :id2)")
+    void followUser(@Bind("id1") Long folllower, @Bind("id2") Long followee);
+    
+    @SqlUpdate("delete from follow where follower_id = :id1 and followee_id = :id2")
+    void unfollowUser(@Bind("id1") Long folllower, @Bind("id2") Long followee);
 }

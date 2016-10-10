@@ -149,4 +149,23 @@
 			</column>
 		</createTable>
 	</changeSet>
+	
+	<changeSet id="5" author="group3">
+		<createTable tableName="follow">
+			<column name="follower_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_follower_user" references="users(id)"/>
+			</column>
+			<column name="followee_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_followee_user" references="users(id)"/>
+			</column>
+		</createTable>
+		
+		<createIndex tableName="follow" indexName="idx_follower">
+			<column name="follower_id" type="integer" />
+		</createIndex>
+		
+		<createIndex tableName="follow" indexName="idx_followee">
+			<column name="followee_id" type="integer" />
+		</createIndex>
+	</changeSet>
 </databaseChangeLog>
