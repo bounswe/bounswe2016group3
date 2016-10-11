@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.AnswerCredentials;
+import bounswegroup3.model.Follow;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.constant.UserType;
@@ -99,5 +100,18 @@ public class UserResource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    @POST
+    @Path("/follow/{id}")
+    public Follow followUser(@Auth AccessToken token, @PathParam("id") Long id){
+    	dao.followUser(token.getUserId(), id);
+    	return new Follow(token.getUserId(), id);
+    }
+    
+    @POST
+    @Path("/unfollow/{id}")
+    public void unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
+    	dao.unfollowUser(token.getUserId(), id);
     }
 }
