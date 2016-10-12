@@ -22,9 +22,10 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import './index.css';
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
+
+import './index.css';
 
 var middleware = applyMiddleware(apiService, redirectService);
 
