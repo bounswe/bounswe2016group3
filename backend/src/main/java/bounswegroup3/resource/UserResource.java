@@ -1,7 +1,7 @@
 package bounswegroup3.resource;
 
 import javax.ws.rs.core.MediaType;
-
+import javax.ws.rs.core.Response;
 import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -55,7 +55,7 @@ public class UserResource {
 
     @POST
     @Path("/update")
-    public User updateUser(@Auth AccessToken token, User user) {
+    public User updateUser(@Auth AccessToken token, @Valid User user) {
         if (token.getUserId() == user.getId()) {
             dao.updateUser(user);
         }
@@ -69,7 +69,6 @@ public class UserResource {
         return dao.getUserById(id);
     }
     
-    
     @POST
     @Path("/byEmail")
     public User getUser(String email){
@@ -78,15 +77,17 @@ public class UserResource {
     
     @POST
     @Path("/ban/{id}")
-    public void banUser(@Auth AccessToken token, @PathParam("id") Long id){
+    public Response banUser(@Auth AccessToken token, @PathParam("id") Long id){
     	if(UserType.values()[dao.getUserById(token.getUserId()).getUserType()] == UserType.ADMIN){
     		dao.banUser(id);
+    		return Response.ok().build();
     	}
+    	return Response.notModified().build();
     }
     
     @POST
     @Path("/resetPassword")
-    public void resetPassword(AnswerCredentials answer){
+    public Response resetPassword(AnswerCredentials answer){
     	User user = dao.getUserById(answer.getUserId());
     	try {
 			if(user!=null && user.checkSecretAnswer(answer.getAnswer())){
@@ -95,35 +96,55 @@ public class UserResource {
 			    tpl.add("pwd", res);
 			    mailer.sendMail(user.getEmail(), "Generated Mail", tpl.render());
 			    user.setPassword(res);
+			    return Response.ok().build();
 			}
+			return Response.notModified().build();
 		} catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return Response.serverError().build();
 		}
     }
     
     @POST
     @Path("/follow/{id}")
-    public Follow followUser(@Auth AccessToken token, @PathParam("id") Long id){
+    public Response followUser(@Auth AccessToken token, @PathParam("id") Long id){
+    	if(dao.follows(token.getUserId(), id) || !dao.userExists(id)){
+    		return Response.notModified().build();
+    	}
+    	
     	dao.followUser(token.getUserId(), id);
-    	return new Follow(token.getUserId(), id);
+    	return Response.ok(new Follow(token.getUserId(), id)).build();
     }
     
     @POST
     @Path("/unfollow/{id}")
-    public void unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
+    public Response unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
+    	if(!dao.follows(token.getUserId(), id)){
+    		return Response.notModified().build();
+    	}
+    	
     	dao.unfollowUser(token.getUserId(), id);
+    	return Response.ok().build();
     }
     
     @GET
     @Path("/followers/{id}")
-    public List<User> getFollowers(@PathParam("id") Long id){
-    	return dao.getFollowers(id);
+    public Response getFollowers(@PathParam("id") Long id){
+    	if(!dao.userExists(id)){
+    		return Response.noContent().build();
+    	}
+    	
+    	return Response.ok(dao.getFollowers(id)).build();
     }
     
     @GET
     @Path("/following/{id}")
-    public List<User> getFollowing(@PathParam("id") Long id){
-    	return dao.getFollowing(id);
+    public Response getFollowing(@PathParam("id") Long id){
+    	if(!dao.userExists(id)){
+    		return Response.noContent().build();
+    	}
+    	
+    	return Response.ok(dao.getFollowing(id)).build();
     }
 }

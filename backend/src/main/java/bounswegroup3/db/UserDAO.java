@@ -47,6 +47,12 @@ public interface UserDAO {
     @SqlQuery("select users.* from users join follow on users.id = follow.follower_id where users.id=:id")
     List<User> getFollowers(@Bind("id") Long id);
     
+    @SqlQuery("select count(1) from follow where follower_id = :id1 and followee_id = :id2")
+    Boolean follows(@Bind("id1") Long followerId, @Bind("id2") Long followeeId);
+    
+    @SqlQuery("select count(1) from users where id = :id")
+    Boolean userExists(@Bind("id") Long id);
+    
     @SqlUpdate("insert into follow (follower_id, followee_id) values (:id1, :id2)")
     void followUser(@Bind("id1") Long folllower, @Bind("id2") Long followee);
     
