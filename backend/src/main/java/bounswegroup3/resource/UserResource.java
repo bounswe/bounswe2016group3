@@ -114,4 +114,16 @@ public class UserResource {
     public void unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
     	dao.unfollowUser(token.getUserId(), id);
     }
+    
+    @GET
+    @Path("/followers/{id}")
+    public List<User> getFollowers(@PathParam("id") Long id){
+    	return dao.getFollowers(id);
+    }
+    
+    @GET
+    @Path("/following/{id}")
+    public List<User> getFollowing(@PathParam("id") Long id){
+    	return dao.getFollowing(id);
+    }
 }
