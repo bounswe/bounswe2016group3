@@ -12,9 +12,13 @@ import javax.ws.rs.Produces;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.AnswerCredentials;
 import bounswegroup3.model.Follow;
+import bounswegroup3.model.Meal;
+import bounswegroup3.model.Menu;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.constant.UserType;
+import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.mail.Template;
@@ -27,10 +31,14 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
     private UserDAO dao;
+    private MenuDAO menuDao;
+    private MealDAO mealDao;
     private Mailer mailer;
     
-    public UserResource(UserDAO dao, Mailer mailer) {
+    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, Mailer mailer) {
         this.dao = dao;
+        this.menuDao = menuDao;
+        this.mealDao = mealDao;
         this.mailer = mailer;
     }
 
@@ -146,5 +154,17 @@ public class UserResource {
     	}
     	
     	return Response.ok(dao.getFollowing(id)).build();
+    }
+    
+    @GET
+    @Path("/menus/{id}")
+    List<Menu> menusByUser(@PathParam("id") Long id){
+    	return menuDao.menusByUser(id);
+    }
+    
+    @GET
+    @Path("/meals/{id}")
+    List<Meal> mealsByUser(@PathParam("id") Long id){
+    	return mealDao.mealsByUserId(id);
     }
 }

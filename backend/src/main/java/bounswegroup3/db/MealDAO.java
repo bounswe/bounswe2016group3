@@ -24,6 +24,14 @@ public interface MealDAO {
 	@SqlQuery("select * from meals join menus on meals.menu_id = menus.id where menus.user_id = :id")
 	List<Meal> mealsByUserId(@Bind("id") Long userId);
 	
+	@SqlUpdate("update meals set menu_id = :menuId, name = :name, "
+			 + "description = :description, photo_url = :photoUrl"
+			 + "where id = :id")
+	void updateMeal(@BindBean Meal meal);
+	
 	@SqlUpdate("delete from meals where id=:id")
 	void deleteMeal(@Bind("id") Long id);
+
+	@SqlQuery("select * from meals where id=:id")
+	Meal getMealById(@Bind("id") Long id);
 }

@@ -21,10 +21,16 @@ import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.db.AccessTokenDAO;
+import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.FailedLoginDAO;
+import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.model.AccessToken;
+import bounswegroup3.resource.CommentResource;
+import bounswegroup3.resource.MealResource;
+import bounswegroup3.resource.MenuResource;
 import bounswegroup3.resource.SessionResource;
 import bounswegroup3.resource.UserResource;
 
@@ -65,11 +71,17 @@ class App extends Application<AppConfig> {
         final AccessTokenDAO accessTokenDAO = jdbi.onDemand(AccessTokenDAO.class);
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final FailedLoginDAO failedLoginDAO = jdbi.onDemand(FailedLoginDAO.class);
-
+        final MenuDAO menuDao = jdbi.onDemand(MenuDAO.class);
+        final MealDAO mealDao = jdbi.onDemand(MealDAO.class);
+        final CommentDAO commentDao = jdbi.onDemand(CommentDAO.class);
+        
         final Mailer mailer = new Mailer(conf.getMailjetKey(), conf.getMailjetSecret(), getName(), conf.getMailAddress());
         
-        final UserResource userResource = new UserResource(userDAO, mailer);
+        final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO);
+        final MenuResource menuResource = new MenuResource(menuDao, mealDao);
+        final MealResource mealResource = new MealResource(menuDao, mealDao, commentDao);
+        final CommentResource commentResource = new CommentResource(commentDao);
         
         env.jersey()
                 .register(AuthFactory.binder(
@@ -79,6 +91,9 @@ class App extends Application<AppConfig> {
 
         env.jersey().register(userResource);
         env.jersey().register(sessionResource);
+        env.jersey().register(menuResource);
+        env.jersey().register(mealResource);
+        env.jersey().register(commentResource);
 	}
 	
     private void configureCors(Environment environment) {
