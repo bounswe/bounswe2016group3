@@ -158,13 +158,13 @@ public class UserResource {
     
     @GET
     @Path("/menus/{id}")
-    List<Menu> menusByUser(@PathParam("id") Long id){
+    public List<Menu> menusByUser(@PathParam("id") Long id){
     	return menuDao.menusByUser(id);
     }
     
     @GET
     @Path("/meals/{id}")
-    List<Meal> mealsByUser(@PathParam("id") Long id){
+    public List<Meal> mealsByUser(@PathParam("id") Long id){
     	return mealDao.mealsByUserId(id);
     }
 }

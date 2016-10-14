@@ -10,6 +10,10 @@ public class AnswerCredentials {
 		this.answer = answer;
 	}
 	
+	public AnswerCredentials() {
+		
+	}
+	
 	public Long getUserId() {
 		return userId;
 	}
