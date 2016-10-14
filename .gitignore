@@ -164,3 +164,7 @@ dist/
 .tmp/
 
 .recommenders/
+
+# IntelliJ
+.idea/
+*.iml
