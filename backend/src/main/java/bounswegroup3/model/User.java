@@ -138,17 +138,13 @@ public class User {
 
         byte[] salt = Base64.decodeBase64(this.passwordSalt);
 
-        System.out.println(this.passwordSalt);
-        System.out.println(this.passwordHash);
-
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
 
         SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
         byte[] hash = fac.generateSecret(spec).getEncoded();
 
-        System.out.println(Base64.encodeBase64String(hash));
-
+        
         return Base64.encodeBase64String(hash).equals(this.passwordHash);
     }
 

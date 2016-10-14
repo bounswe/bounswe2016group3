@@ -16,7 +16,6 @@ import bounswegroup3.db.MenuDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
-import bounswegroup3.model.Menu;
 import io.dropwizard.auth.Auth;
 
 @Path("/meal")

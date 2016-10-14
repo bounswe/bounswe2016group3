@@ -6,7 +6,7 @@ public class Menu {
 	private String name;
 	
 	public Menu(){
-		
+		this.id = -1l;
 	}
 	
 	public Menu(Long id, Long userId, String name) {

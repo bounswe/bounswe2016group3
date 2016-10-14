@@ -11,7 +11,7 @@ public class Comment {
 	private DateTime updateTime;
 	
 	public Comment(){
-		
+		this.id = -1l;
 	}
 	
 	public Comment(Long id, Long mealId, Long userId, String content, DateTime creationTime, DateTime updateTime) {
