@@ -22,6 +22,14 @@ public interface CommentDAO {
 	@SqlQuery("select * from comments where meal_id=:id")
 	List<Comment> commentsByMeal(@Bind("id") Long mealId);
 	
+	@SqlUpdate("update comments set meal_id = :mealId, user_id = :userId, "
+			 + "content = :content, update_time = NOW()"
+			 + "where id = :id")
+	void updateComment(@BindBean Comment comment);
+	
 	@SqlQuery("select * from comments where user_id=:id")
 	List<Comment> commentsByUser(@Bind("id") Long userId);
+
+	@SqlQuery("select * from comments where id=:id")
+	Comment getCommentById(@Bind("id") Long id);
 }

@@ -23,17 +23,19 @@ class AllUsers extends Component {
         }
 
         if(this.props.users === []){
-            <article className="col-xs-12">
-                <p>
-                    No users
-                </p>
-            </article>
+            return (
+                <article className="col-xs-12">
+                    <p>
+                        No users
+                    </p>
+                </article>
+            );
         }
 
         let userItems = this.props.users.map(function(user){
             return <li key={user.id}>
                 <Link to={`/user/${user.id}`}>
-                    <img src={user.avatarUrl} className="avatar-sm" />
+                    <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />
                     {user.fullName}
                 </Link>
             </li>

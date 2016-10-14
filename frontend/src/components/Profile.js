@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
 
 import * as actions from '../actions/Profile';
 
@@ -27,7 +26,7 @@ class Profile extends Component {
         return (
             <div>
                 <div className="col-xs-4">
-                    <img src = {profile.avatarUrl} />
+                    <img src={profile.avatarUrl} alt="avatar"/>
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>

@@ -24,4 +24,6 @@ public interface MenuDAO {
 	@SqlUpdate("delete from menus where id=:id")
 	void deleteMenu(@Bind("id") Long id);
 
+	@SqlQuery("select * from menus where id=:id")
+	Menu getMenuById(@Bind("id") Long id);
 }

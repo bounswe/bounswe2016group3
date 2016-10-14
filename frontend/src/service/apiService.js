@@ -84,14 +84,14 @@ var apiService = function(store) {
             break;
 
             case 'GET_USER_BY_EMAIL':
-            var req = action.email;
+            req = action.email;
             apiCall("/user/byEmail", "POST", {}, req).success(function(res){
                 next({type: 'GOT_USER_BY_EMAIL', uid: res.id, question: res.secretQuestion});
             });
             break;
 
             case 'FORGOT_PASSWORD_REQ':
-            var req = { id: action.id, answer: action.answer };
+            req = { id: action.id, answer: action.answer };
             apiCall("/user/resetPassword", "POST", {}, req).success(function(){
                 next({type: 'REDIRECT_ROOT', history: action.history})
             });
