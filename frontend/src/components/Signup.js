@@ -32,6 +32,9 @@ var Signup = function(props) {
 
     return (
         <div>
+          <article className="col-xs-6">
+           <h1> User</h1> 
+
             <p>
                 <input type="text" className="form-control" placeholder="Username" id="signup-email" />
             </p>
@@ -54,6 +57,37 @@ var Signup = function(props) {
             <p>
                 <button className="btn btn-default" type="button" onClick={submitForm}>Signup</button>
             </p>
+           
+            </article>
+            <article className="col-xs-6">
+           <h1> Food Server </h1> 
+            <p>
+                <input type="text" className="form-control" placeholder="Username" id="signup-email" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Food Service Name" id="signup-name" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Food Service Address" id="signup-name" />
+            </p>
+
+            <p>
+                <input type="password" className="form-control" placeholder="Password" id="signup-pass" />
+            </p>
+            <p>
+                <input type="password" className="form-control" placeholder="Confirm Password" id="signup-confirm" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Secret Question" id="signup-question" />
+            </p>
+            <p>
+                <input type="text" className="form-control" placeholder="Secret Answer" id="signup-answer" />
+            </p>
+
+            <p>
+                <button className="btn btn-default" type="button" onClick={submitForm}>Signup</button>
+            </p>
+            </article>
         </div>
     );
 }
