@@ -1,5 +1,6 @@
 package bounswegroup3.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import bounswegroup3.db.MenuDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
+import bounswegroup3.model.Tag;
 import io.dropwizard.auth.Auth;
 
 @Path("/menu")
@@ -52,5 +54,45 @@ public class MenuResource {
 		menu.setId(id);
 		
 		return menu;
+	}
+	
+	@GET
+	@Path("/byTag/{tag}")
+	public List<Meal> mealsByTag(@PathParam("tag") String tag) {
+		return mealDao.getMealsByTag(tag);
+	}
+	
+	@GET
+	@Path("/{id}/tags")
+	public List<String> tagsByMeal(@PathParam("id") Long id) {
+		return mealDao.getTagsByMeal(id);
+	}
+	
+	@POST
+	@Path("/tag")
+	public void tagMeal(@Auth AccessToken token, Tag tag) {
+		Meal meal = mealDao.getMealById(tag.getMealId());
+		Menu menu = menuDao.getMenuById(meal.getMenuId());
+		
+		if(token.getUserId() == menu.getUserId()){
+			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
+			if(!tags.contains(tag.getTag())){
+				mealDao.tagMeal(tag.getMealId(), tag.getTag());
+			}
+		}
+	}
+	
+	@POST
+	@Path("/tag")
+	public void untagMeal(@Auth AccessToken token, Tag tag) {
+		Meal meal = mealDao.getMealById(tag.getMealId());
+		Menu menu = menuDao.getMenuById(meal.getMenuId());
+		
+		if(token.getUserId() == menu.getUserId()){
+			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
+			if(tags.contains(tag.getTag())){
+				mealDao.untagMeal(tag.getMealId(), tag.getTag());
+			}
+		}
 	}
 }

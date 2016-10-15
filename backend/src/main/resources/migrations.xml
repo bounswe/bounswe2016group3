@@ -168,4 +168,20 @@
 			<column name="followee_id" type="integer" />
 		</createIndex>
 	</changeSet>
+	
+	<changeSet id="6" author="group3">
+		<createTable tableName="tags">
+			<column name="meal_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_tag_meal" references="meals(id)"/>
+			</column>
+			<column name="tag" type="text">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createIndex tableName="tags" indexName="idx_tags">
+			<column name="tag" type="text" />
+		</createIndex>
+		
+	</changeSet>
 </databaseChangeLog>

@@ -34,4 +34,16 @@ public interface MealDAO {
 
 	@SqlQuery("select * from meals where id=:id")
 	Meal getMealById(@Bind("id") Long id);
+	
+	@SqlQuery("select meals.* from meals join tags on meals.id = tags.meal_id where tags.tag = :tag")
+	List<Meal> getMealsByTag(@Bind("tag") String tag);
+	
+	@SqlQuery("select tags.tag from meals join tags on meals.id = tags.meal_id where tags.meal_id = :id")
+	List<String> getTagsByMeal(@Bind("id") Long id);
+	
+	@SqlUpdate("insert into tags (meal_id, tag) values (:id, :tag)")
+	void tagMeal(@Bind("id") Long id, @Bind("tag") String tag);
+	
+	@SqlUpdate("delete from tags where meal_id = :id and tag = :tag")
+	void untagMeal(@Bind("id") Long id, @Bind("tag") String tag);
 }
