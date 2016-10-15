@@ -30,24 +30,24 @@ public class MenuResource {
 	
 	@GET
 	@Path("/{id}")
-	Menu menuById(@PathParam("id") Long id){
+	public Menu menuById(@PathParam("id") Long id){
 		return menuDao.getMenuById(id);
 	}
 	
 	@GET
 	@Path("byUser/{id}")
-	List<Menu> menusByUser(@PathParam("id") Long id){
+	public List<Menu> menusByUser(@PathParam("id") Long id){
 		return menuDao.menusByUser(id);
 	}
 	
 	@GET
 	@Path("/{id}/meals")
-	List<Meal> mealsByMenu(@PathParam("id") Long id){
+	public List<Meal> mealsByMenu(@PathParam("id") Long id){
 		return mealDao.mealsByMenuId(id);
 	}
 	
 	@POST
-	Menu createMenu(@Auth AccessToken token, @Valid Menu menu){
+	public Menu createMenu(@Auth AccessToken token, @Valid Menu menu){
 		Long id = menuDao.createMenu(menu);
 		menu.setId(id);
 		

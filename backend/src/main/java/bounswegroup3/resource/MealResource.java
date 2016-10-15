@@ -33,18 +33,18 @@ public class MealResource {
 	
 	@GET
 	@Path("/{id}")
-	Meal getMealById(@PathParam("id") Long id){
+	public Meal getMealById(@PathParam("id") Long id){
 		return mealDao.getMealById(id);
 	}
 	
 	@GET
 	@Path("/{id}/comments")
-	List<Comment> getCommentsByMeal(@PathParam("id") Long id){
+	public List<Comment> getCommentsByMeal(@PathParam("id") Long id){
 		return commentDao.commentsByMeal(id);
 	}
 	
 	@POST
-	Meal createMeal(@Auth AccessToken token, @Valid Meal meal){
+	public Meal createMeal(@Auth AccessToken token, @Valid Meal meal){
 		Long id = mealDao.createMeal(meal);
 		meal.setId(id);
 		
@@ -53,7 +53,7 @@ public class MealResource {
 	
 	@POST
 	@Path("/update/{id}")
-	Meal updateMeal(@Auth AccessToken token, @Valid Meal meal){
+	public Meal updateMeal(@Auth AccessToken token, @Valid Meal meal){
 		if(meal.getId() == token.getUserId()){
 			mealDao.updateMeal(meal);
 		}
@@ -63,7 +63,7 @@ public class MealResource {
 	
 	@POST
 	@Path("/delete/{id}")
-	void deleteMeal(@Auth AccessToken token, @PathParam("id") Long id){
+	public void deleteMeal(@Auth AccessToken token, @PathParam("id") Long id){
 		if(menuDao.getMenuById(mealDao.getMealById(id).getMenuId()).getUserId() == token.getUserId()){
 			mealDao.deleteMeal(id);
 		}

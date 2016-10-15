@@ -1,12 +1,12 @@
 package bounswegroup3.mail;
 
 import org.stringtemplate.v4.ST;
-import org.stringtemplate.v4.STGroupDir;
 
 public class Template {
 	private ST tpl;
+	
 	public Template(String filename){
-		tpl = new STGroupDir("templates").getInstanceOf(filename);
+		tpl = new ST(getClass().getClassLoader().getResource("templates"+filename).getFile());
 	}
 	
 	public ST add(String k, String v){

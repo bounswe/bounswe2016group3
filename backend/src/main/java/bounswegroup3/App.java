@@ -12,6 +12,7 @@ import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.oauth.OAuthFactory;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
@@ -89,6 +90,8 @@ class App extends Application<AppConfig> {
                                 conf.getBearerRealm(), AccessToken.class)));
 
 
+        env.jersey().register(MultiPartFeature.class);
+        
         env.jersey().register(userResource);
         env.jersey().register(sessionResource);
         env.jersey().register(menuResource);

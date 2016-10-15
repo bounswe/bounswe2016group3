@@ -24,12 +24,12 @@ public class CommentResource {
 	
 	@GET
 	@Path("/{id}")
-	Comment commentById(@PathParam("id") Long id){
+	public Comment commentById(@PathParam("id") Long id){
 		return commentDao.getCommentById(id);
 	}
 	
 	@POST
-	Comment createComment(@Auth AccessToken token, @Valid Comment comment){
+	public Comment createComment(@Auth AccessToken token, @Valid Comment comment){
 		Long id = commentDao.createComment(comment);
 		comment.setId(id);
 		
