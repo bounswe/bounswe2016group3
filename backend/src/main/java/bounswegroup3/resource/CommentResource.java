@@ -8,6 +8,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.joda.time.DateTime;
+
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
@@ -32,6 +34,17 @@ public class CommentResource {
 	public Comment createComment(@Auth AccessToken token, @Valid Comment comment){
 		Long id = commentDao.createComment(comment);
 		comment.setId(id);
+		
+		return comment;
+	}
+	
+	@POST
+	@Path("/update")
+	public Comment updateComment(@Auth AccessToken token, @Valid Comment comment) {
+		if(comment.getUserId() == token.getUserId()) {
+			commentDao.updateComment(comment);
+			comment.setUpdateTime(DateTime.now());
+		}
 		
 		return comment;
 	}

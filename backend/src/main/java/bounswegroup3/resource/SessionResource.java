@@ -41,8 +41,6 @@ public class SessionResource {
             throw new UnauthorizedException();
         }
 
-        System.out.println(user.getEmail());
-        
         if(failedLoginDAO.attemptsInLastFiveMinutes(user.getId()) >= 5){
         	failedLoginDAO.addAttempt(user.getId());
         	throw new UnauthorizedException();
@@ -66,10 +64,6 @@ public class SessionResource {
     @POST
     @Path("/logout")
     public void logout(@Auth AccessToken token) {
-        System.out.println("logging out");
-        System.out.println(token.getAccessToken());
-        System.out.println(token.getUserId());
-
         accessTokenDAO.deleteAccessToken(token.getAccessToken());
     }
     

@@ -29,12 +29,12 @@ public class UserResourceTest {
 	private static final MenuDAO menuDao = mock(MenuDAO.class);
 	private static final MealDAO mealDao = mock(MealDAO.class);
 	private static final Mailer mailer = mock(Mailer.class);
-	
 	/*
 	@ClassRule
 	public static final ResourceTestRule resources = ResourceTestRule.builder()
 		.addResource(new UserResource(userDao, menuDao, mealDao, mailer))
-		.build(); */
+		.build();
+	*/
 	
 	private User user;
 	private ObjectMapper mapper;
