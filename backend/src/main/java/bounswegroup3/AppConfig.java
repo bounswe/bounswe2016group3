@@ -1,6 +1,7 @@
 package bounswegroup3;
 
 import io.dropwizard.Configuration;
+import io.dropwizard.client.HttpClientConfiguration;
 import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
@@ -23,10 +24,29 @@ public class AppConfig extends Configuration {
     @NotEmpty
     private String name;
     
-    private String mailjetKey;
-    private String mailjetSecret;
+    @Valid
+    @NotNull
+    private HttpClientConfiguration httpClient = new HttpClientConfiguration();
+ 
+    private AppKeyConfiguration appKeys = new AppKeyConfiguration();
     
-    private String mailAddress;
+    public HttpClientConfiguration getHttpClient() {
+		return httpClient;
+	}
+
+	public void setHttpClient(HttpClientConfiguration httpClient) {
+		this.httpClient = httpClient;
+	}
+
+	public AppKeyConfiguration getAppKeys() {
+		return appKeys;
+	}
+
+	public void setAppKeys(AppKeyConfiguration appKeys) {
+		this.appKeys = appKeys;
+	}
+
+	private String mailAddress;
     
     public DataSourceFactory getDatabase() {
         return database;
@@ -35,23 +55,7 @@ public class AppConfig extends Configuration {
     public String getBearerRealm() {
         return bearerRealm;
     }
-
-	public String getMailjetKey() {
-		return mailjetKey;
-	}
-
-	public void setMailjetKey(String mailjetKey) {
-		this.mailjetKey = mailjetKey;
-	}
-
-	public String getMailjetSecret() {
-		return mailjetSecret;
-	}
-
-	public void setMailjetSecret(String mailjetSecret) {
-		this.mailjetSecret = mailjetSecret;
-	}
-
+    
 	public String getMailAddress() {
 		return mailAddress;
 	}

@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.http.client.HttpClient;
+
 import bounswegroup3.auth.UnauthorizedException;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
@@ -24,12 +26,14 @@ public class SessionResource {
     private AccessTokenDAO accessTokenDAO;
     private UserDAO userDAO;
     private FailedLoginDAO failedLoginDAO;
+    private HttpClient httpClient;
     
-    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO) {
+    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO, HttpClient httpClient) {
         super();
         this.accessTokenDAO = accessTokenDAO;
         this.userDAO = userDAO;
         this.failedLoginDAO = failedLoginDAO;
+        this.httpClient = httpClient;
     }
 
     @POST

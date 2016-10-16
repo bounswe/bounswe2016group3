@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.http.client.HttpClient;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -31,10 +32,10 @@ public class SessionResourceTest {
 	private static AccessTokenDAO accessTokenDao = mock(AccessTokenDAO.class);
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static FailedLoginDAO failedLoginDao = mock(FailedLoginDAO.class);
-	
+	private static HttpClient httpClient = mock(HttpClient.class);
 	@ClassRule
 	public static final ResourceTestRule resources = ResourceTestRule.builder()
-		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao))
+		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, httpClient))
 		.build();
 	
 	private User user;

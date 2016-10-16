@@ -10,7 +10,9 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.OptionalContainerFactory;
 import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.oauth.OAuthFactory;
+import io.dropwizard.client.HttpClientBuilder;
 
+import org.apache.http.client.HttpClient;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
@@ -76,10 +78,12 @@ class App extends Application<AppConfig> {
         final MealDAO mealDao = jdbi.onDemand(MealDAO.class);
         final CommentDAO commentDao = jdbi.onDemand(CommentDAO.class);
         
-        final Mailer mailer = new Mailer(conf.getMailjetKey(), conf.getMailjetSecret(), getName(), conf.getMailAddress());
+        final Mailer mailer = new Mailer(conf.getAppKeys().getMailjetKey(), conf.getAppKeys().getMailjetSecret(), getName(), conf.getMailAddress());
+        
+        final HttpClient httpClient = new HttpClientBuilder(env).using(conf.getHttpClient()).build(getName());
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
-        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO);
+        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, httpClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
         final MealResource mealResource = new MealResource(menuDao, mealDao, commentDao);
         final CommentResource commentResource = new CommentResource(commentDao);
