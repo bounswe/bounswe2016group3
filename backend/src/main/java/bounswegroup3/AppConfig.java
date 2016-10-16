@@ -1,7 +1,7 @@
 package bounswegroup3;
 
 import io.dropwizard.Configuration;
-import io.dropwizard.client.HttpClientConfiguration;
+import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
@@ -26,15 +26,20 @@ public class AppConfig extends Configuration {
     
     @Valid
     @NotNull
-    private HttpClientConfiguration httpClient = new HttpClientConfiguration();
+    @NotEmpty
+    private String appRoot;
+    
+    @Valid
+    @NotNull
+    private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
  
     private AppKeyConfiguration appKeys = new AppKeyConfiguration();
     
-    public HttpClientConfiguration getHttpClient() {
+    public JerseyClientConfiguration getHttpClient() {
 		return httpClient;
 	}
 
-	public void setHttpClient(HttpClientConfiguration httpClient) {
+	public void setHttpClient(JerseyClientConfiguration httpClient) {
 		this.httpClient = httpClient;
 	}
 
@@ -70,5 +75,13 @@ public class AppConfig extends Configuration {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAppRoot() {
+		return appRoot;
+	}
+
+	public void setAppRoot(String appRoot) {
+		this.appRoot = appRoot;
 	}
 }

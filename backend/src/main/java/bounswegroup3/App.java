@@ -10,7 +10,9 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.OptionalContainerFactory;
 import io.dropwizard.auth.AuthFactory;
 import io.dropwizard.auth.oauth.OAuthFactory;
-import io.dropwizard.client.HttpClientBuilder;
+import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 
 import org.apache.http.client.HttpClient;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -19,10 +21,12 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration.Dynamic;
+import javax.ws.rs.client.Client;
 
 import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
+import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.FailedLoginDAO;
@@ -51,7 +55,6 @@ class App extends Application<AppConfig> {
     @Override
     public void initialize(Bootstrap<AppConfig> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
-        
 
         bootstrap.addBundle(new MigrationsBundle<AppConfig>() {
             @Override
@@ -59,6 +62,11 @@ class App extends Application<AppConfig> {
                 return config.getDatabase();
             }
         });
+        
+        bootstrap.setConfigurationSourceProvider(
+        		new SubstitutingSourceProvider(
+        				bootstrap.getConfigurationSourceProvider(), 
+        				new EnvironmentVariableSubstitutor()));
     }
     
 	@Override
@@ -80,10 +88,14 @@ class App extends Application<AppConfig> {
         
         final Mailer mailer = new Mailer(conf.getAppKeys().getMailjetKey(), conf.getAppKeys().getMailjetSecret(), getName(), conf.getMailAddress());
         
-        final HttpClient httpClient = new HttpClientBuilder(env).using(conf.getHttpClient()).build(getName());
+        final Client httpClient = new JerseyClientBuilder(env).using(conf.getHttpClient()).build(getName());
+        final FacebookClient fbClient = new FacebookClient(httpClient, 
+        		conf.getAppKeys().getFbAppId(), 
+        		conf.getAppKeys().getFbAppSecret(),
+        		conf.getAppRoot());
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
-        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, httpClient);
+        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
         final MealResource mealResource = new MealResource(menuDao, mealDao, commentDao);
         final CommentResource commentResource = new CommentResource(commentDao);

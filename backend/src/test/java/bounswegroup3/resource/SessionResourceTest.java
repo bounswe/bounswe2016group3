@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.http.client.HttpClient;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -19,6 +18,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.research.ws.wadl.Response;
 
+import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
@@ -32,10 +32,10 @@ public class SessionResourceTest {
 	private static AccessTokenDAO accessTokenDao = mock(AccessTokenDAO.class);
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static FailedLoginDAO failedLoginDao = mock(FailedLoginDAO.class);
-	private static HttpClient httpClient = mock(HttpClient.class);
+	private static FacebookClient client = mock(FacebookClient.class);
 	@ClassRule
 	public static final ResourceTestRule resources = ResourceTestRule.builder()
-		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, httpClient))
+		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client))
 		.build();
 	
 	private User user;

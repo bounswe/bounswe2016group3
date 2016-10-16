@@ -16,16 +16,18 @@ server:
 
 bearerRealm: eatalyze
 name: Eatalyze
-
+appRoot: ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/
 
 mailAddress: kuzux92@gmail.com
 
 appKeys:
     fbAppId: 861743447293204
+    fbAppSecret: ${EATALYZE_FB_SECRET}
     mailjetKey: 8ee7695e0908869ac378d4dad4567144
     mailjetSecret: bc2226c23167038f7d8197cd7edf0157
 
 httpClient:
-    timeout: 1s
-    connectionTimeout: 1s
-    retries: 1
+    minThreads: 1
+    maxThreads: 128
+    gzipEnabled: true
+    gzipEnabledForRequests: true

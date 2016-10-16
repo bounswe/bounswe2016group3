@@ -5,6 +5,7 @@ public class AppKeyConfiguration {
     private String mailjetSecret;
     
     private Long fbAppId;
+    private String fbAppSecret;
 
 	public String getMailjetKey() {
 		return mailjetKey;
@@ -28,5 +29,13 @@ public class AppKeyConfiguration {
 
 	public void setFbAppId(Long fbAppId) {
 		this.fbAppId = fbAppId;
+	}
+
+	public String getFbAppSecret() {
+		return fbAppSecret;
+	}
+
+	public void setFbAppSecret(String fbAppSecret) {
+		this.fbAppSecret = fbAppSecret;
 	}
 }

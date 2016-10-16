@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.http.client.HttpClient;
 
 import bounswegroup3.auth.UnauthorizedException;
+import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
@@ -26,14 +27,14 @@ public class SessionResource {
     private AccessTokenDAO accessTokenDAO;
     private UserDAO userDAO;
     private FailedLoginDAO failedLoginDAO;
-    private HttpClient httpClient;
+    private FacebookClient client;
     
-    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO, HttpClient httpClient) {
+    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO, FacebookClient client) {
         super();
         this.accessTokenDAO = accessTokenDAO;
         this.userDAO = userDAO;
         this.failedLoginDAO = failedLoginDAO;
-        this.httpClient = httpClient;
+        this.client = client;
     }
 
     @POST
@@ -55,12 +56,10 @@ public class SessionResource {
                 return accessTokenDAO.generateToken(user.getId());
             } else {
             	failedLoginDAO.addAttempt(user.getId());
-                System.out.println("wrong password");
                 throw new UnauthorizedException();
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
         	failedLoginDAO.addAttempt(user.getId());
-            System.out.println("exception");
             throw new UnauthorizedException();
         }
     }
@@ -75,5 +74,17 @@ public class SessionResource {
     @Path("/currentUser")
     public User currentUser(@Auth AccessToken token) {
     	return userDAO.getUserById(token.getUserId());
+    }
+    
+    @POST
+    @Path("/fbLogin")
+    public AccessToken fbLogin(String fbToken) {
+    	Long res = client.getUserIdByToken(fbToken);
+    	
+    	if(res != 0) {
+    		return accessTokenDAO.generateToken(res);
+    	} else {
+    		throw new UnauthorizedException();
+    	}
     }
 }
