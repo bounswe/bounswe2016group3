@@ -182,6 +182,39 @@
 		<createIndex tableName="tags" indexName="idx_tags">
 			<column name="tag" type="text" />
 		</createIndex>
+	</changeSet>
+	
+	<changeSet id="7" author="group3">
+		<createTable tableName="checkeat">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_checkeat_user" references="users(id)" />
+			</column>
+			
+			<column name="meal_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_checkeat_meal" references="meals(id)" />
+			</column>
+		</createTable>
 		
+		<createTable tableName="rating">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_rating_user" references="users(id)" />
+			</column>
+			
+			<column name="meal_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_rating_meal" references="meals(id)" />
+			</column>
+			
+			<column name="rating" type="real">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createIndex tableName="checkeat" indexName="idx_checkeat_meal">
+			<column name="meal_id" type="integer" />
+		</createIndex>
+		
+		<createIndex tableName="rating" indexName="idx_rating_meal">
+			<column name="meal_id" type="integer" />
+		</createIndex>
 	</changeSet>
 </databaseChangeLog>

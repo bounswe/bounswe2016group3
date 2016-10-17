@@ -16,6 +16,7 @@ import bounswegroup3.db.MenuDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
+import bounswegroup3.model.Ratings;
 import io.dropwizard.auth.Auth;
 
 @Path("/meal")
@@ -25,7 +26,7 @@ public class MealResource {
 	private MealDAO mealDao;
 	private CommentDAO commentDao;
 	
-	public MealResource(MenuDAO menuDao, MealDAO mealDao, CommentDAO commentDao){
+	public MealResource(MenuDAO menuDao, MealDAO mealDao, CommentDAO commentDao) {
 		this.menuDao = menuDao;
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
@@ -33,18 +34,18 @@ public class MealResource {
 	
 	@GET
 	@Path("/{id}")
-	public Meal getMealById(@PathParam("id") Long id){
+	public Meal getMealById(@PathParam("id") Long id) {
 		return mealDao.getMealById(id);
 	}
 	
 	@GET
 	@Path("/{id}/comments")
-	public List<Comment> getCommentsByMeal(@PathParam("id") Long id){
+	public List<Comment> getCommentsByMeal(@PathParam("id") Long id) {
 		return commentDao.commentsByMeal(id);
 	}
 	
 	@POST
-	public Meal createMeal(@Auth AccessToken token, @Valid Meal meal){
+	public Meal createMeal(@Auth AccessToken token, @Valid Meal meal) {
 		Long id = mealDao.createMeal(meal);
 		meal.setId(id);
 		
@@ -53,7 +54,7 @@ public class MealResource {
 	
 	@POST
 	@Path("/update/{id}")
-	public Meal updateMeal(@Auth AccessToken token, @Valid Meal meal){
+	public Meal updateMeal(@Auth AccessToken token, @Valid Meal meal) {
 		if(meal.getId() == token.getUserId()){
 			mealDao.updateMeal(meal);
 		}
@@ -63,9 +64,23 @@ public class MealResource {
 	
 	@POST
 	@Path("/delete/{id}")
-	public void deleteMeal(@Auth AccessToken token, @PathParam("id") Long id){
+	public void deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
 		if(menuDao.getMenuById(mealDao.getMealById(id).getMenuId()).getUserId() == token.getUserId()){
 			mealDao.deleteMeal(id);
 		}
+	}
+	
+	@POST
+	@Path("/{id}/checkeat")
+	public void checkEat(@Auth AccessToken token, @PathParam("id") Long id) {
+		if(!mealDao.checkAte(token.getUserId(), id)) {
+			mealDao.checkEat(token.getUserId(), id);
+		}
+	}
+	
+	@GET
+	@Path("/{id}/ratings")
+	public Ratings getRatings(@Auth AccessToken token, @PathParam("id") Long id) {
+		return new Ratings(mealDao.averageRating(id), mealDao.totalRatings(id), mealDao.ratingByUser(token.getUserId(), id));
 	}
 }
