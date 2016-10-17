@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.google.gson.Gson;
+
 /**
  * Created by Behiye on 10/8/2016.
  */
@@ -33,5 +35,16 @@ public class Utils {
         });
 
         builder.show();
+    }
+
+    public static Object fromGson(String json,Class aClass){
+        Gson gson=new Gson();
+        return  gson.fromJson(json,aClass);
+    }
+
+    public static String toGson(Object o){
+        Gson gson=new Gson();
+        return gson.toJson(o);
+
     }
 }

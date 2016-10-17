@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Eatalyze</string>
 
+    <!--Login-->
     <string name="mail_hint">E-Mail Address</string>
     <string name="pswd">Password</string>
     <string name="lgn_btn">LOGIN</string>
+    <string name="signup"><u>Click here to signup!</u></string>
+
+        <string name="base_url">http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/</string>
 
 </resources>
