@@ -6,6 +6,9 @@ public class AppKeyConfiguration {
     
     private Long fbAppId;
     private String fbAppSecret;
+    
+    private String nutritionixAppId;
+    private String nutritionixKey;
 
 	public String getMailjetKey() {
 		return mailjetKey;
@@ -37,5 +40,21 @@ public class AppKeyConfiguration {
 
 	public void setFbAppSecret(String fbAppSecret) {
 		this.fbAppSecret = fbAppSecret;
+	}
+
+	public String getNutritionixAppId() {
+		return nutritionixAppId;
+	}
+
+	public void setNutritionixAppId(String nutritionixAppId) {
+		this.nutritionixAppId = nutritionixAppId;
+	}
+
+	public String getNutritionixKey() {
+		return nutritionixKey;
+	}
+
+	public void setNutritionixKey(String nutritionixKey) {
+		this.nutritionixKey = nutritionixKey;
 	}
 }

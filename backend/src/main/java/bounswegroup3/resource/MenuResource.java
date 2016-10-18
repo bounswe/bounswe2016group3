@@ -55,44 +55,4 @@ public class MenuResource {
 		
 		return menu;
 	}
-	
-	@GET
-	@Path("/byTag/{tag}")
-	public List<Meal> mealsByTag(@PathParam("tag") String tag) {
-		return mealDao.getMealsByTag(tag);
-	}
-	
-	@GET
-	@Path("/{id}/tags")
-	public List<String> tagsByMeal(@PathParam("id") Long id) {
-		return mealDao.getTagsByMeal(id);
-	}
-	
-	@POST
-	@Path("/tag")
-	public void tagMeal(@Auth AccessToken token, Tag tag) {
-		Meal meal = mealDao.getMealById(tag.getMealId());
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
-		
-		if(token.getUserId() == menu.getUserId()){
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
-			if(!tags.contains(tag.getTag())){
-				mealDao.tagMeal(tag.getMealId(), tag.getTag());
-			}
-		}
-	}
-	
-	@POST
-	@Path("/tag")
-	public void untagMeal(@Auth AccessToken token, Tag tag) {
-		Meal meal = mealDao.getMealById(tag.getMealId());
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
-		
-		if(token.getUserId() == menu.getUserId()){
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
-			if(tags.contains(tag.getTag())){
-				mealDao.untagMeal(tag.getMealId(), tag.getTag());
-			}
-		}
-	}
 }

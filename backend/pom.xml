@@ -13,6 +13,7 @@
   <properties>
     <dropwizard.version>0.8.2</dropwizard.version>
     <jetty.version>9.2.9.v20150224</jetty.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <build>

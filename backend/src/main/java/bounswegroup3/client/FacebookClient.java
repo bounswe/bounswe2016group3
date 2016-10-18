@@ -14,8 +14,8 @@ public class FacebookClient {
 	
 	private String appToken;
 	
-	private static final URI callUrl = UriBuilder.fromUri("graph.facebook.com/debug_token").build();
-	private static final URI appTokenUrl = UriBuilder.fromUri("graph.facebook.com/oauth/access_token").build();
+	private static final URI callUrl = UriBuilder.fromUri("https://graph.facebook.com/debug_token").build();
+	private static final URI appTokenUrl = UriBuilder.fromUri("https://graph.facebook.com/oauth/access_token").build();
 	
 	public FacebookClient(Client client, Long appId, String secret, String redirectUrl) {
 		super();
@@ -37,7 +37,7 @@ public class FacebookClient {
 	}
 	
 	public Long getUserIdByToken(String token) {
-		HashMap<String, HashMap<String, String>> res =client.target(callUrl)
+		HashMap<String, HashMap<String, String>> res = client.target(callUrl)
 			.queryParam("input_token", token)
 			.queryParam("access_token", this.appToken)
 			.request()

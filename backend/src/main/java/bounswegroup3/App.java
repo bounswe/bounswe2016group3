@@ -27,6 +27,7 @@ import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.client.FacebookClient;
+import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.FailedLoginDAO;
@@ -93,6 +94,9 @@ class App extends Application<AppConfig> {
         		conf.getAppKeys().getFbAppId(), 
         		conf.getAppKeys().getFbAppSecret(),
         		conf.getAppRoot());
+        final NutritionixClient nutritionixClient = new NutritionixClient(httpClient, 
+        		conf.getAppKeys().getNutritionixAppId(), 
+        		conf.getAppKeys().getNutritionixKey());
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
