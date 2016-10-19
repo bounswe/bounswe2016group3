@@ -1,5 +1,6 @@
 package bounswegroup3.resource;
 
+import static bounswegroup3.utils.TestUtils.registerAuth;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,13 +11,14 @@ import java.util.UUID;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.research.ws.wadl.Response;
 
 import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
@@ -33,11 +35,11 @@ public class SessionResourceTest {
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static FailedLoginDAO failedLoginDao = mock(FailedLoginDAO.class);
 	private static FacebookClient client = mock(FacebookClient.class);
-	@ClassRule
-	public static final ResourceTestRule resources = ResourceTestRule.builder()
+	
+	@Rule
+	public ResourceTestRule rule = registerAuth()
 		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client))
 		.build();
-	
 	private User user;
 	private LoginCredentials creds;
 	private ObjectMapper mapper;
@@ -55,7 +57,10 @@ public class SessionResourceTest {
 		when(userDao.getUserByEmail(anyString())).thenReturn(user);
 		
 		when(failedLoginDao.attemptsInLastFiveMinutes(anyLong())).thenReturn(0l);
-		
+	}
+	
+	@After
+	public void tearDown() {
 		reset(accessTokenDao);
 		reset(userDao);
 		reset(failedLoginDao);
@@ -63,17 +68,18 @@ public class SessionResourceTest {
 	
 	@Test
 	public void testLoginAndLogout() {
-		/*
-		String token = resources.client()
+		Response token = rule.getJerseyTest()
 				.target("/session/login")
 				.request().accept(MediaType.APPLICATION_JSON)
-				.post(Entity.json(creds),AccessToken.class)
-				.getAccessToken()
-				.toString();
+				.post(Entity.json(creds));
 		
 		verify(userDao).getUserByEmail(anyString());
 		verify(failedLoginDao).attemptsInLastFiveMinutes(anyLong());
-		
+		 
+		// the login method has a couple more external dependencies
+		// we need to mock those as well
+		//System.out.println(token.readEntity(String.class));
+		/*
 		resources.client()
 			.target("session/logout")
 			.request().accept(MediaType.APPLICATION_JSON)

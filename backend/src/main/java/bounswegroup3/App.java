@@ -111,6 +111,7 @@ class App extends Application<AppConfig> {
         			new OAuthCredentialAuthFilter.Builder<AccessToken>()
         			.setAuthenticator(new OAuthAuthenticator(accessTokenDAO))
         			.setAuthorizer(new OAuthAuthorizer())
+        			.setRealm(conf.getBearerRealm())
         			.setPrefix("Bearer")
         			.buildAuthFilter()));
 

@@ -28,6 +28,7 @@ import bounswegroup3.mail.Template;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/user")
