@@ -4,5 +4,6 @@
     "fullName": "test deneme",
     "bio": "bio",
     "secretQuestion": "test",
-    "secretAnswer": "deneme"
+    "secretAnswer": "deneme",
+    "userType": 1
 }

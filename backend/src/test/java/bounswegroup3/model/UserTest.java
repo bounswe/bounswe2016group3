@@ -18,7 +18,7 @@ public class UserTest {
 	@Test
 	public void testDeserialize() throws Exception{
 		final User user = new User(-1l, "test@deneme.com", "", "", "test deneme", 
-				"bio", UserType.REGULAR, DietType.OMNIVORE, "test", "", "",
+				"bio", UserType.ADMIN, DietType.OMNIVORE, "test", "", "",
 				"http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png",
 				false);
 		

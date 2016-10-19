@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.LinkedHashMap;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -20,11 +20,11 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
-import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.LoginCredentials;
 import bounswegroup3.model.User;
 import io.dropwizard.jackson.Jackson;
@@ -37,7 +37,7 @@ public class SessionResourceTest {
 	private static FacebookClient client = mock(FacebookClient.class);
 	
 	@Rule
-	public ResourceTestRule rule = registerAuth()
+	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
 		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client))
 		.build();
 	private User user;
@@ -54,9 +54,17 @@ public class SessionResourceTest {
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(user);
 		
-		when(userDao.getUserByEmail(anyString())).thenReturn(user);
+		User tooManyLoginsUser = new User();
+		tooManyLoginsUser.setId(42l);
+		tooManyLoginsUser.setPassword("123456");
 		
-		when(failedLoginDao.attemptsInLastFiveMinutes(anyLong())).thenReturn(0l);
+		when(userDao.getUserByEmail(any())).thenReturn(user);
+		when(userDao.getUserByEmail(eq("toomany@logins.com"))).thenReturn(tooManyLoginsUser);
+		
+		when(userDao.getUserById(any())).thenReturn(user);
+		
+		when(failedLoginDao.attemptsInLastFiveMinutes(any())).thenReturn(0l);
+		when(failedLoginDao.attemptsInLastFiveMinutes(eq(42l))).thenReturn(6l);
 	}
 	
 	@After
@@ -67,36 +75,69 @@ public class SessionResourceTest {
 	}
 	
 	@Test
-	public void testLoginAndLogout() {
-		Response token = rule.getJerseyTest()
+	public void testLogin() throws Exception {
+		Response res = rule.getJerseyTest()
 				.target("/session/login")
 				.request().accept(MediaType.APPLICATION_JSON)
 				.post(Entity.json(creds));
 		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		
 		verify(userDao).getUserByEmail(anyString());
 		verify(failedLoginDao).attemptsInLastFiveMinutes(anyLong());
-		 
-		// the login method has a couple more external dependencies
-		// we need to mock those as well
-		//System.out.println(token.readEntity(String.class));
-		/*
-		resources.client()
-			.target("session/logout")
+	}
+	
+	@Test
+	public void testUnsuccessfulLogin() throws Exception {
+		LoginCredentials tmp = new LoginCredentials("test", "nope");
+		Response res = rule.getJerseyTest()
+				.target("/session/login")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json(tmp));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(401);
+		verify(failedLoginDao).addAttempt(any());
+	}
+	
+	@Test
+	public void testTooManyAttempts() throws Exception {
+		LoginCredentials tmp = new LoginCredentials("toomany@logins.com", "123456");
+		
+		Response res = rule.getJerseyTest()
+				.target("/session/login")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json(tmp));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(401);
+	}
+	
+	@Test
+	public void testCurrentUser() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/session/currentUser")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.header("Authorization", "Bearer test")
+				.get();
+		
+		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		assertThat(read.get("email")).isEqualTo(user.getEmail());
+	}
+	
+	@Test
+	public void testLogout() throws Exception {
+		rule.getJerseyTest()
+			.target("/session/logout")
 			.request().accept(MediaType.APPLICATION_JSON)
-			.header("Authorization", "Bearer " + token)
+			.header("Authorization", "Bearer test")
 			.post(Entity.json(null));
-		
-		verify(accessTokenDao).deleteAccessToken((UUID)anyObject());
-		*/
+	
+		verify(accessTokenDao).deleteAccessToken(any());
 	}
 	
 	@Test
-	public void testUnsuccessfulLogin() {
-		
-	}
-	
-	@Test
-	public void testTooManyAttempts() {
-		
+	public void testFacebookLogin() throws Exception {
+		// TODO find a way to test this
 	}
 }

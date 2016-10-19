@@ -8,16 +8,17 @@ import bounswegroup3.auth.OAuthAuthorizer;
 import bounswegroup3.model.AccessToken;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import io.dropwizard.testing.junit.ResourceTestRule.Builder;
 
 public class TestUtils {
-	public static Builder registerAuth(){
+	public static Builder registerAuth(Authenticator<String, AccessToken> auth){
 		return ResourceTestRule.builder()
 		.setTestContainerFactory(new GrizzlyWebTestContainerFactory())
 		.addProvider(new AuthDynamicFeature(new OAuthCredentialAuthFilter.Builder<AccessToken>()
-				.setAuthenticator(new DummyAuthenticator())
+				.setAuthenticator(auth)
 				.setAuthorizer(new OAuthAuthorizer())
 				.setRealm("eatalyze")
 				.setPrefix("Bearer")

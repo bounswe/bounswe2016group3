@@ -37,12 +37,6 @@ public class MenuResource {
 	}
 	
 	@GET
-	@Path("byUser/{id}")
-	public List<Menu> menusByUser(@PathParam("id") Long id){
-		return menuDao.menusByUser(id);
-	}
-	
-	@GET
 	@Path("/{id}/meals")
 	public List<Meal> mealsByMenu(@PathParam("id") Long id){
 		return mealDao.mealsByMenuId(id);

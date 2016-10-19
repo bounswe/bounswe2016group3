@@ -84,7 +84,7 @@ public class UserResource {
     
     @POST
     @Path("/byEmail")
-    public User getUser(String email){
+    public User getUserByEmail(String email){
     	return dao.getUserByEmail(email);
     }
     

@@ -24,10 +24,8 @@ public class User {
     @NotNull
     private String email;
 
-    @NotNull
     private String passwordHash;
 
-    @NotNull
     private String passwordSalt;
     
     private String bio;
@@ -41,10 +39,8 @@ public class User {
 	@NotNull
 	private String secretQuestion;
 	
-	@NotNull
 	private String secretAnswerHash;
 	
-	@NotNull
 	private String secretAnswerSalt;
 	
 	private String avatarUrl;
