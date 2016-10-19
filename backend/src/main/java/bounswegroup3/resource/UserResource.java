@@ -112,7 +112,6 @@ public class UserResource {
 			}
 			return Response.notModified().build();
 		} catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Response.serverError().build();
 		}

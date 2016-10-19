@@ -1,8 +1,7 @@
 package bounswegroup3.auth;
 
+import java.util.Optional;
 import java.util.UUID;
-
-import com.google.common.base.Optional;
 
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.model.AccessToken;
@@ -19,13 +18,13 @@ public class OAuthAuthenticator implements Authenticator<String, AccessToken> {
         try {
             tokenUUID = UUID.fromString(token);
         } catch (IllegalArgumentException e) {
-            return Optional.absent();
+            return Optional.empty();
         }
 
         AccessToken accessToken = accessTokenDao.getAccessToken(tokenUUID);
 
         if (accessToken == null) {
-            return Optional.absent();
+            return Optional.empty();
         } else {
             accessTokenDao.updateLastAccessTime(accessToken);
             return Optional.of(accessToken);

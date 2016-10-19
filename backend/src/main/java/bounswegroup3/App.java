@@ -8,15 +8,16 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.OptionalContainerFactory;
-import io.dropwizard.auth.AuthFactory;
-import io.dropwizard.auth.oauth.OAuthFactory;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.oauth.OAuthCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 
-import org.apache.http.client.HttpClient;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
@@ -26,6 +27,7 @@ import javax.ws.rs.client.Client;
 import org.skife.jdbi.v2.DBI;
 
 import bounswegroup3.auth.OAuthAuthenticator;
+import bounswegroup3.auth.OAuthAuthorizer;
 import bounswegroup3.client.FacebookClient;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.AccessTokenDAO;
@@ -105,11 +107,16 @@ class App extends Application<AppConfig> {
         final CommentResource commentResource = new CommentResource(commentDao);
         
         env.jersey()
-                .register(AuthFactory.binder(
-                        new OAuthFactory<AccessToken>(new OAuthAuthenticator(accessTokenDAO),
-                                conf.getBearerRealm(), AccessToken.class)));
+        	.register(new AuthDynamicFeature(
+        			new OAuthCredentialAuthFilter.Builder<AccessToken>()
+        			.setAuthenticator(new OAuthAuthenticator(accessTokenDAO))
+        			.setAuthorizer(new OAuthAuthorizer())
+        			.setPrefix("Bearer")
+        			.buildAuthFilter()));
 
-
+        env.jersey().register(RolesAllowedDynamicFeature.class);
+        env.jersey().register(new AuthValueFactoryProvider.Binder<>(AccessToken.class));
+        
         env.jersey().register(MultiPartFeature.class);
         
         env.jersey().register(userResource);

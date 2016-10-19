@@ -1,12 +1,14 @@
 package bounswegroup3.model;
 
+import java.security.Principal;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class AccessToken {
+public class AccessToken implements Principal {
     private UUID accessToken;
     private Long userId;
     private DateTime creationTime;
@@ -44,5 +46,11 @@ public class AccessToken {
     public void setLastAccessTime(DateTime lastAccessTime) {
         this.lastAccessTime = lastAccessTime;
     }
+
+    @JsonIgnore
+	@Override
+	public String getName() {
+		return "Access Token";
+	}
 
 }
