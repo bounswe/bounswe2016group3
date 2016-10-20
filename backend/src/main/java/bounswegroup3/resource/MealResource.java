@@ -41,12 +41,6 @@ public class MealResource {
 		return mealDao.getMealById(id);
 	}
 	
-	@GET
-	@Path("/{id}/comments")
-	public List<Comment> getCommentsByMeal(@PathParam("id") Long id) {
-		return commentDao.commentsByMeal(id);
-	}
-	
 	@POST
 	public Meal createMeal(@Auth AccessToken token, @Valid Meal meal) {
 		Long id = mealDao.createMeal(meal);
@@ -58,7 +52,9 @@ public class MealResource {
 	@POST
 	@Path("/update/{id}")
 	public Meal updateMeal(@Auth AccessToken token, @Valid Meal meal) {
-		if(meal.getId() == token.getUserId()){
+		Menu menu = menuDao.getMenuById(meal.getMenuId());
+		
+		if(token.getUserId() == menu.getUserId()){
 			mealDao.updateMeal(meal);
 		}
 		
@@ -81,6 +77,12 @@ public class MealResource {
 		}
 	}
 	
+	@POST
+	@Path("/{id}/rate/{rating}")
+	public void rateMeal(@Auth AccessToken token, @PathParam("id") Long id, @PathParam("rating") Float rating) {
+		mealDao.rateMeal(token.getUserId(), id, rating);
+	}
+	
 	@GET
 	@Path("/{id}/ratings")
 	public Ratings getRatings(@Auth AccessToken token, @PathParam("id") Long id) {
@@ -97,6 +99,12 @@ public class MealResource {
 	@Path("/{id}/tags")
 	public List<String> tagsByMeal(@PathParam("id") Long id) {
 		return mealDao.getTagsByMeal(id);
+	}
+	
+	@GET
+	@Path("/{id}/comments")
+	public List<Comment> commentsByMeal(@PathParam("id") Long id) {
+		return commentDao.commentsByMeal(id);
 	}
 	
 	@POST

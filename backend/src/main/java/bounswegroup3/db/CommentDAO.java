@@ -32,4 +32,7 @@ public interface CommentDAO {
 
 	@SqlQuery("select * from comments where id=:id")
 	Comment getCommentById(@Bind("id") Long id);
+	
+	@SqlUpdate("delete from comments where id = :id")
+	void deleteComment(@Bind("id") Long id);
 }

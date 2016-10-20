@@ -49,4 +49,12 @@ public class CommentResource {
 		return comment;
 	}
 	
+	@POST
+	@Path("/{id}/delete")
+	public void deleteComment(@Auth AccessToken token, @PathParam("id") Long id) {
+		Comment comment = commentDao.getCommentById(id);
+		if(comment.getUserId() == token.getUserId()) {
+			commentDao.deleteComment(id);
+		}
+	}
 }

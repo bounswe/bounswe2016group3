@@ -61,4 +61,7 @@ public interface MealDAO {
 	
 	@SqlQuery("select rating from rating where meal_id = :mid and user_id = :uid")
 	Float ratingByUser(@Bind("uid") Long userId, @Bind("mid") Long mealId);
+
+	@SqlUpdate("insert into rating (user_id, meal_id, rating) values (:uid, :mid, :rating)")
+	void rateMeal(@Bind("uid")Long userId, @Bind("mid")Long id, @Bind("rating")Float rating);
 }
