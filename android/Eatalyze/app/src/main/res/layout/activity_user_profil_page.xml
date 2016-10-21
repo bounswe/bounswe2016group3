@@ -32,7 +32,6 @@
                 android:layout_height="0dp"
                 android:contentDescription="@string/image_view_content"
                 android:layout_weight="0.65"
-                app:srcCompat="@mipmap/ic_launcher"
                 android:id="@+id/id_profile_photo"
                 />
             <View

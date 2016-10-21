@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.cmpe451.eatalyze.R;
 
 import butterknife.Bind;
@@ -45,7 +44,7 @@ public class UserProfilePageActivity extends BaseActivity {
                 //Follow the user
 
                 follow_btn.setText("Following");
-                //follow_btn.setBackgroundColor();
+                follow_btn.setBackgroundColor(R.color.blue);
 
             }
         });
