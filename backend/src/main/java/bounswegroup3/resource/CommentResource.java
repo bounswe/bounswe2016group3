@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
 
@@ -40,21 +41,25 @@ public class CommentResource {
 	
 	@POST
 	@Path("/update")
-	public Comment updateComment(@Auth AccessToken token, @Valid Comment comment) {
+	public Response updateComment(@Auth AccessToken token, @Valid Comment comment) {
 		if(comment.getUserId() == token.getUserId()) {
 			comment.setUpdateTime(DateTime.now());
 			commentDao.updateComment(comment);
+			return Response.ok(comment).build();
+		} else {
+			return Response.notModified().build();
 		}
-		
-		return comment;
 	}
 	
 	@POST
 	@Path("/{id}/delete")
-	public void deleteComment(@Auth AccessToken token, @PathParam("id") Long id) {
+	public Response deleteComment(@Auth AccessToken token, @PathParam("id") Long id) {
 		Comment comment = commentDao.getCommentById(id);
 		if(comment.getUserId() == token.getUserId()) {
 			commentDao.deleteComment(id);
+			return Response.ok().build();
+		} else {
+			return Response.notModified().build();
 		}
 	}
 }
