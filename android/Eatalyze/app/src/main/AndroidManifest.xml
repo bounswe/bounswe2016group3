@@ -19,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserProfileActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activities.SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.UserProfilePageActivity"
             android:screenOrientation="portrait"/>
     </application>
 
