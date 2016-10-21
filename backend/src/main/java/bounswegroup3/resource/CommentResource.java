@@ -42,8 +42,8 @@ public class CommentResource {
 	@Path("/update")
 	public Comment updateComment(@Auth AccessToken token, @Valid Comment comment) {
 		if(comment.getUserId() == token.getUserId()) {
-			commentDao.updateComment(comment);
 			comment.setUpdateTime(DateTime.now());
+			commentDao.updateComment(comment);
 		}
 		
 		return comment;

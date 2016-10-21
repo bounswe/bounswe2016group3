@@ -10,7 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import bounswegroup3.auth.UnauthorizedException;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
@@ -42,38 +44,50 @@ public class MealResource {
 	}
 	
 	@POST
-	public Meal createMeal(@Auth AccessToken token, @Valid Meal meal) {
-		Long id = mealDao.createMeal(meal);
-		meal.setId(id);
+	public Response createMeal(@Auth AccessToken token, @Valid Meal meal) {
+		Menu menu = menuDao.getMenuById(meal.getMenuId());
+		if(menu.getUserId()  == token.getUserId()) {
+			Long id = mealDao.createMeal(meal);
+			meal.setId(id);
+		} else {
+			return Response.notModified().build();
+		}
 		
-		return meal;
+		return Response.ok(meal).build();
 	}
 	
 	@POST
-	@Path("/update/{id}")
-	public Meal updateMeal(@Auth AccessToken token, @Valid Meal meal) {
+	@Path("/update")
+	public Response updateMeal(@Auth AccessToken token, @Valid Meal meal) {
 		Menu menu = menuDao.getMenuById(meal.getMenuId());
 		
 		if(token.getUserId() == menu.getUserId()){
 			mealDao.updateMeal(meal);
+			return Response.ok(meal).build();
+		} else {
+			return Response.notModified().build();
 		}
-		
-		return meal;
 	}
 	
 	@POST
 	@Path("/delete/{id}")
-	public void deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
+	public Response deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
 		if(menuDao.getMenuById(mealDao.getMealById(id).getMenuId()).getUserId() == token.getUserId()){
 			mealDao.deleteMeal(id);
+			return Response.ok().build();
+		} else {
+			return Response.notModified().build();
 		}
 	}
 	
 	@POST
 	@Path("/{id}/checkeat")
-	public void checkEat(@Auth AccessToken token, @PathParam("id") Long id) {
+	public Response checkEat(@Auth AccessToken token, @PathParam("id") Long id) {
 		if(!mealDao.checkAte(token.getUserId(), id)) {
 			mealDao.checkEat(token.getUserId(), id);
+			return Response.ok().build();
+		} else {
+			return Response.notModified().build();
 		}
 	}
 	
@@ -109,21 +123,27 @@ public class MealResource {
 	
 	@POST
 	@Path("/tag")
-	public void tagMeal(@Auth AccessToken token, Tag tag) {
+	public Response tagMeal(@Auth AccessToken token, Tag tag) {
 		Meal meal = mealDao.getMealById(tag.getMealId());
 		Menu menu = menuDao.getMenuById(meal.getMenuId());
 		
 		if(token.getUserId() == menu.getUserId()){
 			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
+						
 			if(!tags.contains(tag.getTag())){
 				mealDao.tagMeal(tag.getMealId(), tag.getTag());
+				return Response.ok().build();
+			} else {
+				return Response.notModified().build();
 			}
+		} else {
+			return Response.notModified().build();
 		}
 	}
 	
 	@POST
 	@Path("/untag")
-	public void untagMeal(@Auth AccessToken token, Tag tag) {
+	public Response untagMeal(@Auth AccessToken token, Tag tag) {
 		Meal meal = mealDao.getMealById(tag.getMealId());
 		Menu menu = menuDao.getMenuById(meal.getMenuId());
 		
@@ -131,7 +151,12 @@ public class MealResource {
 			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
 			if(tags.contains(tag.getTag())){
 				mealDao.untagMeal(tag.getMealId(), tag.getTag());
+				return Response.ok().build();
+			} else {
+				return Response.notModified().build();
 			}
+		} else {
+			return Response.notModified().build(); 
 		}
 	}
 }
