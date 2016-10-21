@@ -26,6 +26,8 @@ public interface ApiService {
     @POST("/api/session/login")
     public void login(@Body LoginCredentials credentials, Callback<AccessToken> accessTokenCallback);
 
+    @POST("/api/user")
+    public void signup(@Body User user, Callback<AccessToken> accessTokenCallback);
 
     @GET("/api/session/currentUser")
     public void getCurrentUser(@Query("accessToken") AccessToken accessToken, Callback<User> userCallback);

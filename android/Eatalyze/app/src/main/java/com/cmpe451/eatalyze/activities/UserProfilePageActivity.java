@@ -1,6 +1,7 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -69,7 +70,7 @@ public class UserProfilePageActivity extends BaseActivity {
             public void onClick(View v) {
                 //Follow the user
                 btn_follow.setText("Following");
-                btn_follow.setBackgroundColor(R.color.blue);
+                btn_follow.setBackgroundColor(Color.BLUE);
                 //Add the users following list
 
             }
