@@ -7,7 +7,6 @@
     <string name="signup"><u>Click here to signup!</u></string>
     <string name="followers">Followers:</string>
     <string name="following">Following:</string>
-    <string name="users_name">Muharrem  Yeşilyurt</string>
     <string name="follow_btn">Follow</string>
     <string name="image_view_content">Profile Photo</string>
     <string name="base_url">http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/</string>
