@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity {
                     public void success(AccessToken accessToken, Response response) {
                         if (accessToken != null) {
                             eatalyzeApplication.setAccessToken(accessToken);
-                            startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
                             finish();
                         } else {
                             Utils.message(LoginActivity.this, "Login ERROR", "Wrong email or password.", null);
