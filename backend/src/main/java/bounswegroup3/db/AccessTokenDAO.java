@@ -27,6 +27,9 @@ public abstract class AccessTokenDAO {
     @SqlUpdate("delete from tokens where access_token = :accessToken")
     abstract public void deleteAccessToken(@Bind("accessToken") UUID accessToken);
 
+    @SqlUpdate("delete from tokens where now() - last_access_time >= :diff")
+    abstract public void deleteOlderThan(@Bind("diff") Long diff);
+    
     public AccessToken generateToken(Long userId) {
         AccessToken token = new AccessToken(UUID.randomUUID(), userId, new DateTime(),
                 new DateTime());

@@ -4,11 +4,16 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
-
+import liquibase.Contexts;
 import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import org.junit.rules.ExternalResource;
 import org.skife.jdbi.v2.DBI;
@@ -50,7 +55,7 @@ public class H2JDBIRule extends ExternalResource {
         handle.close();
     }
 
-    private void migrateDatabase() throws LiquibaseException {
+    private void migrateDatabase() throws Exception {
         liquibase = new Liquibase("migrations.xml", new ClassLoaderResourceAccessor(), new JdbcConnection(handle.getConnection()));
         liquibase.update("");
     }

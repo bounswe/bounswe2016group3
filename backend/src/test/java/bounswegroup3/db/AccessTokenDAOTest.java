@@ -50,4 +50,12 @@ public class AccessTokenDAOTest {
 		dao.deleteAccessToken(tok.getAccessToken());
 		assertThat(dao.getAccessToken(tok.getAccessToken())).isNull();
 	}
+	
+	@Test
+	public void testDeleteExpired() throws Exception {
+		AccessToken tok = dao.generateToken(1l);
+		
+		dao.deleteOlderThan(0l);
+		assertThat(dao.getAccessToken(tok.getAccessToken())).isNull();
+	}
 }

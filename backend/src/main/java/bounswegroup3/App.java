@@ -106,6 +106,10 @@ class App extends Application<AppConfig> {
         final MealResource mealResource = new MealResource(mealDao, commentDao);
         final CommentResource commentResource = new CommentResource(commentDao);
         
+        final KillTokens killTokens = new KillTokens(accessTokenDAO);
+        
+        env.admin().addTask(killTokens);
+        
         env.jersey()
         	.register(new AuthDynamicFeature(
         			new OAuthCredentialAuthFilter.Builder<AccessToken>()
