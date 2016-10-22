@@ -55,6 +55,7 @@ public class CommentDAOTest {
 		c = dao.getCommentById(1l);
 		assertThat(c.getCreationTime().isBeforeNow());
 		
-		
+		dao.deleteComment(1l);
+		assertThat(dao.getCommentById(1l)).isNull();
 	}
 }

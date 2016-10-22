@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bounswegroup3.model.User;
 import bounswegroup3.utils.H2JDBIRule;
 import io.dropwizard.jackson.Jackson;
 
@@ -24,6 +25,9 @@ public class FailedLoginDAOTest {
 	public void setup() throws Exception {
 		mapper = Jackson.newObjectMapper();
 		dao = db.getDbi().onDemand(FailedLoginDAO.class);
+		
+		User u = mapper.readValue(fixture("fixtures/user.json"), User.class);
+		db.getDbi().onDemand(UserDAO.class).addUser(u);
 	}
 	
 	@After
@@ -32,7 +36,10 @@ public class FailedLoginDAOTest {
 	}
 	
 	@Test
-	public void testCrud() throws Exception {
+	public void testAtttempts() throws Exception {
+		assertThat(dao.attemptsInLastFiveMinutes(1l)).isEqualTo(0l);
 		
+		dao.addAttempt(1l);
+		assertThat(dao.attemptsInLastFiveMinutes(1l)).isEqualTo(1l);
 	}
 }

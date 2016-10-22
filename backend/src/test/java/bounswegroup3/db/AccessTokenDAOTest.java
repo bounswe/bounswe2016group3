@@ -48,6 +48,6 @@ public class AccessTokenDAOTest {
 		assertThat(tok.getLastAccessTime().isAfterNow());
 		
 		dao.deleteAccessToken(tok.getAccessToken());
-		// TODO check if the object still exists
+		assertThat(dao.getAccessToken(tok.getAccessToken())).isNull();
 	}
 }

@@ -172,10 +172,6 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		
-		<createIndex tableName="tags" indexName="idx_tags">
-			<column name="tag" type="text" />
-		</createIndex>
 	</changeSet>
 	
 	<changeSet id="7" author="group3">

@@ -28,7 +28,7 @@ public interface UserDAO {
 
     @SqlUpdate("update users set password_hash = :passwordHash, password_salt = :passwordSalt,"
             + "full_name = :fullName, bio = :bio, user_type = :userType, diet_type = :dietType,"
-    		+ "avatar_url = :avatarUrl"
+    		+ "avatar_url = :avatarUrl "
             + "where id = :id")
     void updateUser(@BindBean User user);
 
@@ -41,10 +41,10 @@ public interface UserDAO {
     @SqlUpdate("update users set banned = 1 where id = :id")
     void banUser(@Bind("id") Long id);
     
-    @SqlQuery("select users.* from users join follow on users.id = follow.followee_id where users.id=:id")
+    @SqlQuery("select users.* from users join follow on users.id = follow.followee_id where follow.follower_id=:id")
     List<User> getFollowing(@Bind("id") Long id);
     
-    @SqlQuery("select users.* from users join follow on users.id = follow.follower_id where users.id=:id")
+    @SqlQuery("select users.* from users join follow on users.id = follow.follower_id where follow.followee_id=:id")
     List<User> getFollowers(@Bind("id") Long id);
     
     @SqlQuery("select count(1) from follow where follower_id = :id1 and followee_id = :id2")

@@ -25,7 +25,7 @@ public interface MealDAO {
 	List<Meal> mealsByUserId(@Bind("id") Long userId);
 	
 	@SqlUpdate("update meals set menu_id = :menuId, name = :name, "
-			 + "description = :description, photo_url = :photoUrl"
+			 + "description = :description, photo_url = :photoUrl "
 			 + "where id = :id")
 	void updateMeal(@BindBean Meal meal);
 	
