@@ -103,7 +103,7 @@ class App extends Application<AppConfig> {
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
-        final MealResource mealResource = new MealResource(menuDao, mealDao, commentDao);
+        final MealResource mealResource = new MealResource(mealDao, commentDao);
         final CommentResource commentResource = new CommentResource(commentDao);
         
         env.jersey()

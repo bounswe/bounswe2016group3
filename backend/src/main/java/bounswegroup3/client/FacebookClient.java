@@ -24,7 +24,7 @@ public class FacebookClient {
 		this.secret = secret;
 		this.redirectUrl = redirectUrl;
 		
-		getAppToken();
+		//getAppToken();
 	}
 	
 	private void getAppToken() {

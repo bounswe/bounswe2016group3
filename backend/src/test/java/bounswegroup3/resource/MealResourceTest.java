@@ -33,35 +33,28 @@ import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.junit.ResourceTestRule;
 
 public class MealResourceTest {
-	private static MenuDAO menuDao = mock(MenuDAO.class);
 	private static MealDAO mealDao = mock(MealDAO.class);
 	private static CommentDAO commentDao = mock(CommentDAO.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MealResource(menuDao, mealDao, commentDao))
+		.addResource(new MealResource(mealDao, commentDao))
 		.build();
 	
-	private Menu menu;
 	private Meal meal;
 	private Comment comment;
-	private Ratings ratings;
 	private Tag tag;
 	
 	private ObjectMapper mapper;
 	
 	private Meal invalidMeal;
-	private Menu invalidMenu;
 	private Tag invalidTag;
 	private Tag notExistsTag;
-	private Meal notExistsMeal;
-	private Menu notExistsMenu;
 	
 	@Before
 	public void setup() throws Exception {
 		mapper = Jackson.newObjectMapper();
 		
-		menu = mapper.readValue(fixture("fixtures/menu.json"), Menu.class);
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		comment = mapper.readValue(fixture("fixtures/comment.json"), Comment.class);
 		tag = new Tag(-1l, "test");
@@ -75,20 +68,13 @@ public class MealResourceTest {
 		ArrayList<String> tags = new ArrayList<String>();
 		tags.add("tagged");
 		
-		ArrayList<String> noTags = new ArrayList<String>();
-		
 		when(mealDao.getMealById(any())).thenReturn(meal);
 		when(mealDao.createMeal(any())).thenReturn(1l);
 				
-		invalidMeal = new Meal(42l, 42l, "", "", "");
-		invalidMenu = new Menu(42l, 42l, "");
+		invalidMeal = new Meal(42l, 42l, 42l, "", "", "");
 		invalidTag = new Tag(42l, "test");
 		notExistsTag = new Tag(32l, "tagged");
-		notExistsMeal = new Meal(32l, 32l, "", "", "");
-		notExistsMenu = new Menu(32l, -1l, "");
 		
-		when(menuDao.getMenuById(any())).thenReturn(menu);
-		when(menuDao.getMenuById(eq(42l))).thenReturn(invalidMenu);
 		when(mealDao.getMealById(eq(42l))).thenReturn(invalidMeal);
 		
 		when(mealDao.checkAte(any(), any())).thenReturn(false);
@@ -103,13 +89,11 @@ public class MealResourceTest {
 		
 		when(commentDao.commentsByMeal(any())).thenReturn(comments);
 		
-		when(menuDao.getMenuById(eq(32l))).thenReturn(notExistsMenu);
 		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
 	}
 	
 	@After
 	public void tearDown() {
-		reset(menuDao);
 		reset(mealDao);
 		reset(commentDao);
 	}

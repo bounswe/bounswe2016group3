@@ -13,10 +13,11 @@ public class MealMapper implements ResultSetMapper<Meal>{
 	public Meal map(int row, ResultSet rs, StatementContext ctx) throws SQLException {
 		final Long id = rs.getLong("id");
 		final Long menuId = rs.getLong("menu_id");
+		final Long userId = rs.getLong("user_id");
 		final String name = rs.getString("name");
 		final String description = rs.getString("description");
 		final String photoUrl = rs.getString("photo_url");
 
-		return new Meal(id, menuId, name, description, photoUrl);
+		return new Meal(id, menuId, userId, name, description, photoUrl);
 	}
 }

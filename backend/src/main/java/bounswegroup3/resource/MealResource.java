@@ -27,12 +27,10 @@ import io.dropwizard.auth.Auth;
 @Path("/meal")
 @Produces(MediaType.APPLICATION_JSON)
 public class MealResource {
-	private MenuDAO menuDao;
 	private MealDAO mealDao;
 	private CommentDAO commentDao;
 	
-	public MealResource(MenuDAO menuDao, MealDAO mealDao, CommentDAO commentDao) {
-		this.menuDao = menuDao;
+	public MealResource(MealDAO mealDao, CommentDAO commentDao) {
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
 	}
@@ -45,8 +43,7 @@ public class MealResource {
 	
 	@POST
 	public Response createMeal(@Auth AccessToken token, @Valid Meal meal) {
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
-		if(menu.getUserId()  == token.getUserId()) {
+		if(meal.getUserId()  == token.getUserId()) {
 			Long id = mealDao.createMeal(meal);
 			meal.setId(id);
 		} else {
@@ -58,10 +55,8 @@ public class MealResource {
 	
 	@POST
 	@Path("/update")
-	public Response updateMeal(@Auth AccessToken token, @Valid Meal meal) {
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
-		
-		if(token.getUserId() == menu.getUserId()){
+	public Response updateMeal(@Auth AccessToken token, @Valid Meal meal) {	
+		if(token.getUserId() == meal.getUserId()){
 			mealDao.updateMeal(meal);
 			return Response.ok(meal).build();
 		} else {
@@ -72,7 +67,7 @@ public class MealResource {
 	@POST
 	@Path("/delete/{id}")
 	public Response deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
-		if(menuDao.getMenuById(mealDao.getMealById(id).getMenuId()).getUserId() == token.getUserId()){
+		if(mealDao.getMealById(id).getUserId() == token.getUserId()){
 			mealDao.deleteMeal(id);
 			return Response.ok().build();
 		} else {
@@ -125,9 +120,8 @@ public class MealResource {
 	@Path("/tag")
 	public Response tagMeal(@Auth AccessToken token, Tag tag) {
 		Meal meal = mealDao.getMealById(tag.getMealId());
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
 		
-		if(token.getUserId() == menu.getUserId()){
+		if(token.getUserId() == meal.getUserId()){
 			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
 						
 			if(!tags.contains(tag.getTag())){
@@ -145,9 +139,8 @@ public class MealResource {
 	@Path("/untag")
 	public Response untagMeal(@Auth AccessToken token, Tag tag) {
 		Meal meal = mealDao.getMealById(tag.getMealId());
-		Menu menu = menuDao.getMenuById(meal.getMenuId());
 		
-		if(token.getUserId() == menu.getUserId()){
+		if(token.getUserId() == meal.getUserId()){
 			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
 			if(tags.contains(tag.getTag())){
 				mealDao.untagMeal(tag.getMealId(), tag.getTag());

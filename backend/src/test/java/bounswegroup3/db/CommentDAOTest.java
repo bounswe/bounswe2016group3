@@ -39,6 +39,7 @@ public class CommentDAOTest {
 		
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);
+		m.setUserId(1l);
 		db.getDbi().onDemand(MealDAO.class).createMeal(m);
 	}
 	

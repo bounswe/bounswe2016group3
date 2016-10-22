@@ -47,6 +47,7 @@ public class MealDAOTest {
 	public void testCrud() throws Exception {
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);
+		m.setUserId(1l);
 		
 		Long id = dao.createMeal(m);
 		assertThat(id).isEqualTo(1l);
@@ -76,6 +77,7 @@ public class MealDAOTest {
 	public void testTags() throws Exception {
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);
+		m.setUserId(1l);
 		dao.createMeal(m);
 		
 		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(0);
@@ -99,6 +101,7 @@ public class MealDAOTest {
 	public void testCheckEat() throws Exception {
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);
+		m.setUserId(1l);
 		dao.createMeal(m);
 		
 		assertThat(!dao.checkAte(1l, 1l));
@@ -112,6 +115,7 @@ public class MealDAOTest {
 	public void testRating() throws Exception {
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);
+		m.setUserId(1l);
 		dao.createMeal(m);
 		
 		assertThat(dao.totalRatings(1l)).isEqualTo(0);

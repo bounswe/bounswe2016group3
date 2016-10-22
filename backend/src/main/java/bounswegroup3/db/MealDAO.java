@@ -15,7 +15,7 @@ import bounswegroup3.model.Meal;
 @RegisterMapper(MealMapper.class)
 public interface MealDAO {
     @GetGeneratedKeys
-	@SqlUpdate("insert into meals (menu_id, name, description, photo_url) values (:menuId, :name, :description, :photoUrl)")
+	@SqlUpdate("insert into meals (menu_id, user_id, name, description, photo_url) values (:menuId, :userId, :name, :description, :photoUrl)")
     Long createMeal(@BindBean Meal meal);
     
 	@SqlQuery("select * from meals where menu_id=:id")
@@ -24,8 +24,8 @@ public interface MealDAO {
 	@SqlQuery("select * from meals join menus on meals.menu_id = menus.id where menus.user_id = :id")
 	List<Meal> mealsByUserId(@Bind("id") Long userId);
 	
-	@SqlUpdate("update meals set menu_id = :menuId, name = :name, "
-			 + "description = :description, photo_url = :photoUrl "
+	@SqlUpdate("update meals set menu_id = :menuId, user_id = :userId, "
+			 + "name = :name, description = :description, photo_url = :photoUrl "
 			 + "where id = :id")
 	void updateMeal(@BindBean Meal meal);
 	

@@ -207,4 +207,12 @@
 			<column name="meal_id" type="integer" />
 		</createIndex>
 	</changeSet>
+	
+	<changeSet id="8" author="group3">
+		<addColumn tableName="meals">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_meal_user" references="users(id)" />
+			</column>
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

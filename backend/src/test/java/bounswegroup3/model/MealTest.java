@@ -15,7 +15,7 @@ public class MealTest {
 	
 	@Test
 	public void testDeserialize() throws Exception {
-		Meal meal = new Meal(-1l, -1l, "test meal", "test meal", "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png");
+		Meal meal = new Meal(-1l, -1l, -1l, "test meal", "test meal", "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png");
 		Meal fixture = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		
 		assertThat(meal.getMenuId()).isEqualTo(fixture.getMenuId());

@@ -56,6 +56,7 @@ public class H2JDBIRule extends ExternalResource {
     }
 
     private DataSourceFactory getDataSourceFactory() {
+    	// TODO Silence the DEBUG output of the liquibase
         DataSourceFactory dataSourceFactory = new DataSourceFactory();
         dataSourceFactory.setDriverClass("org.h2.Driver");
         dataSourceFactory.setUrl("jdbc:h2:./target/h2db;MODE=PostgreSQL");
