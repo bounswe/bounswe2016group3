@@ -29,4 +29,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'joda-time:joda-time:2.9.4'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.picasso:picasso:2.4.0'
 }

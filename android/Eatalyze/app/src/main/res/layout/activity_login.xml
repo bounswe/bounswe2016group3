@@ -68,4 +68,14 @@
         android:textColor="@color/white"
         />
 
+    <TextView
+        android:id="@+id/tv_forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_signup"
+        android:textColor="@color/white"
+        />
+
 </RelativeLayout>

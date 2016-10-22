@@ -10,31 +10,23 @@ import com.cmpe451.eatalyze.constants.UserType;
 public class User {
     private Long id;
 
-    //not null
+
     private String email;
     private String passwordHash;
     private String passwordSalt;
-
     private String bio;
-
     private String fullName;
-
     private UserType userType;
-
     private DietType dietType;
-
     //not null
     private String secretQuestion;
-
     //not null
     private String secretAnswerHash;
-
     //not null
     private String secretAnswerSalt;
-
     private String avatarUrl;
-
     private Boolean isBanned;
+
 
     public User() {
         this.id = -1l;
