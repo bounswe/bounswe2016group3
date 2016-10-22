@@ -154,19 +154,25 @@
 	</dependency>
 	
 	<dependency>
-	    <groupId>org.glassfish.jersey.test-framework.providers</groupId>
-	    <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
-	    <version>${jersey.version}</version>
-	    <exclusions>
-	      <exclusion>
-	        <groupId>javax.servlet</groupId>
-	        <artifactId>javax.servlet-api</artifactId>
-	      </exclusion>
-	      <exclusion>
+	  <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	  <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+	  <version>${jersey.version}</version>
+	  <exclusions>
+	    <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+	    </exclusion>
+        <exclusion>
 	        <groupId>junit</groupId>
 	        <artifactId>junit</artifactId>
-	      </exclusion>
-	    </exclusions>
-	  </dependency>
+        </exclusion>
+	  </exclusions>
+	</dependency>
+	  
+	<dependency>
+	  <groupId>com.h2database</groupId>
+	  <artifactId>h2</artifactId>
+	  <version>1.3.176</version>
+	</dependency>
   </dependencies>
 </project>

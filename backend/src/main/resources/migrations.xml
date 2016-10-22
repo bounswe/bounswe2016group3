@@ -10,9 +10,7 @@
 			<column name="id" type="integer" autoIncrement="true">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
-			<column name="email" type="text">
-				<constraints unique="true" nullable="false" />
-			</column>
+			<column name="email" type="text" />
 			
 			<column name="password_hash" type="text">
 				<constraints nullable="false" />
@@ -61,16 +59,12 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		
-		<createIndex indexName="idx_user_email" tableName="users" unique="true">
-			<column name="email" type="text" />
-		</createIndex>
 	</changeSet>
 	
 	<changeSet id="3" author="group3">
 		<createTable tableName="failed_logins">
 			<column name="user_id" type="integer">
-				<constraints nullable="false" foreignKeyName="fk_session_user" references="users(id)" />
+				<constraints nullable="false" foreignKeyName="fk_failedlogin_user" references="users(id)" />
 			</column>
 			
 			<column name="attempt_time" type="datetime">
