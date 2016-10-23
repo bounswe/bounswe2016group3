@@ -168,7 +168,7 @@ public class MealResourceTest {
 	@Test
 	public void testDeleteMeal() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/meal/delete/1")
+				.target("/meal/1/delete")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -180,7 +180,7 @@ public class MealResourceTest {
 	@Test
 	public void testCantDeleteMeal() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/meal/delete/42")
+				.target("/meal/42/delete")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));

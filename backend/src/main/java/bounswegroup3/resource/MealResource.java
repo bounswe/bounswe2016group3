@@ -65,7 +65,7 @@ public class MealResource {
 	}
 	
 	@POST
-	@Path("/delete/{id}")
+	@Path("/{id}/delete")
 	public Response deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
 		if(mealDao.getMealById(id).getUserId() == token.getUserId()){
 			mealDao.deleteMeal(id);

@@ -21,7 +21,7 @@ public interface MealDAO {
 	@SqlQuery("select * from meals where menu_id=:id")
 	List<Meal> mealsByMenuId(@Bind("id") Long menuId);
 	
-	@SqlQuery("select * from meals join menus on meals.menu_id = menus.id where menus.user_id = :id")
+	@SqlQuery("select * from meals where meals.user_id = :id")
 	List<Meal> mealsByUserId(@Bind("id") Long userId);
 	
 	@SqlUpdate("update meals set menu_id = :menuId, user_id = :userId, "

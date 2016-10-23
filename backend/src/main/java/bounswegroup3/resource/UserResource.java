@@ -89,7 +89,7 @@ public class UserResource {
     }
     
     @POST
-    @Path("/ban/{id}")
+    @Path("/{id}/ban")
     public Response banUser(@Auth AccessToken token, @PathParam("id") Long id){
     	if(UserType.values()[dao.getUserById(token.getUserId()).getUserType()] == UserType.ADMIN){
     		dao.banUser(id);
@@ -119,7 +119,7 @@ public class UserResource {
     }
     
     @POST
-    @Path("/follow/{id}")
+    @Path("/{id}/follow")
     public Response followUser(@Auth AccessToken token, @PathParam("id") Long id){
     	if(dao.follows(token.getUserId(), id) || !dao.userExists(id)){
     		return Response.notModified().build();
@@ -130,7 +130,7 @@ public class UserResource {
     }
     
     @POST
-    @Path("/unfollow/{id}")
+    @Path("/{id}/unfollow")
     public Response unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
     	if(!dao.follows(token.getUserId(), id)){
     		return Response.notModified().build();
@@ -141,7 +141,7 @@ public class UserResource {
     }
     
     @GET
-    @Path("/followers/{id}")
+    @Path("/{id}/followers")
     public Response getFollowers(@PathParam("id") Long id){
     	if(!dao.userExists(id)){
     		return Response.noContent().build();
@@ -151,7 +151,7 @@ public class UserResource {
     }
     
     @GET
-    @Path("/following/{id}")
+    @Path("/{id}/following")
     public Response getFollowing(@PathParam("id") Long id){
     	if(!dao.userExists(id)){
     		return Response.noContent().build();
@@ -161,13 +161,13 @@ public class UserResource {
     }
     
     @GET
-    @Path("/menus/{id}")
+    @Path("/{id}/menus")
     public List<Menu> menusByUser(@PathParam("id") Long id){
     	return menuDao.menusByUser(id);
     }
     
     @GET
-    @Path("/meals/{id}")
+    @Path("/{id}/meals")
     public List<Meal> mealsByUser(@PathParam("id") Long id){
     	return mealDao.mealsByUserId(id);
     }

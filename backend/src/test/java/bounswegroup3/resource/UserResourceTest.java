@@ -168,7 +168,7 @@ public class UserResourceTest {
 	@Test
 	public void testBanUser() throws Exception {
 		rule.getJerseyTest()
-			.target("/user/ban/1")
+			.target("/user/1/ban")
 			.request(MediaType.APPLICATION_JSON_TYPE)
 			.header("Authorization", "Bearer test")
 			.post(Entity.json(""));
@@ -207,7 +207,7 @@ public class UserResourceTest {
 	@Test
 	public void testFollow() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/follow/1")
+				.target("/user/1/follow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -218,7 +218,7 @@ public class UserResourceTest {
 	@Test
 	public void testAlreadyFollow() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/follow/42")
+				.target("/user/42/follow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -229,7 +229,7 @@ public class UserResourceTest {
 	@Test
 	public void testFollowNonexistentUser() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/follow/32")
+				.target("/user/32/follow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -240,7 +240,7 @@ public class UserResourceTest {
 	@Test
 	public void testUnfollow() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/unfollow/42")
+				.target("/user/42/unfollow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -251,7 +251,7 @@ public class UserResourceTest {
 	@Test
 	public void testAlreadyUnfollow() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/unfollow/1")
+				.target("/user/1/unfollow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -262,7 +262,7 @@ public class UserResourceTest {
 	@Test
 	public void testUnfollowNonexistentUser() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/unfollow/32")
+				.target("/user/32/unfollow")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(""));
@@ -273,7 +273,7 @@ public class UserResourceTest {
 	@Test
 	public void testFollowers() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/followers/1")
+				.target("/user/1/followers")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
@@ -286,7 +286,7 @@ public class UserResourceTest {
 	@Test
 	public void testFollowing() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/following/1")
+				.target("/user/1/following")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
@@ -299,7 +299,7 @@ public class UserResourceTest {
 	@Test
 	public void testGetMenus() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/menus/1")
+				.target("/user/1/menus")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
@@ -312,7 +312,7 @@ public class UserResourceTest {
 	@Test
 	public void testGetMeals() throws Exception {
 		Response res = rule.getJerseyTest()
-				.target("/user/meals/1")
+				.target("/user/1/meals")
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
