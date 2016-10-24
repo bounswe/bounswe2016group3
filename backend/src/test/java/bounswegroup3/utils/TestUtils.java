@@ -3,7 +3,6 @@ package bounswegroup3.utils;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 
-import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.auth.OAuthAuthorizer;
 import bounswegroup3.model.AccessToken;
 import io.dropwizard.auth.AuthDynamicFeature;

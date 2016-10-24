@@ -65,6 +65,9 @@ public class SessionResourceTest {
 		
 		when(failedLoginDao.attemptsInLastFiveMinutes(any())).thenReturn(0l);
 		when(failedLoginDao.attemptsInLastFiveMinutes(eq(42l))).thenReturn(6l);
+		
+		when(client.getUserIdByToken(any())).thenReturn(1l);
+		when(client.getUserIdByToken(eq("nope"))).thenReturn(0l);
 	}
 	
 	@After
@@ -138,6 +141,23 @@ public class SessionResourceTest {
 	
 	@Test
 	public void testFacebookLogin() throws Exception {
-		// TODO find a way to test this
+		Response res = rule.getJerseyTest()
+				.target("/session/fbLogin")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json("test"));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(accessTokenDao).generateToken(any());
+	}
+	
+	@Test
+	public void testFacebookLoginFail() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/session/fbLogin")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json("nope"));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(400, 500);
+		verify(accessTokenDao, never()).generateToken(any());
 	}
 }

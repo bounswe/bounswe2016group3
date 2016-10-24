@@ -3,27 +3,10 @@ package bounswegroup3.utils;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.jdbi.logging.LogbackLog;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.testing.DropwizardTestSupport;
-import liquibase.Contexts;
 import liquibase.Liquibase;
-import liquibase.change.core.DropAllForeignKeyConstraintsChange;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.LiquibaseException;
-import liquibase.ext.logging.slf4j.Slf4jLogger;
-import liquibase.logging.LogFactory;
-import liquibase.logging.LogLevel;
 import liquibase.resource.ClassLoaderResourceAccessor;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.Writer;
-import java.util.Collections;
-import java.util.List;
 
 import org.junit.rules.ExternalResource;
 import org.skife.jdbi.v2.DBI;
