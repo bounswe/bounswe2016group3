@@ -352,4 +352,9 @@ public class MealResourceTest {
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
 		verify(mealDao, never()).untagMeal(any(), any());
 	}
+	
+	@Test
+	public void testGetNutrition() throws Exception {
+		// TODO Test that
+	}
 }

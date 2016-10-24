@@ -51,7 +51,12 @@ public class NutritionixClient {
 	}
 	
 	public NutritionalInfo getNutrition(String ingredients) {
-		return (new NutritionalInfoMapper()).map(this.searches.getUnchecked(ingredients));
+		try {
+			return (new NutritionalInfoMapper()).map(this.searches.getUnchecked(ingredients));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

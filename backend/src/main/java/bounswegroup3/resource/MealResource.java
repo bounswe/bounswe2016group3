@@ -12,15 +12,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import bounswegroup3.auth.UnauthorizedException;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
-import bounswegroup3.db.MenuDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
-import bounswegroup3.model.Menu;
+import bounswegroup3.model.NutritionalInfo;
 import bounswegroup3.model.Ratings;
 import bounswegroup3.model.Tag;
 import io.dropwizard.auth.Auth;
@@ -154,5 +152,11 @@ public class MealResource {
 		} else {
 			return Response.notModified().build(); 
 		}
+	}
+	
+	@GET
+	@Path("/{id}/nutrition")
+	public NutritionalInfo getNutrition(@PathParam("id") Long id, String ingredients) {
+		return client.getNutrition(ingredients);
 	}
 }

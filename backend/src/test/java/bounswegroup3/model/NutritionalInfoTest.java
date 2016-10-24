@@ -1,5 +1,9 @@
 package bounswegroup3.model;
 
+import static io.dropwizard.testing.FixtureHelpers.fixture;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +15,8 @@ public class NutritionalInfoTest {
 	
 	@Test
 	public void testSerialize() throws Exception {
-		// TODO actually write the test
+		NutritionalInfo ni = new NutritionalInfo(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+		
+		assertThat(fixture("fixtures/nutritional_info_serialized.json")).isEqualTo(mapper.writeValueAsString(ni));
 	}
 }
