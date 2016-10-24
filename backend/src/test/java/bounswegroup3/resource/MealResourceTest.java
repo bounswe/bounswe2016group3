@@ -70,7 +70,7 @@ public class MealResourceTest {
 		when(mealDao.getMealById(any())).thenReturn(meal);
 		when(mealDao.createMeal(any())).thenReturn(1l);
 				
-		invalidMeal = new Meal(42l, 42l, 42l, "", "", "");
+		invalidMeal = new Meal(42l, 42l, 42l, "", "", "", "");
 		invalidTag = new Tag(42l, "test");
 		notExistsTag = new Tag(32l, "tagged");
 		

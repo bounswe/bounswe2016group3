@@ -156,7 +156,7 @@ public class MealResource {
 	
 	@GET
 	@Path("/{id}/nutrition")
-	public NutritionalInfo getNutrition(@PathParam("id") Long id, String ingredients) {
-		return client.getNutrition(ingredients);
+	public NutritionalInfo getNutrition(@PathParam("id") Long id) {
+		return client.getNutrition(mealDao.getMealById(id).getIngredients());
 	}
 }

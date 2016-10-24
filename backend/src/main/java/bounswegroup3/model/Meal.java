@@ -6,6 +6,7 @@ public class Meal {
 	private Long userId;
 	private String name;
 	private String description;
+	private String ingredients;
 	private String photoUrl;
 	
 	public Meal(){
@@ -15,13 +16,14 @@ public class Meal {
 		this.photoUrl = "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png";
 	}
 	
-	public Meal(Long id, Long menuId, Long userId, String name, String description, String photoUrl) {
+	public Meal(Long id, Long menuId, Long userId, String name, String description, String ingredients, String photoUrl) {
 		super();
 		this.id = id;
 		this.menuId = menuId;
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
+		this.setIngredients(ingredients);
 		this.photoUrl = photoUrl;
 	}
 
@@ -65,6 +67,14 @@ public class Meal {
 		this.description = description;
 	}
 	
+	public String getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(String ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	public String getPhotoUrl() {
 		return photoUrl;
 	}

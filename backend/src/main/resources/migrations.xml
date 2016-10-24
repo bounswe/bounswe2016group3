@@ -215,4 +215,10 @@
 			</column>
 		</addColumn>
 	</changeSet>
+	
+	<changeSet id="9" author="group3">
+		<addColumn tableName="meals">
+			<column name="ingredients" type="text" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

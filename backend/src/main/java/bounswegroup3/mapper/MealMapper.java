@@ -16,8 +16,9 @@ public class MealMapper implements ResultSetMapper<Meal>{
 		final Long userId = rs.getLong("user_id");
 		final String name = rs.getString("name");
 		final String description = rs.getString("description");
+		final String ingredients = rs.getString("ingredients");
 		final String photoUrl = rs.getString("photo_url");
 
-		return new Meal(id, menuId, userId, name, description, photoUrl);
+		return new Meal(id, menuId, userId, name, description, ingredients, photoUrl);
 	}
 }
