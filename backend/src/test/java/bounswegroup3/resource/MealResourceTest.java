@@ -21,6 +21,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
+import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.model.Comment;
@@ -32,10 +33,11 @@ import io.dropwizard.testing.junit.ResourceTestRule;
 public class MealResourceTest {
 	private static MealDAO mealDao = mock(MealDAO.class);
 	private static CommentDAO commentDao = mock(CommentDAO.class);
+	private static NutritionixClient client = mock(NutritionixClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MealResource(mealDao, commentDao))
+		.addResource(new MealResource(mealDao, commentDao, client))
 		.build();
 	
 	private Meal meal;

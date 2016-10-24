@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bounswegroup3.auth.UnauthorizedException;
+import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
@@ -29,10 +30,12 @@ import io.dropwizard.auth.Auth;
 public class MealResource {
 	private MealDAO mealDao;
 	private CommentDAO commentDao;
+	private NutritionixClient client;
 	
-	public MealResource(MealDAO mealDao, CommentDAO commentDao) {
+	public MealResource(MealDAO mealDao, CommentDAO commentDao, NutritionixClient client) {
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
+		this.client = client;
 	}
 	
 	@GET

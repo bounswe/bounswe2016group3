@@ -94,8 +94,8 @@ class App extends Application<AppConfig> {
         final Client httpClient = new JerseyClientBuilder(env).using(conf.getHttpClient()).build(getName());
         final FacebookClient fbClient = new FacebookClient(httpClient, 
         		conf.getAppKeys().getFbAppId(), 
-        		conf.getAppKeys().getFbAppSecret(),
-        		conf.getAppRoot());
+        		conf.getAppKeys().getFbAppSecret());
+        
         final NutritionixClient nutritionixClient = new NutritionixClient(httpClient, 
         		conf.getAppKeys().getNutritionixAppId(), 
         		conf.getAppKeys().getNutritionixKey());
@@ -103,7 +103,7 @@ class App extends Application<AppConfig> {
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
-        final MealResource mealResource = new MealResource(mealDao, commentDao);
+        final MealResource mealResource = new MealResource(mealDao, commentDao, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);
         
         final KillTokens killTokens = new KillTokens(accessTokenDAO);

@@ -10,21 +10,19 @@ public class FacebookClient {
 	private Client client;
 	private Long appId;
 	private String secret;
-	private String redirectUrl;
 	
 	private String appToken;
 	
 	private static final URI callUrl = UriBuilder.fromUri("https://graph.facebook.com/debug_token").build();
 	private static final URI appTokenUrl = UriBuilder.fromUri("https://graph.facebook.com/oauth/access_token").build();
 	
-	public FacebookClient(Client client, Long appId, String secret, String redirectUrl) {
+	public FacebookClient(Client client, Long appId, String secret) {
 		super();
 		this.client = client;
 		this.appId = appId;
 		this.secret = secret;
-		this.redirectUrl = redirectUrl;
 		
-		//getAppToken();
+		getAppToken();
 	}
 	
 	private void getAppToken() {
