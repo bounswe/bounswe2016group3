@@ -8,6 +8,8 @@ import liquibase.Liquibase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
+import org.eclipse.jetty.util.DecoratedObjectFactory;
+import org.eclipse.jetty.util.component.ContainerLifeCycle;
 import org.junit.rules.ExternalResource;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
@@ -32,6 +34,13 @@ public class H2JDBIRule extends ExternalResource {
 
     @Override
     protected void before() throws Throwable {
+    	// suppress debug messages about deprecation
+    	Logger logger = (Logger)LoggerFactory.getLogger(DecoratedObjectFactory.class);
+    	logger.setLevel(Level.INFO);
+    	
+    	logger = (Logger)LoggerFactory.getLogger(ContainerLifeCycle.class);
+    	logger.setLevel(Level.INFO);
+    	
         Environment environment = new Environment("test-env", Jackson.newObjectMapper(), null, new MetricRegistry(), null);
         dbi = new DBIFactory().build(environment, getDataSourceFactory(), "test");
         handle = dbi.open();
