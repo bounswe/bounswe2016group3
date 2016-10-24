@@ -24,9 +24,13 @@ public class NutritionalInfoMapper {
 		Double phosphorus = 0.0;
 		
 		ObjectMapper mapper = Jackson.newObjectMapper();
+		@SuppressWarnings("unchecked")
 		LinkedHashMap<String, Object> read = mapper.readValue(json, LinkedHashMap.class);
+		
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList<LinkedHashMap> foods = (ArrayList)read.get("foods");
-		for(LinkedHashMap food : foods){
+		
+		for(@SuppressWarnings("rawtypes") LinkedHashMap food : foods){
 			if(food.get("serving_weight_grams")!=null){
 				weight += new Double(food.get("serving_weight_grams").toString());
 			}

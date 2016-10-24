@@ -68,6 +68,7 @@ public class MenuResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -81,6 +82,7 @@ public class MenuResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -96,6 +98,7 @@ public class MenuResourceTest {
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(menu));
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);

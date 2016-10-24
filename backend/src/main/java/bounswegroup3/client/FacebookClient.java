@@ -35,6 +35,7 @@ public class FacebookClient {
 	}
 	
 	public Long getUserIdByToken(String token) {
+		@SuppressWarnings("unchecked")
 		HashMap<String, HashMap<String, String>> res = client.target(callUrl)
 			.queryParam("input_token", token)
 			.queryParam("access_token", this.appToken)

@@ -16,19 +16,12 @@ import bounswegroup3.mapper.NutritionalInfoMapper;
 import bounswegroup3.model.NutritionalInfo;
 
 public class NutritionixClient {
-	private Client client;
-	private String appId;
-	private String secret;
-	
 	private LoadingCache<String, String> searches;
 	
 	private static URI searchUrl = UriBuilder.fromUri("https://trackapi.nutritionix.com/v2/natural/nutrients").build();
 	
 	public NutritionixClient(Client client, String appId, String secret) {
 		super();
-		this.client = client;
-		this.appId = appId;
-		this.secret = secret;
 		
 		this.searches = CacheBuilder.newBuilder()
 				.maximumSize(2000)
@@ -58,6 +51,5 @@ public class NutritionixClient {
 			return null;
 		}
 	}
-	
 	
 }

@@ -109,6 +109,7 @@ public class MealResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -122,7 +123,8 @@ public class MealResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(meal));
-
+		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -150,6 +152,7 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(meal));
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -237,6 +240,7 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -251,6 +255,7 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -265,7 +270,7 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
-		
+		@SuppressWarnings("unchecked")
 		ArrayList<String> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -280,6 +285,7 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -365,6 +371,7 @@ public class MealResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);

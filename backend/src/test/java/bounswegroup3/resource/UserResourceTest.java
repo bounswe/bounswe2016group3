@@ -103,6 +103,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("unchecked")
 		ArrayList<LinkedHashMap<String,String>> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
@@ -119,6 +120,7 @@ public class UserResourceTest {
 				.post(Entity.json(user));
 		
 		// we get a heterogenous object as a response
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		verify(mailer).sendMail(any(), any(), any());
@@ -135,6 +137,7 @@ public class UserResourceTest {
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(user));
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		verify(userDao).updateUser(any());
@@ -148,6 +151,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(read.get("email")).isEqualTo(user.getEmail());
@@ -160,6 +164,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.post(Entity.json("test@test.com"));
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(read.get("email")).isEqualTo(user.getEmail());
@@ -277,6 +282,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
@@ -290,6 +296,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
@@ -303,6 +310,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
@@ -316,6 +324,7 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);

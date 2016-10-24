@@ -122,6 +122,7 @@ public class SessionResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);

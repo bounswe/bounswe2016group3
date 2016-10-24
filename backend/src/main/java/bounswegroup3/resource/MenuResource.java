@@ -1,6 +1,5 @@
 package bounswegroup3.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,7 +15,6 @@ import bounswegroup3.db.MenuDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
-import bounswegroup3.model.Tag;
 import io.dropwizard.auth.Auth;
 
 @Path("/menu")

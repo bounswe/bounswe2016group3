@@ -64,6 +64,7 @@ public class CommentResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
@@ -78,6 +79,7 @@ public class CommentResourceTest {
 				.header("Authorization", "Bearer test")
 				.post(Entity.json(comment));
 		
+		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
