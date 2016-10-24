@@ -26,6 +26,7 @@ import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
+import bounswegroup3.model.NutritionalInfo;
 import bounswegroup3.model.Tag;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.junit.ResourceTestRule;
@@ -43,6 +44,7 @@ public class MealResourceTest {
 	private Meal meal;
 	private Comment comment;
 	private Tag tag;
+	private NutritionalInfo nutrition;
 	
 	private ObjectMapper mapper;
 	
@@ -57,6 +59,7 @@ public class MealResourceTest {
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		comment = mapper.readValue(fixture("fixtures/comment.json"), Comment.class);
 		tag = new Tag(-1l, "test");
+		nutrition = mapper.readValue(fixture("fixtures/nutritional_info_serialized.json"), NutritionalInfo.class);
 		
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
@@ -89,6 +92,8 @@ public class MealResourceTest {
 		when(commentDao.commentsByMeal(any())).thenReturn(comments);
 		
 		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
+		
+		when(client.getNutrition(any())).thenReturn(nutrition);
 	}
 	
 	@After
@@ -355,6 +360,14 @@ public class MealResourceTest {
 	
 	@Test
 	public void testGetNutrition() throws Exception {
-		// TODO Test that
+		Response res = rule.getJerseyTest()
+				.target("/meal/1/nutrition")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		assertThat(read.get("weight")).isEqualTo(nutrition.getWeight());
 	}
 }
