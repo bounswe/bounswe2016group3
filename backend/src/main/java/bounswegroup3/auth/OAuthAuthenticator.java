@@ -12,6 +12,10 @@ public class OAuthAuthenticator implements Authenticator<String, AccessToken> {
 
     private AccessTokenDAO accessTokenDao;
 
+    /**
+     * Gets a token from the Authorization header, checks if it matches
+     * a token in the database, and returns true if it does.
+     */
     @Override
     public Optional<AccessToken> authenticate(String token) throws AuthenticationException {
         UUID tokenUUID;
