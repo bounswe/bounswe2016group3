@@ -8,6 +8,11 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Represents an Access Token. You never need to send this object, only receive it
+ * { "accessToken": UUID, "userId": Integer, "creationTime": Integer, "lastAccessTime": Integer}
+ * Note that the dates in the object are Unix timestamps.
+ */
 public class AccessToken implements Principal {
     private UUID accessToken;
     private Long userId;

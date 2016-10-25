@@ -1,5 +1,9 @@
 package bounswegroup3.model;
 
+/**
+ * Represents a semantic tag on a meal.
+ * {"mealId":Integer, "tag":String}
+ */
 public class Tag {
 	private Long mealId;
 	private String tag;

@@ -8,17 +8,35 @@ import com.mailjet.client.MailjetRequest;
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.resource.Email;
 
+/**
+ * Facilitates communication with the Mailjet API to
+ * be able to send emails
+ */
 public class Mailer {
 	private MailjetClient client;
 	private String senderName;
 	private String senderMail;
 	
+	/**
+	 * Initializes the client with Mailjet credentials and sender info
+	 * @param key Your Mailjet API Key
+	 * @param secret Obtained from Mailjet API 
+	 * @param senderName The name of the mail's sender
+	 * @param senderMail The email address of the mail's sender
+	 */
 	public Mailer(String key, String secret, String senderName, String senderMail){
 		client = new MailjetClient(key, secret);
 		this.senderName = senderName;
 		this.senderMail = senderMail;
 	}
 	
+	/**
+	 * Send an arbitrary email 
+	 * @param recipient The email address of the recipient
+	 * @param title Title of the mail
+	 * @param body Body of the mail. Can be either plaintext or HTML, but the mail is sent 
+	 * as an HTML document.
+	 */
 	public void sendMail(String recipient, String title, String body){
 		MailjetRequest request = new MailjetRequest(Email.resource)
 				.property(Email.FROMEMAIL, senderMail)

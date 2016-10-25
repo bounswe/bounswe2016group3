@@ -2,6 +2,11 @@ package bounswegroup3.model;
 
 import org.joda.time.DateTime;
 
+/**
+ * Represents a comment made on a meal. The contents are markdown strings,
+ * to be rendered clientside. The dates are as always, unix timestamps
+ * {"id":Integer, "mealId":Integer, "userId": Integer, "content": String, "creationTime":Integer, "updateTime":Integer}
+ */
 public class Comment {
 	private Long id;
 	private Long mealId;

@@ -18,6 +18,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import bounswegroup3.constant.DietType;
 import bounswegroup3.constant.UserType;
 
+/**
+ * Represents a user object. Each other piece of data
+ * in the system ultimately belongs to a user. You need to create one and login
+ * before being able to do anything else on the system. The password and secretAnswer
+ * fields are updated via sending some plain text, but before being stored
+ * in the database, they are hashed. Also, the avatar url field
+ * cannot be modified directly, there is a separate API call for uploading a file 
+ * as your avatar image
+ * {"id": Integer, "email": String, "password": String, "bio": String,
+ *  "fullName": String, "userType": Integer, "dietType": Integer, 
+ *  "secretQuestion": String, "secretAnswer": String, "avatarUrl": String}
+ */
 public class User {
     private Long id;
 

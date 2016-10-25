@@ -1,5 +1,12 @@
 package bounswegroup3.model;
 
+/**
+ * Represents a meal object in the system, it belongs to a menu and a user
+ * and also has 0+ comments. For its own properties, it also happens to
+ * have a name, an ingredients list, a description and a photo. The description 
+ * is also in Markdown, and the rendering is up to the client.
+ * {"id":Integer, "menuId":Integer, "userId":Integer, "name":String, "description": String, "ingredients":String, "photoUrl": String}
+ */
 public class Meal {
 	private Long id;
 	private Long menuId;
@@ -23,7 +30,7 @@ public class Meal {
 		this.userId = userId;
 		this.name = name;
 		this.description = description;
-		this.setIngredients(ingredients);
+		this.ingredients = ingredients;
 		this.photoUrl = photoUrl;
 	}
 
