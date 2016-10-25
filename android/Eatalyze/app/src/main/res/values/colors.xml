@@ -7,6 +7,7 @@
     <!--Login-->
     <color name="white">#FFFFFF</color>
     <color name="blue">#4FC3F7</color>
+    <color name="gray">#CFD8DC</color>
 
     <color name="pageBackground">#FFCC00</color>
 </resources>
