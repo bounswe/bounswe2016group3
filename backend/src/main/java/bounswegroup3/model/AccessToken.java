@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Represents an Access Token. You never need to send this object, only receive it
- * { "accessToken": UUID, "userId": Integer, "creationTime": Integer, "lastAccessTime": Integer}
+ * <br>
+ * <code>{ "accessToken": UUID, "userId": Integer, "creationTime": Integer, "lastAccessTime": Integer}</code>
+ * 
  * Note that the dates in the object are Unix timestamps.
  */
 public class AccessToken implements Principal {
