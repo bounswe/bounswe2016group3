@@ -102,6 +102,12 @@ public class UserProfilePageActivity extends BaseActivity {
             }
         });
 
+        following.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfilePageActivity.this, FollowingActivity.class));
+            }
+        });
         btnDiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
