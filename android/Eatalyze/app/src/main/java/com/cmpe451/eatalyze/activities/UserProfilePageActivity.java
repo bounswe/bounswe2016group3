@@ -15,6 +15,8 @@ import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.request.ApiService;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import butterknife.Bind;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -38,8 +40,18 @@ public class UserProfilePageActivity extends BaseActivity {
     TextView fullName;
     @Bind(R.id.id_follow_button)
     Button btn_follow;
-
-
+    @Bind(R.id.id_expandabletextView)
+    ExpandableTextView expandableTextView;
+    @Bind(R.id.btn_log)
+    Button btnLog;
+    @Bind(R.id.btn_diet)
+    Button btnDiet ;
+    @Bind(R.id.id_includes)
+    TextView includes;
+    @Bind(R.id.id_excludes)
+    TextView excludes;
+    @Bind(R.id.id_preferences)
+    TextView preferences;
 
     @Override
     public int getLayoutId() {
@@ -49,6 +61,13 @@ public class UserProfilePageActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //just for try
+       /* String yourText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+                "Ut volutpat interdum interdum. Nulla laoreet lacus diam, vitae " +
+                "sodales sapien commodo faucibus. Vestibulum et feugiat enim. Donec ";
+
+        expandableTextView.setText(yourText);*/
 
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
             @Override
@@ -83,7 +102,29 @@ public class UserProfilePageActivity extends BaseActivity {
             }
         });
 
+        btnDiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start diet activity
+                startActivity(new Intent(UserProfilePageActivity.this, DietActivity.class));
+            }
+        });
 
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start log activity
+                startActivity(new Intent(UserProfilePageActivity.this, LogActivity.class));
+            }
+        });
+
+        preferences.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start edit preferences activity
+                startActivity(new Intent(UserProfilePageActivity.this, EditPreferencesActivity.class));
+            }
+        });
     }
 }
 

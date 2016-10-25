@@ -30,9 +30,14 @@ var Signup = function(props) {
         props.history.pushState(null,"/");
     }
 
+    <style>
+    .
+
+    </style>
+
     return (
         <div>
-          <article className="col-xs-6">
+          <article className="col-xs-5">
            <h1> User</h1> 
 
             <p>
@@ -59,7 +64,13 @@ var Signup = function(props) {
             </p>
            
             </article>
-            <article className="col-xs-6">
+            
+
+            <article className="col-xs-2">
+            </article>
+
+
+            <article className="col-xs-5">
            <h1> Food Server </h1> 
             <p>
                 <input type="text" className="form-control" placeholder="Username" id="signup-email" />
