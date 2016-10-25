@@ -50,7 +50,8 @@ public class UserProfilePageActivity extends BaseActivity {
     TextView includes;
     @Bind(R.id.id_excludes)
     TextView excludes;
-
+    @Bind(R.id.id_preferences)
+    TextView preferences;
 
     @Override
     public int getLayoutId() {
@@ -105,6 +106,7 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //start diet activity
+                startActivity(new Intent(UserProfilePageActivity.this, DietActivity.class));
             }
         });
 
@@ -112,20 +114,15 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //start log activity
+                startActivity(new Intent(UserProfilePageActivity.this, LogActivity.class));
             }
         });
 
-        includes.setOnClickListener(new View.OnClickListener() {
+        preferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start includes activity
-            }
-        });
-
-        excludes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start excludes activity
+                //start edit preferences activity
+                startActivity(new Intent(UserProfilePageActivity.this, EditPreferencesActivity.class));
             }
         });
     }
