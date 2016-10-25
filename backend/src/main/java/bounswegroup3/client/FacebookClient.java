@@ -6,6 +6,10 @@ import java.util.HashMap;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.UriBuilder;
 
+/**
+ * The class is responsible for communicating with the Facebook Graph API in order
+ * to connect via Facebook.
+ */
 public class FacebookClient {
 	private Client client;
 	private Long appId;
@@ -16,6 +20,14 @@ public class FacebookClient {
 	private static final URI callUrl = UriBuilder.fromUri("https://graph.facebook.com/debug_token").build();
 	private static final URI appTokenUrl = UriBuilder.fromUri("https://graph.facebook.com/oauth/access_token").build();
 	
+	/**
+	 * Facebook API provides us with an App ID and a secret. It also requires an App Token
+	 * to be able to check the validity of a user token. The constructor sets the required fields
+	 * and then gets an app token from Facebook API
+	 * @param client the HTTPClient object needed to connect to an external service
+	 * @param appId the public half of Facebook's authentication scheme 
+	 * @param secret the private half of it
+	 */
 	public FacebookClient(Client client, Long appId, String secret) {
 		super();
 		this.client = client;
@@ -34,6 +46,12 @@ public class FacebookClient {
 					.get(String.class);
 	}
 	
+	/**
+	 * Checks if the given token is a valid one for this application.
+	 * @param token The Facebook token to check validity of
+	 * @return If the token is valid, the Facebook User IDd which it belongs
+	 * to. If not, 0 is returned.
+	 */
 	public Long getUserIdByToken(String token) {
 		@SuppressWarnings("unchecked")
 		HashMap<String, HashMap<String, String>> res = client.target(callUrl)

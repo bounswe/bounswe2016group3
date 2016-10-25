@@ -35,6 +35,10 @@ public class AppConfig extends Configuration {
  
     private AppKeyConfiguration appKeys = new AppKeyConfiguration();
     
+    /**
+     * @return the HTTP client configuration such as max number of connections,
+     * time to live of those connections, usingf compression etc.
+     */
     public JerseyClientConfiguration getHttpClient() {
 		return httpClient;
 	}
@@ -43,6 +47,12 @@ public class AppConfig extends Configuration {
 		this.httpClient = httpClient;
 	}
 
+	/**
+	 * The app uses a number of external Services and these services generally
+	 * provide us wih a appId/key pair. This is a plain object used for storing
+	 * those keys
+	 * @return the AppKeyConfiguration object that contains said keys
+	 */
 	public AppKeyConfiguration getAppKeys() {
 		return appKeys;
 	}
@@ -53,14 +63,24 @@ public class AppConfig extends Configuration {
 
 	private String mailAddress;
     
+	/**
+	 * @return The database connection, its name, credentials etc.
+	 */
     public DataSourceFactory getDatabase() {
         return database;
     }
 
+    /**
+     * @return The Bearer realm used when dealing with OAuth etc.
+     */
     public String getBearerRealm() {
         return bearerRealm;
     }
     
+    /**
+     * @return The mail address used when sending e-mails from the app.
+     * Needs to be set to the same one as the Mailjet account
+     */
 	public String getMailAddress() {
 		return mailAddress;
 	}
@@ -69,6 +89,9 @@ public class AppConfig extends Configuration {
 		this.mailAddress = mailAddress;
 	}
 
+	/**
+	 * @return The name of the app
+	 */
 	public String getName() {
 		return name;
 	}
@@ -77,6 +100,9 @@ public class AppConfig extends Configuration {
 		this.name = name;
 	}
 
+	/**
+	 * @return The root URL of the app being served
+	 */
 	public String getAppRoot() {
 		return appRoot;
 	}

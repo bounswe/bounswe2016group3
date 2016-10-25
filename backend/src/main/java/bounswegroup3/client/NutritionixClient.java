@@ -20,6 +20,16 @@ public class NutritionixClient {
 	
 	private static URI searchUrl = UriBuilder.fromUri("https://trackapi.nutritionix.com/v2/natural/nutrients").build();
 	
+	/**
+	 * Nutritionix API also needs two authentication factors provided by the service.
+	 * This class is responsible for connecting to the service and
+	 * getting nutritional data from it. There is a simple cache between this
+	 * class and the external resource, both to speed things and stay within the API
+	 * call limits of the free tier (Hope it won't be too difficult).
+	 * @param client the HTTPClient object needed to connect to an external service
+	 * @param appId the public half of Nutritionix's authentication scheme 
+	 * @param secret the private half of it
+	 */
 	public NutritionixClient(Client client, String appId, String secret) {
 		super();
 		
@@ -43,6 +53,13 @@ public class NutritionixClient {
 				});
 	}
 	
+	/**
+	 * Connects to the Nutritionix API (if needed) to fetch a response
+	 * for each ingredient and then sums the nutritional info values
+	 * received from the external service.
+	 * @param ingredients The list of ingredients, in a natural-language form
+	 * @return The total of nutritional values of all ingredients
+	 */
 	public NutritionalInfo getNutrition(String ingredients) {
 		try {
 			return (new NutritionalInfoMapper()).map(this.searches.getUnchecked(ingredients));
