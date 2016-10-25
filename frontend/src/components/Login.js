@@ -30,7 +30,16 @@ var Login = function(props) {
     }
 
     return (
-        <div>
+
+
+    <div class="container-fluid">
+
+    <article className="col-xs-3">
+    </article>
+
+       
+         <article className="col-xs-6">
+           
             <p>
                 <input type="email" className="form-control" placeholder="E-mail" id="login-email" />
             </p>
@@ -42,7 +51,11 @@ var Login = function(props) {
                 <button className="btn btn-default" type="button" onClick={submitForm}>Login</button>
                 <Link to="/resetPassword"> Forgot your password?</Link>
             </p>
-        </div>
+            </article>
+            <article className="col-xs-3">
+    </article>
+    </div>
+
     );
 }
 

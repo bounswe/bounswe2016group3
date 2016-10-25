@@ -1,5 +1,14 @@
 package bounswegroup3.model;
 
+/**
+ * Represents the total nutritions of a meal. It is collected from an external source
+ * and is never consumed by the application. However, some API calls require it
+ * {"weight":Float, "calories":Float, "totalFat":Float, "saturatedFat":Float,
+ *  "cholesterol":Float, "sodium":Float, "totalCarbohydrate":Float, "dietaryFiber":Float,
+ *  "sugars":Float, "protein":Float, "potassium":Float, "phosphorus":Float}
+ *  The macronutrient(total weight/fat/CH/protein) information is in grams
+ *  and the micronutrients are in miligrams.
+ */
 public class NutritionalInfo {
 	private Double weight;
 	private Double calories;

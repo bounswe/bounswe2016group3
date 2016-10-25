@@ -1,5 +1,13 @@
 package bounswegroup3.model;
 
+/**
+ * Represents a many-to-many directed follow relationship
+ * between two users. We call those two users the follower
+ * and the followee
+ * {"followerId":Integer, "followeeId":Integer}
+ * @author arddd
+ *
+ */
 public class Follow {
 	Long followerId;
 	Long followeeId;

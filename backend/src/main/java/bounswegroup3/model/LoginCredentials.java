@@ -1,5 +1,11 @@
 package bounswegroup3.model;
 
+/**
+ * Represents the usernsame/password pair one uses to log
+ * onto the application. It is never returned by the app,
+ * but the login call requires this object as input.
+ * {"username":String, "password":String}
+ */
 public class LoginCredentials {
     private String email;
     private String password;
