@@ -67,7 +67,7 @@ var Header = function(props){
             <div className="container-fluid">
                 <div className="navbar-header">
                     <Link className="navbar-brand" to="/">
-                        <img src="logo.png" alt="Logo" />
+                        <img src="/logo.png" alt="Logo" />
                     </Link>
                 </div>
                 <ul className="nav navbar-nav">

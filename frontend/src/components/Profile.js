@@ -23,6 +23,14 @@ class Profile extends Component {
 
         let profile = this.props.profile;
 
+        let followersHtml = this.props.followers.map(function(u){
+            return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
+        });
+
+        let followingHtml = this.props.following.map(function(u){
+            return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
+        });
+
         return (
             <div>
                 <div className="col-xs-4">
@@ -32,6 +40,16 @@ class Profile extends Component {
                     <h1>{profile.fullName}</h1>
                     <p>{profile.bio}</p>
                     <p>{profile.email}</p>
+                    <div className="row">
+                        <div className="col-xs-6">
+                            <h3>Followers</h3>
+                            <ul>{followersHtml}</ul>
+                        </div>
+                        <div className="col-xs-6">
+                            <h3>Following</h3>
+                            <ul>{followingHtml}</ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -40,7 +58,9 @@ class Profile extends Component {
 
 var mapStateToProps = function(state){
     return {
-        profile: state.profile
+        profile: state.profile,
+        followers: state.followers,
+        following: state.following
     };
 }
 
