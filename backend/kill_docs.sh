@@ -1,2 +1,3 @@
 #!/bin/bash
-kill $(cat target/site/apidocs/server.pid)
+kill $(cat apidocs/server.pid)
+rm apidocs/server.pid

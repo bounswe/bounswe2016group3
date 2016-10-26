@@ -35,6 +35,14 @@ public class SessionResource {
         this.client = client;
     }
 
+    /**
+     * <code>POSTT /api/session/login</code>
+     * <br>
+     * Gets a LoginCredentials object and then returns an answer token if the attempt is successful. 
+     * If it is not, a 401 response is returned
+     * @param credentials The login credentials
+     * @return An access token object, if successful
+     */
     @POST
     @Path("/login")
     public AccessToken login(LoginCredentials credentials) {
@@ -62,18 +70,40 @@ public class SessionResource {
         }
     }
 
+    /**
+     * <code>POST /api/session/logout</code>
+     * <br>
+     * Takes an access token, and deletes it, effectively ending the session.
+     * If the token is already invalid, no action is taken and a 403 response is returned.
+     * @param token Requires authentication (input is the token)
+     */
     @POST
     @Path("/logout")
     public void logout(@Auth AccessToken token) {
         accessTokenDAO.deleteAccessToken(token.getAccessToken());
     }
     
+    /**
+     * <code>POST /api/session/currentUser</code>
+     * <br>
+     * Returns the User pointed by the access token if it is a valid one
+     * @param token Authentication required
+     * @return The current user according to the token, if successful
+     */
     @GET
     @Path("/currentUser")
     public User currentUser(@Auth AccessToken token) {
     	return userDAO.getUserById(token.getUserId());
     }
     
+    /**
+     * <code>POST /api/session/fbLogin</code>
+     * <br>
+     * Takes a facebook access token, checks through facebook 
+     * if it is a valid one, and returns an application access token if successful
+     * @param fbToken The access token given by Facebook login
+     * @return An AccessToken object if successful
+     */
     @POST
     @Path("/fbLogin")
     public AccessToken fbLogin(String fbToken) {

@@ -30,7 +30,7 @@ public class CommentResource {
 	 * <br>
 	 * Gets a comment by its id
 	 * @param id
-	 * @return A comment object
+	 * @return A Comment object
 	 */
 	@GET
 	@Path("/{id}")
@@ -60,7 +60,7 @@ public class CommentResource {
 	/**
 	 * <code>POST /api/comment/update</code>
 	 * <br>
-	 * Updates an existing comment. If you don't have write access to the specified comment,]
+	 * Updates an existing comment. If you don't have write access to the specified comment,
 	 * a 304 response is returned. Otherwise, 200 as usual
 	 * @param token Requires authentication
 	 * @param comment The comment to change. Needs to contain all the fields, including the
