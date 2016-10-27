@@ -9,6 +9,12 @@
     <string name="signup"><u>Click here to signup!</u></string>
     <string name="forgot_password"><u>Forgot your password?</u></string>
 
+    <!--Signup-->
+    <string name="full_name">Fullname</string>
+    <string name="secret_question">Secret Question</string>
+    <string name="secret_answer">Secret Answer</string>
+    <string name="signup_button">Signup</string>
+
     <!--User Profile Page-->
     <string name="followers">Followers:</string>
     <string name="following">Following:</string>
