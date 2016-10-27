@@ -4,7 +4,8 @@ package bounswegroup3.model;
  * Represents a secret answer for a password reset operation
  * The API never returns this object but the password reset call
  * requires this as an input
- * {"userId": Integer, "answer": String}
+ * <br>
+ * <code>{"userId": Integer, "answer": String}</code>
  */
 public class AnswerCredentials {
 	private Long userId;

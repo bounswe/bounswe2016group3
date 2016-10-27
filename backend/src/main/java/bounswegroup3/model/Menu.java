@@ -2,7 +2,8 @@ package bounswegroup3.model;
 
 /**
  * Represents a menu object belonging to a user
- * {"id":Integer, "userId":Integer, "name":String}
+ * <br>
+ * <code>{"id":Integer, "userId":Integer, "name":String}</code>
  */
 public class Menu {
 	private Long id;

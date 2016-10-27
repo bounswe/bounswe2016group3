@@ -15,7 +15,7 @@ import redirectService from './service/redirectService';
 
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
-import { users, profile } from './reducers/users';
+import { users, profile, followers, following } from './reducers/users';
 import { userId, secretQuestion } from './reducers/pwdReset';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -34,7 +34,8 @@ var signup = combineReducers({ loading, success, error });
 var pwdReset = combineReducers({ userId, secretQuestion });
 var reducer = combineReducers({ token, currentUser, 
   login, signup, pwdReset,
-  users, profile });
+  users, profile,
+  followers, following });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((

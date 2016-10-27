@@ -18,4 +18,24 @@ var profile = function(state={}, action){
     }
 }
 
-export { users, profile };
+var followers = function(state=[], action){
+    switch(action.type){
+        case 'FOLLOWERS_LOADED':
+        return action.data;
+
+        default:
+        return state;
+    }
+}
+
+var following = function(state=[], action){
+    switch(action.type){
+        case 'FOLLOWING_LOADED':
+        return action.data;
+
+        default:
+        return state;
+    }
+}
+
+export { users, profile, followers, following };

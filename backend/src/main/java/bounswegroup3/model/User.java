@@ -26,9 +26,10 @@ import bounswegroup3.constant.UserType;
  * in the database, they are hashed. Also, the avatar url field
  * cannot be modified directly, there is a separate API call for uploading a file 
  * as your avatar image
- * {"id": Integer, "email": String, "password": String, "bio": String,
+ * <br>
+ * <code>{"id": Integer, "email": String, "password": String, "bio": String,
  *  "fullName": String, "userType": Integer, "dietType": Integer, 
- *  "secretQuestion": String, "secretAnswer": String, "avatarUrl": String}
+ *  "secretQuestion": String, "secretAnswer": String, "avatarUrl": String}</code>
  */
 public class User {
     private Long id;

@@ -43,11 +43,26 @@ public class UserResource {
         this.mailer = mailer;
     }
 
+    /**
+     * <code>GET /api/user</code>
+     * <br>
+     * @return A list of all the users
+     */
     @GET
     public List<User> getUsers() {
         return dao.getUsers();
     }
 
+    /**
+     * <code>POST /api/user</code>
+     * <br>
+     * Creates a new user object(i.e. does a signup operation), you need to
+     * include the password and the secret answer in plaintext as well.
+     * No need to include the id or the avatar url in the request though,
+     * they are ignored.
+     * @param user The User object to be created
+     * @return The created user object, including its id column
+     */
     @POST
     public User addUser(@Valid User user) {
         Long id = dao.addUser(user);
@@ -62,6 +77,14 @@ public class UserResource {
         return user;
     }
 
+    /**
+     * <code>POST /api/user/update</code>
+     * <br>
+     * Updates an existing User profile. It fails if you aren't allowed to modify that user
+     * @param token Requires authentication
+     * @param user The user to modify, including the non-modified fields
+     * @return The updated user, if successful
+     */
     @POST
     @Path("/update")
     public Response updateUser(@Auth AccessToken token, @Valid User user) {
@@ -73,18 +96,36 @@ public class UserResource {
         }
     }
 
+    /**
+     * <code>GET /api/user/:id</code>
+     * <br>
+     * Gets a user by its id
+     * @return A user object
+     */
     @GET
     @Path("/{id}")
     public User getUser(@PathParam("id") Long id) {
         return dao.getUserById(id);
     }
     
+    /**
+     * <code>POST /api/user/byEmail</code>
+     * <br>
+     * Gets a user by its email address
+     * @return A user object
+     */
     @POST
     @Path("/byEmail")
     public User getUserByEmail(String email){
     	return dao.getUserByEmail(email);
     }
     
+    /**
+     * <code>POST /api/user/:id/ban</code>
+     * <br>
+     * Bans a user from posting if you are an administrator.
+     * Returns 204 on success and 304 on failure
+     */
     @POST
     @Path("/{id}/ban")
     public Response banUser(@Auth AccessToken token, @PathParam("id") Long id){
@@ -95,6 +136,15 @@ public class UserResource {
     	return Response.notModified().build();
     }
     
+    /**
+     * <code>POST /api/user/resetPassword</code>
+     * <br>
+     * Takes an AnswerCredentials object as input, and checks if that matches 
+     * the secret answer hash of the user. If it succeeds, a new password for the
+     * User is generated, it is sent to the user's email address, and a 200
+     * response is returned. On failure, the call returns a 304.
+     * @param answer an AnswerCredentials object
+     */
     @POST
     @Path("/resetPassword")
     public Response resetPassword(AnswerCredentials answer){
@@ -115,6 +165,15 @@ public class UserResource {
 		}
     }
     
+    /**
+     * <code>POST /api/user/:id/follow</code>
+     * <br>
+     * Follow another user. If that is not possible (nonexistent user or someone 
+     * you're already following) the call fails. A 200 response is returned on 
+     * success and a 304 on failure
+     * @param token Authentication required
+     * @return A Follow object, if successful
+     */
     @POST
     @Path("/{id}/follow")
     public Response followUser(@Auth AccessToken token, @PathParam("id") Long id){
@@ -126,6 +185,14 @@ public class UserResource {
     	return Response.ok(new Follow(token.getUserId(), id)).build();
     }
     
+    /**
+     * <code>POST /api/user/:id/unfollow</code>
+     * <br>
+     * Unfollow another user. If that is not possible (nonexistent user or someone 
+     * you're not already following) the call fails. A 204 response is returned on 
+     * success and a 304 on failure
+     * @param token Authentication required
+     */
     @POST
     @Path("/{id}/unfollow")
     public Response unfollowUser(@Auth AccessToken token, @PathParam("id") Long id){
@@ -137,6 +204,12 @@ public class UserResource {
     	return Response.ok().build();
     }
     
+    /**
+     * <code>GET /api/user/:id/followers</code>
+     * <br>
+     * Fetches all the users that follow the specified user.
+     * @return A list of User objects
+     */
     @GET
     @Path("/{id}/followers")
     public Response getFollowers(@PathParam("id") Long id){
@@ -147,6 +220,12 @@ public class UserResource {
     	return Response.ok(dao.getFollowers(id)).build();
     }
     
+    /**
+     * <code>GET /api/user/:id/following</code>
+     * <br>
+     * Fetches all the users that are followed by the specified user.
+     * @return A list of User objects
+     */
     @GET
     @Path("/{id}/following")
     public Response getFollowing(@PathParam("id") Long id){
@@ -157,12 +236,24 @@ public class UserResource {
     	return Response.ok(dao.getFollowing(id)).build();
     }
     
+    /**
+     * <code>GET /api/user/:id/menus</code>
+     * <br>
+     * Fetches a list of menus created by the specified user
+     * @return A list of Menu objects
+     */
     @GET
     @Path("/{id}/menus")
     public List<Menu> menusByUser(@PathParam("id") Long id){
     	return menuDao.menusByUser(id);
     }
     
+    /**
+     * <code>GET /api/user/:id/meals</code>
+     * <br>
+     * Fetches a list of meals created by the specified user
+     * @return A list of Meal objects
+     */
     @GET
     @Path("/{id}/meals")
     public List<Meal> mealsByUser(@PathParam("id") Long id){

@@ -81,6 +81,12 @@ var apiService = function(store) {
             apiCall("/user/"+action.id+"/", "GET").success(function(res){
                 next({type: 'PROFILE_LOADED', user: res});
             });
+            apiCall("/user/"+action.id+"/followers", "GET").success(function(res){
+                next({type: 'FOLLOWERS_LOADED', data: res});
+            });
+            apiCall("/user/"+action.id+"/following", "GET").success(function(res){
+                next({type: 'FOLLOWING_LOADED', data: res});
+            });
             break;
 
             case 'GET_USER_BY_EMAIL':

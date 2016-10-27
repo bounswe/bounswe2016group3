@@ -5,7 +5,8 @@ import org.joda.time.DateTime;
 /**
  * Represents a comment made on a meal. The contents are markdown strings,
  * to be rendered clientside. The dates are as always, unix timestamps
- * {"id":Integer, "mealId":Integer, "userId": Integer, "content": String, "creationTime":Integer, "updateTime":Integer}
+ * <br>
+ * <code>{"id":Integer, "mealId":Integer, "userId": Integer, "content": String, "creationTime":Integer, "updateTime":Integer}</code>
  */
 public class Comment {
 	private Long id;

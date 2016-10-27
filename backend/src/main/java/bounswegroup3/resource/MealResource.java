@@ -36,24 +36,49 @@ public class MealResource {
 		this.client = client;
 	}
 	
+	/**
+	 * <code>GET /api/meal/:id</code>
+	 * <br>
+	 * Gets a meal by its id
+	 * @param id
+	 * @return A meal object
+	 */
 	@GET
 	@Path("/{id}")
 	public Meal getMealById(@PathParam("id") Long id) {
 		return mealDao.getMealById(id);
 	}
 	
+	/**
+	 * <code>POST /api/meal</code>
+	 * <br>
+	 * Creates a new meal. Fails if you have don't have the same user id with the meal.
+	 * Returns 200 on success and 304 on failure.
+	 * @param token Requires authentication
+	 * @param meal The meal you're trying to create, including its user id
+	 * @return The created meal - including its id, if successful
+	 */
 	@POST
 	public Response createMeal(@Auth AccessToken token, @Valid Meal meal) {
 		if(meal.getUserId()  == token.getUserId()) {
 			Long id = mealDao.createMeal(meal);
 			meal.setId(id);
+
+			return Response.ok(meal).build();
 		} else {
 			return Response.notModified().build();
 		}
-		
-		return Response.ok(meal).build();
 	}
 	
+	/**
+	 * <code>POST /api/meal/update</code>
+	 * <br>
+	 * Update your own meal. Fails if you have no write accesss to the comment
+	 * Returns 200 on success and 304 on failure
+	 * @param token Requires authentication
+	 * @param meal The meal we're trying to update - including the unchanged properties
+	 * @return The modified meal, if successful.
+	 */
 	@POST
 	@Path("/update")
 	public Response updateMeal(@Auth AccessToken token, @Valid Meal meal) {	
@@ -65,6 +90,12 @@ public class MealResource {
 		}
 	}
 	
+	/**
+	 * <code>POST /api/meal/:id/delete</code>
+	 * <br>
+	 * Deletes the specified meal. Returns 200 on success and 304 on failure.
+	 * @param token Requires authentication
+	 */
 	@POST
 	@Path("/{id}/delete")
 	public Response deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
@@ -76,6 +107,13 @@ public class MealResource {
 		}
 	}
 	
+	/**
+	 * <code>POST /api/meal/:id/checkeat</code>
+	 * <br>
+	 * Check-eats the meal with the given id. You check-eat a meal to specify that you've eaten it.
+	 * Fails if you've already marked as eaten the meal. Return
+	 * @param token Requires authentication
+	 */
 	@POST
 	@Path("/{id}/checkeat")
 	public Response checkEat(@Auth AccessToken token, @PathParam("id") Long id) {
@@ -86,37 +124,76 @@ public class MealResource {
 			return Response.notModified().build();
 		}
 	}
-	
+	/**
+	 * <code>POST /api/meal/:id/rate/:rating</code>
+	 * <br>
+	 * Rates the meal with the specified id. The rating is a floating point 
+	 * number between 0 and 1
+	 * @param token Requires authentication
+	 */
 	@POST
 	@Path("/{id}/rate/{rating}")
 	public void rateMeal(@Auth AccessToken token, @PathParam("id") Long id, @PathParam("rating") Float rating) {
 		mealDao.rateMeal(token.getUserId(), id, rating);
 	}
 	
+	/**
+	 * <code>POST /api/meal/:id/ratings</code>
+	 * <br>
+	 * Gets the average and total ratings associated with a meal.
+	 * @param token Requires authentication
+	 * @return A Ratings object
+	 */
 	@GET
 	@Path("/{id}/ratings")
 	public Ratings getRatings(@Auth AccessToken token, @PathParam("id") Long id) {
 		return new Ratings(mealDao.averageRating(id), mealDao.totalRatings(id), mealDao.ratingByUser(token.getUserId(), id));
 	}
 	
+	/**
+	 * <code>GET /api/meal/byTag/:tag</code>
+	 * <br>
+	 * Fetches a list of meals tagged with the specified tag
+	 * @return A list of Meal objects
+	 */
 	@GET
 	@Path("/byTag/{tag}")
 	public List<Meal> mealsByTag(@PathParam("tag") String tag) {
 		return mealDao.getMealsByTag(tag);
 	}
 	
+	/**
+	 * <code>GET /api/meal/:id/tags</code>
+	 * <br>
+	 * Fetches all the tags the specified meal is tagged with
+	 * @return A list of Strings
+	 */
 	@GET
 	@Path("/{id}/tags")
 	public List<String> tagsByMeal(@PathParam("id") Long id) {
 		return mealDao.getTagsByMeal(id);
 	}
 	
+	/**
+	 * <code>GET /api/meal/:id/comments</code>
+	 * <br>
+	 * Fetches all the comments made on the specified meal
+	 * @return A list of Comment objects
+	 */
 	@GET
 	@Path("/{id}/comments")
 	public List<Comment> commentsByMeal(@PathParam("id") Long id) {
 		return commentDao.commentsByMeal(id);
 	}
 	
+	/**
+	 * <code>POST /api/meal/tag</code>
+	 * <br>
+	 * The call fails if the meal is already tagged in the specified way.
+	 * Returns 200 on success and 304 on failure
+	 * @param token Requires authentication
+	 * @param tag A tag object, containing the meal id and tag string
+	 */
 	@POST
 	@Path("/tag")
 	public Response tagMeal(@Auth AccessToken token, Tag tag) {
@@ -136,6 +213,14 @@ public class MealResource {
 		}
 	}
 	
+	/**
+	 * <code>POST /api/meal/untag</code>
+	 * <br>
+	 * The call fails if the meal is not already tagged in the specified way.
+	 * Returns 200 on success and 304 on failure
+	 * @param token Requires authentication
+	 * @param tag A tag object, containing the meal id and tag string
+	 */
 	@POST
 	@Path("/untag")
 	public Response untagMeal(@Auth AccessToken token, Tag tag) {
@@ -154,6 +239,11 @@ public class MealResource {
 		}
 	}
 	
+	/**
+	 * <code>GET /api/meal/:id/nutrition</code>
+	 * Fetches the nutritional info of the given meal from the external service
+	 * @return a NutritionalInfo object
+	 */
 	@GET
 	@Path("/{id}/nutrition")
 	public NutritionalInfo getNutrition(@PathParam("id") Long id) {

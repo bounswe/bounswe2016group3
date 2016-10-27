@@ -5,7 +5,9 @@ package bounswegroup3.model;
  * and also has 0+ comments. For its own properties, it also happens to
  * have a name, an ingredients list, a description and a photo. The description 
  * is also in Markdown, and the rendering is up to the client.
- * {"id":Integer, "menuId":Integer, "userId":Integer, "name":String, "description": String, "ingredients":String, "photoUrl": String}
+ * <br>
+ * <code>{"id":Integer, "menuId":Integer, "userId":Integer, "name":String, 
+ * "description": String, "ingredients":String, "photoUrl": String}</code>
  */
 public class Meal {
 	private Long id;
