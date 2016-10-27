@@ -7,7 +7,7 @@
     <application
         android:name=".EatalyzeApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_logo_eatalyze"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -33,7 +33,7 @@
             android:name=".activities.HomepageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.FollowingActivity"
+            android:name=".activities.FollowingListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EditPreferencesActivity"

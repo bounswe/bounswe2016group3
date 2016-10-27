@@ -1,21 +1,16 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cmpe451.eatalyze.EatalyzeApplication;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.User;
-import com.cmpe451.eatalyze.request.ApiService;
+import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import butterknife.Bind;
 import retrofit.Callback;
@@ -88,8 +83,6 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Follow the user
-                btn_follow.setText("Following");
-                btn_follow.setBackgroundColor(Color.BLUE);
                 //Add the users following list
 
             }
@@ -105,7 +98,7 @@ public class UserProfilePageActivity extends BaseActivity {
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserProfilePageActivity.this, FollowingActivity.class));
+                startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
             }
         });
         btnDiet.setOnClickListener(new View.OnClickListener() {

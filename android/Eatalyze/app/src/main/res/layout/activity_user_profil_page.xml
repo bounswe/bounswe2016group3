@@ -41,7 +41,7 @@
                 android:layout_weight="0.1" />
 
             <Button
-                android:text="@string/follow_btn"
+                android:text="Edit Profile"
                 android:background="@drawable/follow_button_shape"
                 android:layout_weight="0.25"
                 android:padding="15dp"
@@ -183,7 +183,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.04" />
 
-            <com.cmpe451.eatalyze.activities.ExpandableTextView
+            <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.01" />
 
-             <com.cmpe451.eatalyze.activities.ExpandableTextView
+             <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView1"
                 android:layout_width="fill_parent"
                  android:text="Comment2"
@@ -213,7 +213,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.01" />
 
-            <com.cmpe451.eatalyze.activities.ExpandableTextView
+            <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -248,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:id="@+id/btn_diet"
-                android:text="Diets"
+                android:text="DIETS"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_weight="0.2"/>
