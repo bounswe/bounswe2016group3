@@ -88,8 +88,7 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Follow the user
-                btn_follow.setText("Following");
-                btn_follow.setBackgroundColor(Color.BLUE);
+
                 //Add the users following list
 
             }
