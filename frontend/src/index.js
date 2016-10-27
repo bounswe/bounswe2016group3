@@ -25,6 +25,7 @@ import { Provider } from 'react-redux';
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 
+
 import './index.css';
 
 var middleware = applyMiddleware(apiService, redirectService);
