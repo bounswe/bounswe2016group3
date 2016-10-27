@@ -21,7 +21,14 @@ class Profile extends Component {
             );
         }
 
-        let profile = this.props.profile;
+        const profile = this.props.profile;
+        const current = this.props.currentUser;
+
+        var followUser = function(){
+            if(this.props.tokn!==""){
+                this.props.actions.follow(this.props.token, profile.id);
+            }
+        }
 
         let followersHtml = this.props.followers.map(function(u){
             return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
@@ -30,6 +37,17 @@ class Profile extends Component {
         let followingHtml = this.props.following.map(function(u){
             return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
         });
+
+        let followButton;
+        if(current.id === profile.id) {
+            followButton = <div></div>;
+        } else {
+            if(this.props.following.some(function(u){ return u.id === current.id})){
+                followButton = <button type="button" className="btn btn-default disabled">Follow</button>
+            } else {
+                followButton = <button type="button" className="btn btn-default" onClick={followUser}>Follow</button>
+            }
+        }
 
         return (
             <div>
@@ -40,6 +58,7 @@ class Profile extends Component {
                     <h1>{profile.fullName}</h1>
                     <p>{profile.bio}</p>
                     <p>{profile.email}</p>
+                    <p>{followButton}</p>
                     <div className="row">
                         <div className="col-xs-6">
                             <h3>Followers</h3>
@@ -58,9 +77,11 @@ class Profile extends Component {
 
 var mapStateToProps = function(state){
     return {
+        token: state.token,
         profile: state.profile,
         followers: state.followers,
-        following: state.following
+        following: state.following,
+        currentUser: state.currentUser
     };
 }
 
