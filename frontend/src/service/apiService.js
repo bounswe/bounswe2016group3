@@ -104,7 +104,7 @@ var apiService = function(store) {
             break;
 
             case 'FOLLOW_USER':
-            apiCall("/user/"+res.id+"/follow", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
+            apiCall("/user/"+action.id+"/follow", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
                 apiCall("/user/"+action.id+"/following", "GET").success(function(res){
                     next({type: 'FOLLOWING_LOADED', data: res});
                 });
