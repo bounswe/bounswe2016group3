@@ -1,4 +1,4 @@
-package com.cmpe451.eatalyze.activities;
+package com.cmpe451.eatalyze.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 
 /**
- *
+ * Created by Muharrem on 27/10/2016
  */
 public class ExpandableTextView extends TextView {
     private static final int DEFAULT_TRIM_LENGTH = 200;

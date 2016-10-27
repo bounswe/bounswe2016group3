@@ -33,7 +33,7 @@
             android:name=".activities.HomepageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.FollowingActivity"
+            android:name=".activities.FollowingListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EditPreferencesActivity"
