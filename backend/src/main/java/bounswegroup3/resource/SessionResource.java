@@ -15,6 +15,7 @@ import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
+import bounswegroup3.model.FacebookUser;
 import bounswegroup3.model.LoginCredentials;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
@@ -110,7 +111,23 @@ public class SessionResource {
     	Long res = client.getUserIdByToken(fbToken);
     	
     	if(res != 0) {
-    		return accessTokenDAO.generateToken(res);
+    		FacebookUser fbUser = client.getPersonalInfo(res, fbToken);
+    		if(fbUser!=null){
+    			User eatalyzeUser = userDAO.getUserByEmail(fbUser.getEmail());
+    			if(eatalyzeUser!=null){
+    				return accessTokenDAO.generateToken(eatalyzeUser.getId());
+    			} else {
+    				User newUser = new User();
+    				newUser.setEmail(fbUser.getEmail());
+    				newUser.setBio(fbUser.getAbout());
+    				newUser.setFullName(fbUser.getName());
+    				// TODO upload the avatar here
+    				Long newUserId = userDAO.addUser(newUser);
+    				return accessTokenDAO.generateToken(newUserId);
+    			}
+    		} else {
+    			throw new UnauthorizedException();
+    		}
     	} else {
     		throw new UnauthorizedException();
     	}

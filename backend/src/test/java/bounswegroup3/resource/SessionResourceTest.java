@@ -25,6 +25,7 @@ import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.UserDAO;
+import bounswegroup3.model.FacebookUser;
 import bounswegroup3.model.LoginCredentials;
 import bounswegroup3.model.User;
 import io.dropwizard.jackson.Jackson;
@@ -41,6 +42,7 @@ public class SessionResourceTest {
 		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client))
 		.build();
 	private User user;
+	private FacebookUser fbUser;
 	private LoginCredentials creds;
 	private ObjectMapper mapper;
 	
@@ -49,7 +51,10 @@ public class SessionResourceTest {
 		mapper = Jackson.newObjectMapper();
 
 		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
+		fbUser = new FacebookUser(42l, "test@deneme.com", "", "", "");
 		creds = new LoginCredentials("test@deneme.com", "123456");		
+		
+		FacebookUser invalidFbUser = new FacebookUser(42l, "not@exists.com", "", "", "");
 		
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(user);
@@ -60,6 +65,7 @@ public class SessionResourceTest {
 		
 		when(userDao.getUserByEmail(any())).thenReturn(user);
 		when(userDao.getUserByEmail(eq("toomany@logins.com"))).thenReturn(tooManyLoginsUser);
+		when(userDao.getUserByEmail(eq("not@exists.com"))).thenReturn(null);
 		
 		when(userDao.getUserById(any())).thenReturn(user);
 		
@@ -67,7 +73,11 @@ public class SessionResourceTest {
 		when(failedLoginDao.attemptsInLastFiveMinutes(eq(42l))).thenReturn(6l);
 		
 		when(client.getUserIdByToken(any())).thenReturn(1l);
+		when(client.getUserIdByToken(eq("notexists"))).thenReturn(2l);
 		when(client.getUserIdByToken(eq("nope"))).thenReturn(0l);
+		
+		when(client.getPersonalInfo(any(), any())).thenReturn(fbUser);
+		when(client.getPersonalInfo(eq(2l), any())).thenReturn(invalidFbUser);
 	}
 	
 	@After
@@ -141,13 +151,26 @@ public class SessionResourceTest {
 	}
 	
 	@Test
-	public void testFacebookLogin() throws Exception {
+	public void testFacebookLoginNewUser() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/session/fbLogin")
+				.request().accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json("notexists"));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(userDao).addUser(any());
+		verify(accessTokenDao).generateToken(any());
+	}
+	
+	@Test
+	public void testFacebookLoginExistingUser() throws Exception {
 		Response res = rule.getJerseyTest()
 				.target("/session/fbLogin")
 				.request().accept(MediaType.APPLICATION_JSON)
 				.post(Entity.json("test"));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(userDao, never()).addUser(any());
 		verify(accessTokenDao).generateToken(any());
 	}
 	

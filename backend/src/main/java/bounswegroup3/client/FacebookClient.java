@@ -1,10 +1,16 @@
 package bounswegroup3.client;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.UriBuilder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import bounswegroup3.model.FacebookUser;
+import io.dropwizard.jackson.Jackson;
 
 /**
  * The class is responsible for communicating with the Facebook Graph API in order
@@ -16,9 +22,13 @@ public class FacebookClient {
 	private String secret;
 	
 	private String appToken;
+
+	private ObjectMapper mapper;
 	
 	private static final URI callUrl = UriBuilder.fromUri("https://graph.facebook.com/debug_token").build();
 	private static final URI appTokenUrl = UriBuilder.fromUri("https://graph.facebook.com/oauth/access_token").build();
+	private static final URI graphUrl = UriBuilder.fromUri("https://graph.facebook.com/v2.8").build();
+	private static final String userFields = "name,about,email,picture";
 	
 	/**
 	 * Facebook API provides us with an App ID and a secret. It also requires an App Token
@@ -35,6 +45,8 @@ public class FacebookClient {
 		this.secret = secret;
 		
 		getAppToken();
+		
+		mapper = Jackson.newObjectMapper();
 	}
 	
 	private void getAppToken() {
@@ -64,6 +76,27 @@ public class FacebookClient {
 			return Long.parseLong(res.get("data").get("user_id"));
 		} else {
 			return 0l;
+		}
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	public FacebookUser getPersonalInfo(Long userId, String token){
+		HashMap<String, String> res = client.target(graphUrl.resolve("/"+userId.toString()))
+				.queryParam("access_token", token)
+				.queryParam("fields", userFields)
+				.request()
+				.get(HashMap.class);
+		
+		try {
+			String pic = ((HashMap<String,String>)mapper.readValue(res.get("picture"), HashMap.class).get("data")).get("url");
+			
+			FacebookUser ret = new FacebookUser(new Long(res.get("id")), res.get("email"), res.get("name"), res.get("about"), pic);
+			return ret;
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+			return null;
 		}
 	}
 }
