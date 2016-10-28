@@ -34,11 +34,6 @@ var Signup = function(props) {
         props.history.pushState(null,"/");
     }
 
-    <style>
-    .
-
-    </style>
-
     return (
         <div>
           <article className="col-xs-5">

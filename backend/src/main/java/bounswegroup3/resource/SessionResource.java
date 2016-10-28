@@ -52,16 +52,16 @@ public class SessionResource {
             throw new UnauthorizedException();
         }
 
-        //if(failedLoginDAO.attemptsInLastFiveMinutes(user.getId()) >= 5){
-        	//failedLoginDAO.addAttempt(user.getId());
-        	//throw new UnauthorizedException();
-        //}
+        if(failedLoginDAO.attemptsInLastFiveMinutes(user.getId()) >= 5){
+        	failedLoginDAO.addAttempt(user.getId());
+        	throw new UnauthorizedException();
+        }
 
         try {
             if (user.checkPassword(credentials.getPassword())) {
                 return accessTokenDAO.generateToken(user.getId());
             } else {
-            	//failedLoginDAO.addAttempt(user.getId());
+            	failedLoginDAO.addAttempt(user.getId());
                 throw new UnauthorizedException();
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {

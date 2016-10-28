@@ -86,8 +86,8 @@ public class SessionResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
 		
-		verify(userDao).getUserByEmail(anyString());
-		//verify(failedLoginDao).attemptsInLastFiveMinutes(anyLong());
+		verify(userDao).getUserByEmail(any());
+		verify(failedLoginDao).attemptsInLastFiveMinutes(any());
 	}
 	
 	@Test
@@ -99,19 +99,19 @@ public class SessionResourceTest {
 				.post(Entity.json(tmp));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(401);
-		//verify(failedLoginDao).addAttempt(any());
+		verify(failedLoginDao).addAttempt(any());
 	}
 	
 	@Test
 	public void testTooManyAttempts() throws Exception {
-		/* LoginCredentials tmp = new LoginCredentials("toomany@logins.com", "123456");
+		LoginCredentials tmp = new LoginCredentials("toomany@logins.com", "123456");
 		
 		Response res = rule.getJerseyTest()
 				.target("/session/login")
 				.request().accept(MediaType.APPLICATION_JSON)
 				.post(Entity.json(tmp));
 		
-		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(401); */
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(401);
 	}
 	
 	@Test

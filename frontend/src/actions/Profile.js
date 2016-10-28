@@ -13,4 +13,4 @@ var follow = function(token, id){
     };
 }
 
-export { load };
+export { load, follow };
