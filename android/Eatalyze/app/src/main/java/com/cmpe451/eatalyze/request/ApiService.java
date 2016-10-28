@@ -3,6 +3,8 @@ package com.cmpe451.eatalyze.request;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.User;
+import com.cmpe451.eatalyze.models.UserRequest;
+import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
 
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ public interface ApiService {
     public void login(@Body LoginCredentials credentials, Callback<AccessToken> accessTokenCallback);
 
     @POST("/api/user")
-    public void signup(@Body User user, Callback<AccessToken> accessTokenCallback);
+    public void signup(@Body UserRequest userRequest, Callback<UserResponse> userResponseCallback);
 
     @GET("/api/session/currentUser")
     public void getCurrentUser(@Query("accessToken") AccessToken accessToken, Callback<User> userCallback);

@@ -10,12 +10,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpe451.eatalyze.fragments.UserSignupFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="User Signup"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:hint="@string/mail_hint"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/login_textbox"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_email"
+        android:gravity="center"
+        android:hint="@string/pswd"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/login_textbox"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/et_fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_password"
+        android:gravity="center"
+        android:hint="@string/full_name"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/login_textbox"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/et_secretQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_fullName"
+        android:gravity="center"
+        android:hint="@string/secret_question"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/login_textbox"
+        android:layout_margin="10dp"
+        />
+
+    <EditText
+        android:id="@+id/et_secretAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_secretQuestion"
+        android:gravity="center"
+        android:hint="@string/secret_answer"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/login_textbox"
+        android:layout_margin="10dp"
+        />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/et_secretAnswer"
+        android:text="@string/signup_button"
+        android:textColor="@color/pageBackground"
+        android:background="@drawable/login_btn"
+        />
 
 </RelativeLayout>

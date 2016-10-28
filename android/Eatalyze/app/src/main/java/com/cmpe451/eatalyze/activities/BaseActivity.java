@@ -72,3 +72,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         apiService = restAdapter.create(ApiService.class);
     }
 }
+
