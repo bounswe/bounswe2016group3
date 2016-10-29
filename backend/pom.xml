@@ -66,7 +66,7 @@
     </plugins>
   </build>
   
-    <dependencies>
+  <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -136,16 +136,16 @@
     </dependency>
     
     <dependency>
-	    <groupId>com.mailjet</groupId>
-	    <artifactId>mailjet-client</artifactId>
-	    <version>4.0.1</version>
+	  <groupId>com.mailjet</groupId>
+	  <artifactId>mailjet-client</artifactId>
+	  <version>4.0.1</version>
 	</dependency>
     
    	<dependency>
-		<groupId>org.glassfish.jersey.media</groupId>
-		<artifactId>jersey-media-multipart</artifactId>
-		<version>2.21.1</version>
-	</dependency>
+	  <groupId>org.glassfish.jersey.media</groupId>
+	  <artifactId>jersey-media-multipart</artifactId>
+	  <version>2.21.1</version>
+    </dependency>
 	
     <dependency>
 	    <groupId>org.antlr</groupId>
@@ -163,8 +163,8 @@
           <artifactId>javax.servlet-api</artifactId>
 	    </exclusion>
         <exclusion>
-	        <groupId>junit</groupId>
-	        <artifactId>junit</artifactId>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
         </exclusion>
 	  </exclusions>
 	</dependency>
@@ -174,5 +174,17 @@
 	  <artifactId>h2</artifactId>
 	  <version>1.3.176</version>
 	</dependency>
+	
+	<dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.11.48</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 </project>

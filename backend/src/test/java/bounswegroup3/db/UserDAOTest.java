@@ -43,8 +43,11 @@ public class UserDAOTest {
 	    u = dao.getUserById(1l);
 	    assertThat(u.getFullName()).isEqualTo("test deneme");
 	    
+	    dao.updateAvatar(1l, "test deneme");
+	    
 	    u = dao.getUserByEmail("test@deneme.com");
 	    assertThat(u.getFullName()).isEqualTo("test deneme");
+	    assertThat(u.getAvatarUrl()).isEqualTo("test deneme");
 	    
 	    u.setBio("test bio");
 	    dao.updateUser(u);

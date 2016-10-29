@@ -56,6 +56,8 @@ public class FacebookClient implements ServiceClient {
 					.queryParam("grant_type", "client_credentials")
 					.request()
 					.get(String.class);
+		
+		appToken = appToken.substring(13, appToken.length());
 	}
 	
 	/**
@@ -86,7 +88,7 @@ public class FacebookClient implements ServiceClient {
 				.request()
 				.get(HashMap.class);
 		
-		return res.containsKey("id") && res.get("id").equals(appId);
+		return res.containsKey("id") && res.get("id").equals(appId.toString());
 	}
 
 	@SuppressWarnings("unchecked")

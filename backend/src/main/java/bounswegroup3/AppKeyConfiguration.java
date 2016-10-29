@@ -10,6 +10,10 @@ public class AppKeyConfiguration {
     private String nutritionixAppId;
     private String nutritionixKey;
 
+    private String amazonKey;
+    private String amazonSecret;
+    private String amazonBucket;
+    
 	public String getMailjetKey() {
 		return mailjetKey;
 	}
@@ -56,5 +60,29 @@ public class AppKeyConfiguration {
 
 	public void setNutritionixKey(String nutritionixKey) {
 		this.nutritionixKey = nutritionixKey;
+	}
+
+	public String getAmazonKey() {
+		return amazonKey;
+	}
+
+	public void setAmazonKey(String amazonKey) {
+		this.amazonKey = amazonKey;
+	}
+
+	public String getAmazonSecret() {
+		return amazonSecret;
+	}
+
+	public void setAmazonSecret(String amazonSecret) {
+		this.amazonSecret = amazonSecret;
+	}
+
+	public String getAmazonBucket() {
+		return amazonBucket;
+	}
+
+	public void setAmazonBucket(String amazonBucket) {
+		this.amazonBucket = amazonBucket;
 	}
 }

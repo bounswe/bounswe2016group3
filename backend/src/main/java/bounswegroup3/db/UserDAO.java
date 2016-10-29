@@ -26,9 +26,11 @@ public interface UserDAO {
             + ":secretQuestion, :secretAnswerHash, :secretAnswerSalt, :avatarUrl)")
     Long addUser(@BindBean User user);
 
+    @SqlUpdate("update users set avatar_url = :url where id = :id")
+    void updateAvatar(@Bind("id") Long id, @Bind("url") String url);
+    
     @SqlUpdate("update users set password_hash = :passwordHash, password_salt = :passwordSalt,"
-            + "full_name = :fullName, bio = :bio, user_type = :userType, diet_type = :dietType,"
-    		+ "avatar_url = :avatarUrl "
+            + "full_name = :fullName, bio = :bio, user_type = :userType, diet_type = :dietType "
             + "where id = :id")
     void updateUser(@BindBean User user);
 

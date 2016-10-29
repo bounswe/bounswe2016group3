@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import static bounswegroup3.utils.TestUtils.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -15,7 +16,12 @@ import javax.ws.rs.core.Response;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 
+import org.eclipse.jetty.util.MultiPartWriter;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,6 +31,7 @@ import org.mockito.MockitoAnnotations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
+import bounswegroup3.client.AmazonClient;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
@@ -41,10 +48,11 @@ public class UserResourceTest {
 	private static final MenuDAO menuDao = mock(MenuDAO.class);
 	private static final MealDAO mealDao = mock(MealDAO.class);
 	private static final Mailer mailer = mock(Mailer.class);
+	private static final AmazonClient s3 = mock(AmazonClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new UserResource(userDao, menuDao, mealDao, mailer))
+		.addResource(new UserResource(userDao, menuDao, mealDao, mailer, s3))
 		.addProvider(MultiPartFeature.class)
 		.build();
 	
@@ -331,5 +339,31 @@ public class UserResourceTest {
 		
 		assertThat(read.size()).isEqualTo(1);
 		assertThat(read.get(0).get("name")).isEqualTo(meal.getName());
+	}
+	
+	@Test
+	public void testAvatarUpload() throws Exception {
+		/* 
+		 * doesn't work for some reason.
+		 * We get a MessageBodyWriter not found for media type=multipart/form-data error
+		 */
+		
+		/*
+		FileDataBodyPart filePart = new FileDataBodyPart("test", File.createTempFile("test-", "-eatalyze"));
+		filePart.setContentDisposition(FormDataContentDisposition.name("test").build());
+		
+		@SuppressWarnings("resource")
+		MultiPart mp = new FormDataMultiPart()
+				.bodyPart(filePart);
+		
+		Response res = rule.getJerseyTest()
+				.target("/user/avatar")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.entity(mp, MediaType.MULTIPART_FORM_DATA_TYPE));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(s3).uploadFile(any());
+		*/
 	}
 }

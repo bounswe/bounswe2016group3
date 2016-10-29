@@ -29,6 +29,7 @@ import org.skife.jdbi.v2.DBI;
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.auth.OAuthAuthorizer;
 import bounswegroup3.client.FacebookClient;
+import bounswegroup3.client.AmazonClient;
 import bounswegroup3.client.ClientHealthCheck;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.AccessTokenDAO;
@@ -101,7 +102,12 @@ class App extends Application<AppConfig> {
         		conf.getAppKeys().getNutritionixAppId(), 
         		conf.getAppKeys().getNutritionixKey());
         
-        final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer);
+        final AmazonClient amazonClient = new AmazonClient(
+        		conf.getAppKeys().getAmazonBucket(), 
+        		conf.getAppKeys().getAmazonKey(),
+        		conf.getAppKeys().getAmazonSecret());
+        
+        final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer, amazonClient);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
         final MealResource mealResource = new MealResource(mealDao, commentDao, nutritionixClient);
@@ -114,6 +120,7 @@ class App extends Application<AppConfig> {
         env.healthChecks().register("facebook", new ClientHealthCheck("Facebook", fbClient));
         env.healthChecks().register("nutritionix", new ClientHealthCheck("Nutritionix", nutritionixClient));
         env.healthChecks().register("mailjet", new ClientHealthCheck("Mailjet", mailer));
+        env.healthChecks().register("amazon", new ClientHealthCheck("Amazon S3", amazonClient));
         
         env.jersey()
         	.register(new AuthDynamicFeature(

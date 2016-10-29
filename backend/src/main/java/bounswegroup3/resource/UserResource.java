@@ -23,6 +23,7 @@ import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
 import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
+import bounswegroup3.client.AmazonClient;
 import bounswegroup3.constant.UserType;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
@@ -44,12 +45,14 @@ public class UserResource {
     private MenuDAO menuDao;
     private MealDAO mealDao;
     private Mailer mailer;
+    private AmazonClient s3;
     
-    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, Mailer mailer) {
+    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, Mailer mailer, AmazonClient s3) {
         this.dao = dao;
         this.menuDao = menuDao;
         this.mealDao = mealDao;
         this.mailer = mailer;
+        this.s3 = s3;
     }
 
     /**
@@ -276,17 +279,8 @@ public class UserResource {
     public void avatarUpload(@Auth AccessToken token, 
     		@FormDataParam("file") InputStream file, 
     		@FormDataParam("file") FormDataContentDisposition contentDispositionHeader){
-    	System.out.println(contentDispositionHeader.getFileName());
-    	System.out.println(contentDispositionHeader.getType());
-    	System.out.println(contentDispositionHeader.getSize());
-        
-    	// TODO upload that to Amazon S3
-        try {
-            System.out.println(CharStreams.toString(new InputStreamReader(file)));
-        } catch (IOException e) {
-            System.out.println("wat??");
 
-            e.printStackTrace();
-        }
+    	String url = s3.uploadFile(file);
+    	dao.updateAvatar(token.getUserId(), url);
     }
 }

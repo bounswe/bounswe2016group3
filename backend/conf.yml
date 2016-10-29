@@ -27,6 +27,9 @@ appKeys:
     mailjetSecret: ${EATALYZE_MAILJET_SECRET}
     nutritionixAppId: 08adfd9c
     nutritionixKey: ${NUTRITIONIX_API_KEY}
+    amazonKey: AKIAIB253UEBNI3K4PTA
+    amazonSecret: ${AWS_API_SECRET}
+    amazonBucket: eatalyze
 
 httpClient:
     minThreads: 1
