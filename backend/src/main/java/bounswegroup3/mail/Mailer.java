@@ -5,14 +5,18 @@ import org.json.JSONObject;
 
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
 import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.resource.Apikeytotals;
 import com.mailjet.client.resource.Email;
+
+import bounswegroup3.client.ServiceClient;
 
 /**
  * Facilitates communication with the Mailjet API to
  * be able to send emails
  */
-public class Mailer {
+public class Mailer implements ServiceClient {
 	private MailjetClient client;
 	private String senderName;
 	private String senderMail;
@@ -51,5 +55,19 @@ public class Mailer {
 			System.out.println("Mailing error");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean checkValidity() {
+		MailjetResponse res;
+		try {
+			res = client.get(new MailjetRequest(Apikeytotals.resource));
+
+			return res.getStatus() == 200;
+		} catch (MailjetException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 }

@@ -15,8 +15,10 @@ import com.google.common.cache.LoadingCache;
 import bounswegroup3.mapper.NutritionalInfoMapper;
 import bounswegroup3.model.NutritionalInfo;
 
-public class NutritionixClient {
+public class NutritionixClient implements ServiceClient {
 	private LoadingCache<String, String> searches;
+	
+	private Client client;
 	
 	private static URI searchUrl = UriBuilder.fromUri("https://trackapi.nutritionix.com/v2/natural/nutrients").build();
 	
@@ -51,6 +53,8 @@ public class NutritionixClient {
 							return res.readEntity(String.class);
 					}
 				});
+		
+		this.client = client;
 	}
 	
 	/**
@@ -67,6 +71,21 @@ public class NutritionixClient {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public boolean checkValidity() {
+		String postBody = "{ \"query\": \"test\"}";
+		
+		Response res = client.target(searchUrl)
+				.request()
+				.header("Content-Type", "application/json")
+				.header("x-remote-user-id", 0)
+				.post(Entity.entity(postBody, MediaType.APPLICATION_JSON_TYPE));
+		
+		// when we don't supply app id and secret
+		// the api returns a 401 response.
+		return res.getStatusInfo().getStatusCode() == 401;
 	}
 	
 }

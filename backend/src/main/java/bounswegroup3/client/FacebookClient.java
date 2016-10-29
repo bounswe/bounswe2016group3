@@ -16,7 +16,7 @@ import io.dropwizard.jackson.Jackson;
  * The class is responsible for communicating with the Facebook Graph API in order
  * to connect via Facebook.
  */
-public class FacebookClient {
+public class FacebookClient implements ServiceClient {
 	private Client client;
 	private Long appId;
 	private String secret;
@@ -79,9 +79,18 @@ public class FacebookClient {
 		}
 	}
 	
+	public boolean checkValidity() {
+		@SuppressWarnings("unchecked")
+		HashMap<String, String> res = client.target(graphUrl.resolve(appId.toString()))
+				.queryParam("access_token", appToken)
+				.request()
+				.get(HashMap.class);
+		
+		return res.containsKey("id") && res.get("id").equals(appId);
+	}
 
 	@SuppressWarnings("unchecked")
-	public FacebookUser getPersonalInfo(Long userId, String token){
+	public FacebookUser getPersonalInfo(Long userId, String token) {
 		HashMap<String, String> res = client.target(graphUrl.resolve("/"+userId.toString()))
 				.queryParam("access_token", token)
 				.queryParam("fields", userFields)

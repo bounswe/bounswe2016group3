@@ -29,6 +29,7 @@ import org.skife.jdbi.v2.DBI;
 import bounswegroup3.auth.OAuthAuthenticator;
 import bounswegroup3.auth.OAuthAuthorizer;
 import bounswegroup3.client.FacebookClient;
+import bounswegroup3.client.ClientHealthCheck;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.CommentDAO;
@@ -109,6 +110,10 @@ class App extends Application<AppConfig> {
         final KillTokens killTokens = new KillTokens(accessTokenDAO);
         
         env.admin().addTask(killTokens);
+        
+        env.healthChecks().register("facebook", new ClientHealthCheck("Facebook", fbClient));
+        env.healthChecks().register("nutritionix", new ClientHealthCheck("Nutritionix", nutritionixClient));
+        env.healthChecks().register("mailjet", new ClientHealthCheck("Mailjet", mailer));
         
         env.jersey()
         	.register(new AuthDynamicFeature(
