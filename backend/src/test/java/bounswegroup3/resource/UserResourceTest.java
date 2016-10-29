@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,6 +45,7 @@ public class UserResourceTest {
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
 		.addResource(new UserResource(userDao, menuDao, mealDao, mailer))
+		.addProvider(MultiPartFeature.class)
 		.build();
 	
 	private User user;

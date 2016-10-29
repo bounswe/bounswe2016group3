@@ -3,7 +3,13 @@ package bounswegroup3.resource;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
+import com.google.common.io.CharStreams;
+
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,6 +30,9 @@ import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.mail.Template;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -260,13 +269,18 @@ public class UserResource {
     	return mealDao.mealsByUserId(id);
     }
     
-/*
+
     @POST
-    @Path("/avatar/")
+    @Path("/avatar")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public void avatarUpload(@Auth AccessToken token, @FormDataParam("file") InputStream file, @FormDataParam("file") FormDataContentDisposition contentDispositionHeader){
+    public void avatarUpload(@Auth AccessToken token, 
+    		@FormDataParam("file") InputStream file, 
+    		@FormDataParam("file") FormDataContentDisposition contentDispositionHeader){
     	System.out.println(contentDispositionHeader.getFileName());
+    	System.out.println(contentDispositionHeader.getType());
+    	System.out.println(contentDispositionHeader.getSize());
         
+    	// TODO upload that to Amazon S3
         try {
             System.out.println(CharStreams.toString(new InputStreamReader(file)));
         } catch (IOException e) {
@@ -275,5 +289,4 @@ public class UserResource {
             e.printStackTrace();
         }
     }
-    */
 }
