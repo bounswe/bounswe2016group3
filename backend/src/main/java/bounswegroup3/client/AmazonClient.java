@@ -53,6 +53,8 @@ public class AmazonClient implements ServiceClient {
 	public boolean checkValidity() {
 		try {
 			client.listBuckets();
+			// the service is healthy if nothing goes wrong doing
+			// that call
 			
 			return true;
 		} catch(Exception e) {

@@ -272,7 +272,25 @@ public class UserResource {
     	return mealDao.mealsByUserId(id);
     }
     
-
+    /**
+     * <code>POST /api/user/avatar</code>
+     * <br>
+     * This one's a bit different than the other API calls.
+     * In the header, you need to set content-type to <code>multipart/form-data</code>
+     * instead of <code>application/json</code> but the Authorization header
+     * should remain the same. And then, in the post body, instead of a JSON
+     * object as a raw string, send regular form-encoded input with the parameter
+     * "file" equal to the file that you want to upload. 
+     * <br>
+     * The call will get the file you've sent, upload that to the Amazon S3 bucket,
+     * make the uploaded file publicly available, and set the current user's avatar
+     * URL to the public URL of the newly uploaded file.
+     * <br>
+     * Returns a 204 response on success, only fails when the Authentication is wrong.
+     * @param token Requires authorization.
+     * @param file Uploaded file
+     * @param contentDispositionHeader Uploaded file metadata
+     */
     @POST
     @Path("/avatar")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
