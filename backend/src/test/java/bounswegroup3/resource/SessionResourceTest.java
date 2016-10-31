@@ -21,6 +21,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
+import bounswegroup3.client.AmazonClient;
 import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
@@ -36,10 +37,11 @@ public class SessionResourceTest {
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static FailedLoginDAO failedLoginDao = mock(FailedLoginDAO.class);
 	private static FacebookClient client = mock(FacebookClient.class);
+	private static AmazonClient s3 = mock(AmazonClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client))
+		.addResource(new SessionResource(accessTokenDao, userDao, failedLoginDao, client, s3))
 		.build();
 	private User user;
 	private FacebookUser fbUser;
@@ -158,8 +160,12 @@ public class SessionResourceTest {
 				.post(Entity.json("notexists"));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		
 		verify(userDao).addUser(any());
 		verify(accessTokenDao).generateToken(any());
+		
+		verify(client).downloadImage(any());
+		verify(s3).uploadFile(any());
 	}
 	
 	@Test
@@ -170,8 +176,12 @@ public class SessionResourceTest {
 				.post(Entity.json("test"));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		
 		verify(userDao, never()).addUser(any());
 		verify(accessTokenDao).generateToken(any());
+		
+		verify(client, never()).downloadImage(any());
+		verify(s3, never()).uploadFile(any());
 	}
 	
 	@Test

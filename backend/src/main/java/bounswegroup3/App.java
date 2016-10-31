@@ -108,7 +108,7 @@ class App extends Application<AppConfig> {
         		conf.getAppKeys().getAmazonSecret());
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer, amazonClient);
-        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient);
+        final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient, amazonClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
         final MealResource mealResource = new MealResource(mealDao, commentDao, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);

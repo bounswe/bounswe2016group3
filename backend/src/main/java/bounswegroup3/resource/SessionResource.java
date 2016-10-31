@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import bounswegroup3.auth.UnauthorizedException;
+import bounswegroup3.client.AmazonClient;
 import bounswegroup3.client.FacebookClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.FailedLoginDAO;
@@ -27,13 +28,15 @@ public class SessionResource {
     private UserDAO userDAO;
     private FailedLoginDAO failedLoginDAO;
     private FacebookClient client;
+    private AmazonClient s3;
     
-    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO, FacebookClient client) {
+    public SessionResource(AccessTokenDAO accessTokenDAO, UserDAO userDAO, FailedLoginDAO failedLoginDAO, FacebookClient client, AmazonClient s3) {
         super();
         this.accessTokenDAO = accessTokenDAO;
         this.userDAO = userDAO;
         this.failedLoginDAO = failedLoginDAO;
         this.client = client;
+        this.s3 = s3;
     }
 
     /**
@@ -121,7 +124,11 @@ public class SessionResource {
     				newUser.setEmail(fbUser.getEmail());
     				newUser.setBio(fbUser.getAbout());
     				newUser.setFullName(fbUser.getName());
-    				// TODO upload the avatar here
+    				
+    				// upload the avatar
+    				String avatar = s3.uploadFile(client.downloadImage(fbUser.getPicture()));
+    				newUser.setAvatarUrl(avatar);
+    				
     				Long newUserId = userDAO.addUser(newUser);
     				return accessTokenDAO.generateToken(newUserId);
     			}
