@@ -25,17 +25,21 @@ class Profile extends Component {
         const current = this.props.currentUser;
 
         var followUser = function(){
-            if(this.props.tokn!==""){
+            if(this.props.token!==""){
                 this.props.actions.follow(this.props.token, profile.id);
             }
         }
 
         let followersHtml = this.props.followers.map(function(u){
-            return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
+            return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
         });
 
         let followingHtml = this.props.following.map(function(u){
-            return <li><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
+            return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
+        });
+
+        let menusHtml = this.props.menus.map(function(m){
+            return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
         });
 
         let followButton;
@@ -69,6 +73,12 @@ class Profile extends Component {
                             <ul>{followingHtml}</ul>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col-xs-6">
+                            <h3>Menus</h3>
+                            <ul>{menusHtml}</ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -81,6 +91,7 @@ var mapStateToProps = function(state){
         profile: state.profile,
         followers: state.followers,
         following: state.following,
+        menus: state.menus,
         currentUser: state.currentUser
     };
 }

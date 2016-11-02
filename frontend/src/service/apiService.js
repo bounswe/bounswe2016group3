@@ -87,6 +87,10 @@ var apiService = function(store) {
             apiCall("/user/"+action.id+"/following", "GET").success(function(res){
                 next({type: 'FOLLOWING_LOADED', data: res});
             });
+            apiCall("/user/"+action.id+"/menus", "GET").success(function(res){
+                next({type: 'MENUS_LOADED', data: res});
+            });
+
             break;
 
             case 'GET_USER_BY_EMAIL':
@@ -115,11 +119,17 @@ var apiService = function(store) {
             apiCall('/menu/'+action.id+"/", "GET").success(function(res){
                 next({type: 'MENU_LOADED', data: res});
             });
+            apiCall('/menu/'+action.id+"/meals/", "GET").success(function(res){
+                next({type: 'MEALS_LOADED', data: res});
+            });
             break;
 
             case 'LOAD_MEAL':
             apiCall('/meal/'+action.id+"/", "GET").success(function(res){
                 next({type: 'MEAL_LOADED', data: res});
+            });
+            apiCall('/meal/'+action.id+"/comments/", "GET").success(function(res){
+                next({type: 'COMMENTS_LOADED', data: res});
             });
             break;
 

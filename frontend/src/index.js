@@ -19,18 +19,16 @@ import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
 import { users, profile, followers, following } from './reducers/users';
 import { userId, secretQuestion } from './reducers/pwdReset';
-import { menu } from './reducers/menu';
-import { meal } from './reducers/meal';
+import { menu, menus } from './reducers/menu';
+import { meal, meals } from './reducers/meal';
+import { comments } from './reducers/comment';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
- 
-
 import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
-
 
 import './index.css';
 
@@ -43,7 +41,8 @@ var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
   users, profile,
   followers, following,
-  menu, meal });
+  menu, meal, 
+  menus, meals, comments });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((
