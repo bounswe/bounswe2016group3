@@ -24,7 +24,7 @@ class Profile extends Component {
         const profile = this.props.profile;
         const current = this.props.currentUser;
 
-        var followUser = function(){
+        var followUser = () => {
             if(this.props.token!==""){
                 this.props.actions.follow(this.props.token, profile.id);
             }
