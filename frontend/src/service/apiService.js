@@ -111,6 +111,18 @@ var apiService = function(store) {
             });
             break;
 
+            case 'LOAD_MENU':
+            apiCall('/menu/'+action.id+"/", "GET").success(function(res){
+                next({type: 'MENU_LOADED', data: res});
+            });
+            break;
+
+            case 'LOAD_MEAL':
+            apiCall('/meal/'+action.id+"/", "GET").success(function(res){
+                next({type: 'MEAL_LOADED', data: res});
+            });
+            break;
+
             default:
             break;
             }              
