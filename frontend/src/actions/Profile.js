@@ -5,11 +5,13 @@ var load = function(id){
     };
 }
 
-var follow = function(token, id){
+var follow = function(token, followee, follower){
     return {
         type: 'FOLLOW_USER',
-        id: id,
-        token: token
+        id: followee.id, 
+        followee,
+        follower,
+        token
     };
 }
 

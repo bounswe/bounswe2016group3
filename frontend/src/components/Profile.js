@@ -26,7 +26,7 @@ class Profile extends Component {
 
         var followUser = () => {
             if(this.props.token!==""){
-                this.props.actions.follow(this.props.token, profile.id);
+                this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
 

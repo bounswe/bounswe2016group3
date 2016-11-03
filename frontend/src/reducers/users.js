@@ -23,6 +23,9 @@ var followers = function(state=[], action){
         case 'FOLLOWERS_LOADED':
         return action.data;
 
+        case 'FOLLOW_USER':
+        return state.concat([action.follower]);
+
         default:
         return state;
     }
@@ -32,6 +35,9 @@ var following = function(state=[], action){
     switch(action.type){
         case 'FOLLOWING_LOADED':
         return action.data;
+
+        //case 'FOLLOW_USER':
+        //return state.concat([action.followee]);
 
         default:
         return state;
