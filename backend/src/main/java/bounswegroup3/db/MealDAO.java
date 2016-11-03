@@ -15,7 +15,7 @@ import bounswegroup3.model.Meal;
 @RegisterMapper(MealMapper.class)
 public interface MealDAO {
     @GetGeneratedKeys
-	@SqlUpdate("insert into meals (menu_id, user_id, name, description, photo_url) values (:menuId, :userId, :name, :description, :photoUrl)")
+	@SqlUpdate("insert into meals (menu_id, user_id, name, description, ingredients, photo_url) values (:menuId, :userId, :name, :description, :ingredients, :photoUrl)")
     Long createMeal(@BindBean Meal meal);
     
 	@SqlQuery("select * from meals where menu_id=:id")
