@@ -43,6 +43,11 @@ public class LoginActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (eatalyzeApplication.getAccessToken() != null) {
+            startActivity(new Intent(this, UserHomepageActivity.class));
+            finish();
+        }
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
