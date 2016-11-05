@@ -34,12 +34,6 @@ public class UserHomepageActivity extends BaseActivity {
     @Bind(R.id.rec_server_list)
     ListView rec_server;
 
-    @Bind(R.id.iv_list_image)
-    ImageView meal_server_image;
-
-    @Bind(R.id.tv_list_properties)
-    TextView meal_server_properties;
-
     final List<Meal>  recMeals = new ArrayList<Meal>();
 
     final List<FoodServer> recFoodServers = new ArrayList<FoodServer>();
@@ -60,7 +54,8 @@ public class UserHomepageActivity extends BaseActivity {
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                hello_name.setText("Hello, " + user.getFullName());
+                String welcomeText = "Hello, " + user.getFullName();
+                hello_name.setText(welcomeText);
             }
 
             @Override
@@ -71,6 +66,8 @@ public class UserHomepageActivity extends BaseActivity {
 
 
     }
+
+
 
 
 
