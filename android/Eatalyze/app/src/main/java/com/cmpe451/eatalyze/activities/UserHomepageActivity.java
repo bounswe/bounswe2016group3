@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,8 +34,11 @@ public class UserHomepageActivity extends BaseActivity {
     @Bind(R.id.rec_server_list)
     ListView rec_server;
 
+    @Bind(R.id.iv_list_image)
+    ImageView meal_server_image;
+
     @Bind(R.id.tv_list_properties)
-    TextView meal_properties;
+    TextView meal_server_properties;
 
     final List<Meal>  recMeals = new ArrayList<Meal>();
 
