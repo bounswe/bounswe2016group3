@@ -125,6 +125,13 @@ public class UserProfilePageActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(UserProfilePageActivity.this, UserHomepageActivity.class));
+        finish();
+    }
 }
 
 
