@@ -9,10 +9,11 @@
     <include layout="@layout/app_bar"/>
 
     <TextView
+        android:id="@+id/hello_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:text="Hello, "/>
+        android:text="@string/hello_name"/>
 
     <TextView
         android:id="@+id/tv_recommendedmeal"

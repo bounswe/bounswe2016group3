@@ -72,4 +72,30 @@ public class Meal {
     public void setRecipe(String recipe) {
         this.recipe = recipe;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setAmounts(ArrayList<Float> amounts) {
+        this.amounts = amounts;
+    }
+
+    public void setTotalCalorie(int totalCalorie) {
+        this.totalCalorie = totalCalorie;
+    }
+
+    public String getImageURL() { return imageURL; }
 }
