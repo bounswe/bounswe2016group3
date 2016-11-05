@@ -8,7 +8,7 @@ import './signup.css';
 
 
 var Signup = function(props) {
-    var submitForm = function(e) {
+    var submitFormUser = function(e) {
 
         let email = document.getElementById("signup-email");
         let password = document.getElementById("signup-pass");
@@ -20,7 +20,7 @@ var Signup = function(props) {
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value, name.value, q.value, a.value, props.userType);
+                props.actions.submit(email.value, password.value, name.value, q.value, a.value, 1);
             } else {
                 props.actions.wrongPassword();
             }
@@ -29,6 +29,30 @@ var Signup = function(props) {
 
         e.preventDefault();
     }
+    var submitFormFoodServer = function(e) {
+
+        let email = document.getElementById("signup-email");
+        let password = document.getElementById("signup-pass");
+        let address = document.getElementById("signup-address");
+        let confirm = document.getElementById("signup-confirm");
+        let name = document.getElementById("signup-name");
+        let q = document.getElementById("signup-question");
+        let a = document.getElementById("signup-answer");
+
+
+        if(email&&password&&confirm&&name){
+            if(password.value === confirm.value){
+                props.actions.submit(email.value, password.value,address.value, name.value, q.value, a.value, 0);
+            } else {
+                props.actions.wrongPassword();
+            }
+            
+        }
+
+        e.preventDefault();
+    }
+
+
 
     if(props.success){
         props.history.pushState(null,"/");
@@ -76,7 +100,7 @@ var Signup = function(props) {
             </p>
 
             <p>
-                <button className="btn btn-default" type="button" onClick={submitForm}>Signup</button>
+                <button className="btn btn-default" type="button" onClick={submitFormUser}>Signup</button>
             </p>
            
             </article>
@@ -95,7 +119,7 @@ var Signup = function(props) {
                 <input type="text" className="form-control" placeholder="Food Service Name" id="signup-name" />
             </p>
             <p>
-                <input type="text" className="form-control" placeholder="Food Service Address" id="signup-name" />
+                <input type="text" className="form-control" placeholder="Food Service Address" id="signup-address" />
             </p>
 
             <p>
@@ -112,7 +136,7 @@ var Signup = function(props) {
             </p>
 
             <p>
-                <button className="btn btn-default" type="button" onClick={submitForm}>Signup</button>
+                <button className="btn btn-default" type="button" onClick={submitFormFoodServer}>Signup</button>
             </p>
             </article>
         </div>

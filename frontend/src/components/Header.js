@@ -2,12 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions/Header';
+
 import { bindActionCreators } from 'redux';
 import './header.css';
 
 var Header = function(props){
     var userHeader = null;
+    var submitForm1 = function(e) {
+        let email = document.getElementById("login-email2");
+        let password = document.getElementById("login-pass2");
 
+        if(email&&password){
+             alert(props.actions);
+            props.actions.submit(email.value , password.value);
+
+       
+        }
+
+        e.preventDefault();
+    }
+if(props.success){
+        props.history.pushState(null,"/user/1");
+    }
+     
     let links = [
         { text: "Home", path: "/" },
         { text: "All users", path: "/user/all" }
@@ -72,9 +89,15 @@ var Header = function(props){
                     </Link>
                 </div>
                 <ul className="nav navbar-nav">
+
+              
                     { linkTags }
+                      <input type="email" className="form-control" placeholder="E-mail" id="login-email2" />
+                <input type="password" className="form-control" placeholder="Password" id="login-pass2"/>
+                <button className="btn btn-default" type="button" onClick={submitForm1} >Login</button>
                 </ul>
                 { userHeader }
+
             </div>
         </nav>
     );
