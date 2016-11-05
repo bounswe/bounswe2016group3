@@ -46,6 +46,7 @@ public class ViewMealActivity extends BaseActivity {
         setContentView(R.layout.activity_view_meal);
         ButterKnife.bind(this);
 
+
     }
 
 
