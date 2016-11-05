@@ -30,7 +30,7 @@
             android:name=".activities.FollowersListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.HomepageActivity"
+            android:name=".activities.UserHomepageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FollowingListActivity"

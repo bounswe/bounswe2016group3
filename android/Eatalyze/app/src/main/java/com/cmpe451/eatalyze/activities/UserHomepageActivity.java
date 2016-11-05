@@ -9,16 +9,16 @@ import com.cmpe451.eatalyze.R;
  * Created by ekrem on 23/10/2016.
  */
 
-public class HomepageActivity extends BaseActivity {
+public class UserHomepageActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_homepage;
+        return R.layout.activity_user_homepage;
     }
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_user_homepage);
         Toolbar appBar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(appBar);
     }
