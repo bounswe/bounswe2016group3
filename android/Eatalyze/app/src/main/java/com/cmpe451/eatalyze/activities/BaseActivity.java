@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.cmpe451.eatalyze.EatalyzeApplication;
@@ -42,6 +43,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutId());
+
+        Toolbar appBar = (Toolbar) findViewById(R.id.appBar);
+        setSupportActionBar(appBar);
 
         ButterKnife.bind(this);
         eatalyzeApplication = (EatalyzeApplication) getApplication();

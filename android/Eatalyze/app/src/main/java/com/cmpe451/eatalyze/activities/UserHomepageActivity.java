@@ -49,8 +49,6 @@ public class UserHomepageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_user_homepage);
-        Toolbar appBar = (Toolbar) findViewById(R.id.appBar);
-        setSupportActionBar(appBar);
 
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
             @Override
