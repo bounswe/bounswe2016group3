@@ -11,11 +11,16 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
+import com.cmpe451.eatalyze.request.ApiService;
 import com.cmpe451.eatalyze.utils.Utils;
+import com.squareup.okhttp.OkHttpClient;
 
 import butterknife.Bind;
 import retrofit.Callback;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.client.OkClient;
 import retrofit.client.Response;
 
 /**

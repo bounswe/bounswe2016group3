@@ -32,7 +32,7 @@ import retrofit.converter.GsonConverter;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     ApiService apiService;
-    private RestAdapter restAdapter;
+    RestAdapter restAdapter; //may be private
     EatalyzeApplication eatalyzeApplication;
     SharedPreferences sharedPreferences;
 
@@ -59,7 +59,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void intercept(RequestFacade request) {
                 request.addHeader("Content-type","application/json");
-                request.addHeader("Authorization","Bearer "+eatalyzeApplication.getAccessToken().getAccessToken());
+                if(eatalyzeApplication.getAccessToken()!=null)
+                    request.addHeader("Authorization","Bearer "+eatalyzeApplication.getAccessToken().getAccessToken());
+
             }
         };
 
