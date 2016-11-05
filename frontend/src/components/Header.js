@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions/Header';
 import { bindActionCreators } from 'redux';
+import './header.css';
 
 var Header = function(props){
     var userHeader = null;
