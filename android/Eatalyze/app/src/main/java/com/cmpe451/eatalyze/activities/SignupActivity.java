@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -89,5 +90,12 @@ public class SignupActivity extends BaseActivity {
                 Utils.message(SignupActivity.this,"FAIL",error.toString(),null);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+        finish();
     }
 }

@@ -11,16 +11,12 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
-import com.cmpe451.eatalyze.request.ApiService;
 import com.cmpe451.eatalyze.utils.Utils;
-import com.squareup.okhttp.OkHttpClient;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import retrofit.Callback;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
-import retrofit.client.OkClient;
 import retrofit.client.Response;
 
 /**
@@ -38,6 +34,8 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @Bind(R.id.tv_signup)
     TextView tvSignup;
+    @Bind(R.id.tv_forgotPassword)
+    TextView tvForgotPassword;
 
     @Override
     public int getLayoutId() {
@@ -56,32 +54,32 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
 
-            if (email.equals("")) {
-                Utils.message(LoginActivity.this, "Login ERROR", "Please enter your email address.", null);
-            } else if (password.equals("")) {
-                Utils.message(LoginActivity.this, "Login ERROR", "Please enter your password.", null);
-            } else {
-                apiService.login(new LoginCredentials(email, password), new Callback<AccessToken>() {
-                    @Override
-                    public void success(AccessToken accessToken, Response response) {
-                        if (accessToken != null) {
-                            eatalyzeApplication.setAccessToken(accessToken);
-                            startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
-                            finish();
-                        } else {
-                            Utils.message(LoginActivity.this, "Login ERROR", "Wrong email or password.", null);
+                if (email.equals("")) {
+                    Utils.message(LoginActivity.this, "Login ERROR", "Please enter your email address.", null);
+                } else if (password.equals("")) {
+                    Utils.message(LoginActivity.this, "Login ERROR", "Please enter your password.", null);
+                } else {
+                    apiService.login(new LoginCredentials(email, password), new Callback<AccessToken>() {
+                        @Override
+                        public void success(AccessToken accessToken, Response response) {
+                            if (accessToken != null) {
+                                eatalyzeApplication.setAccessToken(accessToken);
+                                startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
+                                finish();
+                            } else {
+                                Utils.message(LoginActivity.this, "Login ERROR", "Wrong email or password.", null);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        //TODO log may be implemented to keep track of fails
-                    }
-                });
-            }
+                        @Override
+                        public void failure(RetrofitError error) {
+                            //TODO log may be implemented to keep track of fails
+                        }
+                    });
+                }
             }
         });
 
@@ -92,5 +90,10 @@ public class LoginActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @OnClick(R.id.tv_forgotPassword)
+    public void onClick() {
+        startActivity(new Intent(LoginActivity.this, EditPreferencesActivity.class));
     }
 }

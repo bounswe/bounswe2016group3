@@ -64,7 +64,8 @@
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_btn"/>
-
+        android:background="@drawable/login_btn"
+        android:text="@string/logout"
+        />
 
 </LinearLayout>

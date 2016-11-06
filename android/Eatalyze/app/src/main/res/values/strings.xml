@@ -29,5 +29,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--User Profile Page-->
+    <string name="logout">logout</string>
 
+    <!--Diet Page-->
+    <string name="vegeterian">Vegeterian</string>
+    <string name="vegan">Vegan</string>
+    <string name="gluten">Gluten Intolerant</string>
+    <string name="celliac">Celliac Disease</string>
+    <string name="lactose">Lactose Intolerant</string>
+    <string name="paleo">Paleo</string>
+    <string name="save_btn">Save</string>
 </resources>

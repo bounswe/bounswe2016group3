@@ -51,10 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         eatalyzeApplication = (EatalyzeApplication) getApplication();
         sharedPreferences = eatalyzeApplication.getSp();
 
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
-                .create();
-
        RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
@@ -66,13 +62,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         };
 
         restAdapter = new RestAdapter.Builder()
-    //                .setClient(new RetrofitHttpClient())
-                //.setErrorHandler(new MyErrorHandler())
                 .setRequestInterceptor(requestInterceptor)
-                //.setConverter(new GsonConverter(gson))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-               .setClient(new OkClient(new OkHttpClient()))
-
+                .setClient(new OkClient(new OkHttpClient()))
                 .setEndpoint(getString(R.string.base_url))
                 .build();
         apiService = restAdapter.create(ApiService.class);
