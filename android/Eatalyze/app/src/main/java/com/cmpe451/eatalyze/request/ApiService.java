@@ -2,12 +2,15 @@ package com.cmpe451.eatalyze.request;
 
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
+import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -16,6 +19,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.TypedInput;
 
@@ -33,5 +37,12 @@ public interface ApiService {
 
     @GET("/api/session/currentUser")
     public void getCurrentUser(@Query("accessToken") AccessToken accessToken, Callback<User> userCallback);
+
+    @GET("/api/user/{id}")
+    public void getUserByID(@Path("id") Long id , Callback<User> userCallback);
+
+    //TODO meal will be turned into a list
+    @GET("/api/menu/{id}")
+    public void getMenu(@Path("id") Long id, Callback<Meal> mealCallback);
 
 }

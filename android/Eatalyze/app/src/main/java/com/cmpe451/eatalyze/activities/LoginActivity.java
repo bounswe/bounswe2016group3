@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
+import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.utils.Utils;
 
 import butterknife.Bind;
@@ -67,6 +68,18 @@ public class LoginActivity extends BaseActivity {
                         public void success(AccessToken accessToken, Response response) {
                             if (accessToken != null) {
                                 eatalyzeApplication.setAccessToken(accessToken);
+                                apiService.getCurrentUser(accessToken, new Callback<User>() {
+                                    @Override
+                                    public void success(User user, Response response) {
+                                       eatalyzeApplication.setUser(user);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+
                                 startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
                                 finish();
                             } else {

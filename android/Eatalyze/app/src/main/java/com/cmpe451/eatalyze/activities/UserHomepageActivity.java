@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,24 +61,34 @@ public class UserHomepageActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user_homepage);
-        ButterKnife.bind(this);
+        String userName =eatalyzeApplication.getUser().getFullName();
+        String welcomeText = "Hello, " + userName;
+        helloName.setText(welcomeText);
 
-        apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
+        apiService.getMenu(new Long(1), new Callback<Meal>() {
             @Override
-            public void success(User user, Response response) {
-                String welcomeText = "Hello, " + user.getFullName();
-                helloName.setText(welcomeText);
-
+            public void success(Meal meal, Response response) {
+                Log.d("SUC Meal Call",meal.getName());
             }
 
             @Override
             public void failure(RetrofitError error) {
+                Log.d("Failed Mail Call",error.toString());
+            }
+        });
 
+        apiService.getUserByID(new Long(17), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                Log.d("SUC Food Server Call",user.getFullName());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Failed Food Server Call",error.toString());
             }
         });
     }
-
 
     @OnClick(R.id.btn_logout)
     public void onClick() {
