@@ -3,6 +3,7 @@ package com.cmpe451.eatalyze.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,13 +28,16 @@ import retrofit.client.Response;
  */
 
 public class UserHomepageActivity extends BaseActivity {
-
+    @Bind(R.id.appBar)
+    Toolbar appBar;
     @Bind(R.id.hello_name)
-    TextView hello_name;
-
+    TextView helloName;
+    @Bind(R.id.tv_recommendedmeal)
+    TextView tvRecommendedmeal;
     @Bind(R.id.rec_meal_list)
-    ListView rec_meal;
-
+    ListView recMealList;
+    @Bind(R.id.tv_recommendedserver)
+    TextView tvRecommendedserver;
     @Bind(R.id.rec_server_list)
     ListView rec_server;
 
@@ -61,7 +65,8 @@ public class UserHomepageActivity extends BaseActivity {
             @Override
             public void success(User user, Response response) {
                 String welcomeText = "Hello, " + user.getFullName();
-                hello_name.setText(welcomeText);
+                helloName.setText(welcomeText);
+
             }
 
             @Override
