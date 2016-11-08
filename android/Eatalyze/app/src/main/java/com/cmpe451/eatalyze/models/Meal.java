@@ -1,12 +1,13 @@
 package com.cmpe451.eatalyze.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by ekrem on 27/10/2016.
  */
 
-public class Meal {
+public class Meal implements Serializable {
 
     private Long id;
     private String name;

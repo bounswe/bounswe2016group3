@@ -1,6 +1,7 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.Meal;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,10 +45,9 @@ public class ViewMealActivity extends BaseActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_meal);
-        ButterKnife.bind(this);
 
-
+        Meal meal= (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        //Log.d("Meal name check",meal.getName());
     }
 
 
