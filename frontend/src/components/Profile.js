@@ -41,7 +41,7 @@ class Profile extends Component {
         let menusHtml = this.props.menus.map(function(m){
             return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
         });
-
+        
         let followButton;
         if(current.id === profile.id) {
             followButton = <div></div>;
@@ -60,28 +60,30 @@ class Profile extends Component {
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>
-                    <p>{profile.bio}</p>
-                    <p>{profile.email}</p>
+                    <p>{profile.bio}Hello from the otherside..</p>
+                    
                     <p>{followButton}</p>
                     <div className="row">
                         <div className="col-xs-6">
-                            <h3>Followers</h3>
-                            <ul>{followersHtml}</ul>
+                            <h3>Followers: {followersHtml.length}</h3>
+                          
                         </div>
                         <div className="col-xs-6">
-                            <h3>Following</h3>
-                            <ul>{followingHtml}</ul>
+                            <h3>Following: {followingHtml.length}</h3>
+
                         </div>
+
                     </div>
+                    <hr></hr>
                     <div className="row">
                         <div className="col-xs-6">
-                            <h3>Menus</h3>
-                            <ul>{menusHtml}</ul>
+                            <h3>Preferences</h3>
+                           
                         </div>
                     </div>
                      <div className="row">
                         <div className="col-xs-6">
-                            <h3>Preferences</h3>
+                            <h3>Diet Type</h3>
                             <ul></ul>
                         </div>
                     </div>

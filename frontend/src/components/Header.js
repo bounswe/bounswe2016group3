@@ -31,7 +31,7 @@ if(props.success){
     ];
 
     let loginLinks = [
-        { text: "Login", path: "/login" },
+        //{ text: "Login", path: "/login" },
         { text: "Signup", path: "/signup" }
     ];
 
