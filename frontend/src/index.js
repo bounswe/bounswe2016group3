@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import AllUsers from './components/AllUsers';
 import Profile from './components/Profile';
+import FoodServerProfile from './components/FoodServerProfile';
 import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';
 import Menu from './components/Menu';
@@ -51,10 +52,11 @@ ReactDOM.render((
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="login" component={Login} />
-        <Route path="signup" component={() => <Signup userType="0" />} />
-        <Route path="serverSignup" component={() => <Signup userType="1" />} />
+      //  <Route path="signup" component={() => <Signup userType="0" />} />
+        //<Route path="serverSignup" component={() => <Signup userType="1" />} />
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
+         <Route path="foodServer/:id" component={FoodServerProfile} />
         <Route path="resetPassword" component={ResetPassword} />
         <Route path="menu/:id" component={Menu} />
         <Route path="meal/:id" component={Meal} />

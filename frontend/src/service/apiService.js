@@ -61,9 +61,27 @@ var apiService = function(store) {
             }).error(function(error, response){
                 next({type: 'SIGNUP_FAIL'});
             });
+           
             break;
 
+            case 'SIGNUP_REQ_FS':
 
+            req = {
+                email: action.email, 
+                password: action.pass, 
+                fullName: action.name,
+                secretQuestion: action.question,
+                secretAnswer: action.answer,
+                userType: action.userType
+            };
+
+            apiCall("/user/", "POST", {}, req).success(function(user){
+                next({type: 'SIGNUP_DONE'});
+            }).error(function(error, response){
+                next({type: 'SIGNUP_FAIL'});
+            });
+            break;
+            
             case 'LOGOUT_REQ':
             apiCall("/session/logout", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
             });
@@ -75,9 +93,26 @@ var apiService = function(store) {
             apiCall("/user/", "GET").success(function(res){
                 next({type: 'USERS_LOADED', users: res});
             });
+            
             break;
 
             case 'LOAD_PROFILE':
+            apiCall("/user/"+action.id+"/", "GET").success(function(res){
+                next({type: 'PROFILE_LOADED', user: res});
+            });
+            apiCall("/user/"+action.id+"/followers", "GET").success(function(res){
+                next({type: 'FOLLOWERS_LOADED', data: res});
+            });
+            apiCall("/user/"+action.id+"/following", "GET").success(function(res){
+                next({type: 'FOLLOWING_LOADED', data: res});
+            });
+            apiCall("/user/"+action.id+"/menus", "GET").success(function(res){
+                next({type: 'MENUS_LOADED', data: res});
+            });
+
+            break;
+            case 'LOAD_PROFILE_FS':
+
             apiCall("/user/"+action.id+"/", "GET").success(function(res){
                 next({type: 'PROFILE_LOADED', user: res});
             });
