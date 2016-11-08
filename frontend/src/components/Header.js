@@ -13,7 +13,7 @@ var Header = function(props){
         let password = document.getElementById("login-pass2");
 
         if(email&&password){
-             alert(props.actions);
+             
             props.actions.submit(email.value , password.value);
 
        
@@ -57,9 +57,13 @@ if(props.success){
             </ul>
         );
     } else {
+
         if(props.name){
-            userHeader = (
+            
+            if(props.userType == 1){ //user
+                 userHeader = (
                 <ul className="nav navbar-nav navbar-right">
+
                     <li>
                         <Link to={`/user/${props.uid}`}>
                             <img src={props.avatar} alt="Avatar for user {props.uid}" className="avatar-sm" />
@@ -71,7 +75,28 @@ if(props.success){
                     </li>
                 </ul>
             );
-        } else {
+            } 
+             else{ //food server
+            alert("hereee");
+            userHeader = (
+                <ul className="nav navbar-nav navbar-right">
+
+                    <li>
+                        <Link to={`/foodServer/${props.uid}`}>
+                            <img src={props.avatar} alt="Avatar for user {props.uid}" className="avatar-sm" />
+
+                            {props.name}
+                        </Link>
+                    </li>
+                    <li>
+                        <a href="#" onClick={() => props.actions.logout(props.token) }>Logout</a>
+                    </li>
+                </ul>
+            );
+        }
+        } 
+
+        else {
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
                     <li><Link to="#">Loading ...</Link></li>
@@ -108,6 +133,7 @@ var mapStateToProps = function(state){
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
         name: state.currentUser.fullName, 
+        userType: state.currentUser.userType,
         avatar: state.currentUser.avatarUrl
     };
 }

@@ -8,6 +8,7 @@ import * as actions from '../actions/AllUsers';
 class AllUsers extends Component {
     componentDidMount(){
         this.props.actions.load();
+
     }
 
     render(){
@@ -33,7 +34,8 @@ class AllUsers extends Component {
         }
 
         let userItems = this.props.users.map(function(user){
-             if(user.userType == 0){
+
+             if(user.userType == 1){
             return <li key={user.id}>
            
                 <Link to={`/user/${user.id}`}>
@@ -62,6 +64,7 @@ class AllUsers extends Component {
                 </ul>
             </article>
         );
+
     }
 }
 
