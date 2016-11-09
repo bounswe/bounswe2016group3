@@ -80,6 +80,10 @@ class Profile extends Component {
                             <h3>Preferences</h3>
                            
                         </div>
+                        <div className="col-xs-6">
+                            <h3>Menus</h3>
+                           <ul>{menusHtml}</ul>
+                        </div>
                     </div>
                      <div className="row">
                         <div className="col-xs-6">
