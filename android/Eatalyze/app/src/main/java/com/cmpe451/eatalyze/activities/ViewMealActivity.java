@@ -56,6 +56,8 @@ public class ViewMealActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        rbMealRating.setRating(Float.parseFloat("3.7"));
+
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         tvMealName.setText(meal.getName());
         etvIngredient.setText(meal.getIngredients());

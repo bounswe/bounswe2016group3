@@ -27,7 +27,7 @@ public class Meal implements Serializable {
         this.userId = -1l;
         this.imageURL = "http://icons.iconarchive.com/icons/sonya/swarm/128/Fork-Knife-icon.png";
         this.recipe= "";
-        this.ingredients = "";
+        this.ingredients = "Domates \nPatlıcan \nBalkabağı \nYeşil biber \nTuz Karabiber";
         this.totalCalorie = 0;
     }
 
