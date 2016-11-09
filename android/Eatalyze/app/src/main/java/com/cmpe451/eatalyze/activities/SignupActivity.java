@@ -79,7 +79,16 @@ public class SignupActivity extends BaseActivity {
         userRequest.setFullName(fullName);
         userRequest.setSecretQuestion(secretQuestion);
         userRequest.setSecretAnswer(secretAnswer);
-        userRequest.setUserType(userType);
+        int userNum=0;
+        if(userType==UserType.FOOD_SERVER){
+            userNum=2;
+        }
+        if(userType==UserType.REGULAR){
+            userNum=1;
+        }
+        userRequest.setUserType(userNum);
+        //userRequest.setUserType(userType);
+
 
         //TODO create pick a picture option in SignupActivity or ProfilePage activities
         if(userType==UserType.FOOD_SERVER){
@@ -107,15 +116,16 @@ public class SignupActivity extends BaseActivity {
             }
         }
 
+
         apiService.signup(userRequest, new Callback<UserResponse>() {
             @Override
             public void success(UserResponse userResponse, Response response) {
-                Utils.message(SignupActivity.this,"SUC","SUC",null);
+                Log.d("Signup Suc","SUC");
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Utils.message(SignupActivity.this,"FAIL",error.toString(),null);
+                Log.d("Signup Fail",error.toString());
             }
         });
     }
