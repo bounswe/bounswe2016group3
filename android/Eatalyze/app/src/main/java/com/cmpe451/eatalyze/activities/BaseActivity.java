@@ -55,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void intercept(RequestFacade request) {
                 request.addHeader("Content-type","application/json");
-                if(eatalyzeApplication.getAccessToken()!=null && eatalyzeApplication.getUser() != null)
+                if(eatalyzeApplication.getAccessToken()!=null)
                     request.addHeader("Authorization","Bearer "+eatalyzeApplication.getAccessToken().getAccessToken());
 
             }

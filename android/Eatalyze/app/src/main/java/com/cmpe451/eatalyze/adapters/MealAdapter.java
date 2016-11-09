@@ -28,7 +28,7 @@ public class MealAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
 
-    ArrayList<Meal> mealList;
+    ArrayList<Meal> mealList=new ArrayList<Meal>();
 
     public MealAdapter(Context context, ArrayList<Meal> mealList) {
         this.context = context;

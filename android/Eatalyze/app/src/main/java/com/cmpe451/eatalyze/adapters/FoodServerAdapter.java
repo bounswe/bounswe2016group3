@@ -27,7 +27,7 @@ public class FoodServerAdapter extends BaseAdapter {
     Context context;
     LayoutInflater layoutInflater;
 
-    ArrayList<User> foodServerList;
+    ArrayList<User> foodServerList=new ArrayList<User>();
 
     public FoodServerAdapter(Context context, ArrayList<User> foodServerList) {
         this.context = context;

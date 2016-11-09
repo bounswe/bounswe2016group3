@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -64,10 +65,11 @@ public class UserProfilePageActivity extends BaseActivity {
 
         expandableTextView.setText(yourText);*/
 
+        Log.d("Access token control",eatalyzeApplication.getAccessToken()+"");
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-
+                Log.d("Suc User Page","Suc");
                 bio.setText(user.getBio());
                 fullName.setText(user.getFullName());
                 Picasso.with(UserProfilePageActivity.this).load(user.getAvatarUrl()).into(profil_pic);
@@ -75,7 +77,7 @@ public class UserProfilePageActivity extends BaseActivity {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("Failed User Page",error.toString());
             }
         });
 
