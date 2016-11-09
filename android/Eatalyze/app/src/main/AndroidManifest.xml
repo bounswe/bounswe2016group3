@@ -49,6 +49,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activities.FoodServerProfilePageActivity" />
         <activity android:name=".activities.AddMealActivity"></activity>
+        <activity android:name=".activities.NutritionInfoActivity"/>
+        <activity android:name=".activities.TagPeopleActivity" />
     </application>
 
 </manifest>

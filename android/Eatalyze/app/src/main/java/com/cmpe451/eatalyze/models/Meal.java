@@ -10,9 +10,10 @@ import java.util.ArrayList;
 public class Meal implements Serializable {
 
     private Long id;
+    private Long userId;
     private String name;
     private String imageURL;
-    private ArrayList<Ingredient> ingredients = new ArrayList<>();
+    private String ingredients;
     private ArrayList<Float> amounts = new ArrayList<>();
     private String recipe;
     //What is meal type?
@@ -23,19 +24,23 @@ public class Meal implements Serializable {
     public Meal(){
         this.name = "";
         this.id = -1l;
+        this.userId = -1l;
         this.imageURL = "http://icons.iconarchive.com/icons/sonya/swarm/128/Fork-Knife-icon.png";
         this.recipe= "";
+        this.ingredients = "Domates \nPatlıcan \nBalkabağı \nYeşil biber \nTuz Karabiber";
         this.totalCalorie = 0;
     }
 
     public Meal(Long id,
+                Long userId,
                 String name,
                 String imageURL,
-                ArrayList<Ingredient> ingredients,
+                String ingredients,
                 ArrayList<Float> amounts,
                 String recipe,
                 int totalCalorie){
         this.id = id;
+        this.userId = userId;
         this.name = name;
         this.imageURL = imageURL;
         this.ingredients = ingredients;
@@ -50,6 +55,11 @@ public class Meal implements Serializable {
         return id;
     }
 
+    public Long getUserId(){
+
+        return userId;
+    }
+
     public String getName() {
         return name;
     }
@@ -62,7 +72,7 @@ public class Meal implements Serializable {
         return recipe;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
@@ -86,9 +96,7 @@ public class Meal implements Serializable {
         this.imageURL = imageURL;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
+
 
     public void setAmounts(ArrayList<Float> amounts) {
         this.amounts = amounts;
