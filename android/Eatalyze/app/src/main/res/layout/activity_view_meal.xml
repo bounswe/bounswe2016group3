@@ -72,7 +72,8 @@
         android:id="@+id/et_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:hint="Write a comment..."/>
 
     <TextView
         android:layout_width="match_parent"

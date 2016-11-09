@@ -11,10 +11,15 @@ import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /**
@@ -52,6 +57,21 @@ public class ViewMealActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        tvMealName.setText(meal.getName());
+        etvIngredient.setText(meal.getIngredients());
+        Picasso.with(ViewMealActivity.this).load(meal.getImageURL()).into(ivMealImage);
+        apiService.getUserByID(new Long(meal.getUserId()), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                String username = "by "+user.getFullName();
+                tvServerName.setText(username);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
         //Log.d("Meal name check",meal.getName());
     }
 
