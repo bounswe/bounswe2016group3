@@ -1,12 +1,17 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.cmpe451.eatalyze.EatalyzeApplication;
 import com.cmpe451.eatalyze.R;
@@ -68,5 +73,38 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setEndpoint(getString(R.string.base_url))
                 .build();
         apiService = restAdapter.create(ApiService.class);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_Search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.id_logout:
+                SharedPreferences preferences = eatalyzeApplication.getSp();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.commit();
+                eatalyzeApplication.setAccessToken(null);
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+                break;
+
+            case R.id.id_profil_page:
+                startActivity(new Intent(BaseActivity.this, UserProfilePageActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

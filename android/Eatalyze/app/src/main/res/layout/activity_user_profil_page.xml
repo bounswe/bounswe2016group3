@@ -50,7 +50,8 @@
                 android:textColor="#4FC3F7"
                 android:layout_width="match_parent"
                 android:id="@+id/id_follow_button"
-                android:layout_height="0dp" />
+                android:layout_height="0dp"
+                android:elevation="0dp" />
 
         </LinearLayout>
 
@@ -58,18 +59,18 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="3dp"
             android:orientation="vertical"
             android:weightSum="1">
 
             <TextView
                 android:id="@+id/full_name"
-                android:layout_width="183dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.16"
+                android:layout_weight="0.154"
                 />
             <View
                 android:clickable="true"
@@ -85,7 +86,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.17"
+                android:layout_weight="0.16"
                 android:clickable="true" />
             <View
                 android:clickable="true"
@@ -96,7 +97,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.17"
+                android:layout_weight="0.16"
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textSize="16sp"
@@ -112,7 +113,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight="0.35"
+                android:layout_weight="0.34"
                 android:layout_height="0dp"
                 android:id="@+id/bio"
                 android:background="#E0E0E0" />
@@ -120,6 +121,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -226,7 +229,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.02" />
+                android:layout_weight="0.005" />
 
             <Button
                 android:layout_width="match_parent"
@@ -235,14 +238,14 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:id="@+id/btn_log"
-                android:layout_weight="0.20"/>
+                android:layout_weight="0.2"/>
 
             <View
                 android:clickable="true"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.01" />
+                android:layout_weight="0.005" />
 
             <Button
                 android:layout_width="match_parent"

@@ -45,8 +45,6 @@ public class UserHomepageActivity extends BaseActivity {
     TextView tvRecommendedServer;
     @Bind(R.id.lv_rec_food_servers)
     ListView lvRecFoodServers;
-    @Bind(R.id.btn_logout)
-    Button btnLogout;
 
     List<Meal> recMealList = new ArrayList<Meal>();
     List<User> recFoodServerList = new ArrayList<User>();
@@ -121,19 +119,5 @@ public class UserHomepageActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @OnClick(R.id.btn_logout)
-    public void onClick() {
-        SharedPreferences preferences = eatalyzeApplication.getSp();
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
-        eatalyzeApplication.setAccessToken(null);
-        Intent intent = new Intent(this, LoginActivity.class);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
     }
 }

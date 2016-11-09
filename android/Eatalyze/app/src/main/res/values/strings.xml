@@ -28,9 +28,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_search">menu search</string>
 
     <!--User Profile Page-->
-    <string name="logout">logout</string>
+    <string name="logout">Logout</string>
 
     <!--Diet Page-->
     <string name="vegeterian">Vegeterian</string>
@@ -40,4 +41,5 @@
     <string name="lactose">Lactose Intolerant</string>
     <string name="paleo">Paleo</string>
     <string name="save_btn">Save</string>
+    <string name="Profil_Page">UserName</string>
 </resources>
