@@ -60,6 +60,7 @@ public class UserHomepageActivity extends BaseActivity {
 
         String userName = eatalyzeApplication.getUser().getFullName();
         String welcomeText = "Hello, " + userName;
+
         //TODO change this with butterknife version
         TextView tvHelloName= (TextView) findViewById(R.id.tv_hello_name);
         tvHelloName.setText(welcomeText);

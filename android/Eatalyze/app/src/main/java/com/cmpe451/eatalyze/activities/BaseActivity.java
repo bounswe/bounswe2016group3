@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.cmpe451.eatalyze.EatalyzeApplication;
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.request.ApiService;
 import com.cmpe451.eatalyze.utils.Utils;
 import com.google.gson.Gson;
@@ -81,6 +83,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.menu_Search).getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        String userName = eatalyzeApplication.getUser().getFullName();
+        userName += "";
+        menu.findItem(R.id.id_profil_page).setTitle(userName);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -102,6 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
 
             case R.id.id_profil_page:
+
                 startActivity(new Intent(BaseActivity.this, UserProfilePageActivity.class));
                 break;
         }

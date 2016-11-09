@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/id_profil_page"
-        android:title="@string/Profil_Page" />
+        android:title="@string/full_name" />
     <item
         android:id="@+id/id_logout"
         android:title="@string/logout" />
