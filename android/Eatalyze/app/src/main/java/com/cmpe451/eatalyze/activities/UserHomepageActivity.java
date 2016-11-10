@@ -88,14 +88,48 @@ public class UserHomepageActivity extends BaseActivity {
         });
 
         //TODO get list of food server instead of only one
-        apiService.getUserByID(new Long(17), new Callback<User>() {
+        apiService.getUserByID(new Long(95), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
                 Log.d("SUC Food Server Call", user.getFullName());
 
-                for (int i = 0; i < 3; i++) {
                     recFoodServerList.add(user);
-                }
+
+                FoodServerAdapter adapter = new FoodServerAdapter(UserHomepageActivity.this, (ArrayList<User>) recFoodServerList);
+                ListView lvRecFoodServers= (ListView) findViewById(R.id.lv_rec_food_servers);
+                lvRecFoodServers.setAdapter(adapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Failed Food Server Call", error.toString());
+            }
+        });
+
+        apiService.getUserByID(new Long(97), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                Log.d("SUC Food Server Call", user.getFullName());
+
+                recFoodServerList.add(user);
+
+                FoodServerAdapter adapter = new FoodServerAdapter(UserHomepageActivity.this, (ArrayList<User>) recFoodServerList);
+                ListView lvRecFoodServers= (ListView) findViewById(R.id.lv_rec_food_servers);
+                lvRecFoodServers.setAdapter(adapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Failed Food Server Call", error.toString());
+            }
+        });
+
+        apiService.getUserByID(new Long(100), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                Log.d("SUC Food Server Call", user.getFullName());
+
+                recFoodServerList.add(user);
 
                 FoodServerAdapter adapter = new FoodServerAdapter(UserHomepageActivity.this, (ArrayList<User>) recFoodServerList);
                 ListView lvRecFoodServers= (ListView) findViewById(R.id.lv_rec_food_servers);

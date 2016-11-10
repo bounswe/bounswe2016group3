@@ -25,7 +25,6 @@
                 android:id="@+id/iv_food_server_image"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:background="@drawable/saksuka"
                 android:layout_margin="10dp"/>
 
             <TextView

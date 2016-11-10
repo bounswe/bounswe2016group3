@@ -98,7 +98,7 @@ public class SignupActivity extends BaseActivity {
                 userRequest.setAvatarUrl("http://postkes.com/wp-content/uploads/2016/01/Screenshot_11.png");
             else if(fullName.equals("Bolulu Hasan Usta"))
                 userRequest.setAvatarUrl("http://www.bhu.com.tr/images/tema/image/logo.png");
-            else if(fullName.equals("Aperatif"))
+            else if(fullName.equals("Burger King"))
                 userRequest.setAvatarUrl("https://upload.wikimedia.org/wikipedia/en/3/3a/Burger_King_Logo.svg");  //not png?
             else{ //default
                 userRequest.setAvatarUrl("http://emojipedia-us.s3.amazonaws.com/cache/cf/d7/cfd7a98b83e6c87bf54c4f656e812008.png");
