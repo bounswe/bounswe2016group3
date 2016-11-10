@@ -155,6 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
+            android:id="@+id/bio"
             android:background="@color/gray"/>
 
         <TextView
@@ -177,7 +178,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5">
+            android:layout_weight="0.45">
 
         </ListView>
 
@@ -196,15 +197,15 @@
             android:layout_height="0dp"
             android:layout_weight="0.03" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:gravity="bottom"
-            android:text="Last Comment about Food Server"
-            />
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:id="@+id/btn_add_meal"
+          android:layout_weight="0.16"
+          android:text="ADD MEAL"
+          android:textStyle="bold"
+          android:textSize="18sp"
+          />
 
 
 
