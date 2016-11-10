@@ -35,6 +35,7 @@ class AllUsers extends Component {
 
         let userItems = this.props.users.map(function(user){
 <<<<<<< HEAD
+<<<<<<< HEAD
             if(user.userType == 0){
                 return <li key={user.id}>
                     <Link to={`/user/${user.id}`}>
@@ -42,6 +43,8 @@ class AllUsers extends Component {
                         {user.fullName}
                     </Link>
 =======
+=======
+>>>>>>> 8492f0a6e6dc0e0032e664d3e3e157553a735f1c
 
              if(user.userType == 1){
             return <li key={user.id}>

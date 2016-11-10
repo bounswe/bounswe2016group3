@@ -14,9 +14,13 @@ var Header = function(props){
 
         if(email&&password){
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
              
 >>>>>>> origin/master
+=======
+             
+>>>>>>> 8492f0a6e6dc0e0032e664d3e3e157553a735f1c
             props.actions.submit(email.value , password.value);
         }
 
