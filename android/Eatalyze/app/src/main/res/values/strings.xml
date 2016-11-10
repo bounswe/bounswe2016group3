@@ -42,4 +42,15 @@
     <string name="paleo">Paleo</string>
     <string name="save_btn">Save</string>
     <string name="Profil_Page">UserName</string>
+    
+    <!--AddMealPage-->
+    <string name="ingredients"><b>Ingredients</b></string>
+    <string-array name="planets_array">
+        <item>Tomato</item>
+        <item>Egg planet</item>
+        <item>Onion</item>
+        <item>Salt</item>
+        <item>Oil</item>
+        <item>Pepper</item>
+    </string-array>
 </resources>

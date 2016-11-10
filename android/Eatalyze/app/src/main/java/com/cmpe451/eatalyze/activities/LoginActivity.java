@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.constants.UserType;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.User;
@@ -48,7 +50,13 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (eatalyzeApplication.getAccessToken() != null) {
-            startActivity(new Intent(this, UserHomepageActivity.class));
+            if(eatalyzeApplication.getUser().getUserType()==0){
+                startActivity(new Intent(this, UserHomepageActivity.class));
+            }else if(eatalyzeApplication.getUser().getUserType()==1){
+                startActivity(new Intent(this, FoodServerProfilePageActivity.class));
+            }else{//ADMIN
+
+            }
             finish();
         }
 
@@ -72,16 +80,23 @@ public class LoginActivity extends BaseActivity {
                                     @Override
                                     public void success(User user, Response response) {
                                        eatalyzeApplication.setUser(user);
+                                        if(user.getUserType()== 0){
+                                            startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
+                                        }else if(user.getUserType()==1){
+                                            startActivity(new Intent(LoginActivity.this,FoodServerProfilePageActivity.class));
+                                        }else{//ADMIN
+                                            Log.d("Admin check","Inside admin choice");
+                                        }
+                                        finish();
+
                                     }
 
                                     @Override
                                     public void failure(RetrofitError error) {
-
+                                        Log.d("Getting current user error",error.toString());
                                     }
                                 });
 
-                                startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
-                                finish();
                             } else {
                                 Utils.message(LoginActivity.this, "Login ERROR", "Wrong email or password.", null);
                             }

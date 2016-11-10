@@ -10,5 +10,135 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cmpe451.eatalyze.activities.AddMealActivity">
 
+    <RelativeLayout
+        android:id="@+id/rl_image"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/saksuka"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rl_image"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/tv_title_meal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meal Name"/>
+        <TextView
+            android:id="@+id/tv_meal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Şakşuka"
+            android:layout_below="@id/tv_title_meal_name"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_ingredients_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients"
+        android:textStyle="bold"
+        android:layout_below="@id/rl_image"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"/>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_ing1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_ingredients_title"
+            >
+            <Spinner
+                android:id="@+id/sp_ingredients1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/follow_button_shape">
+            </Spinner>
+
+            <EditText
+                android:id="@+id/et_amount1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/sp_ingredients1"
+                android:hint="gram"
+                android:background="@drawable/follow_button_shape"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_ing2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_ing1"
+        >
+        <Spinner
+            android:id="@+id/sp_ingredients2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/follow_button_shape">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/et_amount2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sp_ingredients2"
+            android:hint="gram"
+            android:background="@drawable/follow_button_shape"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_ing3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_ing2"
+        >
+        <Spinner
+            android:id="@+id/sp_ingredients3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/follow_button_shape">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/et_amount3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sp_ingredients3"
+            android:hint="gram"
+            android:background="@drawable/follow_button_shape"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_ing4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_ing3"
+        >
+        <Spinner
+            android:id="@+id/sp_ingredients4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/follow_button_shape">
+        </Spinner>
+
+        <EditText
+            android:id="@+id/et_amount4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sp_ingredients4"
+            android:hint="gram"
+            android:background="@drawable/follow_button_shape"/>
+    </RelativeLayout>
 </RelativeLayout>

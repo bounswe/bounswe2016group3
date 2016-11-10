@@ -45,4 +45,7 @@ public interface ApiService {
     @GET("/api/menu/{id}")
     public void getMenu(@Path("id") Long id, Callback<Meal> mealCallback);
 
+    @POST("/api/meal")
+    public void createMeal(@Query("accesToken") AccessToken accessToken,@Query("meal") Meal meal);
+
 }

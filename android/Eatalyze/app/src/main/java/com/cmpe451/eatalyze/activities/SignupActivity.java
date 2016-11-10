@@ -80,11 +80,13 @@ public class SignupActivity extends BaseActivity {
         userRequest.setSecretQuestion(secretQuestion);
         userRequest.setSecretAnswer(secretAnswer);
         int userNum=0;
-        if(userType==UserType.FOOD_SERVER){
-            userNum=2;
-        }
+
         if(userType==UserType.REGULAR){
+            userNum=0;
+        }else if(userType==UserType.FOOD_SERVER){
             userNum=1;
+        }else{ //ADMIN
+            userNum=2;
         }
         userRequest.setUserType(userNum);
         //userRequest.setUserType(userType);
@@ -121,6 +123,7 @@ public class SignupActivity extends BaseActivity {
             @Override
             public void success(UserResponse userResponse, Response response) {
                 Log.d("Signup Suc","SUC");
+                startActivity(new Intent(SignupActivity.this,LoginActivity.class));
             }
 
             @Override
