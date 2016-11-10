@@ -13,10 +13,11 @@ var Header = function(props){
         let password = document.getElementById("login-pass2");
 
         if(email&&password){
-             alert(props.actions);
+<<<<<<< HEAD
+=======
+             
+>>>>>>> origin/master
             props.actions.submit(email.value , password.value);
-
-       
         }
 
         e.preventDefault();
@@ -53,13 +54,24 @@ if(props.success){
     if(props.uid === 0){
         userHeader = (
             <ul className="nav navbar-nav navbar-right">
+                <li>
+                <input type="email" className="form-control login" placeholder="E-mail" id="login-email2" />
+                <input type="password" className="form-control login" placeholder="Password" id="login-pass2"/>
+                </li>
+                <li>
+                 <a href='#' onClick={submitForm1} >Login </a>
+                 </li>
                 { loginLinkTags }
             </ul>
         );
     } else {
+
         if(props.name){
-            userHeader = (
+            
+            if(props.userType == 1){ //user
+                 userHeader = (
                 <ul className="nav navbar-nav navbar-right">
+
                     <li>
                         <Link to={`/user/${props.uid}`}>
                             <img src={props.avatar} alt="Avatar for user {props.uid}" className="avatar-sm" />
@@ -71,7 +83,28 @@ if(props.success){
                     </li>
                 </ul>
             );
-        } else {
+            } 
+             else{ //food server
+            alert("hereee");
+            userHeader = (
+                <ul className="nav navbar-nav navbar-right">
+
+                    <li>
+                        <Link to={`/foodServer/${props.uid}`}>
+                            <img src={props.avatar} alt="Avatar for user {props.uid}" className="avatar-sm" />
+
+                            {props.name}
+                        </Link>
+                    </li>
+                    <li>
+                        <a href="#" onClick={() => props.actions.logout(props.token) }>Logout</a>
+                    </li>
+                </ul>
+            );
+        }
+        } 
+
+        else {
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
                     <li><Link to="#">Loading ...</Link></li>
@@ -92,9 +125,7 @@ if(props.success){
 
               
                     { linkTags }
-                      <input type="email" className="form-control" placeholder="E-mail" id="login-email2" />
-                <input type="password" className="form-control" placeholder="Password" id="login-pass2"/>
-                <button className="btn btn-default" type="button" onClick={submitForm1} >Login</button>
+                      
                 </ul>
                 { userHeader }
 
@@ -108,6 +139,7 @@ var mapStateToProps = function(state){
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
         name: state.currentUser.fullName, 
+        userType: state.currentUser.userType,
         avatar: state.currentUser.avatarUrl
     };
 }

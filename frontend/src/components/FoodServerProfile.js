@@ -54,8 +54,7 @@ class Profile extends Component {
         }
 
         return (
-            <div >
-            <div className="row">
+            <div>
                 <div className="col-xs-4">
                     <img src={profile.avatarUrl} alt="avatar"/>
                 </div>
@@ -66,19 +65,24 @@ class Profile extends Component {
                     <p>{followButton}</p>
                     <div className="row">
                         <div className="col-xs-6">
-                            <h3>Followers: {followersHtml.length}</h3>   
+                            <h3>Followers: {followersHtml.length}</h3>
+                          
                         </div>
                         <div className="col-xs-6">
                             <h3>Following: {followingHtml.length}</h3>
+
                         </div>
-                    </div>            
-                </div>
-            </div>
-            <hr></hr>
-            <div className="row">
+
+                    </div>
+                    <hr></hr>
                     <div className="row">
                         <div className="col-xs-6">
-                            <h3>Preferences</h3>  
+                            <h3>Preferences</h3>
+                           
+                        </div>
+                        <div className="col-xs-6">
+                            <h3>Menus</h3>
+                           <ul>{menusHtml}</ul>
                         </div>
                     </div>
                      <div className="row">
@@ -86,9 +90,9 @@ class Profile extends Component {
                             <h3>Diet Type</h3>
                             <ul></ul>
                         </div>
-                    </div>                
+                    </div>
+                </div>
             </div>
-        </div>
         );
     }
 }

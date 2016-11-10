@@ -31,18 +31,20 @@ var Signup = function(props) {
     }
     var submitFormFoodServer = function(e) {
 
-        let email = document.getElementById("signup-email");
-        let password = document.getElementById("signup-pass");
-        let address = document.getElementById("signup-address");
-        let confirm = document.getElementById("signup-confirm");
-        let name = document.getElementById("signup-name");
-        let q = document.getElementById("signup-question");
-        let a = document.getElementById("signup-answer");
+        let email = document.getElementById("signup-email2");
+        let password = document.getElementById("signup-pass2");
+        //let address = document.getElementById("signup-address2");
+        let confirm = document.getElementById("signup-confirm2");
+        let name = document.getElementById("signup-name2");
+        let q = document.getElementById("signup-question2");
+        let a = document.getElementById("signup-answer2");
 
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value,address.value, name.value, q.value, a.value, 0);
+
+                props.actions.submitFoodServer(email.value, password.value, name.value, q.value, a.value, 0);
+                
             } else {
                 props.actions.wrongPassword();
             }
@@ -70,6 +72,7 @@ var Signup = function(props) {
             <p>
                 <input type="text" className="form-control" placeholder="Full Name" id="signup-name" />
             </p>
+            
             <p>
                 <input type="password" className="form-control" placeholder="Password" id="signup-pass" />
             </p>
@@ -97,26 +100,26 @@ var Signup = function(props) {
             <article className="col-xs-5">
            <h1> Food Server </h1> 
             <p>
-                <input type="text" className="form-control" placeholder="Username" id="signup-email" />
+                <input type="text" className="form-control" placeholder="Username" id="signup-email2" />
             </p>
             <p>
-                <input type="text" className="form-control" placeholder="Food Service Name" id="signup-name" />
+                <input type="text" className="form-control" placeholder="Food Service Name" id="signup-name2" />
             </p>
             <p>
-                <input type="text" className="form-control" placeholder="Food Service Address" id="signup-address" />
+                <input type="text" className="form-control" placeholder="Food Service Address" id="signup-address2" />
             </p>
 
             <p>
-                <input type="password" className="form-control" placeholder="Password" id="signup-pass" />
+                <input type="password" className="form-control" placeholder="Password" id="signup-pass2" />
             </p>
             <p>
-                <input type="password" className="form-control" placeholder="Confirm Password" id="signup-confirm" />
+                <input type="password" className="form-control" placeholder="Confirm Password" id="signup-confirm2" />
             </p>
             <p>
-                <input type="text" className="form-control" placeholder="Secret Question" id="signup-question" />
+                <input type="text" className="form-control" placeholder="Secret Question" id="signup-question2" />
             </p>
             <p>
-                <input type="text" className="form-control" placeholder="Secret Answer" id="signup-answer" />
+                <input type="text" className="form-control" placeholder="Secret Answer" id="signup-answer2" />
             </p>
 
             <p>

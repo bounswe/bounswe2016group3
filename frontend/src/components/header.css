@@ -1,6 +1,13 @@
 .container-fluid{
 	background-color: orange;
 }
-.navbar-middle{
-
+.form-control.login{
+	display: block;
+	width: auto;
+	float: left;
+	margin:7px 0 0 10px;    
+}
+.form-control.login:first-child{
+	float: left;
+	margin-left: 0;
 }

@@ -8,6 +8,7 @@ import * as actions from '../actions/AllUsers';
 class AllUsers extends Component {
     componentDidMount(){
         this.props.actions.load();
+
     }
 
     render(){
@@ -33,13 +34,23 @@ class AllUsers extends Component {
         }
 
         let userItems = this.props.users.map(function(user){
-             if(user.userType == 0){
+<<<<<<< HEAD
+            if(user.userType == 0){
+                return <li key={user.id}>
+                    <Link to={`/user/${user.id}`}>
+                        <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />
+                        {user.fullName}
+                    </Link>
+=======
+
+             if(user.userType == 1){
             return <li key={user.id}>
            
                 <Link to={`/user/${user.id}`}>
                     <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />
                     {user.fullName}
                 </Link>
+>>>>>>> origin/master
                 </li>
             }
             else{
@@ -62,6 +73,7 @@ class AllUsers extends Component {
                 </ul>
             </article>
         );
+
     }
 }
 
