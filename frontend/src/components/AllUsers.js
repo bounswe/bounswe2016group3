@@ -35,17 +35,16 @@ class AllUsers extends Component {
 
         let userItems = this.props.users.map(function(user){
 
-            if(user.userType == 0){
-                return 
-                <li key={user.id}>
-                    <Link to={`/user/${user.id}`}>
-                        <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />
-                        {user.fullName}
-                    </Link>
+             if(user.userType == 0){
+            return <li key={user.id}>
+           
+                <Link to={`/user/${user.id}`}>
+                    <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />
+                    {user.fullName}
+                </Link>
                 </li>
-            }    
-             
-            else if(user.userType ==1){
+            }
+            else{
                  return <li key={user.id}>
                 <Link to={`/foodServer/${user.id}`}>
                     <img src={user.avatarUrl} className="avatar-sm" alt="avatar" />

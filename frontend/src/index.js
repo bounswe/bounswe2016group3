@@ -15,7 +15,7 @@ import Meal from './components/Meal';
 
 import apiService from './service/apiService';
 import redirectService from './service/redirectService';
-59
+
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
 import { users, profile, followers, following } from './reducers/users';
@@ -28,7 +28,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import './../node_modules/bootstrap/dist/css/bootstrap.css';
+import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/css/bootstrap-theme.min.css';
 
 import './index.css';
@@ -56,7 +56,7 @@ ReactDOM.render((
         //<Route path="serverSignup" component={() => <Signup userType="1" />} />
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
-        <Route path="foodServer/:id" component={FoodServerProfile} />
+         <Route path="foodServer/:id" component={FoodServerProfile} />
         <Route path="resetPassword" component={ResetPassword} />
         <Route path="menu/:id" component={Menu} />
         <Route path="meal/:id" component={Meal} />

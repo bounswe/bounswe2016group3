@@ -20,7 +20,7 @@ var Signup = function(props) {
 
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
-                props.actions.submit(email.value, password.value, name.value, q.value, a.value, 1);
+                props.actions.submit(email.value, password.value, name.value, q.value, a.value, 0);
             } else {
                 props.actions.wrongPassword();
             }
@@ -43,7 +43,7 @@ var Signup = function(props) {
         if(email&&password&&confirm&&name){
             if(password.value === confirm.value){
 
-                props.actions.submitFoodServer(email.value, password.value, name.value, q.value, a.value, 0);
+                props.actions.submitFoodServer(email.value, password.value, name.value, q.value, a.value, 1);
                 
             } else {
                 props.actions.wrongPassword();
