@@ -168,6 +168,28 @@ var apiService = function(store) {
             });
             break;
 
+            case 'ADD_MEAL':
+            
+             req = {
+                userId:action.userId,
+                menuId:action.menuId,
+                name: action.name, 
+                description: action.description, 
+                ingredients: action.ingredients,
+                photoUrl: action.photoUrl
+                
+                
+            };
+
+            apiCall("/meal/", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(res){
+                 
+                    next({type: 'ADDMEAL_DONE'});
+                
+            }).error(function(error, response){
+                next({type: 'ADDMEAL_FAILED'});
+            });
+            
+            break;
             default:
             break;
             }              

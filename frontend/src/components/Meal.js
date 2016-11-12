@@ -15,6 +15,8 @@ class Meal extends Component {
             <h2>{this.props.meal.name}</h2>
             <p>{this.props.meal.description}</p>
             <p>{this.props.meal.ingredients}</p>
+            
+            <img src={this.props.meal.photoUrl} alt="Avatar for user {props.uid}" className="avatar-m" />
         </div>;
     }
 }

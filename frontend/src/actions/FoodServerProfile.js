@@ -5,7 +5,21 @@ var load = function(id){
         id: id
     };
 }
+var addmeal = function(token,user_id,menu_id,meal_name,meal_description,meal_ingredients,meal_url){
 
+    return {
+        type: 'ADD_MEAL',
+        userId:user_id,
+        menuId:menu_id,
+        name: meal_name, 
+        description: meal_description, 
+        ingredients: meal_ingredients,
+        photoUrl: meal_url,
+        token
+
+    };
+
+}
 var follow = function(token, followee, follower){
     return {
         type: 'FOLLOW_USER',
@@ -16,4 +30,4 @@ var follow = function(token, followee, follower){
     };
 }
 
-export { load, follow };
+export { load, addmeal, follow };

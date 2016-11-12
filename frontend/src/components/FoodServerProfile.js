@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions/Profile';
+import * as actions from '../actions/FoodServerProfile';
 
 class Profile extends Component {
     componentDidMount(){
@@ -29,6 +29,16 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
+        
+        let meal_name=document.getElementById("meal_name");
+        let meal_description=document.getElementById("meal_description");
+
+        var addMeal = () => {
+            if(this.props.token!==""){
+                this.props.actions.addmeal(this.props.token,this.props.profile.id, 1, meal_name.value,meal_description.value,"","");
+            }
+        }
+
 
         let followersHtml = this.props.followers.map(function(u){
             return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
@@ -43,13 +53,16 @@ class Profile extends Component {
         });
         
         let followButton;
+        let addmealButton;
         if(current.id === profile.id) {
             followButton = <div></div>;
+            addmealButton=<button type="button" className="btn btn-default" onClick={addMeal}>Add Meal</button>;
         } else {
             if(this.props.following.some(function(u){ return u.id === current.id})){
                 followButton = <button type="button" className="btn btn-default disabled">Follow</button>
             } else {
                 followButton = <button type="button" className="btn btn-default" onClick={followUser}>Follow</button>
+                addmealButton=<button type="button" className="btn btn-default disabled" onClick={addMeal}>Add Meal</button>
             }
         }
 
@@ -82,7 +95,11 @@ class Profile extends Component {
                         </div>
                         <div className="col-xs-6">
                             <h3>Menus</h3>
-                           
+                           {menusHtml}
+                            <input type="text" className="form-control" placeholder="Meal name" id="meal_name" />
+                             <input type="text" className="form-control" placeholder="Meal desc" id="meal_description" />
+                             
+                            <p>{addmealButton}</p>
                         </div>
                     </div>
                      <div className="row">

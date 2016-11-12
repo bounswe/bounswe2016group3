@@ -57,7 +57,7 @@ if(props.success){
             </ul>
         );
     } else {
-
+        
         if(props.name){
             
             if(props.userType == 0){ //user
@@ -77,7 +77,7 @@ if(props.success){
             );
             } 
              else{ //food server
-            alert("hereee");
+            
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
 
@@ -129,6 +129,7 @@ if(props.success){
 }
 
 var mapStateToProps = function(state){
+    //alert(state.token);
     return { 
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
