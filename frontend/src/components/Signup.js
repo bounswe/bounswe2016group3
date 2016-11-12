@@ -2,12 +2,12 @@ import React from 'react';
 import * as actions from '../actions/Signup';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import './signup.css';
 
 
 
 var Signup = function(props) {
+
     var submitFormUser = function(e) {
 
         let email = document.getElementById("signup-email");
@@ -28,6 +28,8 @@ var Signup = function(props) {
         }
 
         e.preventDefault();
+
+       
     }
     var submitFormFoodServer = function(e) {
 
@@ -53,12 +55,15 @@ var Signup = function(props) {
 
         e.preventDefault();
     }
+     if(props.success){
+      
+   	alert("Sign up is successful.Please Login")
+       window.location.href= "./";
+
+   		}
 
 
-
-    if(props.success){
-        props.history.pushState(null,"/");
-    }
+    
 
     return (
         <div>
@@ -129,6 +134,7 @@ var Signup = function(props) {
         </div>
     );
 }
+	
 
 var mapStateToProps = function(state){
   return { 

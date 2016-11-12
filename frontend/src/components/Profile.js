@@ -84,6 +84,7 @@ class Profile extends Component {
                      <div className="row">
                         <div className="col-xs-6">
                             <h3>Diet Type</h3>
+                                {profile.dietType}
                             <ul></ul>
                         </div>
                     </div>
