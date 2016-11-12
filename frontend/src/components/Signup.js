@@ -28,7 +28,12 @@ var Signup = function(props) {
         }
 
         e.preventDefault();
+        if(props.success){
+      
+    alert("Sign up is successful.Please Login")
+       window.location.href= "./";
 
+        }
        
     }
     var submitFormFoodServer = function(e) {
@@ -54,13 +59,14 @@ var Signup = function(props) {
         }
 
         e.preventDefault();
-    }
-     if(props.success){
+        if(props.success){
       
-   	alert("Sign up is successful.Please Login")
+    alert("Sign up is successful.Please Login")
        window.location.href= "./";
 
-   		}
+        }
+    }
+     
 
 
     
