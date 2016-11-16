@@ -9,6 +9,7 @@ import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public interface ApiService {
     public void createMeal(@Query("accessToken") AccessToken accessToken,@Query("meal") Meal meal);
 
     @POST("/api/meal/{id}/rate/{rating}")
-    public void rateMeal(AccessToken token, @Path("id") Long id, @Path("rating") Float rating);
+    public void rateMeal(@Query("accessToken") AccessToken token, @Path("id") Long id, @Path("rating") Float rating, Callback<ResponseBody> responseBodyCallback);
 
 
     @POST("/api/user/{id}/follow")

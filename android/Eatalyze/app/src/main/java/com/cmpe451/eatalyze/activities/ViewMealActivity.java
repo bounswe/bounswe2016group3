@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +15,13 @@ import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
+import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit.Callback;
+import retrofit.ResponseCallback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -57,11 +60,9 @@ public class ViewMealActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rbMealRating.setRating(Float.parseFloat("3.7"));
+        //rbMealRating.setRating(Float.parseFloat("1"));
 
-        Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
-
-
+        final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
         tvMealName.setText(meal.getName());
 
@@ -82,13 +83,31 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
         //Log.d("Meal name check",meal.getName());
+
+        rbMealRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
+                    @Override
+                    public void success(ResponseBody responseBody, Response response) {
+                        //Log.d("yes", responseBody.toString());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        //Log.d("no", error.toString());
+                    }
+                });
+            }
+        });
+
     }
 
 
     @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_check_eat:
+            case R.id.btn_check_eat: Log.d("check eat success", "success");
                 startActivity(new Intent(ViewMealActivity.this, TagPeopleActivity.class));
                 break;
             case R.id.btn_tag_meal:
@@ -99,9 +118,4 @@ public class ViewMealActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.rb_meal_rating)
-    public void onClick() {
-        Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
-        apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId() ,rbMealRating.getRating());
-    }
 }
