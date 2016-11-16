@@ -10,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
@@ -59,9 +60,15 @@ public class ViewMealActivity extends BaseActivity {
         rbMealRating.setRating(Float.parseFloat("3.7"));
 
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+
+
+
         tvMealName.setText(meal.getName());
+
         etvIngredient.setText(meal.getIngredients());
+
         Picasso.with(ViewMealActivity.this).load(meal.getImageURL()).into(ivMealImage);
+
         apiService.getUserByID(new Long(meal.getUserId()), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
@@ -94,5 +101,7 @@ public class ViewMealActivity extends BaseActivity {
 
     @OnClick(R.id.rb_meal_rating)
     public void onClick() {
+        Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId() ,rbMealRating.getRating());
     }
 }
