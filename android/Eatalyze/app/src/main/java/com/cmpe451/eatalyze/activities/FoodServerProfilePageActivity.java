@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +66,20 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                 Log.d("Failed User Page", error.toString());
             }
         });
+
+        apiService.getMenu(eatalyzeApplication.getAccessToken().getUserId(), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
 
     }
 

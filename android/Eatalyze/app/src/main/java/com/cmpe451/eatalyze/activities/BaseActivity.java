@@ -83,6 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.menu_Search).getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
         String userName = eatalyzeApplication.getUser().getFullName();
         userName += "";
         menu.findItem(R.id.id_profil_page).setTitle(userName);

@@ -1,6 +1,7 @@
 package com.cmpe451.eatalyze.request;
 
 import com.cmpe451.eatalyze.models.AccessToken;
+import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
@@ -48,4 +49,6 @@ public interface ApiService {
     @POST("/api/meal")
     public void createMeal(@Query("accesToken") AccessToken accessToken,@Query("meal") Meal meal);
 
+    @POST("/api/user/{id}/follow")
+    public void follow(@Path("id") Long id, Callback<Follow> followCallback);
 }

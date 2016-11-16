@@ -72,6 +72,7 @@
                 android:padding="5dp"
                 android:layout_weight="0.154"
                 />
+
             <View
                 android:clickable="true"
                 android:layout_gravity="center"
@@ -169,17 +170,17 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.02" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:text="Excludes: "
-                android:textSize="16sp"
-                android:id="@+id/id_excludes"
-                android:background="@color/gray"
-                android:clickable="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:text="Excludes: "
+            android:textSize="16sp"
+            android:id="@+id/id_excludes"
+            android:background="@color/gray"
+            android:clickable="true"/>
 
-            <View
+        <View
                 android:clickable="true"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
