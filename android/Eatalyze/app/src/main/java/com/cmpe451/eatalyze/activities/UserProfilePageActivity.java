@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
@@ -85,7 +86,18 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Follow the user
-                //Add the users following list
+                apiService.follow(new Long(7), new Callback<Follow>() {
+                    @Override
+                    public void success(Follow follow, Response response) {
+                        Log.d("Follow success", "Followee id: " + follow.getFollowee_id() +" "+ follow.getFollower_id());
+                        btn_follow.setText("FOLLOWING");
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Follow failed", error.toString());
+                    }
+                });
 
             }
         });

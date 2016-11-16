@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity {
 
                                     @Override
                                     public void failure(RetrofitError error) {
-                                        Log.d("Getting current user error",error.toString());
+                                        Log.d("Getting current user er",error.toString());
                                     }
                                 });
 
