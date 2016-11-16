@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,6 +77,16 @@ public class UserProfilePageActivity extends BaseActivity {
                     }
                 });
 
+        apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+            @Override
+            public void success(List<User> users, Response response) {
+                following.setText("Following: " + users.size());
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Failed", error.toString());
+            }
+        });
 
                 Log.d("Access token control", eatalyzeApplication.getAccessToken() + "");
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {

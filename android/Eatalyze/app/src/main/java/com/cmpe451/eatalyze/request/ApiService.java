@@ -64,4 +64,7 @@ public interface ApiService {
 
     @GET("/api/user/{id}/followers")
     public void getfollowers(@Path("id") Long id, Callback<List<User>> UserListCallback);
+
+    @GET("/api/user/{id}/following")
+    public void getfollowing(@Path("id") Long id, Callback<List<User>> UserListCallBack);
 }
