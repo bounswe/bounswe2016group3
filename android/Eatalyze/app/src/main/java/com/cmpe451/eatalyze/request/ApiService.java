@@ -46,6 +46,10 @@ public interface ApiService {
     public void getMenu(@Path("id") Long id, Callback<Meal> mealCallback);
 
     @POST("/api/meal")
-    public void createMeal(@Query("accesToken") AccessToken accessToken,@Query("meal") Meal meal);
+    public void createMeal(@Query("accessToken") AccessToken accessToken,@Query("meal") Meal meal);
+
+    @POST("/api/meal/{id}/rate/{rating}")
+    public void rateMeal(AccessToken token, @Path("id") Long id, @Path("rating") Float rating);
+
 
 }
