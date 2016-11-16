@@ -51,6 +51,9 @@ public class FollowersListActivity extends BaseActivity {
                 for(int a = 0  ; a <userList.size(); a++){
                     userList_.add(userList.get(a));
                     Log.d("Succesful", "Succes");
+                    FollowersAdapter adapter = new FollowersAdapter(context, userList_);
+                    ListView list = (ListView) findViewById(R.id.listView);
+                    list.setAdapter(adapter);
                 }
             }
 
@@ -60,8 +63,6 @@ public class FollowersListActivity extends BaseActivity {
             }
         });
 
-        FollowersAdapter adapter = new FollowersAdapter(this, userList_);
-        ListView list = (ListView) findViewById(R.id.listView);
-        list.setAdapter(adapter);
+
     }
 }
