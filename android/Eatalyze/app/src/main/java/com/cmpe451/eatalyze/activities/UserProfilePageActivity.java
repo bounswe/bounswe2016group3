@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.User;
+import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.Bind;
 import retrofit.Callback;
@@ -59,14 +62,22 @@ public class UserProfilePageActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //just for try
-       /* String yourText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Ut volutpat interdum interdum. Nulla laoreet lacus diam, vitae " +
-                "sodales sapien commodo faucibus. Vestibulum et feugiat enim. Donec ";
+        apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                    @Override
+                    public void success(List<User> users, Response response) {
 
-        expandableTextView.setText(yourText);*/
+                        followers.setText("Followers: "+ users.size() );
+                        Log.d("Number of users: ", users.size()+"");
+                    }
 
-        Log.d("Access token control",eatalyzeApplication.getAccessToken()+"");
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Failed", error.toString());
+                    }
+                });
+
+
+                Log.d("Access token control", eatalyzeApplication.getAccessToken() + "");
         apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
@@ -86,7 +97,7 @@ public class UserProfilePageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //Follow the user
-                apiService.follow(new Long(7), new Callback<Follow>() {
+                apiService.follow(eatalyzeApplication.getUser().getId(), new Callback<Follow>() {
                     @Override
                     public void success(Follow follow, Response response) {
                         Log.d("Follow success", "Followee id: " + follow.getFollowee_id() +" "+ follow.getFollower_id());

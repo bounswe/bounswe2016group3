@@ -5,6 +5,7 @@ import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
+import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
@@ -12,6 +13,7 @@ import com.squareup.okhttp.Call;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -55,4 +57,10 @@ public interface ApiService {
 
     @POST("/api/user/{id}/follow")
     public void follow(@Path("id") Long id, Callback<Follow> followCallback);
+
+    @POST("/api/user/{id}/unfollow")
+    public void unfollow(@Path("id") Long id, Callback<Follow> followCallback);
+
+    @GET("/api/user/{id}/followers")
+    public void getfollowers(@Path("id") Long id, Callback<List<User>> UserListCallback);
 }
