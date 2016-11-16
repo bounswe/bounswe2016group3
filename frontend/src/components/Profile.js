@@ -43,6 +43,14 @@ class Profile extends Component {
         });
         
         let followButton;
+        let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
+        let dietTypes_chbx= "";
+
+        for (var i = dietTypes.length - 1; i >= 0; i--) {
+                                   dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
+        }
+        
+         
         if(current.id === profile.id) {
             followButton = <div></div>;
         } else {
@@ -84,7 +92,22 @@ class Profile extends Component {
                      <div className="row">
                         <div className="col-xs-6">
                             <h3>Diet Type</h3>
-                                {profile.dietType}
+                              {dietTypes[profile.dietType]}
+                            <button type="button" className="btn btn-default" onClick={""}>Update </button>
+                        <ul> 
+                         <li> <input type="checkbox" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} </li> 
+                          <li> <input type="checkbox" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} </li> 
+                        <li> <input type="checkbox" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} </li> 
+                          <li> <input type="checkbox" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} </li> 
+                          <li> <input type="checkbox" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} </li> 
+                          <li> <input type="checkbox" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]} </li> 
+                           <li> <input type="checkbox" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]} </li> 
+
+                        </ul>
+
+                    
+                              
+                            
                             <ul></ul>
                         </div>
                     </div>

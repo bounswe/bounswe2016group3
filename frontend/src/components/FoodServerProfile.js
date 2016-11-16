@@ -102,12 +102,7 @@ class Profile extends Component {
                             <p>{addmealButton}</p>
                         </div>
                     </div>
-                     <div className="row">
-                        <div className="col-xs-6">
-                            <h3>Diet Type</h3>
-                            <ul></ul>
-                        </div>
-                    </div>
+                     
                 </div>
             </div>
         );
