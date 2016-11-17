@@ -53,4 +53,8 @@
         <item>Oil</item>
         <item>Pepper</item>
     </string-array>
+
+    <!--View meal page-->
+    <string name="send_btn">Send</string>
+    <string name="check_eat">Check Eat</string>
 </resources>
