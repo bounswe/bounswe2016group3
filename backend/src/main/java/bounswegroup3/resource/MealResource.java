@@ -133,8 +133,13 @@ public class MealResource {
 	 */
 	@POST
 	@Path("/{id}/rate/{rating}")
-	public void rateMeal(@Auth AccessToken token, @PathParam("id") Long id, @PathParam("rating") Float rating) {
+	public Response rateMeal(@Auth AccessToken token, @PathParam("id") Long id, @PathParam("rating") Float rating) {
+		if(mealDao.ratedByUser(token.getUserId(), id)) {
+			return Response.notModified().build();
+		}
+		
 		mealDao.rateMeal(token.getUserId(), id, rating);
+		return Response.ok().build();
 	}
 	
 	/**

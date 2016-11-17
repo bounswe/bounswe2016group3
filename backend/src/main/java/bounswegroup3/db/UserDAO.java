@@ -55,6 +55,9 @@ public interface UserDAO {
     @SqlQuery("select count(1) from users where id = :id")
     Boolean userExists(@Bind("id") Long id);
     
+    @SqlQuery("select count(1) from users where email = :mail")
+    Boolean userExistsByEmail(@Bind("mail") String mail);
+    
     @SqlUpdate("insert into follow (follower_id, followee_id) values (:id1, :id2)")
     void followUser(@Bind("id1") Long folllower, @Bind("id2") Long followee);
     

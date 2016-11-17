@@ -76,9 +76,13 @@ public class UserResource {
      * @return The created user object, including its id column
      */
     @POST
-    public User addUser(@Valid User user) {
-        Long id = dao.addUser(user);
+    public Response addUser(@Valid User user) {
+        if(dao.userExistsByEmail(user.getEmail())) {
+        	return Response.notModified().build();
+        }
 
+    	Long id = dao.addUser(user);
+        
         user.setId(id);
         
         Template tpl = new Template("/welcome.st");
@@ -86,7 +90,7 @@ public class UserResource {
         
         mailer.sendMail(user.getEmail(), "Welcome", tpl.render());
         
-        return user;
+        return Response.ok(user).build();
     }
 
     /**
