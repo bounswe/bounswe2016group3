@@ -35,7 +35,7 @@ public class FollowingAdapter extends ArrayAdapter<User>{
         View rowView=inflater.inflate(R.layout.customrows_forfollowersfollowing, null, true);
 
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.textrow);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.fullname);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
 
         txtTitle.setText(userList.get(position).getFullName());

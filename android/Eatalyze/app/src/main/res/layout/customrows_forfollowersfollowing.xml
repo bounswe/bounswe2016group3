@@ -11,20 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="1">
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_weight="0.25"
         android:layout_height="60dp"
         />
+
     <TextView
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
-        android:id="@+id/textrow"
+        android:layout_weight="0.50"
+        android:id="@+id/fullname"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:textColor="#26C6DA"
         android:textSize="12pt" />
+
     </LinearLayout>
+
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,11 +37,10 @@ public class FollowersAdapter extends ArrayAdapter<User>{
         View rowView=inflater.inflate(R.layout.customrows_forfollowersfollowing, null, true);
 
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.textrow);
+        TextView fullname = (TextView) rowView.findViewById(R.id.fullname);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
 
-        txtTitle.setText(userList.get(position).getFullName());
-
+        fullname.setText(userList.get(position).getFullName());
         Log.d("Fullname of users:", userList.get(position).getFullName());
         Picasso.with(FollowersAdapter.this.getContext()).load(userList.get(position).getAvatarUrl()).into(imageView);
 

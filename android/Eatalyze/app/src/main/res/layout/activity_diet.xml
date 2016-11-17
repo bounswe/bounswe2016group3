@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pageBackground">
 
-    <RelativeLayout
+    <include layout="@layout/app_bar"/>
+
+    <LinearLayout
         android:id="@+id/rl_vegeterian"
         android:layout_width="wrap_content"
         android:layout_height="30dp">
@@ -23,9 +25,9 @@
             android:layout_toRightOf="@id/cb_vegeterian"
             android:text="@string/vegeterian"
             android:gravity="center_vertical"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_vegan"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -44,9 +46,9 @@
             android:layout_toRightOf="@id/cb_vegan"
             android:text="@string/vegan"
             android:gravity="center_vertical"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_gluten"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -66,9 +68,9 @@
             android:text="@string/gluten"
             android:gravity="center_vertical"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_celliac"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -87,9 +89,9 @@
             android:layout_toRightOf="@id/cb_celliac"
             android:text="@string/celliac"
             android:gravity="center_vertical"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_lactose"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -108,9 +110,9 @@
             android:layout_toRightOf="@id/cb_lactose"
             android:text="@string/lactose"
             android:gravity="center_vertical"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_paleo"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -129,7 +131,7 @@
             android:layout_toRightOf="@id/cb_paleo"
             android:text="@string/paleo"
             android:gravity="center_vertical"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_save"
@@ -143,4 +145,4 @@
         android:background="@drawable/login_btn"
         />
 
-</RelativeLayout>
+</LinearLayout>

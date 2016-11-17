@@ -78,9 +78,6 @@ public class FoodServerProfilePageActivity extends BaseActivity {
 
             }
         });
-
-
-
     }
 
     @Override
@@ -105,6 +102,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
             case R.id.full_name:
                 break;
             case R.id.id_followers:
+                startActivity(new Intent(FoodServerProfilePageActivity.this, FollowersListActivity.class));
                 break;
         }
     }

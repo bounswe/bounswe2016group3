@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/app_bar"/>
+
     <android.support.v7.widget.CardView
         android:id="@+id/cv_meal_item"
         android:layout_width="match_parent"
