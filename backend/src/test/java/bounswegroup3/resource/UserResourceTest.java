@@ -59,6 +59,8 @@ public class UserResourceTest {
 	private User user;
 	private ObjectMapper mapper;
 	
+	private User invalidUser;
+	
 	private Menu menu;
 	private Meal meal;
 	@Before
@@ -67,6 +69,8 @@ public class UserResourceTest {
 		
 		mapper = Jackson.newObjectMapper();
 		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
+		invalidUser = mapper.readValue(fixture("fixtures/user.json"), User.class);
+		invalidUser.setEmail("nope@nope.com");
 		
 		menu = mapper.readValue(fixture("fixtures/menu.json"), Menu.class);
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
@@ -90,6 +94,9 @@ public class UserResourceTest {
 		when(userDao.follows(eq(-1l), eq(42l))).thenReturn(true);
 		when(userDao.userExists(any())).thenReturn(true);
 		when(userDao.userExists(eq(32l))).thenReturn(false);
+		
+		when(userDao.userExistsByEmail(any())).thenReturn(false);
+		when(userDao.userExistsByEmail(eq("nope@nope.com"))).thenReturn(true);
 		
 		when(userDao.getFollowers(any())).thenReturn(users);
 		when(userDao.getFollowing(any())).thenReturn(users);
@@ -129,6 +136,8 @@ public class UserResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.post(Entity.json(user));
 		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		
 		// we get a heterogenous object as a response
 		@SuppressWarnings("rawtypes")
 		LinkedHashMap read = mapper.readValue(res.readEntity(String.class), LinkedHashMap.class);
@@ -137,6 +146,18 @@ public class UserResourceTest {
 		
 		// check if the id has been set
 		assertThat(read.get("id")).isEqualTo(1);
+	}
+	
+	@Test
+	public void cantCreateUser() {
+		Response res = rule.getJerseyTest()
+				.target("/user")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.post(Entity.json(invalidUser));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		
+		verify(mailer, never()).sendMail(any(), any(), any());
 	}
 	
 	@Test

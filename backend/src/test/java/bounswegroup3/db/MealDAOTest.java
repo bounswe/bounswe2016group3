@@ -123,6 +123,7 @@ public class MealDAOTest {
 		dao.rateMeal(1l, 1l, 1.0f);
 		
 		assertThat(dao.averageRating(1l)).isEqualTo(1.0f);
+		assertThat(dao.ratedByUser(1l, 1l));
 		assertThat(dao.ratingByUser(1l, 1l)).isEqualTo(1.0f);
 		assertThat(dao.totalRatings(1l)).isEqualTo(1);
 	}

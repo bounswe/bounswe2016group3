@@ -86,6 +86,9 @@ public class MealResourceTest {
 		when(mealDao.totalRatings(any())).thenReturn(0);
 		when(mealDao.ratingByUser(any(), any())).thenReturn(0.0f);
 		
+		when(mealDao.ratedByUser(any(), any())).thenReturn(false);
+		when(mealDao.ratedByUser(any(), eq(42l))).thenReturn(true);
+		
 		when(mealDao.getMealsByTag(any())).thenReturn(meals);
 		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
 		
@@ -230,6 +233,18 @@ public class MealResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
 		verify(mealDao).rateMeal(any(), any(), any());
+	}
+	
+	@Test
+	public void testAlreadyRated() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/meal/42/rate/0.0")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.json(""));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		verify(mealDao, never()).rateMeal(any(), any(), any());
 	}
 	
 	@Test

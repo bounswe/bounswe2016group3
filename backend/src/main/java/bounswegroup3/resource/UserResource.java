@@ -76,7 +76,7 @@ public class UserResource {
      * @return The created user object, including its id column
      */
     @POST
-    public Response addUser(@Valid User user) {
+    public Response addUser(@Valid User user) {    	
         if(dao.userExistsByEmail(user.getEmail())) {
         	return Response.notModified().build();
         }

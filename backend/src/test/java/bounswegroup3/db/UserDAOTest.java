@@ -56,6 +56,7 @@ public class UserDAOTest {
 	    assertThat(u.getBio()).isEqualTo("test bio");
 	    
 	    assertThat(dao.userExists(1l));
+	    assertThat(dao.userExistsByEmail("test@deneme.com"));
 	    
 	    dao.banUser(1l);
 	    u = dao.getUserById(1l);
