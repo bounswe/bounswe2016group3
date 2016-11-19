@@ -96,6 +96,9 @@ public class MealResourceTest {
 		
 		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
 		
+		when(mealDao.basicSearch(any())).thenReturn(meals);
+		when(mealDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<Meal>());
+		
 		when(client.getNutrition(any())).thenReturn(nutrition);
 	}
 	
@@ -391,5 +394,31 @@ public class MealResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
 		assertThat(read.get("weight")).isEqualTo(nutrition.getWeight());
+	}
+	
+	@Test
+	public void testBasicSearch() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/meal/search/test")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		@SuppressWarnings("rawtypes")
+		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.size()).isEqualTo(1);
+	}
+	
+	@Test
+	public void testCantSearch() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/meal/search/nope")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		@SuppressWarnings("rawtypes")
+		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.size()).isEqualTo(0);
 	}
 }

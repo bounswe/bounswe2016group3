@@ -254,4 +254,16 @@ public class MealResource {
 	public NutritionalInfo getNutrition(@PathParam("id") Long id) {
 		return client.getNutrition(mealDao.getMealById(id).getIngredients());
 	}
+	
+	/**
+	 * <code>GET /api/meal/search/:query</code>
+	 * Performs a basic search on meals only based on the given query. User 
+	 * preferences and such aren't taken into account
+	 * @return A list of the matching Meal objects
+	 */
+	@GET
+	@Path("/search/{query}")
+	public List<Meal> basicSearch(@PathParam("query") String query) {
+		return mealDao.basicSearch(query);
+	}
 }

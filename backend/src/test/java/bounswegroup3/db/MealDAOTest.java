@@ -4,6 +4,7 @@ import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -126,5 +127,22 @@ public class MealDAOTest {
 		assertThat(dao.ratedByUser(1l, 1l));
 		assertThat(dao.ratingByUser(1l, 1l)).isEqualTo(1.0f);
 		assertThat(dao.totalRatings(1l)).isEqualTo(1);
+	}
+	
+	@Test
+	public void testSearch() throws Exception {
+		ArrayList<Meal> res = new ArrayList<Meal>(dao.basicSearch("test"));
+		
+		assertThat(res.isEmpty());
+		
+		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
+		m.setMenuId(1l);
+		m.setUserId(1l);
+		
+		dao.createMeal(m);
+		
+		res = new ArrayList<Meal>(dao.basicSearch("test"));
+		
+		assertThat(res.size()).isEqualTo(1);
 	}
 }
