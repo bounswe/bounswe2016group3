@@ -1,5 +1,7 @@
 package com.cmpe451.eatalyze.request;
 
+import android.util.Log;
+
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Follow;
@@ -49,9 +51,6 @@ public interface ApiService {
     @GET("/api/user/{id}")
     public void getUserByID(@Path("id") Long id , Callback<User> userCallback);
 
-    @POST("/api/meal")
-    public void createMeal(@Query("accessToken") AccessToken accessToken,@Query("meal") Meal meal);
-
     @POST("/api/meal/{id}/rate/{rating}")
     public void rateMeal(@Query("accessToken") AccessToken token, @Path("id") Long id, @Path("rating") Float rating, Callback<ResponseBody> responseBodyCallback);
 
@@ -85,4 +84,10 @@ public interface ApiService {
     //TODO test after ingredient intake
     @GET("/api/meal/{id}/nutrition")
     public void getNutrition(@Path("id") Long id, Callback<NutritionalInfo> nutritionalInfoCallback);
+
+    @POST("/api/meal")
+    public void addMeal(@Body Meal meal, Callback<ResponseBody> responseBodyCallback);
+
+    @GET("/api/meal/{id}")
+    public void getMealById(@Path("id") Long id, Callback<Meal> mealCallback);
 }

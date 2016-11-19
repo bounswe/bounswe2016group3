@@ -64,6 +64,35 @@ public class UserHomepageActivity extends BaseActivity {
 
         tvHelloName.setText(welcomeText);
 
+        //TODO make this for recommendeds
+        apiService.getMealById(new Long(1), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+                Log.d("SUC meal call",meal.getName());
+                for (int i = 0; i < 3; i++) {
+                    recMealList.add(meal);
+                }
+
+                apiService.getUserByID(meal.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        MealAdapter adapter = new MealAdapter(UserHomepageActivity.this, (ArrayList<Meal>) recMealList,user.getFullName());
+                        lvRecMeals.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("FAIL meal call",error.toString());
+            }
+        });
         //TODO get list of meals instead of only one
         /*
         apiService.getMenus(new Long(1), new Callback<List<Menu>>>() {

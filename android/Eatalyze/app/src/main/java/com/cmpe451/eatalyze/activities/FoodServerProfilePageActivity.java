@@ -84,33 +84,33 @@ public class FoodServerProfilePageActivity extends BaseActivity {
         apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
             @Override
             public void success(final List<Menu> menus, Response response) {
-                Log.d("Menu server call success. # of meals ->", menus.get(0).getId()+"");
-                FoodServerProfilePageActivity.this.menus= (ArrayList<Menu>) menus;
+                Log.d("Menu server call success. # of meals ->", menus.get(0).getId() + "");
+                FoodServerProfilePageActivity.this.menus = (ArrayList<Menu>) menus;
 
                 // TODO find a better way to do that and food server can have more than one menu
                 apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
                     @Override
                     public void success(List<Meal> meals, Response response) {
-                        Log.d("succ meal list call. SIZE ->", meals.size()+"");
-                        FoodServerProfilePageActivity.this.mealOfMenu= (ArrayList<Meal>) meals;
+                        Log.d("succ meal list call. SIZE ->", meals.size() + "");
+                        FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
 
                         final String[] foodServerName = {""};
                         apiService.getUserByID(menus.get(0).getUserId(), new Callback<User>() {
                             @Override
                             public void success(User user, Response response) {
                                 Log.d("User by id call is SUC", user.getFullName());
-                                foodServerName[0] =user.getFullName();
-                                Log.d("URL",mealOfMenu.get(0).getPhotoUrl());
+                                foodServerName[0] = user.getFullName();
+                                Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
 
                                 //TODO put ingredients and nutritional info
 
-                                MealAdapter adapter=new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
+                                MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
                                 lvMenu.setAdapter(adapter);
                             }
 
                             @Override
                             public void failure(RetrofitError error) {
-                                Log.d("User by id call is FAIL",error.toString());
+                                Log.d("User by id call is FAIL", error.toString());
                             }
                         });
 
@@ -118,14 +118,14 @@ public class FoodServerProfilePageActivity extends BaseActivity {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("fail meal list call." , error.toString());
+                        Log.d("fail meal list call.", error.toString());
                     }
                 });
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("Menu server call fail",error.toString());
+                Log.d("Menu server call fail", error.toString());
             }
         });
     }
@@ -138,7 +138,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btn_add_meal)
-    public void onClick() {
+    public void addMealClicked() {
         startActivity(new Intent(FoodServerProfilePageActivity.this, AddMealActivity.class));
     }
 
@@ -156,4 +156,5 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                 break;
         }
     }
+
 }

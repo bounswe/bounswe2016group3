@@ -65,8 +65,9 @@ public class MealAdapter extends BaseAdapter {
         } else holder = (ViewHolder) view.getTag();
 
         Meal meal=mealList.get(position);
-        if(meal.getPhotoUrl()!="")
-            Picasso.with(context).load(meal.getPhotoUrl()).into(holder.ivMealImage);
+        if(meal.getPhotoUrl().equals(""))
+            meal.setPhotoUrl("https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg");
+        Picasso.with(context).load(meal.getPhotoUrl()).into(holder.ivMealImage);
         holder.tvMealName.setText(meal.getName());
         holder.tvServerName.setText("@"+servername);
         // holder.tvCalorieAmount.setText(meal.getTotalCalorie());
