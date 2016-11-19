@@ -1,6 +1,5 @@
 package com.cmpe451.eatalyze.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.User;
-import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
@@ -29,17 +27,17 @@ import retrofit.client.Response;
 
 public class UserProfilePageActivity extends BaseActivity {
 
-    @Bind(R.id.id_profile_photo)
+    @Bind(R.id.iv_profile_photo)
     ImageView profil_pic;
-    @Bind(R.id.id_followers)
+    @Bind(R.id.tv_followers)
     TextView followers;
     @Bind(R.id.id_following)
     TextView following;
-    @Bind(R.id.bio)
+    @Bind(R.id.tv_bio)
     TextView bio;
-    @Bind(R.id.full_name)
+    @Bind(R.id.tv_full_name)
     TextView fullName;
-    @Bind(R.id.id_follow_button)
+    @Bind(R.id.btn_follow)
     Button btn_follow;
     @Bind(R.id.id_expandabletextView)
     ExpandableTextView expandableTextView;

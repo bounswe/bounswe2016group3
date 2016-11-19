@@ -19,8 +19,6 @@ import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit.Callback;
@@ -84,7 +82,7 @@ public class ViewMealActivity extends BaseActivity {
 
         etvIngredient.setText(meal.getIngredients());
 
-        Picasso.with(ViewMealActivity.this).load(meal.getImageURL()).into(ivMealImage);
+        Picasso.with(ViewMealActivity.this).load(meal.getPhotoUrl()).into(ivMealImage);
 
         apiService.getUserByID(new Long(meal.getUserId()), new Callback<User>() {
             @Override

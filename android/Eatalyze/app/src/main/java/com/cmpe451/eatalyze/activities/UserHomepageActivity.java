@@ -15,6 +15,7 @@ import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.FoodServerAdapter;
 import com.cmpe451.eatalyze.adapters.MealAdapter;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.User;
 
 import java.io.Serializable;
@@ -61,12 +62,11 @@ public class UserHomepageActivity extends BaseActivity {
         String userName = eatalyzeApplication.getUser().getFullName();
         String welcomeText = "Hello, " + userName;
 
-        //TODO change this with butterknife version
-        TextView tvHelloName= (TextView) findViewById(R.id.tv_hello_name);
         tvHelloName.setText(welcomeText);
 
         //TODO get list of meals instead of only one
-        apiService.getMenu(new Long(1), new Callback<Meal>() {
+        /*
+        apiService.getMenus(new Long(1), new Callback<List<Menu>>>() {
             @Override
             public void success(Meal meal, Response response) {
                 Log.d("SUC Meal Call", meal.getName());
@@ -86,6 +86,7 @@ public class UserHomepageActivity extends BaseActivity {
                 Log.d("Failed Mail Call", error.toString());
             }
         });
+        */
 
         //TODO get list of food server instead of only one
         apiService.getUserByID(new Long(95), new Callback<User>() {
@@ -93,7 +94,7 @@ public class UserHomepageActivity extends BaseActivity {
             public void success(User user, Response response) {
                 Log.d("SUC Food Server Call", user.getFullName());
 
-                    recFoodServerList.add(user);
+                recFoodServerList.add(user);
 
                 FoodServerAdapter adapter = new FoodServerAdapter(UserHomepageActivity.this, (ArrayList<User>) recFoodServerList);
                 ListView lvRecFoodServers= (ListView) findViewById(R.id.lv_rec_food_servers);

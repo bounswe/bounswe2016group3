@@ -5,6 +5,8 @@ import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Menu;
+import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Ratings;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
@@ -47,10 +49,6 @@ public interface ApiService {
     @GET("/api/user/{id}")
     public void getUserByID(@Path("id") Long id , Callback<User> userCallback);
 
-    //TODO meal will be turned into a list
-    @GET("/api/menu/{id}")
-    public void getMenu(@Path("id") Long id, Callback<Meal> mealCallback);
-
     @POST("/api/meal")
     public void createMeal(@Query("accessToken") AccessToken accessToken,@Query("meal") Meal meal);
 
@@ -67,14 +65,24 @@ public interface ApiService {
     public void unfollow(@Path("id") Long id, Callback<Follow> followCallback);
 
     @GET("/api/user/{id}/followers")
-    public void getfollowers(@Path("id") Long id, Callback<List<User>> UserListCallback);
+    public void getfollowers(@Path("id") Long id, Callback<List<User>> userListCallback);
 
     @GET("/api/user/{id}/following")
-    public void getfollowing(@Path("id") Long id, Callback<List<User>> UserListCallBack);
+    public void getfollowing(@Path("id") Long id, Callback<List<User>> userListCallBack);
 
     @POST("/api/meal/{id}/checkeat")
     public void checkEat(@Query("accessToken") AccessToken token, @Path("id") Long id, Callback<ResponseBody> responseBodyCallback);
 
     @POST("/api/comment")
     public void createComment(@Query("accessToken") AccessToken token,@Body Comment comment, Callback<Comment> commentCallback);
+
+    @GET("/api/user/{userId}/menus")
+    public void getMenus(@Path("userId") Long userId, Callback<List<Menu>> menuListCallBack);
+
+    @GET("/api/menu/{menuId}/meals")
+    public void getMealsOfMenu(@Path("menuId") Long menuId, Callback<List<Meal>> mealListCallBack);
+
+    //TODO test after ingredient intake
+    @GET("/api/meal/{id}/nutrition")
+    public void getNutrition(@Path("id") Long id, Callback<NutritionalInfo> nutritionalInfoCallback);
 }
