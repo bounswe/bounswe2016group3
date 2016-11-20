@@ -15,6 +15,7 @@ import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.FoodServerAdapter;
 import com.cmpe451.eatalyze.adapters.MealAdapter;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.User;
 
 import java.io.Serializable;
@@ -61,29 +62,35 @@ public class UserHomepageActivity extends BaseActivity {
         String userName = eatalyzeApplication.getUser().getFullName();
         String welcomeText = "Hello, " + userName;
 
-        //TODO change this with butterknife version
-        TextView tvHelloName= (TextView) findViewById(R.id.tv_hello_name);
         tvHelloName.setText(welcomeText);
 
-        //TODO get list of meals instead of only one
-        apiService.getMenu(new Long(1), new Callback<Meal>() {
+        //TODO make this for recommended meals, not random ones
+        apiService.getMealById(new Long(1), new Callback<Meal>() {
             @Override
             public void success(Meal meal, Response response) {
-                Log.d("SUC Meal Call", meal.getName());
-
+                Log.d("SUC meal call",meal.getName());
                 for (int i = 0; i < 3; i++) {
                     recMealList.add(meal);
                 }
 
-                MealAdapter adapter = new MealAdapter(UserHomepageActivity.this, (ArrayList<Meal>) recMealList);
-                //TODO change this to butterknife version
-                ListView lvRecMeals= (ListView) findViewById(R.id.lv_rec_meals);
-                lvRecMeals.setAdapter(adapter);
+                apiService.getUserByID(meal.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        MealAdapter adapter = new MealAdapter(UserHomepageActivity.this, (ArrayList<Meal>) recMealList,user.getFullName());
+                        lvRecMeals.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("Failed Mail Call", error.toString());
+                Log.d("FAIL meal call",error.toString());
             }
         });
 
@@ -93,7 +100,7 @@ public class UserHomepageActivity extends BaseActivity {
             public void success(User user, Response response) {
                 Log.d("SUC Food Server Call", user.getFullName());
 
-                    recFoodServerList.add(user);
+                recFoodServerList.add(user);
 
                 FoodServerAdapter adapter = new FoodServerAdapter(UserHomepageActivity.this, (ArrayList<User>) recFoodServerList);
                 ListView lvRecFoodServers= (ListView) findViewById(R.id.lv_rec_food_servers);

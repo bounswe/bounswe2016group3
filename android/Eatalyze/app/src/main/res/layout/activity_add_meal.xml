@@ -1,144 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_meal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cmpe451.eatalyze.activities.AddMealActivity">
+    tools:context="com.cmpe451.eatalyze.activities.AddMealActivity"
+    android:background="@color/pageBackground">
+
+    <include layout="@layout/app_bar"
+        android:id="@+id/appBar"/>
 
     <RelativeLayout
-        android:id="@+id/rl_image"
+        android:id="@+id/rl_meal_image"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
+        android:layout_below="@id/appBar"
+        android:layout_margin="10dp">
         <ImageView
+            android:id="@+id/iv_meal_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/saksuka"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_edit_meal"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Edit Image"
+            android:background="@color/blue"
+            android:layout_below="@id/iv_meal_image"
+            android:layout_marginTop="10dp"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/rl_image"
-        android:layout_marginLeft="10dp">
-        <TextView
-            android:id="@+id/tv_title_meal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meal Name"/>
-        <TextView
-            android:id="@+id/tv_meal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Şakşuka"
-            android:layout_below="@id/tv_title_meal_name"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_ingredients_title"
+        android:id="@+id/rl_meal_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingredients"
-        android:textStyle="bold"
-        android:layout_below="@id/rl_image"
-        android:gravity="center_horizontal"
-        android:textSize="20dp"/>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_ing1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ingredients_title"
-        >
-        <Spinner
-            android:id="@+id/sp_ingredients1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/follow_button_shape">
-        </Spinner>
-
+        android:layout_toRightOf="@+id/rl_meal_image"
+        android:layout_below="@+id/appBar"
+        android:layout_margin="10dp">
         <EditText
-            android:id="@+id/et_amount1"
+            android:id="@+id/et_meal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/sp_ingredients1"
-            android:hint="gram"
-            android:background="@drawable/follow_button_shape"/>
+            android:hint="Meal Name"/>
+        <EditText
+            android:id="@+id/et_meal_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Meal description"
+            android:layout_below="@+id/et_meal_name"
+            />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl_ing2"
+        android:id="@+id/rl_ingredient_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_ing1"
+        android:layout_below="@id/rl_meal_image"
         >
-        <Spinner
-            android:id="@+id/sp_ingredients2"
+        <TextView
+            android:id="@+id/tv_ingredient_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/follow_button_shape">
-        </Spinner>
-
-        <EditText
-            android:id="@+id/et_amount2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/sp_ingredients2"
-            android:hint="gram"
-            android:background="@drawable/follow_button_shape"/>
+            android:text="INGREDIENTS"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/iv_add_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/add_icon"
+            android:layout_toRightOf="@+id/tv_ingredient_title"
+            android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_ing3"
+    <ListView
+        android:id="@+id/lv_ingredients"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_ing2"
-        >
-        <Spinner
-            android:id="@+id/sp_ingredients3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/follow_button_shape">
-        </Spinner>
+        android:layout_height="300dp"
+        android:layout_below="@id/rl_ingredient_title"></ListView>
 
-        <EditText
-            android:id="@+id/et_amount3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/sp_ingredients3"
-            android:hint="gram"
-            android:background="@drawable/follow_button_shape"/>
-    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_add_meal"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@color/blue"
+        android:text="Add Meal"
+        android:layout_below="@id/lv_ingredients"
+        android:layout_centerHorizontal="true"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_ing4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_ing3"
-        >
-        <Spinner
-            android:id="@+id/sp_ingredients4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/follow_button_shape">
-        </Spinner>
-
-        <EditText
-            android:id="@+id/et_amount4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/sp_ingredients4"
-            android:hint="gram"
-            android:background="@drawable/follow_button_shape"/>
-    </RelativeLayout>
 </RelativeLayout>

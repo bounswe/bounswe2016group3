@@ -11,8 +11,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
-import com.cmpe451.eatalyze.models.AccessToken;
+import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Ratings;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.okhttp.ResponseBody;
@@ -21,7 +22,6 @@ import com.squareup.picasso.Picasso;
 import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit.Callback;
-import retrofit.ResponseCallback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -51,6 +51,8 @@ public class ViewMealActivity extends BaseActivity {
     ExpandableTextView etvIngredient;
     @Bind(R.id.rb_meal_rating)
     RatingBar rbMealRating;
+    @Bind(R.id.btn_send_comment)
+    Button btnSendComment;
 
     @Override
     public int getLayoutId() {
@@ -60,20 +62,32 @@ public class ViewMealActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //rbMealRating.setRating(Float.parseFloat("1"));
 
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+
+        apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
+            @Override
+            public void success(Ratings ratings, Response response) {
+                Log.d("Ratings fetch success", response.toString());
+                rbMealRating.setRating(ratings.getAverage());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Ratings fetch fail", error.toString());
+            }
+        });
 
         tvMealName.setText(meal.getName());
 
         etvIngredient.setText(meal.getIngredients());
 
-        Picasso.with(ViewMealActivity.this).load(meal.getImageURL()).into(ivMealImage);
+        Picasso.with(ViewMealActivity.this).load(meal.getPhotoUrl()).into(ivMealImage);
 
         apiService.getUserByID(new Long(meal.getUserId()), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
-                String username = "by "+user.getFullName();
+                String username = "by " + user.getFullName();
                 tvServerName.setText(username);
             }
 
@@ -82,7 +96,6 @@ public class ViewMealActivity extends BaseActivity {
 
             }
         });
-        //Log.d("Meal name check",meal.getName());
 
         rbMealRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -90,32 +103,69 @@ public class ViewMealActivity extends BaseActivity {
                 apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
                     @Override
                     public void success(ResponseBody responseBody, Response response) {
-                        //Log.d("yes", responseBody.toString());
+
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        //Log.d("no", error.toString());
+
                     }
                 });
             }
         });
+
+
 
     }
 
 
     @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info})
     public void onClick(View view) {
+        Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         switch (view.getId()) {
-            case R.id.btn_check_eat: Log.d("check eat success", "success");
-                startActivity(new Intent(ViewMealActivity.this, TagPeopleActivity.class));
+            case R.id.btn_check_eat:
+                Log.d("check eat success", "success");
+                Intent intent = new Intent(ViewMealActivity.this, TagPeopleActivity.class);
+                intent.putExtra("ClickedMeal", meal);
+                startActivity(intent);
                 break;
             case R.id.btn_tag_meal:
                 break;
             case R.id.btn_nutrition_info:
-                startActivity(new Intent(ViewMealActivity.this, NutritionInfoActivity.class));
+                intent = new Intent(ViewMealActivity.this, NutritionInfoActivity.class);
+                intent.putExtra("ClickedMeal", meal);
+                startActivity(intent);
                 break;
         }
     }
 
+    @OnClick(R.id.btn_send_comment)
+    public void onClick() {
+        Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        String content = etComment.getText().toString();
+        //Log.d("success", content);
+        Long mealId = meal.getId();
+        Log.d("success mealid", mealId.toString());
+        Long userId = eatalyzeApplication.getUser().getId();
+        Log.d("success userid", userId.toString());
+        org.joda.time.DateTime creationTime = new org.joda.time.DateTime();
+        org.joda.time.DateTime updateTime = new org.joda.time.DateTime();
+
+        Comment comment = new Comment(1l, mealId, userId, content, creationTime, updateTime);
+
+        //Can't send comment
+
+        apiService.createComment(eatalyzeApplication.getAccessToken(), comment, new Callback<Comment>() {
+            @Override
+            public void success(Comment comment, Response response) {
+                Log.d("Comment sent success", response.toString());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Comment sent fail", error.toString());
+            }
+        });
+
+    }
 }
