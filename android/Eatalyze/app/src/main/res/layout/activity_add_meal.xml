@@ -64,20 +64,47 @@
             android:text="INGREDIENTS"
             android:gravity="center_horizontal"
             android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_add_ingredient_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_ingredient_title">
+        <EditText
+            android:id="@+id/et_indgredient"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="ingredient"
+            android:layout_margin="10dp"
+            />
+
+
+        <EditText
+            android:id="@+id/et_amount"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:hint="gr"
+            android:layout_toRightOf="@id/et_indgredient"
+            android:layout_margin="10dp"
+            />
+
         <ImageView
             android:id="@+id/iv_add_icon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/add_icon"
-            android:layout_toRightOf="@+id/tv_ingredient_title"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toRightOf="@+id/et_amount"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+           />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/lv_ingredients"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_below="@id/rl_ingredient_title"></ListView>
+        android:layout_below="@id/rl_add_ingredient_item"></ListView>
 
     <Button
         android:id="@+id/btn_add_meal"
