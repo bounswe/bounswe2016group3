@@ -7,6 +7,7 @@ import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Ratings;
@@ -51,6 +52,13 @@ public interface ApiService {
     @GET("/api/user/{id}")
     public void getUserByID(@Path("id") Long id , Callback<User> userCallback);
 
+    //TODO meal will be turned into a list
+    @GET("/api/menu/{id}")
+    public void getMenu(@Path("id") Long id, Callback<Meal> mealCallback);
+
+    @POST("/api/meal")
+    public void createMeal(@Query("accessToken") AccessToken accessToken,@Query("meal") Meal meal);
+
     @POST("/api/meal/{id}/rate/{rating}")
     public void rateMeal(@Query("accessToken") AccessToken token, @Path("id") Long id, @Path("rating") Float rating, Callback<ResponseBody> responseBodyCallback);
 
@@ -61,13 +69,13 @@ public interface ApiService {
     public void follow(@Path("id") Long id, Callback<Follow> followCallback);
 
     @POST("/api/user/{id}/unfollow")
-    public void unfollow(@Path("id") Long id, Callback<Follow> followCallback);
+    public void unfollow(@Path("id") Long id, Callback<Unfollow> unfollowCallback);
 
     @GET("/api/user/{id}/followers")
-    public void getfollowers(@Path("id") Long id, Callback<List<User>> userListCallback);
+    public void getfollowers(@Path("id") Long id, Callback<List<User>> UserListCallback);
 
     @GET("/api/user/{id}/following")
-    public void getfollowing(@Path("id") Long id, Callback<List<User>> userListCallBack);
+    public void getfollowing(@Path("id") Long id, Callback<List<User>> UserListCallBack);
 
     @POST("/api/meal/{id}/checkeat")
     public void checkEat(@Query("accessToken") AccessToken token, @Path("id") Long id, Callback<ResponseBody> responseBodyCallback);
