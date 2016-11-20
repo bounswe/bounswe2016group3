@@ -7,14 +7,17 @@ package com.cmpe451.eatalyze.models;
 public class NutritionalInfo {
     private float weight; //gr
     private float calories;
+
+    private float protein; //gr
+    private float totalCarbohydrate; //gr
     private float totalFat; //gr
+
+    private float sugars;
     private float saturatedFat;
     private float cholesterol;
-    private float sodium;
-    private float totalCarbohydrate; //gr
     private float dietaryFiber;
-    private float sugars;
-    private float protein; //gr
+
+    private float sodium;
     private float potassium;
     private float phosphorus;
 

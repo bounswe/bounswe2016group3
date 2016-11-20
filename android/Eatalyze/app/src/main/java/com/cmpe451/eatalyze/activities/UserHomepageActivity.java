@@ -64,7 +64,7 @@ public class UserHomepageActivity extends BaseActivity {
 
         tvHelloName.setText(welcomeText);
 
-        //TODO make this for recommendeds
+        //TODO make this for recommended meals, not random ones
         apiService.getMealById(new Long(1), new Callback<Meal>() {
             @Override
             public void success(Meal meal, Response response) {
@@ -93,29 +93,6 @@ public class UserHomepageActivity extends BaseActivity {
                 Log.d("FAIL meal call",error.toString());
             }
         });
-        //TODO get list of meals instead of only one
-        /*
-        apiService.getMenus(new Long(1), new Callback<List<Menu>>>() {
-            @Override
-            public void success(Meal meal, Response response) {
-                Log.d("SUC Meal Call", meal.getName());
-
-                for (int i = 0; i < 3; i++) {
-                    recMealList.add(meal);
-                }
-
-                MealAdapter adapter = new MealAdapter(UserHomepageActivity.this, (ArrayList<Meal>) recMealList);
-                //TODO change this to butterknife version
-                ListView lvRecMeals= (ListView) findViewById(R.id.lv_rec_meals);
-                lvRecMeals.setAdapter(adapter);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Failed Mail Call", error.toString());
-            }
-        });
-        */
 
         //TODO get list of food server instead of only one
         apiService.getUserByID(new Long(95), new Callback<User>() {
