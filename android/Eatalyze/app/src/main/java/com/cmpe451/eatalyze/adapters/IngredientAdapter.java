@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Ingredient;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,7 +50,8 @@ public class IngredientAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+
         ViewHolder holder = null;
 
         if (view == null) {
@@ -62,18 +61,17 @@ public class IngredientAdapter extends BaseAdapter {
         } else holder = (ViewHolder) view.getTag();
 
         Ingredient ingredient = ingredientList.get(i);
-        holder.etIndgredient.setText(ingredient.getName());
-        holder.etAmount.setText(Double.toString(ingredient.getAmount()));
+        holder.tvIndgredient.setText(ingredient.getName());
+        holder.tvAmount.setText(ingredient.getAmount() + "");
 
         return view;
     }
 
-
     static class ViewHolder {
-        @Bind(R.id.et_indgredient)
-        EditText etIndgredient;
-        @Bind(R.id.et_amount)
-        EditText etAmount;
+        @Bind(R.id.tv_indgredient)
+        TextView tvIndgredient;
+        @Bind(R.id.tv_amount)
+        TextView tvAmount;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

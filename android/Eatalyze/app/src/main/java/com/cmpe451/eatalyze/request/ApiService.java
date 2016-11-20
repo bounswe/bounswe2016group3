@@ -94,7 +94,7 @@ public interface ApiService {
     public void getNutrition(@Path("id") Long id, Callback<NutritionalInfo> nutritionalInfoCallback);
 
     @POST("/api/meal")
-    public void addMeal(@Body Meal meal);
+    public void addMeal(@Body Meal meal, Callback<ResponseBody> responseBodyCallback);
 
     @GET("/api/meal/{id}")
     public void getMealById(@Path("id") Long id, Callback<Meal> mealCallback);
