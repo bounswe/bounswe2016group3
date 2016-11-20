@@ -11,15 +11,23 @@ public class Comment {
     private Long mealId;
     private Long userId;
     private String content;
-    private org.joda.time.DateTime creationTime;
-    private org.joda.time.DateTime updateTime;
+    private long creationTime;
+    private long updateTime;
 
-    public Comment(){
+    public Comment() {
 
     }
 
-    public Comment(Long id, Long mealId, Long userId, String content, org.joda.time.DateTime creationTime, org.joda.time.DateTime updateTime) {
+    public Comment(Long id, Long mealId, Long userId, String content, long creationTime, long updateTime) {
         this.id = id;
+        this.mealId = mealId;
+        this.userId = userId;
+        this.content = content;
+        this.creationTime = creationTime;
+        this.updateTime = updateTime;
+    }
+
+    public Comment(Long mealId, Long userId, String content, long creationTime, long updateTime) {
         this.mealId = mealId;
         this.userId = userId;
         this.content = content;
@@ -59,19 +67,20 @@ public class Comment {
         this.content = content;
     }
 
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public DateTime getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(DateTime updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
+
+    public long getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(long creationTime) {
+        this.creationTime = creationTime;
+    }
+
 }

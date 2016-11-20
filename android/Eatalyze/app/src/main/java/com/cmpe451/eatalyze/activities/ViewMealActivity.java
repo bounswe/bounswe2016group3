@@ -2,6 +2,8 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,8 @@ import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
+
+import org.joda.time.DateTime;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -141,31 +145,41 @@ public class ViewMealActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send_comment)
     public void onClick() {
+
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+
         String content = etComment.getText().toString();
-        //Log.d("success", content);
+        Log.d("success", content);
+
         Long mealId = meal.getId();
         Log.d("success mealid", mealId.toString());
+
         Long userId = eatalyzeApplication.getUser().getId();
         Log.d("success userid", userId.toString());
-        org.joda.time.DateTime creationTime = new org.joda.time.DateTime();
-        org.joda.time.DateTime updateTime = new org.joda.time.DateTime();
 
-        Comment comment = new Comment(1l, mealId, userId, content, creationTime, updateTime);
+        long creationTime = new org.joda.time.DateTime().getMillis();
+        long updateTime = new org.joda.time.DateTime().getMillis();
 
-        //Can't send comment
+        Comment comment = new Comment(mealId, userId, content, creationTime, updateTime);
 
-        apiService.createComment(eatalyzeApplication.getAccessToken(), comment, new Callback<Comment>() {
-            @Override
-            public void success(Comment comment, Response response) {
-                Log.d("Comment sent success", response.toString());
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Comment sent fail", error.toString());
-            }
-        });
+        if(content.length()>0){
+
+            apiService.createComment(eatalyzeApplication.getAccessToken(), comment, new Callback<Comment>() {
+                @Override
+                public void success(Comment comment, Response response) {
+                    Log.d("Comment sent success", response.toString());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Comment sent fail", error.toString());
+                }
+            });
+
+        }
+
+
 
     }
 }
