@@ -11,9 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -44,6 +47,8 @@ public class FoodServerProfilePageActivity extends BaseActivity {
     @Bind(R.id.btn_add_meal)
     Button btnAddMeal;
 
+    static long userid;
+    static Bundle bundle;
     @Override
     public int getLayoutId() {
         return R.layout.activity_food_server_profile_page;
@@ -52,39 +57,127 @@ public class FoodServerProfilePageActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstances) {
         super.onCreate(savedInstances);
-        apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                Log.d("Suc User Page", "Suc");
-                bio.setText(user.getBio());
-                fullName.setText(user.getFullName());
-                Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(idProfilePhoto);
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Failed User Page", error.toString());
-            }
-        });
 
-        apiService.getMenu(eatalyzeApplication.getAccessToken().getUserId(), new Callback<Meal>() {
-            @Override
-            public void success(Meal meal, Response response) {
+        bundle = getIntent().getExtras();
+        userid = -1;
+        if(bundle != null) {
+            userid = bundle.getLong("userid");
 
-            }
+            apiService.getUserByID(userid, new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    bio.setText(user.getBio());
+                    fullName.setText(user.getFullName());
+                    Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(idProfilePhoto);
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
+                @Override
+                public void failure(RetrofitError error) {
 
-            }
-        });
+                }
+            });
+
+            apiService.getMenu(userid, new Callback<Meal>() {
+                @Override
+                public void success(Meal meal, Response response) {
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getfollowers(userid, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    idFollowers.setText("Followers: " + userList.size());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            idFollowButton.setText("FOLLOW");
+            idFollowButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    apiService.follow(userid, new Callback<Follow>() {
+                        @Override
+                        public void success(Follow follow, Response response) {
+                            idFollowButton.setText("FOLLOWING");
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+            });
+        }
+        else {
+
+            apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    Log.d("Suc User Page", "Suc");
+                    bio.setText(user.getBio());
+                    fullName.setText(user.getFullName());
+                    Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(idProfilePhoto);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Failed User Page", error.toString());
+                }
+            });
+
+            apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    idFollowers.setText("Followers: " + userList.size());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getMenu(eatalyzeApplication.getAccessToken().getUserId(), new Callback<Meal>() {
+                @Override
+                public void success(Meal meal, Response response) {
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+        }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(FoodServerProfilePageActivity.this, FoodServerHomePage.class));
-        finish();
+        if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
+            super.onBackPressed();
+            startActivity(new Intent(FoodServerProfilePageActivity.this, FoodServerHomePage.class));
+            finish();
+        }
+        else {
+
+            super.onBackPressed();
+            Intent i = new Intent(FoodServerProfilePageActivity.this, FoodServerHomePage.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
     }
 
     @OnClick(R.id.btn_add_meal)

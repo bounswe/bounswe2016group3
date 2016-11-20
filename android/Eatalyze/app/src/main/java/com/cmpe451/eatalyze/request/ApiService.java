@@ -4,6 +4,7 @@ import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
@@ -55,12 +56,11 @@ public interface ApiService {
     @POST("/api/meal/{id}/rate/{rating}")
     public void rateMeal(@Query("accessToken") AccessToken token, @Path("id") Long id, @Path("rating") Float rating, Callback<ResponseBody> responseBodyCallback);
 
-
     @POST("/api/user/{id}/follow")
     public void follow(@Path("id") Long id, Callback<Follow> followCallback);
 
     @POST("/api/user/{id}/unfollow")
-    public void unfollow(@Path("id") Long id, Callback<Follow> followCallback);
+    public void unfollow(@Path("id") Long id, Callback<Unfollow> unfollowCallback);
 
     @GET("/api/user/{id}/followers")
     public void getfollowers(@Path("id") Long id, Callback<List<User>> UserListCallback);

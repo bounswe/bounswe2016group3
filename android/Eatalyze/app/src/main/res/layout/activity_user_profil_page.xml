@@ -43,7 +43,6 @@
                 android:layout_weight="0.1" />
 
             <Button
-                android:text="Edit Profile"
                 android:background="@drawable/follow_button_shape"
                 android:layout_weight="0.25"
                 android:padding="10dp"

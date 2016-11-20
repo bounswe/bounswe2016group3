@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,6 +15,16 @@ public class FoodServerHomePage extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstances){
+
         super.onCreate(savedInstances);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

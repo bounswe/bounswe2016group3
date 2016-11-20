@@ -1,7 +1,9 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Follow;
+import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
@@ -54,8 +57,12 @@ public class UserProfilePageActivity extends BaseActivity {
     @Bind(R.id.id_preferences)
     TextView preferences;
 
+    static Bundle bundle;
+    static long userid;
+
     @Override
     public int getLayoutId() {
+
         return R.layout.activity_user_profil_page;
     }
 
@@ -63,110 +70,304 @@ public class UserProfilePageActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
-                    @Override
-                    public void success(List<User> users, Response response) {
+        bundle = getIntent().getExtras();
+        userid = -1;
+        if(bundle != null){
+            userid = bundle.getLong("userid");
+            apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(final List<User> userList, Response response) {
+                    apiService.getUserByID(userid, new Callback<User>() {
+                        @Override
+                        public void success(User user, Response response) {
+                            for(int a = 0; a < userList.size(); a++){
+                                if(userList.get(a).getId().equals(user.getId())){
+                                    btn_follow.setText("FOLLOWING");
+                                    break;
+                                }
+                                else{
+                                    btn_follow.setText("FOLLOW");
 
-                        followers.setText("Followers: "+ users.size() );
-                        Log.d("Number of users: ", users.size()+"");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+                @Override
+                public void failure(RetrofitError error) {
+
+                    Log.d("FAİLED",error.toString());
+                }
+            });
+
+            apiService.getfollowers(userid, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    followers.setText("Followers: "+ userList.size() );
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getfollowing(userid, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    following.setText("Following: " + userList.size());
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getUserByID(userid, new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    bio.setText(user.getBio());
+                    fullName.setText(user.getFullName());
+                    Picasso.with(UserProfilePageActivity.this).load(user.getAvatarUrl()).into(profil_pic);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            btn_follow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(btn_follow.getText().equals("FOLLOW")){
+                        apiService.follow(userid, new Callback<Follow>() {
+                            @Override
+                            public void success(Follow follow, Response response) {
+                                btn_follow.setText("FOLLOWING");
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Log.d("Fail follow", error.toString());
+                            }
+                        });
                     }
+                    else{
+                        apiService.unfollow(userid, new Callback<Unfollow>() {
+                            @Override
+                            public void success(Unfollow unfollow, Response response) {
+                                btn_follow.setText("FOLLOW");
+                            }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("Failed", error.toString());
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Log.d("fail UNFULLOW:", error.toString());
+                            }
+                        });
                     }
-                });
+                }
+            });
 
-        apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
-            @Override
-            public void success(List<User> users, Response response) {
-                following.setText("Following: " + users.size());
-            }
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Failed", error.toString());
-            }
-        });
-
-                Log.d("Access token control", eatalyzeApplication.getAccessToken() + "");
-        apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                Log.d("Suc User Page","Suc");
-                bio.setText(user.getBio());
-                fullName.setText(user.getFullName());
-                Picasso.with(UserProfilePageActivity.this).load(user.getAvatarUrl()).into(profil_pic);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Failed User Page",error.toString());
-            }
-        });
-
-        btn_follow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Follow the user
-                apiService.follow(eatalyzeApplication.getUser().getId(), new Callback<Follow>() {
-                    @Override
-                    public void success(Follow follow, Response response) {
-                        Log.d("Follow success", "Followee id: " + follow.getFollowee_id() +" "+ follow.getFollower_id());
-                        btn_follow.setText("FOLLOWING");
+            followers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = eatalyzeApplication.getUser().getId();
+                    if(bundle!=null){
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
                     }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("Follow failed", error.toString());
+                    else{
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
                     }
-                });
+                }
+            });
 
-            }
-        });
+            following.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = eatalyzeApplication.getUser().getId();
+                    if(bundle!=null){
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
+                    }
+                }
+            });
+        }
 
-        followers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
-            }
-        });
+        else {
 
-        following.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
-            }
-        });
-        btnDiet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start diet activity
-                startActivity(new Intent(UserProfilePageActivity.this, DietActivity.class));
-            }
-        });
 
-        btnLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start log activity
-                startActivity(new Intent(UserProfilePageActivity.this, LogActivity.class));
-            }
-        });
+            btn_follow.setText("Edit Profile");
+            apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(List<User> users, Response response) {
+                    followers.setText("Followers: " + users.size());
+                    Log.d("Number of users: ", users.size() + "");
+                }
 
-        preferences.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start edit preferences activity
-                startActivity(new Intent(UserProfilePageActivity.this, EditPreferencesActivity.class));
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Failed", error.toString());
+                }
+            });
+
+            apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(List<User> users, Response response) {
+                    following.setText("Following: " + users.size());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Failed", error.toString());
+                }
+            });
+
+            Log.d("Access token control", eatalyzeApplication.getAccessToken() + "");
+            apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    Log.d("Suc User Page", "Suc");
+                    bio.setText(user.getBio());
+                    fullName.setText(user.getFullName());
+                    Picasso.with(UserProfilePageActivity.this).load(user.getAvatarUrl()).into(profil_pic);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Failed User Page", error.toString());
+                }
+            });
+        }
+
+        if(bundle == null) {
+
+            followers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = eatalyzeApplication.getUser().getId();
+                    if (bundle != null) {
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
+                    }
+                }
+            });
+
+            following.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = eatalyzeApplication.getUser().getId();
+                    if (bundle != null) {
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
+                    }
+                }
+            });
+            btnDiet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start diet activity
+                    startActivity(new Intent(UserProfilePageActivity.this, DietActivity.class));
+                }
+            });
+
+            btnLog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start log activity
+                    startActivity(new Intent(UserProfilePageActivity.this, LogActivity.class));
+                }
+            });
+
+            preferences.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start edit preferences activity
+                    startActivity(new Intent(UserProfilePageActivity.this, EditPreferencesActivity.class));
+                }
+            });
+        }
+        else{
+            userid = bundle.getLong("userid");
+
+            followers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = userid;
+                    if (bundle != null) {
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
+                    }
+                }
+            });
+
+            following.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = userid;
+                    if (bundle != null) {
+                        Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user_id);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(UserProfilePageActivity.this, UserHomepageActivity.class));
-        finish();
+        if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
+            super.onBackPressed();
+            startActivity(new Intent(UserProfilePageActivity.this, UserHomepageActivity.class));
+            finish();
+        }
+        else {
+            super.onBackPressed();
+            finish();
+        }
     }
 }
 
