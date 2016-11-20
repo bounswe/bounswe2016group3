@@ -221,4 +221,20 @@
 			<column name="ingredients" type="text" />
 		</addColumn>
 	</changeSet>
+	
+	<changeSet id="10" author="group3">
+		<createTable tableName="excludes">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_exclude_user" references="users(id)" />
+			</column>
+			<column name="name" type="text" />
+		</createTable>
+		
+		<createTable tableName="includes">
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_include_user" references="users(id)" />
+			</column>
+			<column name="name" type="text" />
+		</createTable>
+	</changeSet>
 </databaseChangeLog>

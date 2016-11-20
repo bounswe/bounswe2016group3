@@ -25,6 +25,7 @@ import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.client.AmazonClient;
 import bounswegroup3.constant.UserType;
+import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
@@ -46,11 +47,13 @@ public class UserResource {
     private MealDAO mealDao;
     private Mailer mailer;
     private AmazonClient s3;
+    private ExcludeDAO excludeDao;
     
-    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, Mailer mailer, AmazonClient s3) {
+    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, ExcludeDAO excludeDao, Mailer mailer, AmazonClient s3) {
         this.dao = dao;
         this.menuDao = menuDao;
         this.mealDao = mealDao;
+        this.excludeDao = excludeDao;
         this.mailer = mailer;
         this.s3 = s3;
     }

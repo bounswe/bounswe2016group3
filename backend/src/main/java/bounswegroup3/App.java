@@ -34,6 +34,7 @@ import bounswegroup3.client.ClientHealthCheck;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.CommentDAO;
+import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
@@ -90,6 +91,7 @@ class App extends Application<AppConfig> {
         final MenuDAO menuDao = jdbi.onDemand(MenuDAO.class);
         final MealDAO mealDao = jdbi.onDemand(MealDAO.class);
         final CommentDAO commentDao = jdbi.onDemand(CommentDAO.class);
+        final ExcludeDAO excludeDao = jdbi.onDemand(ExcludeDAO.class);
         
         final Mailer mailer = new Mailer(conf.getAppKeys().getMailjetKey(), conf.getAppKeys().getMailjetSecret(), getName(), conf.getMailAddress());
         
@@ -107,7 +109,7 @@ class App extends Application<AppConfig> {
         		conf.getAppKeys().getAmazonKey(),
         		conf.getAppKeys().getAmazonSecret());
         
-        final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, mailer, amazonClient);
+        final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, excludeDao, mailer, amazonClient);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient, amazonClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao);
         final MealResource mealResource = new MealResource(mealDao, commentDao, nutritionixClient);

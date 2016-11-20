@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.AmazonClient;
+import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
@@ -47,12 +48,13 @@ public class UserResourceTest {
 	private static final UserDAO userDao = mock(UserDAO.class);
 	private static final MenuDAO menuDao = mock(MenuDAO.class);
 	private static final MealDAO mealDao = mock(MealDAO.class);
+	private static final ExcludeDAO excludeDao = mock(ExcludeDAO.class);
 	private static final Mailer mailer = mock(Mailer.class);
 	private static final AmazonClient s3 = mock(AmazonClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new UserResource(userDao, menuDao, mealDao, mailer, s3))
+		.addResource(new UserResource(userDao, menuDao, mealDao, excludeDao, mailer, s3))
 		.addProvider(MultiPartFeature.class)
 		.build();
 	
