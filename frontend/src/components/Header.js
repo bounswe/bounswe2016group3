@@ -108,21 +108,39 @@ if(props.success){
     return (
         <nav className="navbar navbar-inverse">
             <div className="container-fluid">
+            <div className="col-sm-1">
                 <div className="navbar-header">
                     <Link className="navbar-brand" to="/">
                         <img src="/logo.png" alt="Logo" />
                     </Link>
                 </div>
-                <ul className="nav navbar-nav">
-
-              
+                </div>
+                <div className="col-sm-2">
+                <ul className="nav navbar-nav navbar">
                     { linkTags }
-                      <input type="email" className="form-control" placeholder="E-mail" id="login-email2" />
-                <input type="password" className="form-control" placeholder="Password" id="login-pass2"/>
-                <button className="btn btn-default" type="button" onClick={submitForm1} >Login</button>
                 </ul>
+                </div>
+                <div className="col-sm-2">
+
+                <ul className="nav navbar-nav navbar">
+                    <li><input type="search" className="form-control" placeholder="Search" id="Search" /></li>
+                    
+                    
+                </ul>
+                </div>
+
+                <div className="col-sm-7">
+                <ul className="nav navbar-nav navbar">
+                    <li><input type="email" className="form-control" placeholder="E-mail" id="login-email2" /></li>
+                    <li><input type="password" className="form-control" placeholder="Password" id="login-pass2"/></li>
+                    <li><button className="btn btn-default" type="button" onClick={submitForm1} >Login</button></li>
+                </ul>
+                
+                
+
                 { userHeader }
 
+            </div>
             </div>
         </nav>
     );
