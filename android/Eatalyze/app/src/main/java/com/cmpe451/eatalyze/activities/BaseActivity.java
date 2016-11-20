@@ -109,7 +109,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             case R.id.id_profil_page:
 
-                startActivity(new Intent(BaseActivity.this, UserProfilePageActivity.class));
+                if(eatalyzeApplication.getUser().getId() == 0) {
+                    startActivity(new Intent(BaseActivity.this, UserProfilePageActivity.class));
+                }
+                else{
+                    startActivity(new Intent(BaseActivity.this, FoodServerProfilePageActivity.class));
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
