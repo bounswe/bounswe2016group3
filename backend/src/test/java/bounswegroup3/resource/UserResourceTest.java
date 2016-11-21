@@ -105,6 +105,9 @@ public class UserResourceTest {
 		
 		when(menuDao.menusByUser(any())).thenReturn(menus);
 		when(mealDao.mealsByUserId(any())).thenReturn(meals);
+		
+		when(userDao.basicSearch(any())).thenReturn(users);
+		when(userDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<User>());
 	}
 	
 	@After
@@ -388,5 +391,27 @@ public class UserResourceTest {
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
 		verify(s3).uploadFile(any());
 		*/
+	}
+	
+	@Test
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public void testBasicSearch() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/search/nope")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.isEmpty());
+		
+		res = rule.getJerseyTest()
+				.target("/user/search/test")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.size()).isEqualTo(1);
 	}
 }

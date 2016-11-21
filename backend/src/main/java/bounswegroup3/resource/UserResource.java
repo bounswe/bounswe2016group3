@@ -308,4 +308,10 @@ public class UserResource {
     	String url = s3.uploadFile(file);
     	dao.updateAvatar(token.getUserId(), url);
     }
+    
+    @GET
+    @Path("/search/{query}")
+    public List<User> basicSearch(@PathParam("query") String query) {
+    	return dao.basicSearch(query);
+    }
 }

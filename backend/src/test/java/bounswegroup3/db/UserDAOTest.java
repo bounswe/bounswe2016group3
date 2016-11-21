@@ -3,6 +3,8 @@ package bounswegroup3.db;
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import bounswegroup3.model.Meal;
 import bounswegroup3.model.User;
 import bounswegroup3.utils.H2JDBIRule;
 import io.dropwizard.jackson.Jackson;
@@ -21,12 +24,14 @@ public class UserDAOTest {
 	private UserDAO dao;
 	private ObjectMapper mapper;
 	
+	private User user;
+	
 	@Before
 	public void setup() throws Exception {
 		mapper = Jackson.newObjectMapper();
 		dao = db.getDbi().onDemand(UserDAO.class);
 		
-		
+		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
 	}
 	
 	@After
@@ -36,10 +41,10 @@ public class UserDAOTest {
 	
 	@Test
 	public void testCrud() throws Exception {
-		User u = mapper.readValue(fixture("fixtures/user.json"), User.class);
-		Long id = dao.addUser(u);
+		Long id = dao.addUser(user);
 		assertThat(id).isEqualTo(1l);
 		
+		User u;
 	    u = dao.getUserById(1l);
 	    assertThat(u.getFullName()).isEqualTo("test deneme");
 	    
@@ -94,5 +99,18 @@ public class UserDAOTest {
 		
 		assertThat(dao.getFollowers(1l).size()).isEqualTo(0);
 		assertThat(dao.getFollowing(1l).size()).isEqualTo(0);
+	}
+	
+	@Test
+	public void testSearch() throws Exception {
+		ArrayList<User> res = new ArrayList<User>(dao.basicSearch("test"));
+		
+		assertThat(res.isEmpty());
+		
+		dao.addUser(user);
+		
+		res = new ArrayList<User>(dao.basicSearch("test"));
+		
+		assertThat(res.size()).isEqualTo(1);
 	}
 }
