@@ -53,6 +53,7 @@
         <activity android:name=".activities.NutritionInfoActivity" />
         <activity android:name=".activities.TagPeopleActivity" />
         <activity android:name=".activities.FoodServerHomePage"></activity>
+        <activity android:name=".activities.ViewMealCommentsActivity"></activity>
     </application>
 
 </manifest>

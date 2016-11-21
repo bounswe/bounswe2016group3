@@ -98,4 +98,7 @@ public interface ApiService {
 
     @GET("/api/meal/{id}")
     public void getMealById(@Path("id") Long id, Callback<Meal> mealCallback);
+
+    @GET("/api/meal/{id}/comments")
+    public void commentsByMeal(@Path("id") Long id, Callback<List<Comment>> commentsListCallback);
 }

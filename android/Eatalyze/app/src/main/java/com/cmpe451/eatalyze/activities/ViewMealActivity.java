@@ -2,8 +2,6 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +55,10 @@ public class ViewMealActivity extends BaseActivity {
     RatingBar rbMealRating;
     @Bind(R.id.btn_send_comment)
     Button btnSendComment;
+    @Bind(R.id.tv_total_calorie)
+    TextView tvTotalCalorie;
+    @Bind(R.id.btn_comments)
+    Button btnComments;
 
     @Override
     public int getLayoutId() {
@@ -119,11 +121,10 @@ public class ViewMealActivity extends BaseActivity {
         });
 
 
-
     }
 
 
-    @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info})
+    @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info, R.id.btn_comments})
     public void onClick(View view) {
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         switch (view.getId()) {
@@ -137,6 +138,11 @@ public class ViewMealActivity extends BaseActivity {
                 break;
             case R.id.btn_nutrition_info:
                 intent = new Intent(ViewMealActivity.this, NutritionInfoActivity.class);
+                intent.putExtra("ClickedMeal", meal);
+                startActivity(intent);
+                break;
+            case R.id.btn_comments:
+                intent = new Intent(ViewMealActivity.this, ViewMealCommentsActivity.class);
                 intent.putExtra("ClickedMeal", meal);
                 startActivity(intent);
                 break;
@@ -157,13 +163,13 @@ public class ViewMealActivity extends BaseActivity {
         Long userId = eatalyzeApplication.getUser().getId();
         Log.d("success userid", userId.toString());
 
-        long creationTime = new org.joda.time.DateTime().getMillis();
-        long updateTime = new org.joda.time.DateTime().getMillis();
+        long creationTime = new DateTime().getMillis();
+        long updateTime = new DateTime().getMillis();
 
         Comment comment = new Comment(mealId, userId, content, creationTime, updateTime);
 
 
-        if(content.length()>0){
+        if (content.length() > 0) {
 
             apiService.createComment(eatalyzeApplication.getAccessToken(), comment, new Callback<Comment>() {
                 @Override
@@ -180,6 +186,6 @@ public class ViewMealActivity extends BaseActivity {
         }
 
 
-
     }
+
 }
