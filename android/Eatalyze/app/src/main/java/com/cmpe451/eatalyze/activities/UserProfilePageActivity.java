@@ -364,6 +364,11 @@ public class UserProfilePageActivity extends BaseActivity {
         }
         else {
             super.onBackPressed();
+            Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
             finish();
         }
     }

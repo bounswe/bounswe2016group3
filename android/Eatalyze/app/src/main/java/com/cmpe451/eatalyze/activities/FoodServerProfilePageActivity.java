@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.MealAdapter;
+import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.Menu;
+import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -54,7 +57,8 @@ public class FoodServerProfilePageActivity extends BaseActivity {
 
     ArrayList<Menu> menus;
     ArrayList<Meal> mealOfMenu;
-
+    static Bundle bundle;
+    static long userid;
     @Override
     public int getLayoutId() {
         return R.layout.activity_food_server_profile_page;
@@ -64,96 +68,292 @@ public class FoodServerProfilePageActivity extends BaseActivity {
     public void onCreate(Bundle savedInstances) {
         super.onCreate(savedInstances);
 
-        // gets current user
-        apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                Log.d("Suc User Page", "Suc");
-                tvBio.setText(user.getBio());
-                tvFullName.setText(user.getFullName());
-                Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(ivProfilePhoto);
-            }
+        bundle = getIntent().getExtras();
+        userid = -1 ;
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Failed User Page", error.toString());
-            }
-        });
+        if(bundle != null){
 
-        // gets menus
-        apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
-            @Override
-            public void success(final List<Menu> menus, Response response) {
-                Log.d("Menu server call success. # of meals ->", menus.get(0).getId() + "");
-                FoodServerProfilePageActivity.this.menus = (ArrayList<Menu>) menus;
+            userid = bundle.getLong("userid");
 
-                // TODO find a better way to do that and food server can have more than one menu
-                apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
-                    @Override
-                    public void success(List<Meal> meals, Response response) {
-                        Log.d("succ meal list call. SIZE ->", meals.size() + "");
-                        FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
+            apiService.getUserByID(userid, new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    tvBio.setText(user.getBio());
+                    tvFullName.setText(user.getFullName());
+                    Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(ivProfilePhoto);
+                }
 
-                        final String[] foodServerName = {""};
-                        apiService.getUserByID(menus.get(0).getUserId(), new Callback<User>() {
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getMenus(userid, new Callback<List<Menu>>() {
+                @Override
+                public void success(final List<Menu> menus, Response response) {
+                    if (!menus.isEmpty()) {
+                        Log.d("Menu server call success. # of meals ->", menus.get(0).getId() + "");
+                        FoodServerProfilePageActivity.this.menus = (ArrayList<Menu>) menus;
+
+                        // TODO find a better way to do that and food server can have more than one menu
+                        apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
                             @Override
-                            public void success(User user, Response response) {
-                                Log.d("User by id call is SUC", user.getFullName());
-                                foodServerName[0] = user.getFullName();
-                                Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
+                            public void success(List<Meal> meals, Response response) {
+                                Log.d("succ meal list call. SIZE ->", meals.size() + "");
+                                FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
 
-                                //TODO put ingredients and nutritional info
+                                final String[] foodServerName = {""};
+                                apiService.getUserByID(menus.get(0).getUserId(), new Callback<User>() {
+                                    @Override
+                                    public void success(User user, Response response) {
+                                        Log.d("User by id call is SUC", user.getFullName());
+                                        foodServerName[0] = user.getFullName();
+                                        Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
 
-                                MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
-                                lvMenu.setAdapter(adapter);
+                                        //TODO put ingredients and nutritional info
+
+                                        MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
+                                        lvMenu.setAdapter(adapter);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.d("User by id call is FAIL", error.toString());
+                                    }
+                                });
+
                             }
 
                             @Override
                             public void failure(RetrofitError error) {
-                                Log.d("User by id call is FAIL", error.toString());
+                                Log.d("fail meal list call.", error.toString());
                             }
                         });
-
                     }
+                }
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Menu server call fail", error.toString());
+                }
+            });
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("fail meal list call.", error.toString());
+            apiService.getfollowers(userid, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    tvFollowers.setText("Followers: " + userList.size());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+
+            tvFollowers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = userid;
+                    Intent intent = new Intent(FoodServerProfilePageActivity.this, FollowersListActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("userid", user_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            btnAddMeal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Oopss!! You can not do this..",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(final List<User> userList, Response response) {
+                    apiService.getUserByID(userid, new Callback<User>() {
+                        @Override
+                        public void success(User user, Response response) {
+                            for(int a = 0; a < userList.size(); a++){
+                                if(userList.get(a).getId().equals(user.getId())){
+                                    btnFollow.setText("FOLLOWING");
+                                    break;
+                                }
+                                else{
+                                    btnFollow.setText("FOLLOW");
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            btnFollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(btnFollow.getText().equals("FOLLOW")){
+                        apiService.follow(userid, new Callback<Follow>() {
+                            @Override
+                            public void success(Follow follow, Response response) {
+                                btnFollow.setText("FOLLOWING");
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                            }
+                        });
                     }
-                });
-            }
+                    else{
+                        apiService.unfollow(userid, new Callback<Unfollow>() {
+                            @Override
+                            public void success(Unfollow unfollow, Response response) {
+                                btnFollow.setText("FOLLOW");
+                            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Menu server call fail", error.toString());
-            }
-        });
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        else {
+
+            btnFollow.setText("EDIT PROFILE");
+            // gets current user
+            apiService.getCurrentUser(eatalyzeApplication.getAccessToken(), new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    Log.d("Suc User Page", "Suc");
+                    tvBio.setText(user.getBio());
+                    tvFullName.setText(user.getFullName());
+                    Picasso.with(FoodServerProfilePageActivity.this).load(user.getAvatarUrl()).into(ivProfilePhoto);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Failed User Page", error.toString());
+                }
+            });
+
+            apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(List<User> userList, Response response) {
+                    tvFollowers.setText("Followers: " + userList.size());
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+
+            apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
+                @Override
+                public void success(final List<Menu> menus, Response response) {
+                    if (!menus.isEmpty()) {
+                        Log.d("Menu server call success. # of meals ->", menus.get(0).getId() + "");
+                        FoodServerProfilePageActivity.this.menus = (ArrayList<Menu>) menus;
+
+                        // TODO find a better way to do that and food server can have more than one menu
+                        apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
+                            @Override
+                            public void success(List<Meal> meals, Response response) {
+                                Log.d("succ meal list call. SIZE ->", meals.size() + "");
+                                FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
+
+                                final String[] foodServerName = {""};
+                                apiService.getUserByID(menus.get(0).getUserId(), new Callback<User>() {
+                                    @Override
+                                    public void success(User user, Response response) {
+                                        Log.d("User by id call is SUC", user.getFullName());
+                                        foodServerName[0] = user.getFullName();
+                                        Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
+
+                                        //TODO put ingredients and nutritional info
+
+                                        MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
+                                        lvMenu.setAdapter(adapter);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.d("User by id call is FAIL", error.toString());
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Log.d("fail meal list call.", error.toString());
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Menu server call fail", error.toString());
+                }
+            });
+
+            tvFollowers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long user_id = eatalyzeApplication.getUser().getId();
+                    Intent intent = new Intent(FoodServerProfilePageActivity.this, FollowersListActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("userid", user_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            btnAddMeal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(FoodServerProfilePageActivity.this, AddMealActivity.class));
+                }
+            });
+        }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(FoodServerProfilePageActivity.this, FoodServerHomePage.class));
-        finish();
-    }
-
-    @OnClick(R.id.btn_add_meal)
-    public void addMealClicked() {
-        startActivity(new Intent(FoodServerProfilePageActivity.this, AddMealActivity.class));
-    }
-
-    @OnClick({R.id.iv_profile_photo, R.id.btn_follow, R.id.tv_full_name, R.id.tv_followers})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_profile_photo:
-                break;
-            case R.id.btn_follow:
-                break;
-            case R.id.tv_full_name:
-                break;
-            case R.id.tv_followers:
-                startActivity(new Intent(FoodServerProfilePageActivity.this, FollowersListActivity.class));
-                break;
+        if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
+            super.onBackPressed();
+            startActivity(new Intent(FoodServerProfilePageActivity.this, FoodServerHomePage.class));
+            finish();
+        }
+        else {
+            super.onBackPressed();
+            Intent intent = new Intent(FoodServerProfilePageActivity.this, FollowersListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
         }
     }
 
