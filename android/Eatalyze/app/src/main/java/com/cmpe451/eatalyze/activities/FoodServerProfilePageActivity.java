@@ -1,5 +1,7 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -219,17 +221,38 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                         });
                     }
                     else{
-                        apiService.unfollow(userid, new Callback<Unfollow>() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FoodServerProfilePageActivity.this);
+                        builder.setTitle("Unfollow");
+                        builder.setIcon(R.drawable.ic_logo_eatalyze);
+                        builder.setMessage("Stop Following ?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void success(Unfollow unfollow, Response response) {
-                                btnFollow.setText("FOLLOW");
-                            }
+                            public void onClick(final DialogInterface dialog, int which) {
+                                apiService.unfollow(userid, new Callback<Unfollow>() {
+                                    @Override
+                                    public void success(Unfollow unfollow, Response response) {
+                                        dialog.dismiss();
+                                        btnFollow.setText("FOLLOW");
+                                    }
 
-                            @Override
-                            public void failure(RetrofitError error) {
+                                    @Override
+                                    public void failure(RetrofitError error) {
 
+                                    }
+                                });
                             }
                         });
+
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
                     }
                 }
             });

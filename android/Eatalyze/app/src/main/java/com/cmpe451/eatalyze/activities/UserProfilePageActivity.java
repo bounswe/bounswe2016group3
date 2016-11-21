@@ -1,6 +1,8 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -128,6 +130,33 @@ public class UserProfilePageActivity extends BaseActivity {
                 }
             });
 
+            apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
+                @Override
+                public void success(final List<User> userList, Response response) {
+                    apiService.getUserByID(userid, new Callback<User>() {
+                        @Override
+                        public void success(User user, Response response) {
+                            for(int a = 0; a < userList.size(); a++){
+                                if(userList.get(a).getId().equals(user.getId()) && eatalyzeApplication.getUser().getUserType()==1){
+                                    btn_follow.setText("FOLLOWING YOU");
+                                    break;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
             apiService.getUserByID(userid, new Callback<User>() {
                 @Override
                 public void success(User user, Response response) {
@@ -158,18 +187,38 @@ public class UserProfilePageActivity extends BaseActivity {
                             }
                         });
                     }
-                    else{
-                        apiService.unfollow(userid, new Callback<Unfollow>() {
+                    else if(btn_follow.getText().equals("FOLLOWING")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserProfilePageActivity.this);
+                        builder.setTitle("Unfollow");
+                        builder.setIcon(R.drawable.ic_logo_eatalyze);
+                        builder.setMessage("Stop Following ?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void success(Unfollow unfollow, Response response) {
-                                btn_follow.setText("FOLLOW");
-                            }
+                            public void onClick(final DialogInterface dialog, int which) {
+                                apiService.unfollow(userid, new Callback<Unfollow>() {
+                                    @Override
+                                    public void success(Unfollow unfollow, Response response) {
+                                        dialog.dismiss();
+                                        btn_follow.setText("FOLLOW");
+                                    }
 
-                            @Override
-                            public void failure(RetrofitError error) {
-                                Log.d("fail UNFULLOW:", error.toString());
+                                    @Override
+                                    public void failure(RetrofitError error) {
+                                        Log.d("fail UNFULLOW:", error.toString());
+                                    }
+                                });
                             }
                         });
+
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                     }
                 }
             });
