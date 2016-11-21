@@ -109,7 +109,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
             case R.id.id_profil_page:
 
-                if(eatalyzeApplication.getUser().getId() == 0) {
+                if(eatalyzeApplication.getUser().getUserType() == 0) {
+                    Log.d("User is regular user: ", " Success");
                     startActivity(new Intent(BaseActivity.this, UserProfilePageActivity.class));
                 }
                 else{
