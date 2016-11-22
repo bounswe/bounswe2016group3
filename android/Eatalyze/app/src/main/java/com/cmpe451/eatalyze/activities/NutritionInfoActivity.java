@@ -91,29 +91,29 @@ public class NutritionInfoActivity extends BaseActivity {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 Log.d("success", response.toString());
-                String amount = "" + nutritionalInfo.getWeight();
+                String amount = "" + nutritionalInfo.getWeight() + " grams";
                 tvWeightAmount.setText(amount);
-                amount = "" + nutritionalInfo.getCalories();
+                amount = "" + nutritionalInfo.getCalories() + " kCal";
                 tvCalorieAmount.setText(amount);
-                amount = "" + nutritionalInfo.getTotalFat();
+                amount = "" + nutritionalInfo.getTotalFat() + " grams";
                 tvFatAmount.setText(amount);
-                amount = "" + nutritionalInfo.getSaturatedFat();
+                amount = "" + nutritionalInfo.getSaturatedFat() + " grams";
                 tvSatfatAmount.setText(amount);
                 amount = "" + nutritionalInfo.getCholesterol();
                 tvCholesterolAmount.setText(amount);
-                amount = "" + nutritionalInfo.getSodium();
+                amount = "" + nutritionalInfo.getSodium() + " milligram";
                 tvSodiumAmount.setText(amount);
-                amount = "" + nutritionalInfo.getTotalCarbohydrate();
+                amount = "" + nutritionalInfo.getTotalCarbohydrate() + " grams";
                 tvCarbohydrateAmount.setText(amount);
-                amount = "" + nutritionalInfo.getDietaryFiber();
-                tvFiber.setText(amount);
-                amount = "" + nutritionalInfo.getSugars();
+                amount = "" + nutritionalInfo.getDietaryFiber() + " milligram";
+                tvFiberAmount.setText(amount);
+                amount = "" + nutritionalInfo.getSugars() + " grams";
                 tvSugarsAmount.setText(amount);
-                amount = "" + nutritionalInfo.getProtein();
+                amount = "" + nutritionalInfo.getProtein() + " grams";
                 tvProteinAmount.setText(amount);
-                amount = "" + nutritionalInfo.getPotassium();
+                amount = "" + nutritionalInfo.getPotassium() + " milligram";
                 tvPotassiumAmount.setText(amount);
-                amount = "" + nutritionalInfo.getPhosphorus();
+                amount = "" + nutritionalInfo.getPhosphorus() + " milligram";
                 tvPhosphorusAmount.setText(amount);
             }
 

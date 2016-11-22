@@ -1,6 +1,7 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -51,6 +52,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(getLayoutId());
 
+        handleIntent(getIntent());
+
         Toolbar appBar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(appBar);
 
@@ -75,6 +78,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setEndpoint(getString(R.string.base_url))
                 .build();
         apiService = restAdapter.create(ApiService.class);
+    }
+
+    public void onNewIntent(Intent intent){
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())){
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Log.d("success ", query);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
