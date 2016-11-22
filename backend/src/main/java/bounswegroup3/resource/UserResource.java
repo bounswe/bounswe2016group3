@@ -314,4 +314,28 @@ public class UserResource {
     public List<User> basicSearch(@PathParam("query") String query) {
     	return dao.basicSearch(query);
     }
+    
+    @GET
+    @Path("/{id}/include")
+    public List<String> getIncludes(@PathParam("id") Long id) {
+    	return excludeDao.getUserIncludes(id);
+    }
+    
+    @GET
+    @Path("/{id}/exclude")
+    public List<String> getExcludes(@PathParam("id") Long id) {
+    	return excludeDao.getUserExcludes(id);
+    }
+    
+    @POST
+    @Path("/{id}/include")
+    public void updateIncludes(@PathParam("id") Long id, List<String> xs) {
+    	excludeDao.updateIncludes(id, xs);
+    }
+    
+    @POST
+    @Path("/{id}/exclude")
+    public void updateExcludes(@PathParam("id") Long id, List<String> xs) {
+    	excludeDao.updateExcludes(id, xs);
+    }
 }
