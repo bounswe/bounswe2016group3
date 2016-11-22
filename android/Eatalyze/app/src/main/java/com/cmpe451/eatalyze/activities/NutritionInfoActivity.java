@@ -87,7 +87,7 @@ public class NutritionInfoActivity extends BaseActivity {
 
 
         //TODO Try with real ingredient data
-        apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
+        apiService.getNutrition(new Long(34), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 Log.d("success", response.toString());

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Ratings;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
@@ -70,6 +71,19 @@ public class ViewMealActivity extends BaseActivity {
 
 
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+
+        apiService.getNutrition(new Long(34), new Callback<NutritionalInfo>() {
+            @Override
+            public void success(NutritionalInfo nutritionalInfo, Response response) {
+                String totalCalorie = "Total calories: " + nutritionalInfo.getCalories() + " kcal";
+                tvTotalCalorie.setText(totalCalorie);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
 
         apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
             @Override

@@ -15,7 +15,7 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -29,7 +29,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_meal_image">
 
             <TextView
                 android:id="@+id/tv_meal_name"
@@ -49,7 +50,7 @@
 
             <TextView
                 android:id="@+id/tv_total_calorie"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="Total calorie : 343 kcal"
@@ -60,26 +61,27 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp">
 
             <Button
                 android:id="@+id/btn_check_eat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:text="Check Eat"/>
 
             <Button
                 android:id="@+id/btn_tag_meal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+
                 android:text="Tag"/>
 
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RatingBar
         android:id="@+id/rb_meal_rating"
