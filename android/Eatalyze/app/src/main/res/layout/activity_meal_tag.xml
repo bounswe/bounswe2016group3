@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_tagname"
+            android:id="@+id/et_tag_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
@@ -20,6 +20,7 @@
             android:hint="Enter tag..."/>
 
         <Button
+            android:id="@+id/btn_tag_meal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"

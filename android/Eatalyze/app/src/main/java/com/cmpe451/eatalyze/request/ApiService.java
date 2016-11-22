@@ -7,6 +7,7 @@ import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Tag;
 import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
@@ -101,4 +102,13 @@ public interface ApiService {
 
     @GET("/api/meal/{id}/comments")
     public void commentsByMeal(@Path("id") Long id, Callback<List<Comment>> commentsListCallback);
+
+    @GET("/api/meal/{id}/tags")
+    public void tagsByMeal(@Path("id") Long id, Callback<List<String>> tagListCallback);
+
+    @POST("/api/meal/tag")
+    public void tagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
+
+    @POST("/api/meal/untag")
+    public void untagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
 }
