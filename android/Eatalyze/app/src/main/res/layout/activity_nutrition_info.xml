@@ -6,4 +6,381 @@
 
     <include layout="@layout/app_bar"/>
 
+    <TextView
+        android:id="@+id/tv_meal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MEAL NAME"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_weight_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_weight"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total calorie: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_calorie_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_calories"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total fat:"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_fat_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_fat"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_sat_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saturated fat: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_satfat_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_sat_fat"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_cholesterol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cholesterol: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_cholesterol_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_cholesterol"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_sodium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sodium: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_sodium_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_sodium"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_carbohydrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carbohydrate: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_carbohydrate_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_carbohydrate"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_fiber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dietary fiber: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_fiber_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_fiber"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_sugars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sugars: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_sugars_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_sugars"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Protein: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_protein_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_protein"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_potassium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Potassium: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_potassium_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_potassium"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_phosphorus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phosphorus: "
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_phosphorus_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_phosphorus"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
 </LinearLayout>
