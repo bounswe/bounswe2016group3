@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalClose,
+  ModalBody,
+  ModalFooter
+} from 'react-modal-bootstrap';
 
 import * as actions from '../actions/FoodServerProfile';
 
@@ -9,6 +17,21 @@ class Profile extends Component {
         this.props.actions.load(this.props.params.id);
     }
 
+    state = {
+  isOpen: false
+};
+ 
+openModal = () => {
+  this.setState({
+    isOpen: true
+  });
+};
+ 
+hideModal = () => {
+  this.setState({
+    isOpen: false
+  });
+};
     render(){
         if(!this.props.profile || this.props.profile === {}){
             return (
@@ -23,6 +46,8 @@ class Profile extends Component {
 
         const profile = this.props.profile;
         const current = this.props.currentUser;
+
+        
 
         var followUser = () => {
             if(this.props.token!==""){
@@ -51,7 +76,7 @@ class Profile extends Component {
         let menusHtml = this.props.menus.map(function(m){
             return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
         });
-        
+
         let followButton;
         let addmealButton;
         if(current.id === profile.id) {
@@ -93,13 +118,25 @@ class Profile extends Component {
                             <h3>Preferences</h3>
                            
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-6" id="menus">
                             <h3>Menus</h3>
+                            <button type="button" className="btn btn-success" onClick={this.openModal}>Add Meal </button>
                            {menusHtml}
-                            <input type="text" className="form-control" placeholder="Meal name" id="meal_name" />
-                             <input type="text" className="form-control" placeholder="Meal desc" id="meal_description" />
-                             
-                            <p>{addmealButton}</p>
+                           <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal}>
+                                <ModalHeader>
+                                    <ModalClose onClick={this.hideModal}/>
+                                    <ModalTitle>Add Meal</ModalTitle>
+                                </ModalHeader>
+                                <ModalBody>
+                                    <input type="text" className="form-control" placeholder="Meal name" id="meal_name" />
+                                    <input type="text" className="form-control" placeholder="Meal desc" id="meal_description" /> 
+                                </ModalBody>
+                                <ModalFooter>
+                                    <button className='btn btn-default' onClick={this.hideModal}>Cancell</button>
+                                    {addmealButton}
+                                </ModalFooter>
+                            </Modal>
+                            
                         </div>
                     </div>
                      
