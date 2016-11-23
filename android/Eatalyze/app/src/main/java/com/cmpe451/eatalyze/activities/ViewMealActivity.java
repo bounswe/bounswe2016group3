@@ -9,13 +9,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Ratings;
-import com.cmpe451.eatalyze.models.Tag;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.okhttp.ResponseBody;
@@ -87,18 +87,7 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
 
-        apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
-            @Override
-            public void success(Ratings ratings, Response response) {
-                Log.d("Ratings fetch success", response.toString());
-                rbMealRating.setRating(ratings.getAverage());
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Ratings fetch fail", error.toString());
-            }
-        });
 
         //TODO this with real clicked meal
         apiService.getMealById(new Long(34), new Callback<Meal>() {
@@ -110,6 +99,21 @@ public class ViewMealActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
 
+            }
+        });
+
+
+        apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
+            @Override
+            public void success(Ratings ratings, Response response) {
+                Log.d("Ratings fetch success", response.toString());
+                if(ratings.getAverage() != null)
+                rbMealRating.setRating(ratings.getAverage());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Ratings fetch fail", error.toString());
             }
         });
 
@@ -134,13 +138,36 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
 
+
         rbMealRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
-                    @Override
-                    public void success(ResponseBody responseBody, Response response) {
+            public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
 
+                apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
+                    @Override
+                    public void success(Ratings ratings, Response response) {
+                        String rating1 = "" + rating;
+                        String rating2 = ""+ ratings.getAverage();
+                        Log.d("rating1", rating1);
+                        Log.d("rating2", rating2);
+                        if((rating < ratings.getAverage() - 0.1 ||  rating > ratings.getAverage() + 0.1) ){
+                            apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
+                                @Override
+                                public void success(ResponseBody responseBody, Response response) {
+                                    Log.d("Rating sent", response.toString());
+                                    CharSequence text = "You have rated " + rating + "/5!";
+                                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    Log.d("Rating sent failure", error.toString());
+                                    Toast toast = Toast.makeText(getApplicationContext(), "You have rated before, sorry!", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            });
+                        }
                     }
 
                     @Override
@@ -148,11 +175,14 @@ public class ViewMealActivity extends BaseActivity {
 
                     }
                 });
+
+
             }
         });
-
-
     }
+
+
+
 
 
     @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info, R.id.btn_comments})
@@ -208,6 +238,9 @@ public class ViewMealActivity extends BaseActivity {
                 @Override
                 public void success(Comment comment, Response response) {
                     Log.d("Comment sent success", response.toString());
+                    etComment.setText("");
+                    Toast toast = Toast.makeText(getApplicationContext(), "Comment sent successfully!", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
                 @Override
@@ -216,6 +249,9 @@ public class ViewMealActivity extends BaseActivity {
                 }
             });
 
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Write something sir!", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
 
