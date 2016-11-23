@@ -70,10 +70,11 @@ hideModal = () => {
             if(this.props.token!==""){
                 var ingredients="";
                 $(".ingredients_list_element").each(function(){
-                    ingredients=ingredients+"$$$"+$(this).find("#name").val()+"%%%"+$(this).find("#amount").val()
+                    ingredients=ingredients+"]]]"+$(this).find("#name").val()+"%%%"+$(this).find("#amount").val()
                 })
                 ingredients = ingredients.substring(3)
                 this.props.actions.addmeal(this.props.token,this.props.profile.id, 1, meal_name.value,meal_description.value,ingredients,"");
+                document.location.href;
             }
         }
 
@@ -91,7 +92,12 @@ hideModal = () => {
         });
 
         let mealsHtml = this.props.meals.map(function(m){
-            return <li key={m.id}><div className="meal_name_div">{m.name}</div>{m.name}<div className="meal_description_div"><{m.desc}/div><div className=""></div></li>;
+            var ingredients=m.ingredients;
+            if(ingredients != null && ingredients != undefined && ingredients!=""){
+                ingredients=m.ingredients.replace(/]]]/g, ',')
+                ingredients=ingredients.replace(/%%%/g,"-")
+            }
+            return <li key={m.id}><div className="meal_name_div">{m.name}</div><div className="meal_description_div">{m.description}</div><div className="meal_ingredients_div">{ingredients}</div></li>;
         });
 
 
@@ -142,8 +148,7 @@ hideModal = () => {
                         <div className="col-xs-6" id="menus">
                             <h3>Menus</h3>
                             {openAddMealModalButton}
-                            
-                           {menusHtml}
+                           {mealsHtml}
                            <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} id="addMeal_modal">
                                 <ModalHeader>
                                     <ModalClose onClick={this.hideModal}/>
