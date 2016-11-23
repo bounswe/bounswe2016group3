@@ -15,6 +15,7 @@ import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Ratings;
+import com.cmpe451.eatalyze.models.Tag;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.okhttp.ResponseBody;
@@ -72,6 +73,7 @@ public class ViewMealActivity extends BaseActivity {
 
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
+        //TODO this with real clicked meal
         apiService.getNutrition(new Long(34), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
@@ -97,6 +99,21 @@ public class ViewMealActivity extends BaseActivity {
                 Log.d("Ratings fetch fail", error.toString());
             }
         });
+
+        //TODO this with real clicked meal
+        apiService.getMealById(new Long(34), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+                etvIngredient.setText(meal.getIngredients());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
 
         tvMealName.setText(meal.getName());
 
@@ -143,12 +160,14 @@ public class ViewMealActivity extends BaseActivity {
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         switch (view.getId()) {
             case R.id.btn_check_eat:
-                Log.d("check eat success", "success");
                 Intent intent = new Intent(ViewMealActivity.this, TagPeopleActivity.class);
                 intent.putExtra("ClickedMeal", meal);
                 startActivity(intent);
                 break;
             case R.id.btn_tag_meal:
+                intent = new Intent(ViewMealActivity.this, TagMealActivity.class);
+                intent.putExtra("ClickedMeal", meal);
+                startActivity(intent);
                 break;
             case R.id.btn_nutrition_info:
                 intent = new Intent(ViewMealActivity.this, NutritionInfoActivity.class);

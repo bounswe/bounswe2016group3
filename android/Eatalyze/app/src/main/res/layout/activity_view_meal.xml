@@ -36,7 +36,7 @@
                 android:id="@+id/tv_meal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="6dp"
                 android:textSize="16sp"
                 android:text="Domates Çorbası"/>
 
@@ -44,7 +44,7 @@
                 android:id="@+id/tv_server_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="6dp"
                 android:textSize="16sp"
                 android:text="\@newhallcati"/>
 
@@ -52,7 +52,7 @@
                 android:id="@+id/tv_total_calorie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="6dp"
                 android:text="Total calorie : 343 kcal"
                 />
 
@@ -96,7 +96,8 @@
         android:id="@+id/et_comment"
         android:layout_width="253dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:hint="Write a comment..."/>
 
     <Button
@@ -117,7 +118,16 @@
         android:id="@+id/etv_ingredient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
     <Button
         android:id="@+id/btn_comments"
