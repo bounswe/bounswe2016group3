@@ -1,12 +1,31 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.adapters.CommentAdapter;
+import com.cmpe451.eatalyze.models.Comment;
+import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class FoodServerHomePage extends BaseActivity {
+
+    @Bind(R.id.tv_welcome_text)
+    TextView tvWelcomeText;
+    @Bind(R.id.lv_comments)
+    ListView lvComments;
 
     @Override
     public int getLayoutId() {
@@ -14,13 +33,33 @@ public class FoodServerHomePage extends BaseActivity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstances){
+    public void onCreate(Bundle savedInstances) {
 
         super.onCreate(savedInstances);
+
+        final ArrayList<User> userList=new ArrayList<>();
+        userList.add(eatalyzeApplication.getUser());
+
+        ArrayList<Comment> commentList=new ArrayList<>();
+        apiService.commentsByMeal(new Long(0), new Callback<List<Comment>>() {
+            @Override
+            public void success(List<Comment> comments, Response response) {
+                CommentAdapter adapter=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
+                lvComments.setAdapter(adapter);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+        //apiService.commentsByMeal();
+
+        //CommentAdapter adapter=new CommentAdapter()
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
