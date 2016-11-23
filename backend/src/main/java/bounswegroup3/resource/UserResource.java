@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.AnswerCredentials;
+import bounswegroup3.model.Comment;
 import bounswegroup3.model.Follow;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
@@ -25,6 +26,7 @@ import bounswegroup3.model.User;
 import io.dropwizard.auth.Auth;
 import bounswegroup3.client.AmazonClient;
 import bounswegroup3.constant.UserType;
+import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
@@ -48,12 +50,14 @@ public class UserResource {
     private Mailer mailer;
     private AmazonClient s3;
     private ExcludeDAO excludeDao;
+    private CommentDAO commentDao;
     
-    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, ExcludeDAO excludeDao, Mailer mailer, AmazonClient s3) {
+    public UserResource(UserDAO dao, MenuDAO menuDao, MealDAO mealDao, ExcludeDAO excludeDao, CommentDAO commentDao, Mailer mailer, AmazonClient s3) {
         this.dao = dao;
         this.menuDao = menuDao;
         this.mealDao = mealDao;
         this.excludeDao = excludeDao;
+        this.commentDao = commentDao;
         this.mailer = mailer;
         this.s3 = s3;
     }
@@ -277,6 +281,12 @@ public class UserResource {
     @Path("/{id}/meals")
     public List<Meal> mealsByUser(@PathParam("id") Long id){
     	return mealDao.mealsByUserId(id);
+    }
+    
+    @GET
+	@Path("/{id}/comments")
+	public List<Comment> commentsByUser(@PathParam("id") Long id) {
+    	return commentDao.commentsByUser(id);
     }
     
     /**
