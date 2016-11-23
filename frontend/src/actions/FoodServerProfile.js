@@ -29,5 +29,11 @@ var follow = function(token, followee, follower){
         token
     };
 }
+var loadMeal = function(id){
+    return {
+        type: 'LOAD_MEAL',
+        id: id
+    };
+};
 
-export { load, addmeal, follow };
+export { load, addmeal, follow, loadMeal };

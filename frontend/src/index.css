@@ -25,3 +25,22 @@ body {
 .row {
   color: #eee;
 }
+.ingredients_list_element{
+  width: 100%;
+  margin-top:20px;
+  float: left;
+}
+.ingredients_list_element:first-child{
+  margin-top: 0
+}
+.modal-header{
+  background-color: orange;
+  color:#fff;
+}
+.modal-body{
+  float:left;
+  color:#000;
+}
+.more_button{
+  margin:20px 0 0 20px;
+}
