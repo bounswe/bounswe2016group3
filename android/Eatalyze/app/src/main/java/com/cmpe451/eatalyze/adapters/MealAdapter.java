@@ -14,6 +14,7 @@ import com.cmpe451.eatalyze.models.Meal;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

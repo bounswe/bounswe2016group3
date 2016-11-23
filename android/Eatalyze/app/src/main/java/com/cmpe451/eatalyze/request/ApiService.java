@@ -101,4 +101,11 @@ public interface ApiService {
 
     @GET("/api/meal/{id}/comments")
     public void commentsByMeal(@Path("id") Long id, Callback<List<Comment>> commentsListCallback);
+
+    @GET("/api/user/search/{query}")
+    public void userSearch(@Path("query") String query, Callback<List<User>> userListCallback);
+
+    @GET("/api/meal/search/{query}")
+    public void mealSearch(@Path("query") String query, Callback<List<Meal>> mealListCallback);
+
 }

@@ -27,7 +27,7 @@
         android:id="@+id/fullname"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:textColor="#26C6DA"
-        android:textSize="12pt" />
+        android:textSize="8pt" />
 
     </LinearLayout>
 

@@ -28,7 +28,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu_search">menu search</string>
+    <string name="menu_search">Search..</string>
 
     <!--User Profile Page-->
     <string name="logout">Logout</string>
@@ -42,7 +42,7 @@
     <string name="paleo">Paleo</string>
     <string name="save_btn">Save</string>
     <string name="Profil_Page">UserName</string>
-    
+
     <!--AddMealPage-->
     <string name="ingredients"><b>Ingredients</b></string>
     <string-array name="planets_array">
@@ -57,4 +57,5 @@
     <!--View meal page-->
     <string name="send_btn">Send</string>
     <string name="check_eat">Check Eat</string>
+    <string name="searchable">Search..</string>
 </resources>
