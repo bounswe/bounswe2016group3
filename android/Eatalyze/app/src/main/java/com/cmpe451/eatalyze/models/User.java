@@ -16,7 +16,7 @@ public class User {
     private String passwordSalt;
     private String bio;
     private String fullName;
-    private UserType userType;
+    private int userType;
     private DietType dietType;
     //not null
     private String secretQuestion;
@@ -33,13 +33,13 @@ public class User {
 
         this.bio = "";
         this.fullName = "";
-        this.userType = UserType.REGULAR;
+        this.userType = 0;
         this.dietType = DietType.OMNIVORE;
         this.avatarUrl = "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png";
         this.isBanned = false;
     }
 
-    public User(Long id, String email, String passwordHash, String passwordSalt, String bio, String fullName, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, String secretAnswerSalt, String avatarUrl, Boolean isBanned) {
+    public User(Long id, String email, String passwordHash, String passwordSalt, String bio, String fullName, int userType, DietType dietType, String secretQuestion, String secretAnswerHash, String secretAnswerSalt, String avatarUrl, Boolean isBanned) {
         this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -103,11 +103,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public UserType getUserType() {
+    public int getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 

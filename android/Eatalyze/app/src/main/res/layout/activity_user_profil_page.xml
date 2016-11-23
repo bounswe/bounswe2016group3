@@ -7,6 +7,8 @@
     android:id="@+id/id_big_layout"
     android:weightSum="10">
 
+    <include layout="@layout/app_bar"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +16,7 @@
         android:orientation="horizontal"
         android:layout_weight="6"
         android:baselineAligned="false"
-        android:id="@+id/id_top_layout"
+        android:id="@+id/ll_top_layout"
         android:padding="10dp"
         android:weightSum="1">
 
@@ -31,7 +33,7 @@
                 android:layout_height="0dp"
                 android:contentDescription="@string/image_view_content"
                 android:layout_weight="0.65"
-                android:id="@+id/id_profile_photo"
+                android:id="@+id/iv_profile_photo"
                 />
             <View
                 android:clickable="true"
@@ -41,14 +43,14 @@
                 android:layout_weight="0.1" />
 
             <Button
-                android:text="Edit Profile"
                 android:background="@drawable/follow_button_shape"
                 android:layout_weight="0.25"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:textColor="#4FC3F7"
                 android:layout_width="match_parent"
-                android:id="@+id/id_follow_button"
-                android:layout_height="0dp" />
+                android:id="@+id/btn_follow"
+                android:layout_height="0dp"
+                android:elevation="0dp" />
 
         </LinearLayout>
 
@@ -56,19 +58,20 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="match_parent"
-            android:padding="5dp"
+            android:padding="3dp"
             android:orientation="vertical"
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/full_name"
-                android:layout_width="183dp"
+                android:id="@+id/tv_full_name"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.17"
+                android:layout_weight="0.154"
                 />
+
             <View
                 android:clickable="true"
                 android:layout_gravity="center"
@@ -78,12 +81,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/id_followers"
+                android:id="@+id/tv_followers"
                 android:text="@string/followers"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.15"
+                android:layout_weight="0.16"
                 android:clickable="true" />
             <View
                 android:clickable="true"
@@ -94,7 +97,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.15"
+                android:layout_weight="0.16"
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textSize="16sp"
@@ -110,9 +113,9 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_weight="0.38"
+                android:layout_weight="0.34"
                 android:layout_height="0dp"
-                android:id="@+id/bio"
+                android:id="@+id/tv_bio"
                 android:background="#E0E0E0" />
 
         </LinearLayout>
@@ -125,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/id_bottom_layout"
+        android:id="@+id/ll_bottom_layout"
         android:layout_weight="4"
         android:padding="10dp"
         android:weightSum="1">
@@ -166,17 +169,17 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.02" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:text="Excludes: "
-                android:textSize="16sp"
-                android:id="@+id/id_excludes"
-                android:background="@color/gray"
-                android:clickable="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:text="Excludes: "
+            android:textSize="16sp"
+            android:id="@+id/id_excludes"
+            android:background="@color/gray"
+            android:clickable="true"/>
 
-            <View
+        <View
                 android:clickable="true"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
@@ -226,7 +229,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.02" />
+                android:layout_weight="0.005" />
 
             <Button
                 android:layout_width="match_parent"
@@ -242,7 +245,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.01" />
+                android:layout_weight="0.005" />
 
             <Button
                 android:layout_width="match_parent"

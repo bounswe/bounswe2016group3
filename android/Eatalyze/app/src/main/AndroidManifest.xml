@@ -16,8 +16,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -25,26 +24,107 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.UserProfilePageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
         <activity
             android:name=".activities.FollowersListActivity"
             android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         <activity
             android:name=".activities.UserHomepageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
         <activity
             android:name=".activities.FollowingListActivity"
             android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         <activity
             android:name=".activities.EditPreferencesActivity"
             android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         <activity
             android:name=".activities.LogActivity"
             android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+            android:resource="@xml/searchable"/>
         <activity
             android:name=".activities.DietActivity"
             android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity
+            android:name=".activities.ViewMealActivity"
+            android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity android:name=".activities.FoodServerProfilePageActivity"
+            android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity
+            android:name=".activities.AddMealActivity"
+            android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity android:name=".activities.NutritionInfoActivity"
+            android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity android:name=".activities.TagPeopleActivity"
+            android:screenOrientation="portrait" />
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity
+            android:name=".activities.FoodServerHomePage"
+            android:screenOrientation="portrait"/>
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        <activity android:name=".activities.ViewMealCommentsActivity" />
 
+        <activity android:name=".activities.SearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.default_searchable"
+                android:value="com.cmpe451.eatalyze.activities.SearchActivity" />
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
     </application>
 
 </manifest>

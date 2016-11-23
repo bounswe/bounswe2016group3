@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_weekly_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_calorie_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total weekly calories:"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_calorie_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="100kcal"
+            android:layout_margin="10dp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_intake_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="DAILY INTAKES"
+        android:layout_below="@id/rl_weekly_info"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/lv_daily_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_intake_title">
+
+    </ListView>
+
+</RelativeLayout>

@@ -13,7 +13,8 @@ public class UserRequest {
     String password;
     String bio;
     String fullName;
-    UserType userType;
+    //UserType userType;
+    int userType;
     DietType dietType;
     String secretQuestion;
     String secretAnswer;
@@ -21,7 +22,7 @@ public class UserRequest {
 
     public UserRequest(){}
 
-    public UserRequest(Long id, String email, String password, String bio, String fullName, UserType userType, DietType dietType, String secretQuestion, String secretAnswer, String avatarUrl) {
+    public UserRequest(Long id, String email, String password, String bio, String fullName, int userType, DietType dietType, String secretQuestion, String secretAnswer, String avatarUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -74,11 +75,11 @@ public class UserRequest {
         this.fullName = fullName;
     }
 
-    public UserType getUserType() {
+    public int getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 
