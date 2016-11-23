@@ -24,6 +24,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import butterknife.ButterKnife;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
@@ -61,12 +64,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         eatalyzeApplication = (EatalyzeApplication) getApplication();
         sharedPreferences = eatalyzeApplication.getSp();
 
-       RequestInterceptor requestInterceptor = new RequestInterceptor() {
+        RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
-                request.addHeader("Content-type","application/json");
-                if(eatalyzeApplication.getAccessToken()!=null)
-                    request.addHeader("Authorization","Bearer "+eatalyzeApplication.getAccessToken().getAccessToken());
+                request.addHeader("Content-type", "application/json");
+                if (eatalyzeApplication.getAccessToken() != null)
+                    request.addHeader("Authorization", "Bearer " + eatalyzeApplication.getAccessToken().getAccessToken());
 
             }
         };
@@ -78,6 +81,19 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setEndpoint(getString(R.string.base_url))
                 .build();
         apiService = restAdapter.create(ApiService.class);
+
+        Intent searchIntent = getIntent();
+
+        if (Intent.ACTION_SEARCH.equals(searchIntent.getAction())) {
+            String query = searchIntent.getStringExtra(SearchManager.QUERY);
+
+            Intent intent = new Intent(BaseActivity.this, SearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("query",query);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void onNewIntent(Intent intent){
