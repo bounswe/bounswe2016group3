@@ -32,12 +32,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.AmazonClient;
+import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.model.AnswerCredentials;
+import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
 import bounswegroup3.model.User;
@@ -49,12 +51,13 @@ public class UserResourceTest {
 	private static final MenuDAO menuDao = mock(MenuDAO.class);
 	private static final MealDAO mealDao = mock(MealDAO.class);
 	private static final ExcludeDAO excludeDao = mock(ExcludeDAO.class);
+	private static final CommentDAO commentDao = mock(CommentDAO.class);
 	private static final Mailer mailer = mock(Mailer.class);
 	private static final AmazonClient s3 = mock(AmazonClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new UserResource(userDao, menuDao, mealDao, excludeDao, mailer, s3))
+		.addResource(new UserResource(userDao, menuDao, mealDao, excludeDao, commentDao, mailer, s3))
 		.addProvider(MultiPartFeature.class)
 		.build();
 	
@@ -65,6 +68,8 @@ public class UserResourceTest {
 	
 	private Menu menu;
 	private Meal meal;
+	private Comment comment;
+	
 	@Before
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -76,6 +81,7 @@ public class UserResourceTest {
 		
 		menu = mapper.readValue(fixture("fixtures/menu.json"), Menu.class);
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
+		comment = mapper.readValue(fixture("fixtures/comment.json"), Comment.class);
 		
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(user);
@@ -84,6 +90,8 @@ public class UserResourceTest {
 		menus.add(menu);
 		ArrayList<Meal> meals = new ArrayList<Meal>();
 		meals.add(meal);
+		ArrayList<Comment> comments = new ArrayList<Comment>();
+		comments.add(comment);
 		
 		when(userDao.getUsers()).thenReturn(users);
 		
@@ -108,6 +116,9 @@ public class UserResourceTest {
 		
 		when(userDao.basicSearch(any())).thenReturn(users);
 		when(userDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<User>());
+		
+		when(commentDao.commentsByUser(any())).thenReturn(comments);
+		when(commentDao.commentsByUser(eq(42l))).thenReturn(new ArrayList<Comment>());
 	}
 	
 	@After
@@ -365,6 +376,28 @@ public class UserResourceTest {
 		
 		assertThat(read.size()).isEqualTo(1);
 		assertThat(read.get(0).get("name")).isEqualTo(meal.getName());
+	}
+	
+	@Test
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public void testGetCommentsByUser() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/42/comments")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.size()).isEqualTo(0);
+		
+		res = rule.getJerseyTest()
+				.target("/user/1/comments")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(read.size()).isEqualTo(1);
 	}
 	
 	@Test
