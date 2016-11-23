@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:weightSum="1">
 
             <ImageView
@@ -57,7 +57,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.6"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
@@ -94,7 +94,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.04" />
             <RatingBar
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="0.27"
                 />

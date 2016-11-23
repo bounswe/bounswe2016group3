@@ -1,21 +1,23 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Follow;
+import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
-import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
@@ -44,12 +46,10 @@ public class UserProfilePageActivity extends BaseActivity {
     TextView fullName;
     @Bind(R.id.btn_follow)
     Button btn_follow;
-    @Bind(R.id.id_expandabletextView)
-    ExpandableTextView expandableTextView;
     @Bind(R.id.btn_log)
     Button btnLog;
     @Bind(R.id.btn_diet)
-    Button btnDiet ;
+    Button btnDiet;
     @Bind(R.id.id_includes)
     TextView includes;
     @Bind(R.id.id_excludes)
@@ -57,8 +57,24 @@ public class UserProfilePageActivity extends BaseActivity {
     @Bind(R.id.id_preferences)
     TextView preferences;
 
+    @Bind(R.id.appBar)
+    Toolbar appBar;
+    @Bind(R.id.ll_top_layout)
+    LinearLayout llTopLayout;
+    @Bind(R.id.id_expandabletextView)
+    ExpandableTextView idExpandabletextView;
+    @Bind(R.id.id_expandabletextView1)
+    ExpandableTextView idExpandabletextView1;
+    @Bind(R.id.id_expandabletextView2)
+    ExpandableTextView idExpandabletextView2;
+    @Bind(R.id.ll_bottom_layout)
+    LinearLayout llBottomLayout;
+    @Bind(R.id.id_big_layout)
+    LinearLayout idBigLayout;
+
     static Bundle bundle;
     static long userid;
+
 
     @Override
     public int getLayoutId() {
@@ -72,20 +88,163 @@ public class UserProfilePageActivity extends BaseActivity {
 
         bundle = getIntent().getExtras();
         userid = -1;
-        if(bundle != null){
+        if (bundle != null) {
             userid = bundle.getLong("userid");
+
+            apiService.getUserComments(userid, new Callback<List<Comment>>() {
+                @Override
+                public void success(final List<Comment> comments, Response response) {
+                   final int a = comments.size();
+
+                    if(a==0){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText("Please add a comment..");
+                        idExpandabletextView2.setText("Please add a comment..");
+                    }
+                    else if(a==1){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText("Please add a comment..");
+                        idExpandabletextView2.setText(comments.get(0).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(0).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else if(a==2){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText(comments.get(1).getContent());
+                        idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(1).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView2.setText(comments.get(0).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(0).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        idExpandabletextView.setText(comments.get(a - 1).getContent());
+                        idExpandabletextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 1).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView1.setText(comments.get(a - 2).getContent());
+                        idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 2).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView2.setText(comments.get(a - 3).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 3).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+
+
             apiService.getfollowing(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
                 @Override
                 public void success(final List<User> userList, Response response) {
                     apiService.getUserByID(userid, new Callback<User>() {
                         @Override
                         public void success(User user, Response response) {
-                            for(int a = 0; a < userList.size(); a++){
-                                if(userList.get(a).getId().equals(user.getId())){
+                            for (int a = 0; a < userList.size(); a++) {
+                                if (userList.get(a).getId().equals(user.getId())) {
                                     btn_follow.setText("FOLLOWING");
                                     break;
-                                }
-                                else{
+                                } else {
                                     btn_follow.setText("FOLLOW");
 
                                 }
@@ -98,17 +257,18 @@ public class UserProfilePageActivity extends BaseActivity {
                         }
                     });
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
 
-                    Log.d("FAİLED",error.toString());
+                    Log.d("FAİLED", error.toString());
                 }
             });
 
             apiService.getfollowers(userid, new Callback<List<User>>() {
                 @Override
                 public void success(List<User> userList, Response response) {
-                    followers.setText("Followers: "+ userList.size() );
+                    followers.setText("Followers: " + userList.size());
                 }
 
                 @Override
@@ -136,8 +296,8 @@ public class UserProfilePageActivity extends BaseActivity {
                     apiService.getUserByID(userid, new Callback<User>() {
                         @Override
                         public void success(User user, Response response) {
-                            for(int a = 0; a < userList.size(); a++){
-                                if(userList.get(a).getId().equals(user.getId()) && eatalyzeApplication.getUser().getUserType()==1){
+                            for (int a = 0; a < userList.size(); a++) {
+                                if (userList.get(a).getId().equals(user.getId()) && eatalyzeApplication.getUser().getUserType() == 1) {
                                     btn_follow.setText("FOLLOWING YOU");
                                     break;
                                 }
@@ -174,7 +334,7 @@ public class UserProfilePageActivity extends BaseActivity {
             btn_follow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(btn_follow.getText().equals("FOLLOW")){
+                    if (btn_follow.getText().equals("FOLLOW")) {
                         apiService.follow(userid, new Callback<Follow>() {
                             @Override
                             public void success(Follow follow, Response response) {
@@ -186,8 +346,7 @@ public class UserProfilePageActivity extends BaseActivity {
                                 Log.d("Fail follow", error.toString());
                             }
                         });
-                    }
-                    else if(btn_follow.getText().equals("FOLLOWING")){
+                    } else if (btn_follow.getText().equals("FOLLOWING")) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(UserProfilePageActivity.this);
                         builder.setTitle("Unfollow");
                         builder.setIcon(R.drawable.ic_logo_eatalyze);
@@ -227,15 +386,14 @@ public class UserProfilePageActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     long user_id = eatalyzeApplication.getUser().getId();
-                    if(bundle!=null){
+                    if (bundle != null) {
                         Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
-                    }
-                    else{
+                    } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
                     }
                 }
@@ -245,25 +403,164 @@ public class UserProfilePageActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     long user_id = eatalyzeApplication.getUser().getId();
-                    if(bundle!=null){
+                    if (bundle != null) {
                         Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
-                    }
-                    else{
+                    } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
                     }
                 }
             });
-        }
-
-        else {
+        } else {
 
 
             btn_follow.setText("Edit Profile");
+
+            apiService.getUserComments(eatalyzeApplication.getUser().getId(), new Callback<List<Comment>>() {
+                @Override
+                public void success(final List<Comment> comments, Response response) {
+
+                    final int a = comments.size();
+
+                    if(a==0){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText("Please add a comment..");
+                        idExpandabletextView2.setText("Please add a comment..");
+                    }
+                    else if(a==1){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText("Please add a comment..");
+                        idExpandabletextView2.setText(comments.get(0).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(0).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else if(a==2){
+                        idExpandabletextView.setText("Please add a comment..");
+                        idExpandabletextView1.setText(comments.get(1).getContent());
+                        idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(1).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView2.setText(comments.get(0).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(0).getMealId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        idExpandabletextView.setText(comments.get(a - 1).getContent());
+                        idExpandabletextView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 1).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView1.setText(comments.get(a - 2).getContent());
+                        idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 2).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                        idExpandabletextView2.setText(comments.get(a - 3).getContent());
+                        idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                apiService.getMealById(comments.get(a - 3).getId(), new Callback<Meal>() {
+                                    @Override
+                                    public void success(Meal meal, Response response) {
+                                        Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
+                                        intent.putExtra("ClickedMeal", meal);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
             apiService.getfollowers(eatalyzeApplication.getUser().getId(), new Callback<List<User>>() {
                 @Override
                 public void success(List<User> users, Response response) {
@@ -306,7 +603,7 @@ public class UserProfilePageActivity extends BaseActivity {
             });
         }
 
-        if(bundle == null) {
+        if (bundle == null) {
 
             followers.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -364,8 +661,7 @@ public class UserProfilePageActivity extends BaseActivity {
                     startActivity(new Intent(UserProfilePageActivity.this, EditPreferencesActivity.class));
                 }
             });
-        }
-        else{
+        } else {
             userid = bundle.getLong("userid");
 
             followers.setOnClickListener(new View.OnClickListener() {
@@ -406,12 +702,11 @@ public class UserProfilePageActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
+        if (bundle == null || userid == eatalyzeApplication.getUser().getId()) {
             super.onBackPressed();
             startActivity(new Intent(UserProfilePageActivity.this, UserHomepageActivity.class));
             finish();
-        }
-        else {
+        } else {
             super.onBackPressed();
             Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
             Bundle bundle = new Bundle();

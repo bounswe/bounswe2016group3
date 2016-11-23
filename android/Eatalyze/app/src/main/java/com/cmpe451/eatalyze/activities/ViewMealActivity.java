@@ -87,18 +87,20 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
 
-        apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
-            @Override
-            public void success(Ratings ratings, Response response) {
-                Log.d("Ratings fetch success", response.toString());
-                rbMealRating.setRating(ratings.getAverage());
-            }
+            apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
+                @Override
+                public void success(Ratings ratings, Response response) {
+                    Log.d("Ratings fetch success", response.toString());
+                    rbMealRating.setRating(ratings.getAverage());
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d("Ratings fetch fail", error.toString());
-            }
-        });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("Ratings fetch fail", error.toString());
+                }
+            });
+
 
         //TODO this with real clicked meal
         apiService.getMealById(new Long(34), new Callback<Meal>() {
