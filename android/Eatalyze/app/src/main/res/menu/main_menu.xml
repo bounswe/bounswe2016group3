@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/id_profil_page"
+        android:title="@string/full_name" />
+    <item
+        android:id="@+id/id_logout"
+        android:title="@string/logout" />
+
+    <item
+        android:id="@+id/menu_Search"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_action_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        />
+
+</menu>

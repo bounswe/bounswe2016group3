@@ -1,101 +1,86 @@
 package com.cmpe451.eatalyze.models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Created by ekrem on 27/10/2016.
  */
 
-public class Meal {
+public class Meal implements Serializable {
 
     private Long id;
+    private Long menuId;
+    private Long userId;
     private String name;
-    private String imageURL;
-    private ArrayList<Ingredient> ingredients = new ArrayList<>();
-    private ArrayList<Float> amounts = new ArrayList<>();
-    private String recipe;
-    //What is meal type?
-    //Implement tags here after semantic tags
-    private int totalCalorie;
+    private String description;
+    private String ingredients;
+    private String photoUrl;
 
+    public Meal(){}
 
-    public Meal(){
-        this.name = "";
-        this.id = -1l;
-        this.imageURL = "http://icons.iconarchive.com/icons/sonya/swarm/128/Fork-Knife-icon.png";
-        this.recipe= "";
-        this.totalCalorie = 0;
-    }
-
-    public Meal(Long id,
-                String name,
-                String imageURL,
-                ArrayList<Ingredient> ingredients,
-                ArrayList<Float> amounts,
-                String recipe,
-                int totalCalorie){
+    public Meal(Long id, Long menuId, Long userId, String name, String description, String ingredients, String photoUrl) {
         this.id = id;
+        this.menuId = menuId;
+        this.userId = userId;
         this.name = name;
-        this.imageURL = imageURL;
+        this.description = description;
         this.ingredients = ingredients;
-        this.amounts = amounts;
-        this.recipe = recipe;
-        this.totalCalorie = totalCalorie;
+        this.photoUrl = photoUrl;
     }
-
 
     public Long getId() {
-
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getTotalCalorie() {
-        return totalCalorie;
-    }
-
-    public String getRecipe() {
-        return recipe;
-    }
-
-    public ArrayList<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public ArrayList<Float> getAmounts() {
-        return amounts;
-    }
-
-    public void setRecipe(String recipe) {
-        this.recipe = recipe;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
-    public void setAmounts(ArrayList<Float> amounts) {
-        this.amounts = amounts;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setTotalCalorie(int totalCalorie) {
-        this.totalCalorie = totalCalorie;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
-
-    public String getImageURL() { return imageURL; }
 }

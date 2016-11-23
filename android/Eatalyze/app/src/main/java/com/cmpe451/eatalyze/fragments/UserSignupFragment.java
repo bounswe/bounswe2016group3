@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.activities.SignupActivity;
+import com.cmpe451.eatalyze.constants.UserType;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,7 +54,7 @@ public class UserSignupFragment extends Fragment {
         String fullName=etFullName.getText().toString();
         String secretQuestion= etSecretQuestion.getText().toString();
         String secretAnswer=etSecretAnswer.getText().toString();
-        ((SignupActivity)getActivity()).signupAct(email,password,fullName,secretQuestion,secretAnswer);
+        ((SignupActivity)getActivity()).signupAct(email,password,fullName,secretQuestion,secretAnswer, UserType.REGULAR);
     }
 
 }

@@ -9,14 +9,14 @@
     <include layout="@layout/app_bar"/>
 
     <TextView
-        android:id="@+id/hello_name"
+        android:id="@+id/tv_hello_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="@string/hello_name"/>
 
     <TextView
-        android:id="@+id/tv_recommendedmeal"
+        android:id="@+id/tv_rec_meals_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -30,16 +30,21 @@
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/rec_meal_list"
+            android:id="@+id/lv_rec_meals"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:clickable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
         </ListView>
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_recommendedserver"
+        android:id="@+id/tv_recommended_server"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -52,13 +57,13 @@
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/rec_server_list"
+            android:id="@+id/lv_rec_food_servers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:divider="@null">
 
         </ListView>
 
     </RelativeLayout>
-
 
 </LinearLayout>

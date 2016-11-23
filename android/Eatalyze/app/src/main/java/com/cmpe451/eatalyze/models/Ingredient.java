@@ -5,27 +5,29 @@ package com.cmpe451.eatalyze.models;
  */
 
 public class Ingredient {
-    private Long id;
     private String name;
+    private double amount;
 
-    //micro nutrition
-    //macro nutrition
+    public Ingredient(){}
 
-    public Ingredient(){
-        this.id = -1l;
-        this.name = "";
-    }
-
-    public Ingredient(Long id, String name){
-        this.id = id;
+    public Ingredient(String name, double amount) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
+        this.amount = amount;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }
