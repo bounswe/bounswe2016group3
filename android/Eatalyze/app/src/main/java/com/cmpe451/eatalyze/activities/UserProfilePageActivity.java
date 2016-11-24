@@ -49,8 +49,6 @@ public class UserProfilePageActivity extends BaseActivity {
     TextView fullName;
     @Bind(R.id.btn_follow)
     Button btn_follow;
-    @Bind(R.id.id_expandabletextView)
-    ExpandableTextView expandableTextView;
     @Bind(R.id.btn_log)
     Button btnLog;
     @Bind(R.id.btn_diet)
