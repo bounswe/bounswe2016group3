@@ -157,7 +157,6 @@ public class UserHomepageActivity extends BaseActivity {
 
                 Intent intent=new Intent(UserHomepageActivity.this,ViewMealActivity.class);
                 intent.putExtra("ClickedMeal", clickedMeal);
-
                 startActivity(intent);
             }
         });

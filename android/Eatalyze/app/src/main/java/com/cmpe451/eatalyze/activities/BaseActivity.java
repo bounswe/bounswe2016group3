@@ -147,6 +147,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                     startActivity(new Intent(BaseActivity.this, FoodServerProfilePageActivity.class));
                 }
                 break;
+
+            case R.id.id_home_page:
+                if(eatalyzeApplication.getUser().getUserType() == 0) {
+                    Log.d("User is regular user: ", " Success");
+                    startActivity(new Intent(BaseActivity.this, UserHomepageActivity.class));
+                }
+                else{
+                    startActivity(new Intent(BaseActivity.this, FoodServerHomePage.class));
+                }
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
