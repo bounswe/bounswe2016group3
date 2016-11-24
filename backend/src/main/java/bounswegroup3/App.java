@@ -111,8 +111,8 @@ class App extends Application<AppConfig> {
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, excludeDao, commentDao, mailer, amazonClient);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient, amazonClient);
-        final MenuResource menuResource = new MenuResource(menuDao, mealDao);
-        final MealResource mealResource = new MealResource(mealDao, commentDao, nutritionixClient);
+        final MenuResource menuResource = new MenuResource(menuDao, mealDao, userDAO);
+        final MealResource mealResource = new MealResource(mealDao, commentDao, userDAO, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);
         
         final KillTokens killTokens = new KillTokens(accessTokenDAO);

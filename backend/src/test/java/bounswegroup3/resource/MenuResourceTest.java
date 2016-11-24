@@ -23,22 +23,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
+import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
+import bounswegroup3.model.User;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.junit.ResourceTestRule;
 
 public class MenuResourceTest {
 	private static MenuDAO menuDao = mock(MenuDAO.class);
 	private static MealDAO mealDao = mock(MealDAO.class);
+	private static UserDAO userDao = mock(UserDAO.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MenuResource(menuDao, mealDao))
+		.addResource(new MenuResource(menuDao, mealDao, userDao))
 		.build();
 	
 	private Menu menu;
 	private Meal meal;
+	private User user;
 	private ObjectMapper mapper;
 	
 	@Before
@@ -46,6 +50,7 @@ public class MenuResourceTest {
 		mapper = Jackson.newObjectMapper();
 		menu = mapper.readValue(fixture("fixtures/menu.json"), Menu.class);
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
+		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
 		
 		ArrayList<Meal> meals = new ArrayList<Meal>();
 		meals.add(meal);
@@ -53,6 +58,7 @@ public class MenuResourceTest {
 		when(mealDao.mealsByMenuId(any())).thenReturn(meals);
 		when(menuDao.createMenu(any())).thenReturn(1l);
 		when(menuDao.getMenuById(any())).thenReturn(menu);
+		when(userDao.getUserById(any())).thenReturn(user);
 	}
 	
 	@After

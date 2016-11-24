@@ -11,8 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import bounswegroup3.constant.UserType;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
+import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.Menu;
@@ -23,10 +25,12 @@ import io.dropwizard.auth.Auth;
 public class MenuResource {
 	private MenuDAO menuDao;
 	private MealDAO mealDao;
+	private UserDAO userDao;
 	
-	public MenuResource(MenuDAO menuDao, MealDAO mealDao){
+	public MenuResource(MenuDAO menuDao, MealDAO mealDao, UserDAO userDao){
 		this.menuDao = menuDao;
 		this.mealDao = mealDao;
+		this.userDao = userDao;
 	}
 	
 	/**
@@ -67,10 +71,15 @@ public class MenuResource {
 	@POST
 	public Response createMenu(@Auth AccessToken token, @Valid Menu menu){
 		if(token.getUserId()==menu.getUserId()){
-			Long id = menuDao.createMenu(menu);
-			menu.setId(id);
-			
-			return Response.ok(menu).build();
+			if(UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.FOOD_SERVER ||
+					UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.ADMIN) {
+				Long id = menuDao.createMenu(menu);
+				menu.setId(id);
+				
+				return Response.ok(menu).build();
+			} else {
+				return Response.notModified().build();
+			}
 		} else {
 			return Response.notModified().build();
 		}

@@ -24,27 +24,31 @@ import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
 import bounswegroup3.model.NutritionalInfo;
 import bounswegroup3.model.Tag;
+import bounswegroup3.model.User;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.junit.ResourceTestRule;
 
 public class MealResourceTest {
 	private static MealDAO mealDao = mock(MealDAO.class);
 	private static CommentDAO commentDao = mock(CommentDAO.class);
+	private static UserDAO userDao = mock(UserDAO.class);
 	private static NutritionixClient client = mock(NutritionixClient.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MealResource(mealDao, commentDao, client))
+		.addResource(new MealResource(mealDao, commentDao, userDao, client))
 		.build();
 	
 	private Meal meal;
 	private Comment comment;
 	private Tag tag;
 	private NutritionalInfo nutrition;
+	private User user;
 	
 	private ObjectMapper mapper;
 	
@@ -60,7 +64,7 @@ public class MealResourceTest {
 		comment = mapper.readValue(fixture("fixtures/comment.json"), Comment.class);
 		tag = new Tag(-1l, "test");
 		nutrition = mapper.readValue(fixture("fixtures/nutritional_info_serialized.json"), NutritionalInfo.class);
-		
+		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
 		
@@ -100,6 +104,8 @@ public class MealResourceTest {
 		when(mealDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<Meal>());
 		
 		when(client.getNutrition(any())).thenReturn(nutrition);
+		
+		when(userDao.getUserById(any())).thenReturn(user);
 	}
 	
 	@After

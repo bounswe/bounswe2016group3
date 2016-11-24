@@ -13,8 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bounswegroup3.client.NutritionixClient;
+import bounswegroup3.constant.UserType;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
@@ -29,10 +31,12 @@ public class MealResource {
 	private MealDAO mealDao;
 	private CommentDAO commentDao;
 	private NutritionixClient client;
+	private UserDAO userDao;
 	
-	public MealResource(MealDAO mealDao, CommentDAO commentDao, NutritionixClient client) {
+	public MealResource(MealDAO mealDao, CommentDAO commentDao, UserDAO userDao, NutritionixClient client) {
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
+		this.userDao = userDao;
 		this.client = client;
 	}
 	
@@ -61,10 +65,15 @@ public class MealResource {
 	@POST
 	public Response createMeal(@Auth AccessToken token, @Valid Meal meal) {
 		if(meal.getUserId()  == token.getUserId()) {
-			Long id = mealDao.createMeal(meal);
-			meal.setId(id);
+			if(UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.FOOD_SERVER ||
+					UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.ADMIN) {
+				Long id = mealDao.createMeal(meal);
+				meal.setId(id);
 
-			return Response.ok(meal).build();
+				return Response.ok(meal).build();
+			} else {
+				return Response.notModified().build();
+			}
 		} else {
 			return Response.notModified().build();
 		}
