@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,11 +42,12 @@ public class FoodServerHomePage extends BaseActivity {
         userList.add(eatalyzeApplication.getUser());
 
         ArrayList<Comment> commentList=new ArrayList<>();
-        apiService.commentsByMeal(new Long(0), new Callback<List<Comment>>() {
+        apiService.commentsByMeal(new Long(1), new Callback<List<Comment>>() {
             @Override
             public void success(List<Comment> comments, Response response) {
-                CommentAdapter adapter=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
-                lvComments.setAdapter(adapter);
+                Log.d("Comment size check-->",comments.size()+"");
+                //CommentAdapter adapter=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
+                //lvComments.setAdapter(adapter);
             }
 
             @Override

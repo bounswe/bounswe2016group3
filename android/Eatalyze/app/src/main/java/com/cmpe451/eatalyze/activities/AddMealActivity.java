@@ -98,7 +98,7 @@ public class AddMealActivity extends BaseActivity {
         String mealName = etMealName.getText().toString();
         String desc = etMealDescription.getText().toString();
         //TODO get menu of different users
-        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, ""), new Callback<ResponseBody>() {
+        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
             @Override
             public void success(ResponseBody responseBody, Response response) {
 

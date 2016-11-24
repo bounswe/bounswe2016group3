@@ -53,21 +53,36 @@ public class ViewMealCommentsActivity extends BaseActivity {
 
         apiService.commentsByMeal(meal.getId(), new Callback<List<Comment>>() {
             @Override
-            public void success(List<Comment> comments, Response response) {
+            public void success(final List<Comment> comments, Response response) {
                 if (!comments.isEmpty()) {
                     Log.d("comment fetch success", response.toString());
-                    //TODO Get comment specific user data
-                    for (int i = 0; i < comments.size(); i++) {
-                        commentsOnMeal.add(comments.get(i));
-                        User ekrem = new User();
-                        ekrem.setFullName("Ekrem Ozturk");
-                        userList.add(ekrem);
-                    }
 
-                    CommentAdapter adapter = new CommentAdapter(ViewMealCommentsActivity.this, (ArrayList<User>) userList, (ArrayList<Comment>) commentsOnMeal);
-                    lvComments.setAdapter(adapter);
+                    apiService.getUsers(new Callback<List<User>>() {
+                        @Override
+                        public void success(List<User> users, Response response) {
+                            //TODO Get comment specific user data
+                            for (int i = 0; i < comments.size(); i++) {
+                                for (User user:users){
+                                    if(user.getId().equals(comments.get(i).getUserId())){
+                                        commentsOnMeal.add(comments.get(i));
+                                        User ekrem = new User();
+                                        ekrem.setFullName(user.getFullName());
+                                        userList.add(ekrem);
+                                        break;
+                                    }
+                                }
 
+                            }
 
+                            CommentAdapter adapter = new CommentAdapter(ViewMealCommentsActivity.this, (ArrayList<User>) userList, (ArrayList<Comment>) commentsOnMeal);
+                            lvComments.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
                 }
             }
 

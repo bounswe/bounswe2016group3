@@ -260,6 +260,16 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                     }
                 }
             });
+
+            lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent=new Intent(FoodServerProfilePageActivity.this,ViewMealActivity.class);
+                    Meal clickedMeal= (Meal) adapterView.getItemAtPosition(i);
+                    intent.putExtra("ClickedMeal",clickedMeal);
+                    startActivity(intent);
+                }
+            });
         }
 
         //***************FOOD SERVER**********************//
