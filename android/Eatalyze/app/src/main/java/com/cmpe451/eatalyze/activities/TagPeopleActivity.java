@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Meal;
@@ -49,10 +50,14 @@ public class TagPeopleActivity extends BaseActivity {
                     @Override
                     public void success(ResponseBody responseBody, Response response) {
                         Log.d("Check eat success", "yes");
+                        Toast toast = Toast.makeText(getApplicationContext(), "You have check-eat'ed!", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("Check eat fail", "no");
+                        Toast toast = Toast.makeText(getApplicationContext(), "Fix this", Toast.LENGTH_SHORT);
+                        toast.show();
 
                     }
                 });

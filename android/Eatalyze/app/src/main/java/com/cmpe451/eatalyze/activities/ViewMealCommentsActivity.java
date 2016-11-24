@@ -46,7 +46,9 @@ public class ViewMealCommentsActivity extends BaseActivity {
 
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
-        tvMealName.setText(meal.getName());
+        String mealName = "Comments made on "+meal.getName();
+
+        tvMealName.setText(mealName);
 
 
         apiService.commentsByMeal(meal.getId(), new Callback<List<Comment>>() {
