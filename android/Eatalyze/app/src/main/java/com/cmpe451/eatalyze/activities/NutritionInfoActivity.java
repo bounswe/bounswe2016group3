@@ -28,7 +28,7 @@ public class NutritionInfoActivity extends BaseActivity {
     TextView tvWeightAmount;
     @Bind(R.id.tv_calories)
     TextView tvCalories;
-    @Bind(R.id.tv_calorie_amount)
+    @Bind(R.id.tv_meal_description)
     TextView tvCalorieAmount;
     @Bind(R.id.tv_fat)
     TextView tvFat;
@@ -87,34 +87,36 @@ public class NutritionInfoActivity extends BaseActivity {
 
 
         //TODO Try with real ingredient data
-        apiService.getNutrition(new Long(34), new Callback<NutritionalInfo>() {
+        apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 Log.d("success", response.toString());
-                String amount = "" + nutritionalInfo.getWeight() + " grams";
-                tvWeightAmount.setText(amount);
-                amount = "" + nutritionalInfo.getCalories() + " kCal";
-                tvCalorieAmount.setText(amount);
-                amount = "" + nutritionalInfo.getTotalFat() + " grams";
-                tvFatAmount.setText(amount);
-                amount = "" + nutritionalInfo.getSaturatedFat() + " grams";
-                tvSatfatAmount.setText(amount);
-                amount = "" + nutritionalInfo.getCholesterol();
-                tvCholesterolAmount.setText(amount);
-                amount = "" + nutritionalInfo.getSodium() + " milligram";
-                tvSodiumAmount.setText(amount);
-                amount = "" + nutritionalInfo.getTotalCarbohydrate() + " grams";
-                tvCarbohydrateAmount.setText(amount);
-                amount = "" + nutritionalInfo.getDietaryFiber() + " milligram";
-                tvFiberAmount.setText(amount);
-                amount = "" + nutritionalInfo.getSugars() + " grams";
-                tvSugarsAmount.setText(amount);
-                amount = "" + nutritionalInfo.getProtein() + " grams";
-                tvProteinAmount.setText(amount);
-                amount = "" + nutritionalInfo.getPotassium() + " milligram";
-                tvPotassiumAmount.setText(amount);
-                amount = "" + nutritionalInfo.getPhosphorus() + " milligram";
-                tvPhosphorusAmount.setText(amount);
+                if(nutritionalInfo!=null){
+                    String amount = "" + nutritionalInfo.getWeight() + " grams";
+                    tvWeightAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getCalories() + " kCal";
+                    tvCalorieAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getTotalFat() + " grams";
+                    tvFatAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getSaturatedFat() + " grams";
+                    tvSatfatAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getCholesterol();
+                    tvCholesterolAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getSodium() + " milligram";
+                    tvSodiumAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getTotalCarbohydrate() + " grams";
+                    tvCarbohydrateAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getDietaryFiber() + " milligram";
+                    tvFiberAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getSugars() + " grams";
+                    tvSugarsAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getProtein() + " grams";
+                    tvProteinAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getPotassium() + " milligram";
+                    tvPotassiumAmount.setText(amount);
+                    amount = "" + nutritionalInfo.getPhosphorus() + " milligram";
+                    tvPhosphorusAmount.setText(amount);
+                }
             }
 
             @Override

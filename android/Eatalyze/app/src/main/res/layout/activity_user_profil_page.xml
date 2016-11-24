@@ -191,7 +191,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/gray"
-                android:text="Comment1"
+                android:gravity="center"
                 android:layout_weight="0.07" />
 
             <View
@@ -204,8 +204,8 @@
              <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView1"
                 android:layout_width="fill_parent"
-                 android:text="Comment2"
-                 android:background="@color/gray"
+                android:background="@color/gray"
+                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.07" />
 
@@ -219,8 +219,8 @@
             <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView2"
                 android:layout_width="fill_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="Comment3"
                 android:background="@color/gray"
                 android:layout_weight="0.07" />
 

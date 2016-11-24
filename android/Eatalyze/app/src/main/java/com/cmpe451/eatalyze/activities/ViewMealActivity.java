@@ -74,10 +74,14 @@ public class ViewMealActivity extends BaseActivity {
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
         //TODO this with real clicked meal
-        apiService.getNutrition(new Long(34), new Callback<NutritionalInfo>() {
+        apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
-                String totalCalorie = "Total calories: " + nutritionalInfo.getCalories() + " kcal";
+                String totalCalorie="";
+                if(nutritionalInfo!=null)
+                    totalCalorie = "Total calories: " + nutritionalInfo.getCalories() + " kcal";
+                else
+                    totalCalorie = "Total calorie is not specified";
                 tvTotalCalorie.setText(totalCalorie);
             }
 
@@ -90,7 +94,7 @@ public class ViewMealActivity extends BaseActivity {
 
 
         //TODO this with real clicked meal
-        apiService.getMealById(new Long(34), new Callback<Meal>() {
+       /* apiService.getMealById(new Long(34), new Callback<Meal>() {
             @Override
             public void success(Meal meal, Response response) {
                 etvIngredient.setText(meal.getIngredients());
@@ -100,7 +104,9 @@ public class ViewMealActivity extends BaseActivity {
             public void failure(RetrofitError error) {
 
             }
-        });
+        });*/
+        if(meal.getIngredients()==null) etvIngredient.setText("Ingredients are not specified");
+        else etvIngredient.setText(meal.getIngredients());
 
 
         apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
@@ -121,9 +127,13 @@ public class ViewMealActivity extends BaseActivity {
 
         tvMealName.setText(meal.getName());
 
-        etvIngredient.setText(meal.getIngredients());
+        //etvIngredient.setText(meal.getIngredients());
 
-        Picasso.with(ViewMealActivity.this).load(meal.getPhotoUrl()).into(ivMealImage);
+        if(meal.getPhotoUrl()!="")
+            Picasso.with(ViewMealActivity.this).load(meal.getPhotoUrl()).into(ivMealImage);
+        /*else
+            Picasso.with(ViewMealActivity.this).load("https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg).into(ivMealImage");
+        */
 
         apiService.getUserByID(new Long(meal.getUserId()), new Callback<User>() {
             @Override

@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
@@ -97,7 +98,7 @@ public class AddMealActivity extends BaseActivity {
         String mealName = etMealName.getText().toString();
         String desc = etMealDescription.getText().toString();
         //TODO get menu of different users
-        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, ""), new Callback<ResponseBody>() {
+        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
             @Override
             public void success(ResponseBody responseBody, Response response) {
 
@@ -108,6 +109,9 @@ public class AddMealActivity extends BaseActivity {
 
             }
         });
+
+        Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
+        startActivity(intent);
     }
 
 }

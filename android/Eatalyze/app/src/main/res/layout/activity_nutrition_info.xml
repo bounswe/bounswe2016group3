@@ -66,7 +66,7 @@
             android:layout_marginTop="8dp"/>
 
         <TextView
-            android:id="@+id/tv_calorie_amount"
+            android:id="@+id/tv_meal_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tv_calories"

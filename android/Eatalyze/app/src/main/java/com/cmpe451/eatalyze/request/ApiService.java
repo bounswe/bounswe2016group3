@@ -118,4 +118,11 @@ public interface ApiService {
 
     @POST("/api/meal/untag")
     public void untagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
+
+    @GET("/api/user/{id}/comments")
+    public void getUserComments(@Path("id") Long id, Callback<List<Comment>> userCommentList );
+
+    @GET("/api/user")
+    public void getUsers(Callback<List<User>> userListCallback);
+
 }
