@@ -19,6 +19,7 @@ import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -406,19 +407,69 @@ public class UserProfilePageActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
+
         if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
-            super.onBackPressed();
-            startActivity(new Intent(UserProfilePageActivity.this, UserHomepageActivity.class));
-            finish();
-        }
-        else {
-            super.onBackPressed();
-            Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
-            intent.putExtras(bundle);
+            Intent intent=new Intent(UserProfilePageActivity.this, UserHomepageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+        }
+        else {  // on the another user's page
+           /* final Long currentId=eatalyzeApplication.getUser().getId();
+
+            ArrayList<User> followings=new ArrayList<>();
+
+            apiService.getfollowers(currentId, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> users, Response response) {
+                    for(User user:users){
+                        if(user.getId().equals(userid)){
+                            Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
+                            intent.putExtras(bundle);
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            startActivity(intent);
+                            finish();
+                            break;
+                        }
+                    }
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getfollowing(currentId, new Callback<List<User>>() {
+                @Override
+                public void success(List<User> users, Response response) {
+                    for(User user:users){
+                        if(user.getId().equals(userid)) {
+
+                            Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
+                            intent.putExtras(bundle);
+                           // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            startActivity(intent);
+                            finish();
+                            break;
+                        }
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+            */
         }
     }
 }

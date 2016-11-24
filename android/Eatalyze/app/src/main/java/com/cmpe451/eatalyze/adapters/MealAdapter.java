@@ -14,7 +14,6 @@ import com.cmpe451.eatalyze.models.Meal;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,11 +70,9 @@ public class MealAdapter extends BaseAdapter {
         Picasso.with(context).load(meal.getPhotoUrl()).into(holder.ivMealImage);
         holder.tvMealName.setText(meal.getName());
         holder.tvServerName.setText("@"+servername);
-        // holder.tvCalorieAmount.setText(meal.getTotalCalorie());
-        //holder.tvNutrients.setText(meal.getAmounts().toString());
+        holder.tvMealDescription.setText(meal.getDescription());
         return view;
     }
-
 
     static class ViewHolder {
         @Bind(R.id.iv_meal_image)
@@ -84,13 +81,8 @@ public class MealAdapter extends BaseAdapter {
         TextView tvMealName;
         @Bind(R.id.tv_server_name)
         TextView tvServerName;
-        @Bind(R.id.tv_calorie_amount)
-        TextView tvCalorieAmount;
-        @Bind(R.id.tv_nutrients)
-        TextView tvNutrients;
-        //TODO rating bar will be added
-        //@Bind(R.id.rb_meal_rating)
-        //RatingBar rbMealRating;
+        @Bind(R.id.tv_meal_description)
+        TextView tvMealDescription;
         @Bind(R.id.cv_meal_item)
         CardView cvMealItem;
 

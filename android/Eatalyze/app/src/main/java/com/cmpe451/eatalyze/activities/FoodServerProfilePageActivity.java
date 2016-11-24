@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import com.cmpe451.eatalyze.adapters.MealAdapter;
 import com.cmpe451.eatalyze.models.Follow;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.Menu;
+import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
 import com.squareup.picasso.Picasso;
@@ -73,6 +75,8 @@ public class FoodServerProfilePageActivity extends BaseActivity {
         bundle = getIntent().getExtras();
         userid = -1 ;
 
+
+        //**************************VIEWER**************************************//
         if(bundle != null){
 
             userid = bundle.getLong("userid");
@@ -258,6 +262,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
             });
         }
 
+        //***************FOOD SERVER**********************//
         else {
 
             btnFollow.setText("EDIT PROFILE");
@@ -304,25 +309,9 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                                 Log.d("succ meal list call. SIZE ->", meals.size() + "");
                                 FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
 
-                                final String[] foodServerName = {""};
-                                apiService.getUserByID(menus.get(0).getUserId(), new Callback<User>() {
-                                    @Override
-                                    public void success(User user, Response response) {
-                                        Log.d("User by id call is SUC", user.getFullName());
-                                        foodServerName[0] = user.getFullName();
-                                        Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
-
-                                        //TODO put ingredients and nutritional info
-
-                                        MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, foodServerName[0]);
-                                        lvMenu.setAdapter(adapter);
-                                    }
-
-                                    @Override
-                                    public void failure(RetrofitError error) {
-                                        Log.d("User by id call is FAIL", error.toString());
-                                    }
-                                });
+                                String currentFoodServer=eatalyzeApplication.getUser().getFullName();
+                                MealAdapter adapter = new MealAdapter(FoodServerProfilePageActivity.this, mealOfMenu, currentFoodServer);
+                                lvMenu.setAdapter(adapter);
 
                             }
 
@@ -357,6 +346,16 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(FoodServerProfilePageActivity.this, AddMealActivity.class));
+                }
+            });
+
+            lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent=new Intent(FoodServerProfilePageActivity.this,ViewMealActivity.class);
+                    Meal clickedMeal= (Meal) adapterView.getItemAtPosition(i);
+                    intent.putExtra("ClickedMeal",clickedMeal);
+                    startActivity(intent);
                 }
             });
         }

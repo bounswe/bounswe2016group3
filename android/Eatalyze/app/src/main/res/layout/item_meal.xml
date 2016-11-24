@@ -48,26 +48,15 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/tv_calorie_amount"
+                android:id="@+id/tv_meal_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_meal_image"
                 android:layout_below="@+id/tv_server_name"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="422 calories"
                 />
 
-            <TextView
-                android:id="@+id/tv_nutrients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/iv_meal_image"
-                android:layout_below="@id/tv_calorie_amount"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Fat: 50% Protein: 15% Carbonhydrates: 35%"
-                />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

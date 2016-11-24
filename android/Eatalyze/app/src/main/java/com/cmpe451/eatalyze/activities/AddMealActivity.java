@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
@@ -108,6 +109,9 @@ public class AddMealActivity extends BaseActivity {
 
             }
         });
+
+        Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
+        startActivity(intent);
     }
 
 }

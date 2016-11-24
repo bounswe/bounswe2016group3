@@ -28,7 +28,7 @@ public class NutritionInfoActivity extends BaseActivity {
     TextView tvWeightAmount;
     @Bind(R.id.tv_calories)
     TextView tvCalories;
-    @Bind(R.id.tv_calorie_amount)
+    @Bind(R.id.tv_meal_description)
     TextView tvCalorieAmount;
     @Bind(R.id.tv_fat)
     TextView tvFat;

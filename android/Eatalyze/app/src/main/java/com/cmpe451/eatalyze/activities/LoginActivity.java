@@ -83,6 +83,7 @@ public class LoginActivity extends BaseActivity {
                                         if(user.getUserType()== 0){
                                             startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
                                         }else if(user.getUserType()==1){
+                                            //TODO call apiservice to create menu
                                             startActivity(new Intent(LoginActivity.this,FoodServerProfilePageActivity.class));
                                         }else{//ADMIN
                                             Log.d("Admin check","Inside admin choice");
