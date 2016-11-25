@@ -125,6 +125,9 @@ var apiService = function(store) {
             apiCall("/user/"+action.id+"/menus", "GET").success(function(res){
                 next({type: 'MENUS_LOADED', data: res});
             });
+            apiCall("/user/"+action.id+"/meals", "GET").success(function(res){
+                next({type: 'MEALS_LOADED', data: res});
+            });
 
             break;
 
