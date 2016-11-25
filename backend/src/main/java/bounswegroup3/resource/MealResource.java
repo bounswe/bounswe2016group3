@@ -133,6 +133,13 @@ public class MealResource {
 			return Response.notModified().build();
 		}
 	}
+	
+	@GET
+	@Path("/{id}/checkate/{uid}")
+	public Boolean checkAte( @PathParam("id") Long id,  @PathParam("uid") Long uid) {
+		return mealDao.checkAte(uid, id);
+	}
+	
 	/**
 	 * <code>POST /api/meal/:id/rate/:rating</code>
 	 * <br>
