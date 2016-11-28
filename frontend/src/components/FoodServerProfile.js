@@ -141,10 +141,7 @@ hideModal = () => {
                     </div>
                     <hr></hr>
                     <div className="row">
-                        <div className="col-xs-6">
-                            <h3>Preferences</h3>
-                           
-                        </div>
+                        
                         <div className="col-xs-6" id="menus">
                             <h3>Menus</h3>
                             {openAddMealModalButton}
