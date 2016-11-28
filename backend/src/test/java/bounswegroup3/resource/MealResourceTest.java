@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.NutritionixClient;
+import bounswegroup3.constant.UserType;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.UserDAO;
@@ -65,6 +66,7 @@ public class MealResourceTest {
 		tag = new Tag(-1l, "test");
 		nutrition = mapper.readValue(fixture("fixtures/nutritional_info_serialized.json"), NutritionalInfo.class);
 		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
+
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
 		
@@ -157,6 +159,18 @@ public class MealResourceTest {
 	}
 	
 	@Test
+	public void unauthorizedCreateMeal() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/meal")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer noauth")
+				.post(Entity.json(meal));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		verify(mealDao, never()).createMeal(any());
+	}
+	
+	@Test
 	public void testUpdateMeal() throws Exception {
 		Response res = rule.getJerseyTest()
 				.target("/meal/update")
@@ -219,7 +233,7 @@ public class MealResourceTest {
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
 		verify(mealDao).checkEat(any(), any());
 	}
-	
+
 	@Test
 	public void testCantCheckEat() throws Exception {
 		Response res = rule.getJerseyTest()
@@ -230,6 +244,19 @@ public class MealResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
 		verify(mealDao, never()).checkEat(any(), any());
+	}
+	
+	@Test
+	public void testCheckAte() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/meal/1/checkate/1")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+
+		Boolean read = mapper.readValue(res.readEntity(String.class), Boolean.class);
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		assertThat(read).isEqualTo(false);
 	}
 	
 	@Test

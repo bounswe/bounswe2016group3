@@ -10,7 +10,13 @@ public class DummyAuthenticator implements Authenticator<String, AccessToken> {
 	@Override
 	public Optional<AccessToken> authenticate(String token) throws AuthenticationException {
 		// returns a dummy access token
-		return Optional.of(new AccessToken(null, -1l, null, null));
+		if(token.equals("nope")) {
+			return Optional.empty();
+		} else if(token.equals("noauth")) {
+			return Optional.of(new AccessToken(null, 42l, null, null));
+		} else {
+			return Optional.of(new AccessToken(null, -1l, null, null));
+		}
 	}
 	
 }

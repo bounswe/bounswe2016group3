@@ -97,7 +97,7 @@ public class MenuResourceTest {
 	}
 	
 	@Test
-	public void testCreateMeal() throws Exception {
+	public void testCreateMenu() throws Exception {
 		Response res = rule.getJerseyTest()
 				.target("/menu")
 				.request(MediaType.APPLICATION_JSON_TYPE)
@@ -109,5 +109,18 @@ public class MenuResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
 		assertThat(read.get("id")).isEqualTo(1);
+		verify(menuDao).createMenu(any());
+	}
+	
+	@Test
+	public void unauthorizedCreateMenu() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/menu")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer noauth")
+				.post(Entity.json(menu));
+
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		verify(menuDao, never()).createMenu(any());
 	}
 }
