@@ -97,7 +97,7 @@ hideModal = () => {
                 ingredients=m.ingredients.replace(/]]]/g, ',')
                 ingredients=ingredients.replace(/%%%/g,"-")
             }
-            return <li key={m.id}><div className="meal_name_div">{m.name}</div><div className="meal_description_div">{m.description}</div><div className="meal_ingredients_div">{ingredients}</div></li>;
+            return <li key={m.id}><a href={`/meal/${m.id}/`}>{m.name}</a></li>;
         });
 
 
