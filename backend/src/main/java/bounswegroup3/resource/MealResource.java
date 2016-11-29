@@ -134,6 +134,13 @@ public class MealResource {
 		}
 	}
 	
+	/**
+	 * GET /api/meal/:id/checkate/:uid
+	 * <br>
+	 * @param id the meal id
+	 * @param uid the user id
+	 * @return a boolean value signifying whether the user check ate the meal
+	 */
 	@GET
 	@Path("/{id}/checkate/{uid}")
 	public Boolean checkAte( @PathParam("id") Long id,  @PathParam("uid") Long uid) {

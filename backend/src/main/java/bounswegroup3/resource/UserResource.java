@@ -319,33 +319,73 @@ public class UserResource {
     	dao.updateAvatar(token.getUserId(), url);
     }
     
+    /**
+     * <code>POST /api/user/search/:query</code>
+     * <br>
+     * Does a basic search (as in, only searches by email and username) 
+     * in registered users.
+     * @param query The string to be searched for 
+     * @return A list of matching users
+     */
     @GET
     @Path("/search/{query}")
     public List<User> basicSearch(@PathParam("query") String query) {
     	return dao.basicSearch(query);
     }
     
+    /**
+     * <code>GET /api/user/:id/include</code>
+     * <br>
+     * Retrieves the include list of a user.
+     * @param id the user id to get includes for
+     * @return A list of ingredients marked as include
+     */
     @GET
     @Path("/{id}/include")
     public List<String> getIncludes(@PathParam("id") Long id) {
     	return excludeDao.getUserIncludes(id);
     }
     
+    /**
+     * <code>GET /api/user/:id/exclude
+     * <br>
+     * Retrieves the exclude list of a user.
+     * @param id the user id to get excludes for
+     * @return A list of ingredients marked as exclude
+     */
     @GET
     @Path("/{id}/exclude")
     public List<String> getExcludes(@PathParam("id") Long id) {
     	return excludeDao.getUserExcludes(id);
     }
     
+    /**
+     * <code>POST /api/user/:id/include</code>
+     * <br>
+     * Sets the include list of a user. Requires authentication
+     * @param id the user id to set includes for
+     * @param xs A List of Strings, to be set as the user's includes
+     */
     @POST
     @Path("/{id}/include")
-    public void updateIncludes(@PathParam("id") Long id, List<String> xs) {
-    	excludeDao.updateIncludes(id, xs);
+    public void updateIncludes(@Auth AccessToken token, @PathParam("id") Long id, List<String> xs) {
+    	if(token.getUserId() == id) {
+    		excludeDao.updateIncludes(id, xs);
+    	}
     }
     
+    /**
+     * <code>POST /api/user/:id/exclude</code>
+     * <br>
+     * Sets the exclude list of a user. Requires authentication
+     * @param id the user id to set excludes for
+     * @param xs A List of Strings, to be set as the user's excludes
+     */
     @POST
     @Path("/{id}/exclude")
-    public void updateExcludes(@PathParam("id") Long id, List<String> xs) {
-    	excludeDao.updateExcludes(id, xs);
+    public void updateExcludes(@Auth AccessToken token, @PathParam("id") Long id, List<String> xs) {
+    	if(token.getUserId() == id) {
+    		excludeDao.updateExcludes(id, xs);
+    	}
     }
 }
