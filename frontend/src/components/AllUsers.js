@@ -9,9 +9,11 @@ class AllUsers extends Component {
     componentDidMount(){
         this.props.actions.load();
 
+
     }
 
     render(){
+        
         if(!this.props.users){
             return (
                 <article className="col-xs-12">
@@ -35,7 +37,7 @@ class AllUsers extends Component {
 
         let userItems = this.props.users.map(function(user){
 
-             if(user.userType == 0){
+             if(user.userType == 0||user.userType == 2){
             return <li key={user.id}>
            
                 <Link to={`/user/${user.id}`}>

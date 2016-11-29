@@ -1,7 +1,10 @@
-var load = function(id){
+var load = function(token,id){
+
     return {
+
         type: 'LOAD_MEAL',
-        id: id
+        id: id,
+        token
     };
 };
 

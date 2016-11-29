@@ -17,6 +17,7 @@ class Profile extends Component {
     componentDidMount(){
         this.props.actions.load(this.props.params.id);
         this.props.actions.loadMeal(this.props.params.id);
+
     }
 
     state = {
