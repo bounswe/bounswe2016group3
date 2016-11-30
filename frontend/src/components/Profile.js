@@ -17,21 +17,19 @@ class Profile extends Component {
         this.props.actions.load(this.props.params.id);
     }
     state = {
-    isOpen: false
+    isOpen: false,
+    isOpen_Include: false,
+    isOpen_Exclude: false
     };
  
-    openModal = () => {
+    openModal = () => {this.setState({isOpen: true});};
+    hideModal = () => { this.setState({isOpen: false});};
 
-    this.setState({
-    isOpen: true
-    });
-    };
- 
-    hideModal = () => {
-      this.setState({
-        isOpen: false
-      });
-    };
+    openModal_Include = () => { this.setState({ isOpen_Include: true });}; 
+    hideModal_Include = () => { this.setState({ isOpen_Include: false});};
+
+    openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });}; 
+    hideModal_Exclude = () => { this.setState({ isOpen_Exclude: false});};
 
     render(){
         if(!this.props.profile || this.props.profile === {}){
@@ -80,8 +78,8 @@ class Profile extends Component {
         if(current.id === profile.id) {
             followButton = <div></div>;
             updatePreferencesModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Update</button>
-            updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Update</button>
-            updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Update</button>
+            updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
+            updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
         } else {
             if(this.props.following.some(function(u){ return u.id === current.id})){
                 followButton = <button type="button" className="btn btn-default disabled">Follow</button>
@@ -118,9 +116,9 @@ class Profile extends Component {
                             <h3>Preferences</h3>
                             <h4>Include</h4>
                             {updateIncludeModalButton}
-                            <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} id="updateInclude_modal">
+                            <Modal isOpen={this.state.isOpen_Include} onRequestHide={this.hideModal_Include} id="updateInclude_modal">
                                 <ModalHeader>
-                                    <ModalClose onClick={this.hideModal}/>
+                                    <ModalClose onClick={this.hideModal_Include}/>
                                     <ModalTitle><h3>Include</h3></ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
@@ -130,15 +128,15 @@ class Profile extends Component {
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={""}>Update </button>
-                                    <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
+                                    <button className='btn btn-default' onClick={this.hideModal_Include}>Cancel</button>
                                    
                                 </ModalFooter>
                             </Modal>
                             <h4>Exclude</h4>
                              {updateExcludeModalButton}
-                            <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} id="updateExclude_modal">
+                            <Modal isOpen={this.state.isOpen_Exclude} onRequestHide={this.hideModal_Exclude} id="updateExclude_modal">
                                 <ModalHeader>
-                                    <ModalClose onClick={this.hideModal}/>
+                                    <ModalClose onClick={this.hideModal_Exclude}/>
                                     <ModalTitle><h3>Exclude</h3></ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
@@ -148,7 +146,7 @@ class Profile extends Component {
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={""}>Update </button>
-                                    <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
+                                    <button className='btn btn-default' onClick={this.hideModal_Exclude}>Cancel</button>
                                    
                                 </ModalFooter>
                             </Modal>
