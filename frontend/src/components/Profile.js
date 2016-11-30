@@ -123,7 +123,16 @@ class Profile extends Component {
                                 </ModalHeader>
                                 <ModalBody>
                                      
-                               
+                               <div className="col-xs-12" id="ingredients_list_include">
+                                        <div className="ingredients_list_element" id="ingredients_list_element">
+                                            <div className="col-xs-8">
+                                                <input type="text" id="name" className="form-control" placeholder="Name"/>
+                                            </div>
+                                           <div className="col-xs-12">
+                                    <button type="button" className="btn-success more_button" onClick={""}>More</button>
+                                    </div>
+                                        </div>
+                                    </div>
                                    
                                 </ModalBody>
                                 <ModalFooter>
@@ -140,7 +149,16 @@ class Profile extends Component {
                                     <ModalTitle><h3>Exclude</h3></ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
-                                     
+                                     <div className="col-xs-12" id="ingredients_list_exclude">
+                                        <div className="ingredients_list_element" id="ingredients_list_element">
+                                            <div className="col-xs-8">
+                                                <input type="text" id="name" className="form-control" placeholder="Name"/>
+                                            </div>
+                                           <div className="col-xs-12">
+                                    <button type="button" className="btn-success more_button" onClick={""}>More</button>
+                                    </div>
+                                        </div>
+                                    </div>
                                 
                                    
                                 </ModalBody>
