@@ -104,9 +104,10 @@ hideModal = () => {
 
         let followButton;
         let addmealButton;
+        
         let openAddMealModalButton
         if(current.id === profile.id) {
-            followButton = <div></div>;
+            followButton = <div></div>;    
             addmealButton=<button type="button" className="btn btn-default" onClick={addMeal}>Add Meal</button>;
             openAddMealModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Add Meal </button>
 

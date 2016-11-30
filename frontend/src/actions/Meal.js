@@ -8,4 +8,14 @@ var load = function(token,id){
     };
 };
 
-export { load };
+var checkeat = function(token,id){
+
+	return{
+
+		type:'CHECKEAT_MEAL',
+		id:id,
+		token
+	};
+};
+
+export { load, checkeat};

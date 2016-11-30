@@ -195,8 +195,17 @@ var apiService = function(store) {
             }).error(function(error, response){
                 next({type: 'ADDMEAL_FAILED'});
             });
-            
             break;
+
+            case 'CHECKEAT_MEAL':
+
+             apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(){
+                    next({type: 'CHECKEAT_ADDED'});
+
+                });
+             break;
+
+
             default:
             break;
             }              

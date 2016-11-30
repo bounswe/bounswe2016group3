@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/Meal';
 
 class Meal extends Component {
-    componentDidMount() {
-      
-       
-
+    componentDidMount() {     
     }
 
   
@@ -16,10 +13,20 @@ class Meal extends Component {
         
 
         if(this.props.token!="" &&this.props.meal.ingredients===undefined){
-            this.props.actions.load(this.props.token,this.props.params.id);
-            //temp=1;
-            
+            this.props.actions.load(this.props.token,this.props.params.id);    
+
         }
+        let checkeat = () => {
+            if(this.props.token!==""){
+                
+                this.props.actions.checkeat(this.props.token,this.props.params.id);
+                alert(this.props.token+ " " +this.props.params.id)  ;  
+            }
+        }
+
+
+        let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
+        
         
       
         let commentsHtml = this.props.comments.map(function(u){
@@ -32,7 +39,9 @@ class Meal extends Component {
         return  <div className="col-xs-6">
             
             <h2>{this.props.meal.name}</h2>
+            {checkeatButton}
             <p>{this.props.meal.description}</p>
+            
             <h2>Ingredients</h2>
             <p>{this.props.meal.ingredients}</p>
            
