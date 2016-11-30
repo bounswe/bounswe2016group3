@@ -8,7 +8,6 @@ import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 
-import bounswegroup3.model.Meal;
 import bounswegroup3.model.User;
 import bounswegroup3.mapper.UserMapper;
 import java.util.List;

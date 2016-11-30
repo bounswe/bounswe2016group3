@@ -6,8 +6,6 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import com.google.common.io.CharStreams;
-
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,9 +32,7 @@ import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.mail.Template;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
@@ -311,12 +307,18 @@ public class UserResource {
     @POST
     @Path("/avatar")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public void avatarUpload(@Auth AccessToken token, 
+    public Response avatarUpload(@Auth AccessToken token, 
     		@FormDataParam("file") InputStream file, 
     		@FormDataParam("file") FormDataContentDisposition contentDispositionHeader){
 
-    	String url = s3.uploadFile(file);
-    	dao.updateAvatar(token.getUserId(), url);
+    	if(dao.userExists(token.getUserId())) {
+        	String url = s3.uploadFile(file);
+        	
+    		dao.updateAvatar(token.getUserId(), url);
+    		return Response.ok().build();
+    	} else {
+    		return Response.noContent().build();
+    	}
     }
     
     /**
