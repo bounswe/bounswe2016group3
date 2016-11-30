@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bounswegroup3.auth.DummyAuthenticator;
 import bounswegroup3.client.NutritionixClient;
-import bounswegroup3.constant.UserType;
+import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.UserDAO;
@@ -39,10 +39,11 @@ public class MealResourceTest {
 	private static CommentDAO commentDao = mock(CommentDAO.class);
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static NutritionixClient client = mock(NutritionixClient.class);
+	private static CheckEatDAO checkeatDao = mock(CheckEatDAO.class);
 	
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MealResource(mealDao, commentDao, userDao, client))
+		.addResource(new MealResource(mealDao, commentDao, checkeatDao, userDao, client))
 		.build();
 	
 	private Meal meal;
@@ -85,8 +86,8 @@ public class MealResourceTest {
 		
 		when(mealDao.getMealById(eq(42l))).thenReturn(invalidMeal);
 		
-		when(mealDao.checkAte(any(), any())).thenReturn(false);
-		when(mealDao.checkAte(any(), eq(42l))).thenReturn(true);
+		when(checkeatDao.checkAte(any(), any())).thenReturn(false);
+		when(checkeatDao.checkAte(any(), eq(42l))).thenReturn(true);
 		
 		when(mealDao.averageRating(any())).thenReturn(0.0f);
 		when(mealDao.totalRatings(any())).thenReturn(0);
@@ -231,7 +232,7 @@ public class MealResourceTest {
 				.post(Entity.json(""));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
-		verify(mealDao).checkEat(any(), any());
+		verify(checkeatDao).checkEat(any(), any());
 	}
 
 	@Test
@@ -243,7 +244,7 @@ public class MealResourceTest {
 				.post(Entity.json(""));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).checkEat(any(), any());
+		verify(checkeatDao, never()).checkEat(any(), any());
 	}
 	
 	@Test
@@ -436,7 +437,7 @@ public class MealResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
@@ -449,7 +450,7 @@ public class MealResourceTest {
 				.request(MediaType.APPLICATION_JSON_TYPE)
 				.get();
 		
-		@SuppressWarnings("rawtypes")
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(0);

@@ -237,4 +237,10 @@
 			<column name="name" type="text" />
 		</createTable>
 	</changeSet>
+	
+	<changeSet id="11" author="group3">
+		<addColumn tableName="checkeat">
+			<column name="creation_date" type="datetime" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

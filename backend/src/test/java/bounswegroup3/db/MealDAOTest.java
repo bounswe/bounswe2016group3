@@ -99,20 +99,6 @@ public class MealDAOTest {
 	}
 	
 	@Test
-	public void testCheckEat() throws Exception {
-		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
-		m.setMenuId(1l);
-		m.setUserId(1l);
-		dao.createMeal(m);
-		
-		assertThat(!dao.checkAte(1l, 1l));
-		
-		dao.checkEat(1l, 1l);
-		
-		assertThat(dao.checkAte(1l, 1l));
-	}
-	
-	@Test
 	public void testRating() throws Exception {
 		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		m.setMenuId(1l);

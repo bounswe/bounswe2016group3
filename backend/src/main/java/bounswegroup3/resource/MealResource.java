@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.constant.UserType;
+import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.UserDAO;
@@ -32,10 +33,12 @@ public class MealResource {
 	private CommentDAO commentDao;
 	private NutritionixClient client;
 	private UserDAO userDao;
+	private CheckEatDAO checkeatDao;
 	
-	public MealResource(MealDAO mealDao, CommentDAO commentDao, UserDAO userDao, NutritionixClient client) {
+	public MealResource(MealDAO mealDao, CommentDAO commentDao, CheckEatDAO checkeatDao, UserDAO userDao, NutritionixClient client) {
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
+		this.checkeatDao = checkeatDao;
 		this.userDao = userDao;
 		this.client = client;
 	}
@@ -126,8 +129,8 @@ public class MealResource {
 	@POST
 	@Path("/{id}/checkeat")
 	public Response checkEat(@Auth AccessToken token, @PathParam("id") Long id) {
-		if(!mealDao.checkAte(token.getUserId(), id)) {
-			mealDao.checkEat(token.getUserId(), id);
+		if(!checkeatDao.checkAte(token.getUserId(), id)) {
+			checkeatDao.checkEat(token.getUserId(), id);
 			return Response.ok().build();
 		} else {
 			return Response.notModified().build();
@@ -144,7 +147,7 @@ public class MealResource {
 	@GET
 	@Path("/{id}/checkate/{uid}")
 	public Boolean checkAte( @PathParam("id") Long id,  @PathParam("uid") Long uid) {
-		return mealDao.checkAte(uid, id);
+		return checkeatDao.checkAte(uid, id);
 	}
 	
 	/**

@@ -47,11 +47,6 @@ public abstract class MealDAO {
 	@SqlUpdate("delete from tags where meal_id = :id and tag = :tag")
 	abstract public void untagMeal(@Bind("id") Long id, @Bind("tag") String tag);
 	
-	@SqlQuery("select count(1) from checkeat where user_id = :uid and meal_id = :mid")
-	abstract public Boolean checkAte(@Bind("uid") Long userId, @Bind("mid") Long mealId);
-	
-	@SqlUpdate("insert into checkeat (user_id, meal_id) values (:uid, :mid)")
-	abstract public void checkEat(@Bind("uid") Long userId, @Bind("mid") Long mealId);
 	
 	@SqlQuery("select avg(rating) from rating where meal_id = :mid")
 	abstract public Float averageRating(@Bind("mid") Long mealId);

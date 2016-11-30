@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bounswegroup3.model.Meal;
 import bounswegroup3.model.User;
 import bounswegroup3.utils.H2JDBIRule;
 import io.dropwizard.jackson.Jackson;

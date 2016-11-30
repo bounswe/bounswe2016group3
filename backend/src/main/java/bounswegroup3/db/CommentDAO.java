@@ -16,7 +16,7 @@ import bounswegroup3.model.Comment;
 public interface CommentDAO {
 	@GetGeneratedKeys
 	@SqlUpdate("insert into comments (meal_id, user_id, content, creation_time, update_time) "
-			+ "values (:mealId, :userId, :content, :creationTime, :updateTime)")
+			+ "values (:mealId, :userId, :content, NOW(), :updateTime)")
     Long createComment(@BindBean Comment comment);
 	
 	@SqlQuery("select * from comments where meal_id=:id")
