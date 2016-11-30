@@ -32,19 +32,23 @@ class Meal extends Component {
         return  <div className="col-xs-6">
             
             <h2>{this.props.meal.name}</h2>
+            <p>{this.props.meal.description}</p>
+            <h2>Ingredients</h2>
             <p>{this.props.meal.ingredients}</p>
            
             <img src={this.props.meal.photoUrl} alt="Avatar for user {props.uid}" className="avatar-m" />
-             <div className="col-xs-6">
-            <p>{this.props.meal.description}</p>
-            <div className="col-xs-12">
+            
+            <div className="row">
+            <div className="col-xs-6">
             <h3> Comments </h3>
             <p>{commentsHtml}</p>
-
+             </div>
+              <div className="col-xs-6">
              <h3> Ratings </h3>
              {ratingssHtml} out of 5
              </div>
-        </div>
+              </div>
+        
         </div>
     }
 }
