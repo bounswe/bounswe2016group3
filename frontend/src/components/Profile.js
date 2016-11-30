@@ -11,6 +11,7 @@ import {
 } from 'react-modal-bootstrap';
 import $ from 'jquery';
 import * as actions from '../actions/Profile';
+import PicEdit from './PicEdit';
 
 class Profile extends Component {
     componentDidMount(){
@@ -21,14 +22,14 @@ class Profile extends Component {
     isOpen_Include: false,
     isOpen_Exclude: false
     };
- 
+
     openModal = () => {this.setState({isOpen: true});};
     hideModal = () => { this.setState({isOpen: false});};
 
-    openModal_Include = () => { this.setState({ isOpen_Include: true });}; 
+    openModal_Include = () => { this.setState({ isOpen_Include: true });};
     hideModal_Include = () => { this.setState({ isOpen_Include: false});};
 
-    openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });}; 
+    openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });};
     hideModal_Exclude = () => { this.setState({ isOpen_Exclude: false});};
 
     render(){
@@ -59,12 +60,12 @@ class Profile extends Component {
         let followingHtml = this.props.following.map(function(u){
             return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
         });
-       
+
 
         let menusHtml = this.props.menus.map(function(m){
             return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
         });
-        
+
         let followButton;
         let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
         let dietTypes_chbx= "";
@@ -93,16 +94,18 @@ class Profile extends Component {
             <div>
                 <div className="col-xs-4">
                     <img src={profile.avatarUrl} alt="avatar"/>
+                    <p></p>
+                    <PicEdit />
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>
                     <p>{profile.bio}</p>
-                    
+
                     <p>{followButton}</p>
                     <div className="row">
                         <div className="col-xs-6">
                             <h3>Followers: {followersHtml.length}</h3>
-                          
+
                         </div>
                         <div className="col-xs-6">
                             <h3>Following: {followingHtml.length}</h3>
@@ -122,7 +125,7 @@ class Profile extends Component {
                                     <ModalTitle><h3>Include</h3></ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
-                                     
+
                                <div className="col-xs-12" id="ingredients_list_include">
                                         <div className="ingredients_list_element" id="ingredients_list_element">
                                             <div className="col-xs-8">
@@ -133,12 +136,12 @@ class Profile extends Component {
                                     </div>
                                         </div>
                                     </div>
-                                   
+
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={""}>Update </button>
                                     <button className='btn btn-default' onClick={this.hideModal_Include}>Cancel</button>
-                                   
+
                                 </ModalFooter>
                             </Modal>
                             <h4>Exclude</h4>
@@ -159,13 +162,13 @@ class Profile extends Component {
                                     </div>
                                         </div>
                                     </div>
-                                
-                                   
+
+
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={""}>Update </button>
                                     <button className='btn btn-default' onClick={this.hideModal_Exclude}>Cancel</button>
-                                   
+
                                 </ModalFooter>
                             </Modal>
                         </div>
@@ -174,7 +177,7 @@ class Profile extends Component {
                         <div className="col-xs-6">
                             <h3>Diet Type</h3>
                             {dietTypes[profile.dietType]}
- 
+
                              {updatePreferencesModalButton}
                             <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} id="updateDietType_modal">
                                 <ModalHeader>
@@ -182,22 +185,22 @@ class Profile extends Component {
                                     <ModalTitle><h3>Update Diet Type</h3></ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
-                                     
-                                 <ul> 
-                                 <li> <input type="checkbox" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} </li> 
-                                  <li> <input type="checkbox" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} </li> 
-                                 <li> <input type="checkbox" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} </li> 
-                                  <li> <input type="checkbox" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} </li> 
-                                  <li> <input type="checkbox" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} </li> 
-                                  <li> <input type="checkbox" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]} </li> 
-                                   <li> <input type="checkbox" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]} </li> 
+
+                                 <ul>
+                                 <li> <input type="checkbox" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} </li>
+                                  <li> <input type="checkbox" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} </li>
+                                 <li> <input type="checkbox" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} </li>
+                                  <li> <input type="checkbox" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} </li>
+                                  <li> <input type="checkbox" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} </li>
+                                  <li> <input type="checkbox" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]} </li>
+                                   <li> <input type="checkbox" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]} </li>
                                  </ul>
-                                   
+
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={""}>Update </button>
                                     <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
-                                   
+
                                 </ModalFooter>
                             </Modal>
                         </div>

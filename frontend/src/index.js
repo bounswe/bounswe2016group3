@@ -38,11 +38,11 @@ var middleware = applyMiddleware(apiService, redirectService);
 var login = combineReducers({ loading, success, error });
 var signup = combineReducers({ loading, success, error });
 var pwdReset = combineReducers({ userId, secretQuestion });
-var reducer = combineReducers({ token, currentUser, 
+var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
   users, profile,
   followers, following,
-  menu, meal, 
+  menu, meal,
   menus, meals, comments,ratings });
 var store = createStore(reducer, {}, middleware);
 

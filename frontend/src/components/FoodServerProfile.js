@@ -10,7 +10,7 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 import $ from 'jquery';
-
+import PicEdit from './PicEdit';
 import * as actions from '../actions/FoodServerProfile';
 
 class Profile extends Component {
@@ -23,14 +23,14 @@ class Profile extends Component {
     state = {
   isOpen: false
 };
- 
+
 openModal = () => {
 
   this.setState({
     isOpen: true
   });
 };
- 
+
 hideModal = () => {
   this.setState({
     isOpen: false
@@ -51,14 +51,14 @@ hideModal = () => {
         const profile = this.props.profile;
         const current = this.props.currentUser;
 
-        
+
 
         var followUser = () => {
             if(this.props.token!==""){
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
-        
+
         var moreIngredient = () =>{
             $("#ingredients_list").append('<div class="ingredients_list_element" id="ingredients_list_element"><div class="col-xs-8"><input type="text" id="name" class="form-control" placeholder="Name"/></div><div class="col-xs-4"><input type="text" id="amount" class="form-control" placeholder="Amount"/></div></div>')
 
@@ -123,16 +123,18 @@ hideModal = () => {
             <div>
                 <div className="col-xs-4">
                     <img src={profile.avatarUrl} alt="avatar"/>
+                    <p></p>
+                    <PicEdit />
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>
                     <p>{profile.bio}Hello from the otherside..</p>
-                    
+
                     <p>{followButton}</p>
                     <div className="row">
                         <div className="col-xs-6">
                             <h3>Followers: {followersHtml.length}</h3>
-                          
+
                         </div>
                         <div className="col-xs-6">
                             <h3>Following: {followingHtml.length}</h3>
@@ -142,7 +144,7 @@ hideModal = () => {
                     </div>
                     <hr></hr>
                     <div className="row">
-                        
+
                         <div className="col-xs-6" id="menus">
                             <h3>Menus</h3>
                             {openAddMealModalButton}
@@ -154,7 +156,7 @@ hideModal = () => {
                                 </ModalHeader>
                                 <ModalBody>
                                     <input type="text" className="form-control" placeholder="Meal name" id="meal_name" />
-                                    <input type="text" className="form-control" placeholder="Meal desc" id="meal_description" /> 
+                                    <input type="text" className="form-control" placeholder="Meal desc" id="meal_description" />
                                     <h4>Ingredients</h4>
                                     <div className="col-xs-12" id="ingredients_list">
                                         <div className="ingredients_list_element" id="ingredients_list_element">
@@ -175,10 +177,10 @@ hideModal = () => {
                                     {addmealButton}
                                 </ModalFooter>
                             </Modal>
-                            
+
                         </div>
                     </div>
-                     
+
                 </div>
             </div>
         );
