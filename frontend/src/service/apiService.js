@@ -1,4 +1,4 @@
-import { apiCall } from '../api';
+ import { apiCall } from '../api';
 
 var apiService = function(store) {
     return function(next) {
@@ -210,7 +210,7 @@ var apiService = function(store) {
              case 'SEARCH_MEAL':
 
              apiCall('/meal/search/'+action.query+"/", "GET" ).success(function(res){
-                    next({type: 'SEARCHMEAL_LOADED',data:res});
+                    next({type: 'SEARCHMEAL_LOADED', data:res});
 
                 });
              break;

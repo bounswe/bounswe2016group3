@@ -10,26 +10,7 @@ import './header.css';
 var Header = function(props){
 
 var submitSearch = function(){
-    var query=$("#search_input").val();
-    if(query == null || query==""){
-        return;
-    }
-    else{
-        alert(query);
-        var searchUrl = "http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/api/meal/search/"+query;
-         $.ajax({
-            url: searchUrl,
-            method: 'POST',
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                alert(data)
-            },
-            error: function(xhr, status, err) {
-                //console.error(this.props.url, status, err.toString());
-            }
-        });
-    }
+    props.actions.searchMeal(document.getElementById("search_input").value);
 }
 
 
@@ -169,7 +150,7 @@ if(props.success){
 }
 
 var mapStateToProps = function(state){
-    //alert(state.token);
+    console.log(state.search);
     return { 
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 

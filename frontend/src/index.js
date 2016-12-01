@@ -24,6 +24,7 @@ import { menu, menus } from './reducers/menu';
 import { meal, meals } from './reducers/meal';
 import { comments } from './reducers/comment';
 import { ratings } from './reducers/rating';
+import { search } from './reducers/search';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -43,7 +44,7 @@ var reducer = combineReducers({ token, currentUser,
   users, profile,
   followers, following,
   menu, meal,
-  menus, meals, comments,ratings });
+  menus, meals, comments, ratings, search });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((
