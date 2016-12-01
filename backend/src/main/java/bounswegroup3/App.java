@@ -43,6 +43,7 @@ import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.resource.CommentResource;
+import bounswegroup3.resource.HomeResource;
 import bounswegroup3.resource.MealResource;
 import bounswegroup3.resource.MenuResource;
 import bounswegroup3.resource.SessionResource;
@@ -116,6 +117,7 @@ class App extends Application<AppConfig> {
         final MenuResource menuResource = new MenuResource(menuDao, mealDao, userDAO);
         final MealResource mealResource = new MealResource(mealDao, commentDao, checkeatDao, userDAO, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);
+        final HomeResource homeResource = new HomeResource(checkeatDao, mealDao, nutritionixClient);
         
         final KillTokens killTokens = new KillTokens(accessTokenDAO);
         
@@ -145,6 +147,7 @@ class App extends Application<AppConfig> {
         env.jersey().register(menuResource);
         env.jersey().register(mealResource);
         env.jersey().register(commentResource);
+        env.jersey().register(homeResource);
 	}
 	
     private void configureCors(Environment environment) {

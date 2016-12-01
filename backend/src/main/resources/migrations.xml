@@ -242,5 +242,21 @@
 		<addColumn tableName="checkeat">
 			<column name="creation_date" type="datetime" />
 		</addColumn>
+		
+		<createTable tableName="events">
+			<column name="id" type="integer" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+			<column name="user_id" type="integer">
+				<constraints nullable="false" foreignKeyName="fk_event_user" references="users(id)" />
+			</column>
+			
+			<column name="event_type" type="integer" />
+			<column name="url" type="text" />
+			<column name="description" type="text" />
+			
+			<column name="date" type="timestamp" />
+		</createTable>
 	</changeSet>
 </databaseChangeLog>
