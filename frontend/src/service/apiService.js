@@ -1,4 +1,4 @@
-import { apiCall } from '../api';
+ import { apiCall } from '../api';
 
 var apiService = function(store) {
     return function(next) {
@@ -197,10 +197,20 @@ var apiService = function(store) {
             });
             break;
 
+
+
             case 'CHECKEAT_MEAL':
 
              apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(){
                     next({type: 'CHECKEAT_ADDED'});
+
+                });
+             break;
+
+             case 'SEARCH_MEAL':
+
+             apiCall('/meal/search/'+action.query+"/", "GET" ).success(function(res){
+                    next({type: 'SEARCHMEAL_LOADED', data:res});
 
                 });
              break;

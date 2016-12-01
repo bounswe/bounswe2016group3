@@ -17,7 +17,6 @@ class Profile extends Component {
     componentDidMount(){
         this.props.actions.load(this.props.params.id);
         this.props.actions.loadMeal(this.props.params.id);
-
     }
 
     state = {
@@ -71,11 +70,11 @@ hideModal = () => {
             if(this.props.token!==""){
                 var ingredients="";
                 $(".ingredients_list_element").each(function(){
-                    ingredients=ingredients+"]]]"+$(this).find("#name").val()+"%%%"+$(this).find("#amount").val()
+                    ingredients=ingredients+","+$(this).find("#amount").val()+" grams of"+$(this).find("#name").val()
                 })
-                ingredients = ingredients.substring(3)
+                ingredients = ingredients.substring(1)
                 this.props.actions.addmeal(this.props.token,this.props.profile.id, 1, meal_name.value,meal_description.value,ingredients,"");
-                document.location.href;
+                document.location.href = document.location.href  ;
             }
         }
 
