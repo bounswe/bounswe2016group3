@@ -6,4 +6,5 @@ var search = function(prev=[], event) {
 			return prev;
 	}
 }
+
 export { search };
