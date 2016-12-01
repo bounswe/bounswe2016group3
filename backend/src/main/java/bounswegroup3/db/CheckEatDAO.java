@@ -5,11 +5,13 @@ import java.util.List;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 
 import bounswegroup3.model.CheckEat;
+import bounswegroup3.mapper.CheckEatMapper;
 
+@RegisterMapper(CheckEatMapper.class)
 public interface CheckEatDAO {
-
 	@SqlQuery("select count(1) from checkeat where user_id = :uid and meal_id = :mid")
 	public Boolean checkAte(@Bind("uid") Long userId, @Bind("mid") Long mealId);
 	

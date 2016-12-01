@@ -1,5 +1,5 @@
 package bounswegroup3.model;
 
-public class HomepageItem {
+public class EventTest {
 
 }

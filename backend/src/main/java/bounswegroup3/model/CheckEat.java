@@ -14,6 +14,10 @@ public class CheckEat {
 		this.mealId = mealId;
 		this.creationDate = creationDate;
 	}
+	
+	public CheckEat() {
+		 
+	}
 
 	public Long getUserId() {
 		return userId;

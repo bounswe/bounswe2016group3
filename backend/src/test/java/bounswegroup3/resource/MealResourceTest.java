@@ -244,7 +244,7 @@ public class MealResourceTest {
 				.post(Entity.json(""));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(checkeatDao, never()).checkEat(any(), any());
+		verify(checkeatDao, never()).checkEat(eq(-1l), eq(42l));
 	}
 	
 	@Test

@@ -47,7 +47,6 @@ public abstract class MealDAO {
 	@SqlUpdate("delete from tags where meal_id = :id and tag = :tag")
 	abstract public void untagMeal(@Bind("id") Long id, @Bind("tag") String tag);
 	
-	
 	@SqlQuery("select avg(rating) from rating where meal_id = :mid")
 	abstract public Float averageRating(@Bind("mid") Long mealId);
 	
