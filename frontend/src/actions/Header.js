@@ -10,4 +10,11 @@ var logout = function(token){
     };
 }
 
-export { submit,logout };
+var searchMeal = function(query){
+	return{
+		type:'SEARCH_MEAL',
+		query:query
+	}
+}
+
+export { submit,logout,searchMeal };

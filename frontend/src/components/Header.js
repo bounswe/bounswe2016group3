@@ -2,21 +2,44 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions/Header';
-
+import $ from 'jquery';
 import { bindActionCreators } from 'redux';
 import './header.css';
 
+
 var Header = function(props){
+
+var submitSearch = function(){
+    var query=$("#search_input").val();
+    if(query == null || query==""){
+        return;
+    }
+    else{
+        alert(query);
+        var searchUrl = "http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/api/meal/search/"+query;
+         $.ajax({
+            url: searchUrl,
+            method: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                alert(data)
+            },
+            error: function(xhr, status, err) {
+                //console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
+}
+
+
     var userHeader = null;
     var submitForm1 = function(e) {
         let email = document.getElementById("login-email2");
         let password = document.getElementById("login-pass2");
 
-        if(email&&password){
-             
-            props.actions.submit(email.value , password.value);
-
-       
+        if(email&&password){       
+            props.actions.submit(email.value , password.value);     
         }
 
         e.preventDefault();
@@ -123,9 +146,8 @@ if(props.success){
                 <div className="col-sm-2">
 
                 <ul className="nav navbar-nav navbar">
-                    <li><input type="search" className="form-control" placeholder="Search" id="Search" /></li>
-                    
-                    
+                    <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
+                    <button type = 'button' onClick={submitSearch}>Search</button>
                 </ul>
                 </div>
 
