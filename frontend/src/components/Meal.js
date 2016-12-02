@@ -27,7 +27,7 @@ class Meal extends Component {
             if(this.props.token!==""){
             	
             	this.props.actions.comment(this.props.token,this.props.params.id,this.props.currentUser.id,comment_meal.value);
-            	document.location.href = document.location.href  ;
+            	//document.location.href = document.location.href  ;
             }
         }
 
