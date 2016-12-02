@@ -12,9 +12,11 @@ import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';
 import Menu from './components/Menu';
 import Meal from './components/Meal';
+import PersonalLog from './components/PersonalLog';
 
 import apiService from './service/apiService';
 import redirectService from './service/redirectService';
+
 
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
