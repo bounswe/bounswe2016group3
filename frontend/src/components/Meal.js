@@ -19,11 +19,16 @@ class Meal extends Component {
         let checkeat = () => {
             if(this.props.token!==""){
                 
-                this.props.actions.checkeat(this.props.token,this.props.params.id);
-                alert(this.props.token+ " " +this.props.params.id)  ;  
+                this.props.actions.checkeat(this.props.token,this.props.params.id); 
             }
         }
-
+        let comment_meal=document.getElementById("comment_meal");
+        let comment = () => {
+            if(this.props.token!==""){
+            	alert(this.props.currentUser.id);
+            	this.props.actions.comment(this.props.token,this.props.params.id,this.props.currentUser.id,this.props.comment);
+            }
+        }
 
         let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
         
@@ -34,7 +39,7 @@ class Meal extends Component {
             return <li key={u.id}> {u.content}</li>;
         });
         let ratingssHtml=this.props.ratings.average ;
-        
+        let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
         
         return  <div className="col-xs-6">
             
@@ -51,6 +56,8 @@ class Meal extends Component {
             <div className="col-xs-6">
             <h3> Comments </h3>
             <p>{commentsHtml}</p>
+             <input type="text" className="form-control" placeholder="Share your thoughts" id="comment_meal" />
+             <p>{commentButton}</p>
              </div>
               <div className="col-xs-6">
              <h3> Ratings </h3>
@@ -65,10 +72,11 @@ class Meal extends Component {
 var mapStateToProps = function(state) {
     return { 
         token: state.token,
+        profile: state.profile,
         meal: state.meal,
         comments: state.comments,
-        ratings: state.ratings
-        
+        ratings: state.ratings,
+        currentUser: state.currentUser
 
     };
 };

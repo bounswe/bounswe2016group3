@@ -214,8 +214,22 @@ var apiService = function(store) {
 
                 });
              break;
+             case 'COMMENT_MEAL':
 
-
+             req = {
+                userId:action.userId,
+                menuId:action.menuId,
+                content:action.content
+                
+                
+            };
+             apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token}).success(function(res){
+                apiCall("/meal/"+action.id+"/comments", "GET").success(function(res){
+                    next({type: 'COMMENTS_LOADED', data: res});
+                });
+            });
+            break;
+            
             default:
             break;
             }              

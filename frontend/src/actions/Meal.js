@@ -17,5 +17,16 @@ var checkeat = function(token,id){
 		token
 	};
 };
+var comment = function(token,mealId,userId,comment){
+	return{
 
-export { load, checkeat};
+		type:'COMMENT_MEAL',
+		mealId:mealId,
+		userId:userId,
+		content:comment,
+		token
+	};
+
+
+}
+export { load, checkeat,comment};
