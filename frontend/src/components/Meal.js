@@ -19,23 +19,39 @@ class Meal extends Component {
         let checkeat = () => {
             if(this.props.token!==""){
                 
-                this.props.actions.checkeat(this.props.token,this.props.params.id);
-                alert(this.props.token+ " " +this.props.params.id)  ;  
+                this.props.actions.checkeat(this.props.token,this.props.params.id); 
+            }
+        }
+        let comment_meal=document.getElementById("comment_meal");
+        let comment = () => {
+            if(this.props.token!==""){
+            	
+            	this.props.actions.comment(this.props.token,this.props.params.id,this.props.currentUser.id,comment_meal.value);
+            	document.location.href = document.location.href  ;
             }
         }
 
+        let rate_meal=document.getElementById("rate_meal");
+		let rate = () => {
+            if(this.props.token!==""){
+            	
+            	this.props.actions.rate(this.props.token,this.props.params.id,rate_meal.value);
+            	ratingssHtml=this.props.ratings.average ;
+            	//document.location.href = document.location.href  ;
+            	//rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
+            }
+        }        
 
         let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
-        
         
       
         let commentsHtml = this.props.comments.map(function(u){
         
             return <li key={u.id}> {u.content}</li>;
         });
-        let ratingssHtml=this.props.ratings.average ;
-        
-        
+       let ratingssHtml=this.props.ratings.average ;
+        let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
+        let rateButton=<button type="button" className="btn btn-default" onClick={rate}>Rate</button>;
         return  <div className="col-xs-6">
             
             <h2>{this.props.meal.name}</h2>
@@ -51,10 +67,14 @@ class Meal extends Component {
             <div className="col-xs-6">
             <h3> Comments </h3>
             <p>{commentsHtml}</p>
+             <input type="text" className="form-control" placeholder="Share your thoughts" id="comment_meal" />
+             <p>{commentButton}</p>
              </div>
               <div className="col-xs-6">
              <h3> Ratings </h3>
              {ratingssHtml} out of 5
+             <input type="integer" className="form-control" placeholder="Rate" id="rate_meal" />
+             <p>{rateButton}</p>
              </div>
               </div>
         
@@ -65,10 +85,11 @@ class Meal extends Component {
 var mapStateToProps = function(state) {
     return { 
         token: state.token,
+        profile: state.profile,
         meal: state.meal,
         comments: state.comments,
-        ratings: state.ratings
-        
+        ratings: state.ratings,
+        currentUser: state.currentUser
 
     };
 };

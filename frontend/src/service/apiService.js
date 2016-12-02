@@ -214,8 +214,25 @@ var apiService = function(store) {
 
                 });
              break;
+             case 'COMMENT_MEAL':
 
+             req = {
+                mealId:action.mealId,
+                userId:action.userId,
+                content:action.content  
+            };
+             apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token},req).success(function(){
+                
+            });
+            break;
+            
+            case 'RATE_MEAL':
+          
+             apiCall('/meal/'+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(res){
+                      next({type: 'MEAL_RATED', data:res});
+            });
 
+            break;
             default:
             break;
             }              

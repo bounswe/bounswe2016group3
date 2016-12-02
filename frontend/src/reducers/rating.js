@@ -4,6 +4,9 @@ var ratings = function(state=[], action) {
         case 'RATINGS_LOADED':
         return action.data;
 
+        case 'MEAL_RATED':
+        return action.data;
+
         default:
         return state;
     }
