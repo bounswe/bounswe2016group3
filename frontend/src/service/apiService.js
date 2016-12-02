@@ -221,7 +221,7 @@ var apiService = function(store) {
                 userId:action.userId,
                 content:action.content  
             };
-             apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token}).success(function(){
+             apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token},req).success(function(){
                 
             });
             break;

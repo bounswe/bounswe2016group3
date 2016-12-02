@@ -28,5 +28,5 @@ var comment = function(token,mealId,userId,comment){
 	};
 
 
-}
+};
 export { load, checkeat,comment};
