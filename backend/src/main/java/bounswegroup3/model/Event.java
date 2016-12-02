@@ -3,6 +3,7 @@ package bounswegroup3.model;
 import org.joda.time.DateTime;
 
 import bounswegroup3.constant.EventType;
+import bounswegroup3.db.EventDAO;
 
 public class Event {
 	private Long id;
@@ -29,6 +30,10 @@ public class Event {
 		this.date = date;
 	}
 
+	public static void create(EventDAO dao, Long userId, EventType type, String url) {
+		dao.createEvent(new Event(-1l, userId, type, url, "test description", new DateTime()));
+	}
+	
 	public Long getId() {
 		return id;
 	}

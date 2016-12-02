@@ -1,8 +1,5 @@
 package bounswegroup3.client;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -10,8 +7,6 @@ import java.util.HashMap;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.UriBuilder;
-
-import org.glassfish.jersey.client.ClientResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

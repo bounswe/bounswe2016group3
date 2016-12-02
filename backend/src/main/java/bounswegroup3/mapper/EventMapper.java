@@ -11,10 +11,8 @@ import bounswegroup3.constant.EventType;
 import bounswegroup3.model.Event;
 
 public class EventMapper implements ResultSetMapper<Event> {
-
 	@Override
 	public Event map(int row, ResultSet rs, StatementContext ctx) throws SQLException {
-		// TODO Auto-generated method stub
 		
 		Long id = rs.getLong("id");
 		Long uid = rs.getLong("user_id");

@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CheckEatDAO;
+import bounswegroup3.db.EventDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.CheckEat;
@@ -18,18 +19,20 @@ import io.dropwizard.auth.Auth;
 public class HomeResource {
 	private CheckEatDAO checkeatDao;
 	private MealDAO mealDao;
+	private EventDAO eventDao;
 	private NutritionixClient client;
 	
-	public HomeResource(CheckEatDAO checkeatDao, MealDAO mealDao, NutritionixClient client) {
+	public HomeResource(CheckEatDAO checkeatDao, MealDAO mealDao, EventDAO eventDao,NutritionixClient client) {
 		this.checkeatDao = checkeatDao;
 		this.mealDao = mealDao;
+		this.eventDao = eventDao;
 		this.client = client;
 	}
 	
 	@GET
 	@Path("")
-	public List<Event> homepage() {
-		return null;
+	public List<Event> homepage(@Auth AccessToken token) {
+		return eventDao.homepageEvents(token.getUserId());
 	}
 	
 	@GET

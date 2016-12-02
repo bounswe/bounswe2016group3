@@ -32,9 +32,11 @@ import bounswegroup3.client.FacebookClient;
 import bounswegroup3.client.AmazonClient;
 import bounswegroup3.client.ClientHealthCheck;
 import bounswegroup3.client.NutritionixClient;
+import bounswegroup3.client.WikidataClient;
 import bounswegroup3.db.AccessTokenDAO;
 import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
+import bounswegroup3.db.EventDAO;
 import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.MealDAO;
@@ -95,6 +97,7 @@ class App extends Application<AppConfig> {
         final CommentDAO commentDao = jdbi.onDemand(CommentDAO.class);
         final ExcludeDAO excludeDao = jdbi.onDemand(ExcludeDAO.class);
         final CheckEatDAO checkeatDao = jdbi.onDemand(CheckEatDAO.class);
+        final EventDAO eventDao = jdbi.onDemand(EventDAO.class);
         
         final Mailer mailer = new Mailer(conf.getAppKeys().getMailjetKey(), conf.getAppKeys().getMailjetSecret(), getName(), conf.getMailAddress());
         
@@ -111,13 +114,14 @@ class App extends Application<AppConfig> {
         		conf.getAppKeys().getAmazonBucket(), 
         		conf.getAppKeys().getAmazonKey(),
         		conf.getAppKeys().getAmazonSecret());
+        final WikidataClient wikidataClient = new WikidataClient(httpClient);
         
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, excludeDao, commentDao, mailer, amazonClient);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient, amazonClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao, userDAO);
         final MealResource mealResource = new MealResource(mealDao, commentDao, checkeatDao, userDAO, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);
-        final HomeResource homeResource = new HomeResource(checkeatDao, mealDao, nutritionixClient);
+        final HomeResource homeResource = new HomeResource(checkeatDao, mealDao, eventDao, nutritionixClient);
         
         final KillTokens killTokens = new KillTokens(accessTokenDAO);
         
@@ -127,6 +131,7 @@ class App extends Application<AppConfig> {
         env.healthChecks().register("nutritionix", new ClientHealthCheck("Nutritionix", nutritionixClient));
         env.healthChecks().register("mailjet", new ClientHealthCheck("Mailjet", mailer));
         env.healthChecks().register("amazon", new ClientHealthCheck("Amazon S3", amazonClient));
+        env.healthChecks().register("wikidata", new ClientHealthCheck("Wikidata", wikidataClient));
         
         env.jersey()
         	.register(new AuthDynamicFeature(
