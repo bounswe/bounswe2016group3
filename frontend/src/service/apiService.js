@@ -227,14 +227,11 @@ var apiService = function(store) {
             break;
             
             case 'RATE_MEAL':
-            req={
-                id:action.id,
-                rating:action.rating
-
-            };
-             apiCall("/meal/"+action.id+"/rate/"+action.rating+"/","POST").success(function(res){
-                     next({type: 'RATEMEAL_DONE'});
+          
+             apiCall('/meal/'+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(res){
+                      next({type: 'MEAL_RATED', data:res});
             });
+
             break;
             default:
             break;

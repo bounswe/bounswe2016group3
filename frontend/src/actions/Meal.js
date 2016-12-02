@@ -29,4 +29,16 @@ var comment = function(token,mealId,userId,comment){
 
 
 };
-export { load, checkeat,comment};
+
+var rate = function(token,mealId,rating){
+	return{
+
+		type:'RATE_MEAL',
+		mealId:mealId,
+		rating:rating,
+		token
+	};
+
+
+};
+export { load, checkeat,comment, rate};

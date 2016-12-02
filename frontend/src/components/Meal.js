@@ -31,17 +31,27 @@ class Meal extends Component {
             }
         }
 
+        let rate_meal=document.getElementById("rate_meal");
+		let rate = () => {
+            if(this.props.token!==""){
+            	
+            	this.props.actions.rate(this.props.token,this.props.params.id,rate_meal.value);
+            	ratingssHtml=this.props.ratings.average ;
+            	//document.location.href = document.location.href  ;
+            	//rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
+            }
+        }        
+
         let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
         
-        let rate_meal=document.getElementById("rate_meal");
       
         let commentsHtml = this.props.comments.map(function(u){
         
             return <li key={u.id}> {u.content}</li>;
         });
-        let ratingssHtml=this.props.ratings.average ;
+       let ratingssHtml=this.props.ratings.average ;
         let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
-        let rateButton=<button type="button" className="btn btn-default" onClick={""}>Rate</button>;
+        let rateButton=<button type="button" className="btn btn-default" onClick={rate}>Rate</button>;
         return  <div className="col-xs-6">
             
             <h2>{this.props.meal.name}</h2>
@@ -63,7 +73,7 @@ class Meal extends Component {
               <div className="col-xs-6">
              <h3> Ratings </h3>
              {ratingssHtml} out of 5
-             <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
+             <input type="integer" className="form-control" placeholder="Rate" id="rate_meal" />
              <p>{rateButton}</p>
              </div>
               </div>
