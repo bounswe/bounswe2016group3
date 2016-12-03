@@ -214,6 +214,15 @@ var apiService = function(store) {
 
                 });
              break;
+
+            case 'SEARCH_USER':
+
+             apiCall('/user/search/'+action.query+"/", "GET" ).success(function(res){
+                    next({type: 'SEARCHUSER_LOADED', data:res});
+
+                });
+             break;
+
              case 'COMMENT_MEAL':
 
              req = {
@@ -233,6 +242,15 @@ var apiService = function(store) {
             });
 
             break;
+
+            case 'GET_USER_BY_ID':
+
+                apiCall('/user/'+action.id+"/","GET").success(function(res){
+                      next({type: 'GET_USER_BY_ID_SUCCESS', data:res});
+                });
+
+            break;
+
             default:
             break;
             }              

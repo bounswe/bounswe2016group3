@@ -17,4 +17,18 @@ var searchMeal = function(query){
 	}
 }
 
-export { submit,logout,searchMeal };
+var searchUser = function(query){
+	return{
+		type:'SEARCH_USER',
+		query:query
+	}
+}
+
+var getUserById = function(id){
+	return{
+		type:'GET_USER_BY_ID',
+		id:id
+	}
+}
+
+export { submit,logout,searchMeal,searchUser,getUserById };

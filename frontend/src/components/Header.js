@@ -1,18 +1,93 @@
-import React from 'react';
+
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions/Header';
+import { apiUrl } from '../config';
 import $ from 'jquery';
 import { bindActionCreators } from 'redux';
 import './header.css';
 
-
 var Header = function(props){
 
-var submitSearch = function(){
-    props.actions.searchMeal(document.getElementById("search_input").value);
+    var buildSearchListElement = function(result){
+        var baseUrl = document.location.href.split("/")[0];
+        if(result.userId!=null && result.userId!=''){ // if search result is meal
+            var serverOfMeal={};
+            $.ajax({
+                url: apiUrl+"/user/"+result.userId,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    var listElement ="<a class='search_list_element' href='"+baseUrl+"/meal/"+result.id+"'>"+result.name+" - "+data.fullName+"</a>";
+                    $("#search_results").append(listElement);
+                },
+                error: function(xhr, status, err) {
+                    alert("AJAX ERROR");
+                }
+            });
+        }
+        else {
+            var direction = "";
+            if(result.userType==0){ //regular user
+                direction = "user";
+            }
+            else{
+                direction ="foodServer";
+            }
+            var listElement ="<a class='search_list_element' href='"+baseUrl+"/"+direction+"/"+result.id+"'>"+result.fullName+"</a>";
+            $("#search_results").append(listElement);
+        }
+    }
+var fillSearchResults = function(results){
+    console.log(results);
+    $("#search_results").show();
+    $(".search_list_element").remove();
+    var i;
+    for(i=0;i<results.length;i++){
+        buildSearchListElement(results[i]);
+    }
 }
+    
+    $("#search_input").keyup(function(event){
+        $("#search_results").hide();
+        submitSearch();
+    })
+    $("#search_input").keydown(function(event){
+        submitSearch();
+    })
 
+    var submitSearch = function(){
+        var mealResults;
+        var userResults;
+        var query = $("#search_input").val();
+        if(query == null || query == ''){
+            $(".search_list_element").remove();
+            return;
+        }
+        $.ajax({
+            url: apiUrl+"/meal/search/"+query,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                fillSearchResults(data)
+            },
+            error: function(xhr, status, err) {
+                alert("AJAX ERROR");
+            }
+        });
+        $.ajax({
+            url: apiUrl+"/user/search/"+query,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                fillSearchResults(data)
+            },
+            error: function(xhr, status, err) {
+                alert("AJAX ERROR");
+            }
+        });
+    }
 
     var userHeader = null;
     var submitForm1 = function(e) {
@@ -53,8 +128,7 @@ if(props.success){
         return <li key={link.path} className={classes}><Link to={link.path}>{link.text}</Link></li>;
     });
     
-
-    if(props.uid === 0){
+    if(props.uid == 0){
         userHeader = (
             <ul className="nav navbar-nav navbar-right">
                 { loginLinkTags }
@@ -63,9 +137,9 @@ if(props.success){
     } else {
         
         if(props.name){
-            
             if(props.userType == 0){ //user
                  userHeader = (
+
                 <ul className="nav navbar-nav navbar-right">
 
                     <li>
@@ -128,7 +202,11 @@ if(props.success){
 
                 <ul className="nav navbar-nav navbar">
                     <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
-                    <button type = 'button' onClick={submitSearch}>Search</button>
+                    <li><button type = 'button' onClick={submitSearch}>Search</button></li>
+                    <li>
+                        <div id="search_results">
+                        </div>
+                    </li>
                 </ul>
                 </div>
 
@@ -149,14 +227,17 @@ if(props.success){
     );
 }
 
+
 var mapStateToProps = function(state){
-    console.log(state.search);
     return { 
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
         name: state.currentUser.fullName, 
         userType: state.currentUser.userType,
-        avatar: state.currentUser.avatarUrl
+        avatar: state.currentUser.avatarUrl,
+        searchMeal: state.searchMeal,
+        searchUser: state.searchUser,
+        searchUserofMeal : state.userById
     };
 }
 

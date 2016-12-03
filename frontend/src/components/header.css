@@ -11,3 +11,16 @@
 	float: left;
 	margin-left: 0;
 }
+#search_results{
+	display: none;
+}
+.search_list_element{
+	width: 100%;
+	font-size: 12px;
+	border-bottom:0.5px solid #000;
+	background-color: #fff;
+	display: block;
+	float: left;
+	text-decoration:none;
+	padding: 3px 5px;
+}
