@@ -13,44 +13,56 @@ var Header = function(props){
     var buildSearchListElement = function(result){
         var baseUrl = document.location.href.split("/")[0];
         if(result.userId!=null && result.userId!=''){ // if search result is meal
-            var serverOfMeal;
+            var serverOfMeal={};
             $.ajax({
                 url: apiUrl+"/user/"+result.userId,
                 dataType: 'json',
                 cache: false,
                 success: function(data) {
-                    serverOfMeal = data;
+                    var listElement ="<a class='search_list_element' href='"+baseUrl+"/meal/"+result.id+"'>"+result.name+" - "+data.fullName+"</a>";
+                    $("#search_results").append(listElement);
                 },
                 error: function(xhr, status, err) {
                     alert("AJAX ERROR");
                 }
             });
-        var listElementHtml = "<a class='search_list_element' href='"+baseUrl+"/meal/"+result.id+"'>"+result.name+" - "+serverOfMeal.name+"</a>"
         }
         else {
-            alert("ağır goygoy");
+            var direction = "";
+            if(result.userType==0){ //regular user
+                direction = "user";
+            }
+            else{
+                direction ="foodServer";
+            }
+            var listElement ="<a class='search_list_element' href='"+baseUrl+"/"+direction+"/"+result.id+"'>"+result.fullName+"</a>";
+            $("#search_results").append(listElement);
         }
     }
-var fillSearchResults = function(mealResults,userResults){
-
+var fillSearchResults = function(results){
+    console.log(results);
     $("#search_results").show();
     $(".search_list_element").remove();
     var i;
-    for(i=0;i<mealResults.length;i++){
-        $("#search_results").append(buildSearchListElement(mealResults[i]));
-    }
-    for(i=0;i<userResults.length;i++){
-        $("#search_results").append(buildSearchListElement(userResults[i]));
+    for(i=0;i<results.length;i++){
+        buildSearchListElement(results[i]);
     }
 }
+    
+    $("#search_input").keyup(function(event){
+        $("#search_results").hide();
+        submitSearch();
+    })
+    $("#search_input").keydown(function(event){
+        submitSearch();
+    })
 
     var submitSearch = function(){
         var mealResults;
         var userResults;
-        //props.actions.searchMeal(document.getElementById("search_input").value);
-        //props.actions.searchUser(document.getElementById("search_input").value);
         var query = $("#search_input").val();
         if(query == null || query == ''){
+            $(".search_list_element").remove();
             return;
         }
         $.ajax({
@@ -58,7 +70,7 @@ var fillSearchResults = function(mealResults,userResults){
             dataType: 'json',
             cache: false,
             success: function(data) {
-                mealResults = data;
+                fillSearchResults(data)
             },
             error: function(xhr, status, err) {
                 alert("AJAX ERROR");
@@ -69,14 +81,12 @@ var fillSearchResults = function(mealResults,userResults){
             dataType: 'json',
             cache: false,
             success: function(data) {
-                userResults = data;
+                fillSearchResults(data)
             },
             error: function(xhr, status, err) {
                 alert("AJAX ERROR");
             }
         });
-
-        fillSearchResults(mealResults,userResults)
     }
 
     var userHeader = null;
@@ -192,11 +202,11 @@ if(props.success){
 
                 <ul className="nav navbar-nav navbar">
                     <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
+                    <li><button type = 'button' onClick={submitSearch}>Search</button></li>
                     <li>
                         <div id="search_results">
                         </div>
                     </li>
-                    <button type = 'button' onClick={submitSearch}>Search</button>
                 </ul>
                 </div>
 
