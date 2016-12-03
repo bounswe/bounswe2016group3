@@ -11,3 +11,11 @@
 	float: left;
 	margin-left: 0;
 }
+#search_results{
+	display: none;
+}
+.search_list_element{
+	width: 100%;
+	font-size: 14px;
+	border:1px solid #000;
+}

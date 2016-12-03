@@ -1,18 +1,83 @@
-import React from 'react';
+
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../actions/Header';
+import { apiUrl } from '../config';
 import $ from 'jquery';
 import { bindActionCreators } from 'redux';
 import './header.css';
 
-
 var Header = function(props){
 
-var submitSearch = function(){
-    props.actions.searchMeal(document.getElementById("search_input").value);
+    var buildSearchListElement = function(result){
+        var baseUrl = document.location.href.split("/")[0];
+        if(result.userId!=null && result.userId!=''){ // if search result is meal
+            var serverOfMeal;
+            $.ajax({
+                url: apiUrl+"/user/"+result.userId,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    serverOfMeal = data;
+                },
+                error: function(xhr, status, err) {
+                    alert("AJAX ERROR");
+                }
+            });
+        var listElementHtml = "<a class='search_list_element' href='"+baseUrl+"/meal/"+result.id+"'>"+result.name+" - "+serverOfMeal.name+"</a>"
+        }
+        else {
+            alert("ağır goygoy");
+        }
+    }
+var fillSearchResults = function(mealResults,userResults){
+
+    $("#search_results").show();
+    $(".search_list_element").remove();
+    var i;
+    for(i=0;i<mealResults.length;i++){
+        $("#search_results").append(buildSearchListElement(mealResults[i]));
+    }
+    for(i=0;i<userResults.length;i++){
+        $("#search_results").append(buildSearchListElement(userResults[i]));
+    }
 }
 
+    var submitSearch = function(){
+        var mealResults;
+        var userResults;
+        //props.actions.searchMeal(document.getElementById("search_input").value);
+        //props.actions.searchUser(document.getElementById("search_input").value);
+        var query = $("#search_input").val();
+        if(query == null || query == ''){
+            return;
+        }
+        $.ajax({
+            url: apiUrl+"/meal/search/"+query,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                mealResults = data;
+            },
+            error: function(xhr, status, err) {
+                alert("AJAX ERROR");
+            }
+        });
+        $.ajax({
+            url: apiUrl+"/user/search/"+query,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                userResults = data;
+            },
+            error: function(xhr, status, err) {
+                alert("AJAX ERROR");
+            }
+        });
+
+        fillSearchResults(mealResults,userResults)
+    }
 
     var userHeader = null;
     var submitForm1 = function(e) {
@@ -53,8 +118,7 @@ if(props.success){
         return <li key={link.path} className={classes}><Link to={link.path}>{link.text}</Link></li>;
     });
     
-
-    if(props.uid === 0){
+    if(props.uid == 0){
         userHeader = (
             <ul className="nav navbar-nav navbar-right">
                 { loginLinkTags }
@@ -63,9 +127,9 @@ if(props.success){
     } else {
         
         if(props.name){
-            
             if(props.userType == 0){ //user
                  userHeader = (
+
                 <ul className="nav navbar-nav navbar-right">
 
                     <li>
@@ -128,6 +192,10 @@ if(props.success){
 
                 <ul className="nav navbar-nav navbar">
                     <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
+                    <li>
+                        <div id="search_results">
+                        </div>
+                    </li>
                     <button type = 'button' onClick={submitSearch}>Search</button>
                 </ul>
                 </div>
@@ -149,14 +217,17 @@ if(props.success){
     );
 }
 
+
 var mapStateToProps = function(state){
-    console.log(state.search);
     return { 
         token: state.token,
         uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
         name: state.currentUser.fullName, 
         userType: state.currentUser.userType,
-        avatar: state.currentUser.avatarUrl
+        avatar: state.currentUser.avatarUrl,
+        searchMeal: state.searchMeal,
+        searchUser: state.searchUser,
+        searchUserofMeal : state.userById
     };
 }
 
