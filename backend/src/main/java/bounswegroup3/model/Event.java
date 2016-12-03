@@ -17,7 +17,8 @@ public class Event {
 	private DateTime date;
 
 	public Event() {
-		
+		this.id = -1l;
+		this.userId = -1l;
 	}
 	
 	public Event(Long id, Long userId, EventType type, String url, String description, DateTime date) {
@@ -50,12 +51,12 @@ public class Event {
 		this.userId = userId;
 	}
 
-	public EventType getType() {
-		return type;
+	public int getType() {
+		return type.ordinal();
 	}
 
-	public void setType(EventType type) {
-		this.type = type;
+	public void setType(int type) {
+		this.type = EventType.values()[type];
 	}
 
 	public String getUrl() {
