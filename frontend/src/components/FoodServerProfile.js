@@ -103,10 +103,10 @@ hideModal = () => {
 
         let followButton;
         let addmealButton;
-        
+
         let openAddMealModalButton
         if(current.id === profile.id) {
-            followButton = <div></div>;    
+            followButton = <div></div>;
             addmealButton=<button type="button" className="btn btn-default" onClick={addMeal}>Add Meal</button>;
             openAddMealModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Add Meal </button>
 
@@ -123,8 +123,12 @@ hideModal = () => {
             <div>
                 <div className="col-xs-4">
                     <img src={profile.avatarUrl} alt="avatar"/>
-                    <p></p>
-                    <PicEdit />
+                    {
+                      current.id === profile.id && <div>
+                        <p></p>
+                        <PicEdit />
+                      </div>
+                    }
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>

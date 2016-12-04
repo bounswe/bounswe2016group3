@@ -9,10 +9,6 @@ import {
 } from 'react-modal-bootstrap';
 
 class ModalTest extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Modal isOpen={this.props.isOpen} onRequestHide={this.props.hideModal}>
@@ -21,20 +17,20 @@ class ModalTest extends Component {
           <ModalTitle>Bakalim oldun mu :P</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <p>Nothing would be there // URL or File ???</p>
-          </ModalBody>
-          <ModalFooter>
-            <button className='btn btn-default' onClick={this.props.hideModal}>
-              Close
-            </button>
-            <button className='btn btn-primary'>
-              Save changes
-            </button>
-          </ModalFooter>
-        </Modal>
-      );
+          <input type="file" id="files" name="files[]" multiple />
+          <output id="list"></output>
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn btn-default' onClick={this.props.hideModal}>
+            Close
+          </button>
+          <button className='btn btn-primary'>
+            Save changes
+          </button>
+        </ModalFooter>
+      </Modal>
+    );
   }
-
 }
 
 

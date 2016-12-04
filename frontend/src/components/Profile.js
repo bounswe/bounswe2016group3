@@ -16,6 +16,8 @@ import PicEdit from './PicEdit';
 class Profile extends Component {
     componentDidMount(){
         this.props.actions.load(this.props.params.id);
+        console.log(this.props.profile);
+        console.log(this.props.currentUser);
     }
     state = {
     isOpen: false,
@@ -46,7 +48,6 @@ class Profile extends Component {
 
         const profile = this.props.profile;
         const current = this.props.currentUser;
-
         var followUser = () => {
             if(this.props.token!==""){
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
@@ -94,8 +95,12 @@ class Profile extends Component {
             <div>
                 <div className="col-xs-4">
                     <img src={profile.avatarUrl} alt="avatar"/>
-                    <p></p>
-                    <PicEdit />
+                    {
+                      current.id === profile.id && <div>
+                        <p></p>
+                        <PicEdit />
+                      </div>
+                    }
                 </div>
                 <div className="col-xs-8">
                     <h1>{profile.fullName}</h1>
