@@ -5,6 +5,11 @@ import org.joda.time.DateTime;
 import bounswegroup3.constant.EventType;
 import bounswegroup3.db.EventDAO;
 
+/**
+ * Represents an entry that can be shown on the home page.
+ * Has fields for id, its type, related user,
+ * related url, description, and a timestamp
+ */
 public class Event {
 	private Long id;
 	
