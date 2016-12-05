@@ -92,6 +92,8 @@ public class UserResourceTest {
 		meals.add(meal);
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
+		ArrayList<String> excludes = new ArrayList<String>();
+		excludes.add("test");
 		
 		when(userDao.getUsers()).thenReturn(users);
 		
@@ -119,6 +121,9 @@ public class UserResourceTest {
 		
 		when(commentDao.commentsByUser(any())).thenReturn(comments);
 		when(commentDao.commentsByUser(eq(42l))).thenReturn(new ArrayList<Comment>());
+		
+		when(excludeDao.getUserIncludes(any())).thenReturn(excludes);
+		when(excludeDao.getUserExcludes(any())).thenReturn(excludes);
 	}
 	
 	@After
@@ -446,5 +451,82 @@ public class UserResourceTest {
 		read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(read.size()).isEqualTo(1);
+	}
+	
+	@Test
+	public void testGetIncludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/1/include")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<String> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		assertThat(read.size()).isEqualTo(1);
+		assertThat(read.get(0)).isEqualTo("test");
+	}
+	
+	@Test
+	public void testGetExcludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/1/exclude")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.get();
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<String> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
+		assertThat(read.size()).isEqualTo(1);
+		assertThat(read.get(0)).isEqualTo("test");
+	}
+	
+	@Test
+	public void testSetIncludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/-1/include")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.json(new ArrayList<String>()));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(excludeDao).updateIncludes(any(), any());
+	}
+	
+	@Test
+	public void testSetExcludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/-1/exclude")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.json(new ArrayList<String>()));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
+		verify(excludeDao).updateExcludes(any(), any());
+	}
+	
+	public void testCantSetIncludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/42/include")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.json(new ArrayList<String>()));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		verify(excludeDao, never()).updateIncludes(any(), any());
+	}
+	
+	@Test
+	public void testCantSetExcludes() throws Exception {
+		Response res = rule.getJerseyTest()
+				.target("/user/42/exclude")
+				.request(MediaType.APPLICATION_JSON_TYPE)
+				.header("Authorization", "Bearer test")
+				.post(Entity.json(new ArrayList<String>()));
+		
+		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
+		verify(excludeDao, never()).updateExcludes(any(), any());
 	}
 }
