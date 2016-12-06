@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
-
-
-
-
-
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/PersonalLog';
 
 class PersonalLog extends Component {
+    componentDidMount() {
+        this.props.actions.load(this.props.params.id);
+    }
 
-	constructor() {
-		super();
-		this.setState  = {
-			isOpen: false
-		};
-		this.changeX = this.changeX.bind(this);
-	}
-
-    changeX() {
-		this.setState({
-			isOpen: !this.state.isOpen
-		});
-	}
+	
 
 	render() {
 		return (
