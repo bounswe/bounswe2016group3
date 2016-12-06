@@ -14,5 +14,22 @@ var follow = function(token, followee, follower){
         token
     };
 }
+var include =   function(id,token,names){
+    return {
+    type: 'UPDATE_INCLUDE',
+    id:id,
+    names:names,
+    token
+ };
+}
 
-export { load, follow };
+var exclude =   function(id,token,names){
+    return {
+    type: 'UPDATE_EXCLUDE',
+    id:id,
+    names:names,
+    token
+ };
+}
+
+export { load, follow, include,exclude };

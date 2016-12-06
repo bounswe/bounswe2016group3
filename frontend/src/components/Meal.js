@@ -27,7 +27,7 @@ class Meal extends Component {
             if(this.props.token!==""){
             	
             	this.props.actions.comment(this.props.token,this.props.params.id,this.props.currentUser.id,comment_meal.value);
-            	//document.location.href = document.location.href  ;
+            	document.location.href = document.location.href  ;
             }
         }
 
@@ -36,7 +36,7 @@ class Meal extends Component {
             if(this.props.token!==""){
             	
             	this.props.actions.rate(this.props.token,this.props.params.id,rate_meal.value);
-            	ratingssHtml=this.props.ratings.average ;
+            	//ratingssHtml=this.props.ratings.average ;
             	//document.location.href = document.location.href  ;
             	//rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
             }
@@ -73,7 +73,7 @@ class Meal extends Component {
               <div className="col-xs-6">
              <h3> Ratings </h3>
              {ratingssHtml} out of 5
-             <input type="integer" className="form-control" placeholder="Rate" id="rate_meal" />
+             <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
              <p>{rateButton}</p>
              </div>
               </div>
@@ -89,6 +89,7 @@ var mapStateToProps = function(state) {
         meal: state.meal,
         comments: state.comments,
         ratings: state.ratings,
+        rate: state.rate,
         currentUser: state.currentUser
 
     };

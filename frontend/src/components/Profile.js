@@ -53,6 +53,13 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
+        let names=["onion","pepper","tomato","maydonoz"];
+        var includeNames = () => {
+            if(this.props.token!==""){
+                alert(profile.id);
+                this.props.actions.include(profile.id, this.props.token,names);
+            }
+        }
 
         let followersHtml = this.props.followers.map(function(u){
             return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
@@ -61,6 +68,7 @@ class Profile extends Component {
         let followingHtml = this.props.following.map(function(u){
             return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
         });
+        let includeHtml=this.props.include;
 
 
         let menusHtml = this.props.menus.map(function(m){
@@ -123,6 +131,7 @@ class Profile extends Component {
                         <div className="col-xs-6">
                             <h3>Preferences</h3>
                             <h4>Include</h4>
+                            {includeHtml}
                             {updateIncludeModalButton}
                             <Modal isOpen={this.state.isOpen_Include} onRequestHide={this.hideModal_Include} id="updateInclude_modal">
                                 <ModalHeader>
@@ -144,7 +153,7 @@ class Profile extends Component {
 
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button type="button" className="btn btn-default" onClick={""}>Update </button>
+                                    <button type="button" className="btn btn-default" onClick={includeNames}>Update </button>
                                     <button className='btn btn-default' onClick={this.hideModal_Include}>Cancel</button>
 
                                 </ModalFooter>
@@ -223,6 +232,8 @@ var mapStateToProps = function(state){
         followers: state.followers,
         following: state.following,
         menus: state.menus,
+        include: state.include,
+        exclude: state.exclude,
         currentUser: state.currentUser
     };
 }

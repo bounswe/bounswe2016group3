@@ -109,6 +109,12 @@ var apiService = function(store) {
             apiCall("/user/"+action.id+"/menus", "GET").success(function(res){
                 next({type: 'MENUS_LOADED', data: res});
             });
+            apiCall('/user/'+action.id+"/include/","GET").success(function(res){
+                next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
+            });
+             apiCall('/user/'+action.id+"/exclude/","GET").success(function(res){
+                next({type: 'LOAD_EXCLUDE_SUCCESS', data:res});
+            });
 
             break;
             case 'LOAD_PROFILE_FS':
@@ -236,10 +242,8 @@ var apiService = function(store) {
             break;
             
             case 'RATE_MEAL':
-          
-             apiCall('/meal/'+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(res){
-                      next({type: 'MEAL_RATED', data:res});
-            });
+             apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token});
+           
 
             break;
 
@@ -250,6 +254,30 @@ var apiService = function(store) {
                 });
 
             break;
+
+            case 'UPDATE_INCLUDE':
+
+                req={
+                    id:action.id,
+                    names:"onion, pepper, tomato, maydonoz"
+                };
+
+                apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(res){
+                        next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
+                });
+            break;
+            case 'UPDATE_EXCLUDE':
+
+                req={
+                     id:action.id,
+                    names:["onion","pepper","tomato","maydonoz"]
+                };
+
+                apiCall('/user/'+action.id+"/exclude/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(res){
+                        next({type: 'LOAD_EXCLUDE_SUCCESS', data:res});
+                });
+            break;
+
 
             default:
             break;

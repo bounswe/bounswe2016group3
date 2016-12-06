@@ -43,5 +43,24 @@ var following = function(state=[], action){
         return state;
     }
 }
+var include = function(state=[], action){
+    switch(action.type){
+        case 'LOAD_INCLUDE_SUCCESS':
+        return action.data;
 
-export { users, profile, followers, following };
+        default:
+        return state;
+    }
+}
+var exclude = function(state=[], action){
+    switch(action.type){
+        case 'LOAD_EXCLUDE_SUCCESS':
+        return action.data;
+
+        default:
+        return state;
+    }
+}
+
+
+export { users, profile, followers, following, include, exclude };

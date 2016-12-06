@@ -20,12 +20,12 @@ import redirectService from './service/redirectService';
 
 import { token, currentUser } from './reducers/login';
 import { loading, success, error } from './reducers/status';
-import { users, profile, followers, following } from './reducers/users';
+import { users, profile, followers, following, include, exclude } from './reducers/users';
 import { userId, secretQuestion } from './reducers/pwdReset';
 import { menu, menus } from './reducers/menu';
 import { meal, meals } from './reducers/meal';
 import { comments } from './reducers/comment';
-import { ratings } from './reducers/rating';
+import { ratings,rate } from './reducers/rating';
 import { searchMeal,searchUser,userById } from './reducers/search';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
@@ -43,10 +43,10 @@ var signup = combineReducers({ loading, success, error });
 var pwdReset = combineReducers({ userId, secretQuestion });
 var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
-  users, profile,
+  users, profile,include, exclude,
   followers, following,
   menu, meal,
-  menus, meals, comments, ratings, searchMeal,searchUser });
+  menus, meals, comments, ratings,rate, searchMeal,searchUser });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((

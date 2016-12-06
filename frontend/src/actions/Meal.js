@@ -7,7 +7,14 @@ var load = function(token,id){
         token
     };
 };
+var load_rating = function(token,id){
 
+	return{
+		type:'LOAD_RATING',
+		id:id,
+		token
+	};
+};
 var checkeat = function(token,id){
 
 	return{
@@ -41,4 +48,4 @@ var rate = function(token,mealId,rating){
 
 
 };
-export { load, checkeat,comment, rate};
+export { load, checkeat,comment, rate,load_rating};
