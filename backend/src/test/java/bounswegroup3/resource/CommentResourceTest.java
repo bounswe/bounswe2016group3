@@ -36,7 +36,6 @@ public class CommentResourceTest {
 	private Comment comment;
 	private Comment invalidComment;
 	
-	
 	private ObjectMapper mapper;
 	
 	@Before

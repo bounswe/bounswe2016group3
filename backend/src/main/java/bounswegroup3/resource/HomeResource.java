@@ -30,7 +30,6 @@ public class HomeResource {
 	}
 	
 	@GET
-	@Path("")
 	public List<Event> homepage(@Auth AccessToken token) {
 		return eventDao.homepageEvents(token.getUserId());
 	}

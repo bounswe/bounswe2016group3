@@ -27,6 +27,18 @@ public class NutritionalInfo {
 	
 	public NutritionalInfo() {
 		super();
+		weight = 0.0;
+		calories = 0.0;
+		totalFat = 0.0;
+		saturatedFat = 0.0;
+		cholesterol = 0.0;
+		sodium = 0.0;
+		totalCarbohydrate = 0.0;
+		dietaryFiber = 0.0;
+		sugars = 0.0;
+		protein = 0.0;
+		potassium = 0.0;
+		phosphorus = 0.0;
 	}
 	
 	public NutritionalInfo(Double weight, Double calories, Double totalFat, Double saturatedFat, Double cholesterol,
