@@ -15,11 +15,13 @@ public class TagTest {
 
 	@Test
 	public void testDeserialize() throws Exception {
-		Tag tag = new Tag(-1l, "test");
+		Tag tag = new Tag(2l, -1l, "test", "test");
 		Tag fixture = mapper.readValue(fixture("fixtures/tag.json"), Tag.class);
 		
-		assertThat(tag.getMealId()).isEqualTo(fixture.getMealId());
-		assertThat(tag.getTag()).isEqualTo(fixture.getTag());
+		assertThat(tag.getRelationType()).isEqualTo(fixture.getRelationType());
+		assertThat(tag.getRelationId()).isEqualTo(fixture.getRelationId());
+		assertThat(tag.getDisplayName()).isEqualTo(fixture.getDisplayName());
+		assertThat(tag.getIdentifier()).isEqualTo(fixture.getIdentifier());
 	}
 	
 	@Test

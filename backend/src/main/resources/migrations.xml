@@ -259,4 +259,14 @@
 			<column name="date" type="timestamp" />
 		</createTable>
 	</changeSet>
+	
+	<changeSet id="12" author="group3">
+		<dropTable tableName="tags"/>
+		<createTable tableName="tags">
+			<column name="relation_type" type="integer" />
+			<column name="relation_id" type="integer" />
+			<column name="display_name" type="text" />
+			<column name="identifier" type="text" />
+		</createTable>
+	</changeSet>
 </databaseChangeLog>

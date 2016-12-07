@@ -107,7 +107,7 @@ public class UserResource {
     @POST
     @Path("/update")
     public Response updateUser(@Auth AccessToken token, @Valid User user) {
-        if (token.getUserId() == user.getId()) {
+        if (token.getUserId().equals(user.getId())) {
             dao.updateUser(user);
             return Response.ok(user).build();
         } else {

@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import bounswegroup3.client.NutritionixClient;
+import bounswegroup3.constant.TagType;
 import bounswegroup3.constant.UserType;
 import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
@@ -94,7 +95,7 @@ public class MealResource {
 	@POST
 	@Path("/update")
 	public Response updateMeal(@Auth AccessToken token, @Valid Meal meal) {	
-		if(token.getUserId() == meal.getUserId()){
+		if(token.getUserId().equals(meal.getUserId())){
 			mealDao.updateMeal(meal);
 			return Response.ok(meal).build();
 		} else {
@@ -111,7 +112,7 @@ public class MealResource {
 	@POST
 	@Path("/{id}/delete")
 	public Response deleteMeal(@Auth AccessToken token, @PathParam("id") Long id) {
-		if(mealDao.getMealById(id).getUserId() == token.getUserId()){
+		if(mealDao.getMealById(id).getUserId().equals(token.getUserId())) {
 			mealDao.deleteMeal(id);
 			return Response.ok().build();
 		} else {
@@ -228,13 +229,17 @@ public class MealResource {
 	@POST
 	@Path("/tag")
 	public Response tagMeal(@Auth AccessToken token, Tag tag) {
-		Meal meal = mealDao.getMealById(tag.getMealId());
+		if(!tag.isOfType(TagType.MEAL)) {
+			return Response.notModified().build();
+		}
 		
-		if(token.getUserId() == meal.getUserId()){
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
+		Meal meal = mealDao.getMealById(tag.getRelationId());
+		
+		if(token.getUserId().equals(meal.getUserId())) {
+			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getRelationId()));
 						
-			if(!tags.contains(tag.getTag())){
-				mealDao.tagMeal(tag.getMealId(), tag.getTag());
+			if(!tags.contains(tag.getIdentifier())){
+				mealDao.tagMeal(tag.getRelationId(), tag.getDisplayName(), tag.getIdentifier());
 				return Response.ok().build();
 			} else {
 				return Response.notModified().build();
@@ -255,12 +260,16 @@ public class MealResource {
 	@POST
 	@Path("/untag")
 	public Response untagMeal(@Auth AccessToken token, Tag tag) {
-		Meal meal = mealDao.getMealById(tag.getMealId());
+		if(!tag.isOfType(TagType.MEAL)) {
+			return Response.notModified().build();
+		}
 		
-		if(token.getUserId() == meal.getUserId()){
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getMealId()));
-			if(tags.contains(tag.getTag())){
-				mealDao.untagMeal(tag.getMealId(), tag.getTag());
+		Meal meal = mealDao.getMealById(tag.getRelationId());
+		
+		if(token.getUserId().equals(meal.getUserId())) {
+			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getRelationId()));
+			if(tags.contains(tag.getIdentifier())){
+				mealDao.untagMeal(tag.getRelationId(), tag.getIdentifier());
 				return Response.ok().build();
 			} else {
 				return Response.notModified().build();

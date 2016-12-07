@@ -84,7 +84,7 @@ public class MealDAOTest {
 		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(0);
 		assertThat(dao.getMealsByTag("test").size()).isEqualTo(0);
 		
-		dao.tagMeal(1l, "test");
+		dao.tagMeal(1l, "test", "test");
 		
 		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(1);
 		assertThat(dao.getMealsByTag("test").size()).isEqualTo(1);

@@ -35,16 +35,16 @@ public abstract class MealDAO {
 	@SqlQuery("select * from meals where id=:id")
 	abstract public Meal getMealById(@Bind("id") Long id);
 	
-	@SqlQuery("select meals.* from meals join tags on meals.id = tags.meal_id where tags.tag = :tag")
+	@SqlQuery("select meals.* from meals join tags on meals.id = tags.relation_id where tags.identifier = :tag and tags.relation_type = 2")
 	abstract public List<Meal> getMealsByTag(@Bind("tag") String tag);
 	
-	@SqlQuery("select tags.tag from meals join tags on meals.id = tags.meal_id where tags.meal_id = :id")
+	@SqlQuery("select tags.identifier from meals join tags on meals.id = tags.relation_id where tags.relation_id = :id and tags.relation_type = 2")
 	abstract public List<String> getTagsByMeal(@Bind("id") Long id);
 	
-	@SqlUpdate("insert into tags (meal_id, tag) values (:id, :tag)")
-	abstract public void tagMeal(@Bind("id") Long id, @Bind("tag") String tag);
+	@SqlUpdate("insert into tags (relation_type, relation_id, display_name, identifier) values (2, :id, :dn, :tag)")
+	abstract public void tagMeal(@Bind("id") Long id, @Bind("dn") String displayName, @Bind("tag") String tag);
 	
-	@SqlUpdate("delete from tags where meal_id = :id and tag = :tag")
+	@SqlUpdate("delete from tags where relation_type = 2 and relation_id = :id and identifier = :tag")
 	abstract public void untagMeal(@Bind("id") Long id, @Bind("tag") String tag);
 	
 	@SqlQuery("select avg(rating) from rating where meal_id = :mid")

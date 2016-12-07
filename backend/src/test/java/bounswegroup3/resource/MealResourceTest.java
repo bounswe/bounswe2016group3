@@ -64,7 +64,7 @@ public class MealResourceTest {
 		
 		meal = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
 		comment = mapper.readValue(fixture("fixtures/comment.json"), Comment.class);
-		tag = new Tag(-1l, "test");
+		tag = new Tag(2l, -1l, "test", "test");
 		nutrition = mapper.readValue(fixture("fixtures/nutritional_info_serialized.json"), NutritionalInfo.class);
 		user = mapper.readValue(fixture("fixtures/user.json"), User.class);
 
@@ -81,8 +81,8 @@ public class MealResourceTest {
 		when(mealDao.createMeal(any())).thenReturn(1l);
 				
 		invalidMeal = new Meal(42l, 42l, 42l, "", "", "", "");
-		invalidTag = new Tag(42l, "test");
-		notExistsTag = new Tag(32l, "tagged");
+		invalidTag = new Tag(2l, 42l, "test", "test");
+		notExistsTag = new Tag(2l, 32l, "test", "tagged");
 		
 		when(mealDao.getMealById(eq(42l))).thenReturn(invalidMeal);
 		
@@ -353,7 +353,7 @@ public class MealResourceTest {
 				.post(Entity.json(tag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
-		verify(mealDao).tagMeal(any(), any());
+		verify(mealDao).tagMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -365,7 +365,7 @@ public class MealResourceTest {
 				.post(Entity.json(invalidTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).tagMeal(any(), any());
+		verify(mealDao, never()).tagMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -377,7 +377,7 @@ public class MealResourceTest {
 				.post(Entity.json(notExistsTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).tagMeal(any(), any());
+		verify(mealDao, never()).tagMeal(any(), any(), any());
 	}
 	
 	@Test
