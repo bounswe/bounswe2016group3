@@ -51,10 +51,16 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
-        let names=["onion","pepper","tomato","GelBakalim"];
+        let include_names=["onion","pepper","tomato","heloo"];
         var includeNames = () => {
           if(this.props.token !== "") {
-            this.props.actions.include(profile.id, this.props.token,names);
+            this.props.actions.include(profile.id, this.props.token,include_names);
+          }
+        }
+        let exclude_names=["onion","pepper","tomato","hic sevmem"];
+        var excludeNames = () => {
+          if(this.props.token !== "") {
+            this.props.actions.exclude(profile.id, this.props.token,exclude_names);
           }
         }
 
@@ -154,6 +160,7 @@ class Profile extends Component {
                                 </ModalFooter>
                             </Modal>
                             <h4>Exclude</h4>
+                             {this.props.exclude}
                              {updateExcludeModalButton}
                             <Modal isOpen={this.state.isOpen_Exclude} onRequestHide={this.hideModal_Exclude} id="updateExclude_modal">
                                 <ModalHeader>
@@ -175,7 +182,7 @@ class Profile extends Component {
 
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button type="button" className="btn btn-default" onClick={""}>Update </button>
+                                    <button type="button" className="btn btn-default" onClick={excludeNames}>Update </button>
                                     <button className='btn btn-default' onClick={this.hideModal_Exclude}>Cancel</button>
 
                                 </ModalFooter>

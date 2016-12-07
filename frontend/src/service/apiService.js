@@ -276,14 +276,14 @@ var apiService = function(store) {
             break;
             case 'UPDATE_EXCLUDE':
 
-                req={
-                     id:action.id,
-                    names:["onion","pepper","tomato","maydonoz"]
+               req={
+                    id:action.id,
+                    names:action.names
                 };
-
-
-                apiCall('/user/'+action.id+"/exclude/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(res){
-                        next({type: 'LOAD_EXCLUDE_SUCCESS', data:res});
+                apiCall('/user/'+action.id+"/exclude/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(){
+                  apiCall("/user/"+action.id+"/exclude/", "GET", {"Authorization": "Bearer " + action.token}).success(function(res) {
+                    next({type: 'LOAD_EXCLUDE_SUCCESS', data:res});
+                  });
                 });
             break;
 

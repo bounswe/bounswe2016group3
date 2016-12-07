@@ -74,7 +74,7 @@ hideModal = () => {
                 })
                 ingredients = ingredients.substring(1)
                 this.props.actions.addmeal(this.props.token,this.props.profile.id, 1, meal_name.value,meal_description.value,ingredients,"");
-                document.location.href = document.location.href  ;
+                //document.location.href = document.location.href  ;
             }
         }
 
@@ -177,7 +177,7 @@ hideModal = () => {
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <button className='btn btn-default' onClick={this.hideModal}>Cancell</button>
+                                    <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
                                     {addmealButton}
                                 </ModalFooter>
                             </Modal>
