@@ -125,6 +125,8 @@ class Profile extends Component {
                       current.id === profile.id && <div>
                         <p></p>
                         <PicEdit />
+
+
                       </div>
                     }
                 </div>
@@ -134,14 +136,27 @@ class Profile extends Component {
 
                     <p>{followButton}</p>
                     <div className="row">
-                        <div className="col-xs-6">
+                        <div className="col-xs-4">
                             <h3>Followers: {followersHtml.length}</h3>
 
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-4">
                             <h3>Following: {followingHtml.length}</h3>
 
-                        </div>
+
+
+
+
+                        </div> 
+                        
+                            <div className="col-xs-4">
+                            <a href="/user/PersonalLog"><h3>Personal Log</h3></a>
+                            </div>
+
+
+
+
+
 
                     </div>
                     <hr></hr>
