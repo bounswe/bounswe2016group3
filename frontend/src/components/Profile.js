@@ -59,18 +59,17 @@ class Profile extends Component {
             $("#ingredients_list_exclude").append('<div class="ingredients_list_element_exclude" id="ingredients_list_element_exclude"><div class="col-xs-8"><input type="text" id="name" class="form-control" placeholder="Name"/></div></div>')
 
         }
-                
+
        let temp=["onion","pepper","tomato","ses"];
         var includeNames = () => {
           if(this.props.token !== "") {
-             var include_names ="";
+             var include_names =[];
 
                 $(".ingredients_list_element_include").each(function(){
-                    include_names=include_names+","+$(this).find("#name").val()
+                    include_names.push($(this).find("#name").val());
                 })
-                include_names = include_names.substring(1);
-            alert(include_names);
-            alert(temp);
+            console.log(typeof include_names);
+            console.log(include_names);
             this.props.actions.include(profile.id, this.props.token,include_names);
           }
         }
