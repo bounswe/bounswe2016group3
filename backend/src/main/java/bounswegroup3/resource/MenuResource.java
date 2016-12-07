@@ -70,7 +70,7 @@ public class MenuResource {
 	 */
 	@POST
 	public Response createMenu(@Auth AccessToken token, @Valid Menu menu){
-		if(token.getUserId()==menu.getUserId()){
+		if(token.getUserId().equals(menu.getUserId())){
 			if(UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.FOOD_SERVER ||
 					UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.ADMIN) {
 				Long id = menuDao.createMenu(menu);

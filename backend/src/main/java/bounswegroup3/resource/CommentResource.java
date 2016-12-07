@@ -70,7 +70,7 @@ public class CommentResource {
 	@POST
 	@Path("/update")
 	public Response updateComment(@Auth AccessToken token, @Valid Comment comment) {
-		if(comment.getUserId() == token.getUserId()) {
+		if(comment.getUserId().equals(token.getUserId())) {
 			comment.setUpdateTime(DateTime.now());
 			commentDao.updateComment(comment);
 			return Response.ok(comment).build();
@@ -91,7 +91,7 @@ public class CommentResource {
 	@Path("/{id}/delete")
 	public Response deleteComment(@Auth AccessToken token, @PathParam("id") Long id) {
 		Comment comment = commentDao.getCommentById(id);
-		if(comment.getUserId() == token.getUserId()) {
+		if(comment.getUserId().equals(token.getUserId())) {
 			commentDao.deleteComment(id);
 			return Response.ok().build();
 		} else {

@@ -371,7 +371,7 @@ public class UserResource {
     @POST
     @Path("/{id}/include")
     public Response updateIncludes(@Auth AccessToken token, @PathParam("id") Long id, List<String> xs) {
-    	if(token.getUserId() == id) {
+    	if(token.getUserId().equals(id)) {
     		excludeDao.updateIncludes(id, xs);
     		return Response.ok().build();
     	} else {
@@ -389,7 +389,7 @@ public class UserResource {
     @POST
     @Path("/{id}/exclude")
     public Response updateExcludes(@Auth AccessToken token, @PathParam("id") Long id, List<String> xs) {
-    	if(token.getUserId() == id) {
+    	if(token.getUserId().equals(id)) {
     		excludeDao.updateExcludes(id, xs);
     		return Response.ok().build();
     	} else {

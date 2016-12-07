@@ -67,7 +67,7 @@ public class MealResource {
 	 */
 	@POST
 	public Response createMeal(@Auth AccessToken token, @Valid Meal meal) {
-		if(meal.getUserId()  == token.getUserId()) {
+		if(meal.getUserId().equals(token.getUserId())) {
 			if(UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.FOOD_SERVER ||
 					UserType.values()[userDao.getUserById(token.getUserId()).getUserType()]==UserType.ADMIN) {
 				Long id = mealDao.createMeal(meal);
