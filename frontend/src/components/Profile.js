@@ -16,8 +16,6 @@ import PicEdit from './PicEdit';
 class Profile extends Component {
     componentDidMount(){
         this.props.actions.load(this.props.params.id);
-        console.log(this.props.profile);
-        console.log(this.props.currentUser);
     }
     state = {
     isOpen: false,
@@ -53,7 +51,7 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
-        let names=["onion","pepper","tomato","welcome!!!"];
+        let names=["onion","pepper","tomato","GelBakalim"];
         var includeNames = () => {
           if(this.props.token !== "") {
             this.props.actions.include(profile.id, this.props.token,names);
