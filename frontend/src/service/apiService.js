@@ -9,14 +9,14 @@ var apiService = function(store) {
             switch(action.type) {
             case 'LOGIN_REQ':
             req = { email: action.email, password: action.pass };
-            
+
             apiCall("/session/login", "POST", {}, req).success(function(accessToken){
                 next({
                     type: 'LOGIN_DONE',
                     token: accessToken.accessToken,
                     id: accessToken.userId
                 });
-                
+
                 localStorage['token'] = accessToken.accessToken;
 
                 next({
@@ -25,7 +25,7 @@ var apiService = function(store) {
                 });
 
                 // copy-paste that because we don't recurse when calling next
-                // same as the login_confirm bit if we want to refactor that 
+                // same as the login_confirm bit if we want to refactor that
                 // to another method
                 apiCall("/session/currentUser", "GET", {"Authorization": "Bearer " + accessToken.accessToken }).success(function(user){
                     next({type: 'LOGIN_CONFIRMED', user: user});
@@ -56,8 +56,8 @@ var apiService = function(store) {
 
             case 'SIGNUP_REQ':
             req = {
-                email: action.email, 
-                password: action.pass, 
+                email: action.email,
+                password: action.pass,
                 fullName: action.name,
                 secretQuestion: action.question,
                 secretAnswer: action.answer,
@@ -69,14 +69,14 @@ var apiService = function(store) {
             }).error(function(error, response){
                 next({type: 'SIGNUP_FAIL'});
             });
-           
+
             break;
 
             case 'SIGNUP_REQ_FS':
 
             req = {
-                email: action.email, 
-                password: action.pass, 
+                email: action.email,
+                password: action.pass,
                 fullName: action.name,
                 secretQuestion: action.question,
                 secretAnswer: action.answer,
@@ -89,7 +89,7 @@ var apiService = function(store) {
                 next({type: 'SIGNUP_FAIL'});
             });
             break;
-            
+
             case 'LOGOUT_REQ':
             apiCall("/session/logout", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
             });
@@ -101,7 +101,7 @@ var apiService = function(store) {
             apiCall("/user/", "GET").success(function(res){
                 next({type: 'USERS_LOADED', users: res});
             });
-            
+
             break;
 
             case 'LOAD_PROFILE':
@@ -190,22 +190,22 @@ var apiService = function(store) {
             break;
 
             case 'ADD_MEAL':
-            
+
              req = {
                 userId:action.userId,
                 menuId:action.menuId,
-                name: action.name, 
-                description: action.description, 
+                name: action.name,
+                description: action.description,
                 ingredients: action.ingredients,
                 photoUrl: action.photoUrl
-                
-                
+
+
             };
 
             apiCall("/meal/", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(res){
-                 
+
                     next({type: 'ADDMEAL_DONE'});
-                
+
             }).error(function(error, response){
                 next({type: 'ADDMEAL_FAILED'});
             });
@@ -242,16 +242,16 @@ var apiService = function(store) {
              req = {
                 mealId:action.mealId,
                 userId:action.userId,
-                content:action.content  
+                content:action.content
             };
              apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token},req).success(function(){
-                
+
             });
             break;
-            
+
             case 'RATE_MEAL':
              apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token});
-           
+
 
             break;
 
@@ -267,11 +267,12 @@ var apiService = function(store) {
 
                 req={
                     id:action.id,
-                    names:"onion, pepper, tomato, maydonoz"
+                    names:action.names
                 };
-
-                apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(res){
-                        next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
+                apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(){
+                  apiCall("/user"+action.id+"/include/", "GET", {"Authorization": "Bearer " + action.token}).success(function(res) {
+                    next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
+                  });
                 });
             break;
             case 'UPDATE_EXCLUDE':
@@ -281,6 +282,7 @@ var apiService = function(store) {
                     names:["onion","pepper","tomato","maydonoz"]
                 };
 
+
                 apiCall('/user/'+action.id+"/exclude/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(res){
                         next({type: 'LOAD_EXCLUDE_SUCCESS', data:res});
                 });
@@ -289,7 +291,7 @@ var apiService = function(store) {
 
             default:
             break;
-            }              
+            }
         }
     }
 };
