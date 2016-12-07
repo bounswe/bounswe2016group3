@@ -59,6 +59,8 @@ public class EventDAOTest {
 		assertThat(evs.size()).isEqualTo(0);
 		
 		dao.createEvent(evt);
+		// make sure that the two events have separate times
+		Thread.sleep(1000);
 		dao.createEvent(evt);
 		
 		evs = dao.homepageEvents(1l);

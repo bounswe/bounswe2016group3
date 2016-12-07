@@ -41,6 +41,8 @@ import bounswegroup3.db.ExcludeDAO;
 import bounswegroup3.db.FailedLoginDAO;
 import bounswegroup3.db.MealDAO;
 import bounswegroup3.db.MenuDAO;
+import bounswegroup3.db.RatingDAO;
+import bounswegroup3.db.TagDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.mail.Mailer;
 import bounswegroup3.model.AccessToken;
@@ -98,6 +100,8 @@ class App extends Application<AppConfig> {
         final ExcludeDAO excludeDao = jdbi.onDemand(ExcludeDAO.class);
         final CheckEatDAO checkeatDao = jdbi.onDemand(CheckEatDAO.class);
         final EventDAO eventDao = jdbi.onDemand(EventDAO.class);
+        final TagDAO tagDao = jdbi.onDemand(TagDAO.class);
+        final RatingDAO ratingDao = jdbi.onDemand(RatingDAO.class);
         
         final Mailer mailer = new Mailer(conf.getAppKeys().getMailjetKey(), conf.getAppKeys().getMailjetSecret(), getName(), conf.getMailAddress());
         
@@ -119,7 +123,7 @@ class App extends Application<AppConfig> {
         final UserResource userResource = new UserResource(userDAO, menuDao, mealDao, excludeDao, commentDao, mailer, amazonClient);
         final SessionResource sessionResource = new SessionResource(accessTokenDAO, userDAO, failedLoginDAO, fbClient, amazonClient);
         final MenuResource menuResource = new MenuResource(menuDao, mealDao, userDAO);
-        final MealResource mealResource = new MealResource(mealDao, commentDao, checkeatDao, userDAO, nutritionixClient);
+        final MealResource mealResource = new MealResource(mealDao, commentDao, checkeatDao, userDAO, tagDao, ratingDao, nutritionixClient);
         final CommentResource commentResource = new CommentResource(commentDao);
         final HomeResource homeResource = new HomeResource(checkeatDao, mealDao, eventDao, nutritionixClient);
         

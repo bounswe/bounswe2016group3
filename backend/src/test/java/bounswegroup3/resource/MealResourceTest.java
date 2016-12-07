@@ -25,6 +25,8 @@ import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.RatingDAO;
+import bounswegroup3.db.TagDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.Comment;
 import bounswegroup3.model.Meal;
@@ -40,10 +42,11 @@ public class MealResourceTest {
 	private static UserDAO userDao = mock(UserDAO.class);
 	private static NutritionixClient client = mock(NutritionixClient.class);
 	private static CheckEatDAO checkeatDao = mock(CheckEatDAO.class);
-	
+	private static TagDAO tagDao = mock(TagDAO.class);
+	private static RatingDAO ratingDao = mock(RatingDAO.class);
 	@Rule
 	public ResourceTestRule rule = registerAuth(new DummyAuthenticator())
-		.addResource(new MealResource(mealDao, commentDao, checkeatDao, userDao, client))
+		.addResource(new MealResource(mealDao, commentDao, checkeatDao, userDao, tagDao, ratingDao, client))
 		.build();
 	
 	private Meal meal;
@@ -89,19 +92,19 @@ public class MealResourceTest {
 		when(checkeatDao.checkAte(any(), any())).thenReturn(false);
 		when(checkeatDao.checkAte(any(), eq(42l))).thenReturn(true);
 		
-		when(mealDao.averageRating(any())).thenReturn(0.0f);
-		when(mealDao.totalRatings(any())).thenReturn(0);
-		when(mealDao.ratingByUser(any(), any())).thenReturn(0.0f);
+		when(ratingDao.averageRating(any())).thenReturn(0.0f);
+		when(ratingDao.totalRatings(any())).thenReturn(0);
+		when(ratingDao.ratingByUser(any(), any())).thenReturn(0.0f);
 		
-		when(mealDao.ratedByUser(any(), any())).thenReturn(false);
-		when(mealDao.ratedByUser(any(), eq(42l))).thenReturn(true);
+		when(ratingDao.ratedByUser(any(), any())).thenReturn(false);
+		when(ratingDao.ratedByUser(any(), eq(42l))).thenReturn(true);
 		
-		when(mealDao.getMealsByTag(any())).thenReturn(meals);
-		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
+		when(tagDao.getMealsByTag(any())).thenReturn(meals);
+		when(tagDao.getTagsByMeal(any())).thenReturn(tags);
 		
 		when(commentDao.commentsByMeal(any())).thenReturn(comments);
 		
-		when(mealDao.getTagsByMeal(any())).thenReturn(tags);
+		when(tagDao.getTagsByMeal(any())).thenReturn(tags);
 		
 		when(mealDao.basicSearch(any())).thenReturn(meals);
 		when(mealDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<Meal>());
@@ -115,6 +118,11 @@ public class MealResourceTest {
 	public void tearDown() {
 		reset(mealDao);
 		reset(commentDao);
+		reset(checkeatDao);
+		reset(userDao);
+		reset(tagDao);
+		reset(ratingDao);
+		reset(client);
 	}
 
 	@Test
@@ -269,7 +277,7 @@ public class MealResourceTest {
 				.post(Entity.json(""));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
-		verify(mealDao).rateMeal(any(), any(), any());
+		verify(ratingDao).rateMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -281,7 +289,7 @@ public class MealResourceTest {
 				.post(Entity.json(""));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).rateMeal(any(), any(), any());
+		verify(ratingDao, never()).rateMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -353,7 +361,7 @@ public class MealResourceTest {
 				.post(Entity.json(tag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
-		verify(mealDao).tagMeal(any(), any(), any());
+		verify(tagDao).tagMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -365,7 +373,7 @@ public class MealResourceTest {
 				.post(Entity.json(invalidTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).tagMeal(any(), any(), any());
+		verify(tagDao, never()).tagMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -377,7 +385,7 @@ public class MealResourceTest {
 				.post(Entity.json(notExistsTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).tagMeal(any(), any(), any());
+		verify(tagDao, never()).tagMeal(any(), any(), any());
 	}
 	
 	@Test
@@ -389,7 +397,7 @@ public class MealResourceTest {
 				.post(Entity.json(notExistsTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
-		verify(mealDao).untagMeal(any(), any());
+		verify(tagDao).untagMeal(any(), any());
 	}
 	
 	@Test
@@ -401,7 +409,7 @@ public class MealResourceTest {
 				.post(Entity.json(invalidTag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).untagMeal(any(), any());
+		verify(tagDao, never()).untagMeal(any(), any());
 	}
 	
 	@Test
@@ -413,7 +421,7 @@ public class MealResourceTest {
 				.post(Entity.json(tag));
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(mealDao, never()).untagMeal(any(), any());
+		verify(tagDao, never()).untagMeal(any(), any());
 	}
 	
 	@Test

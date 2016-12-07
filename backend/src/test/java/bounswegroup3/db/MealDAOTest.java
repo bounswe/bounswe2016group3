@@ -74,46 +74,7 @@ public class MealDAOTest {
 		assertThat(dao.getMealById(1l)).isNull();
 	}
 	
-	@Test
-	public void testTags() throws Exception {
-		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
-		m.setMenuId(1l);
-		m.setUserId(1l);
-		dao.createMeal(m);
-		
-		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(0);
-		assertThat(dao.getMealsByTag("test").size()).isEqualTo(0);
-		
-		dao.tagMeal(1l, "test", "test");
-		
-		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(1);
-		assertThat(dao.getMealsByTag("test").size()).isEqualTo(1);
-		
-		assertThat(dao.getTagsByMeal(1l).get(0)).isEqualTo("test");
-		assertThat(dao.getMealsByTag("test").get(0).getName()).isEqualTo("test meal");
-		
-		dao.untagMeal(1l, "test");
-		
-		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(0);
-		assertThat(dao.getMealsByTag("test").size()).isEqualTo(0);
-	}
 	
-	@Test
-	public void testRating() throws Exception {
-		Meal m = mapper.readValue(fixture("fixtures/meal.json"), Meal.class);
-		m.setMenuId(1l);
-		m.setUserId(1l);
-		dao.createMeal(m);
-		
-		assertThat(dao.totalRatings(1l)).isEqualTo(0);
-		
-		dao.rateMeal(1l, 1l, 1.0f);
-		
-		assertThat(dao.averageRating(1l)).isEqualTo(1.0f);
-		assertThat(dao.ratedByUser(1l, 1l));
-		assertThat(dao.ratingByUser(1l, 1l)).isEqualTo(1.0f);
-		assertThat(dao.totalRatings(1l)).isEqualTo(1);
-	}
 	
 	@Test
 	public void testSearch() throws Exception {

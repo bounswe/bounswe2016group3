@@ -35,33 +35,6 @@ public abstract class MealDAO {
 	@SqlQuery("select * from meals where id=:id")
 	abstract public Meal getMealById(@Bind("id") Long id);
 	
-	@SqlQuery("select meals.* from meals join tags on meals.id = tags.relation_id where tags.identifier = :tag and tags.relation_type = 2")
-	abstract public List<Meal> getMealsByTag(@Bind("tag") String tag);
-	
-	@SqlQuery("select tags.identifier from meals join tags on meals.id = tags.relation_id where tags.relation_id = :id and tags.relation_type = 2")
-	abstract public List<String> getTagsByMeal(@Bind("id") Long id);
-	
-	@SqlUpdate("insert into tags (relation_type, relation_id, display_name, identifier) values (2, :id, :dn, :tag)")
-	abstract public void tagMeal(@Bind("id") Long id, @Bind("dn") String displayName, @Bind("tag") String tag);
-	
-	@SqlUpdate("delete from tags where relation_type = 2 and relation_id = :id and identifier = :tag")
-	abstract public void untagMeal(@Bind("id") Long id, @Bind("tag") String tag);
-	
-	@SqlQuery("select avg(rating) from rating where meal_id = :mid")
-	abstract public Float averageRating(@Bind("mid") Long mealId);
-	
-	@SqlQuery("select count(*) from rating where meal_id = :mid")
-	abstract public Integer totalRatings(@Bind("mid") Long mealId);
-	
-	@SqlQuery("select rating from rating where meal_id = :mid and user_id = :uid")
-	abstract public Float ratingByUser(@Bind("uid") Long userId, @Bind("mid") Long mealId);
-	
-	@SqlQuery("select count(*) from rating where meal_id = :mid and user_id = :uid")
-	abstract public Boolean ratedByUser(@Bind("uid") Long userId, @Bind("mid") Long mealId);
-
-	@SqlUpdate("insert into rating (user_id, meal_id, rating) values (:uid, :mid, :rating)")
-	abstract public void rateMeal(@Bind("uid")Long userId, @Bind("mid")Long id, @Bind("rating")Float rating);
-	
 	@SqlQuery("select * from meals where name like :pattern or description like :pattern")
 	abstract protected List<Meal> _basicSearch(@Bind("pattern") String pattern);
 	

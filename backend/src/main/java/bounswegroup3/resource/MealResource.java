@@ -18,6 +18,8 @@ import bounswegroup3.constant.UserType;
 import bounswegroup3.db.CheckEatDAO;
 import bounswegroup3.db.CommentDAO;
 import bounswegroup3.db.MealDAO;
+import bounswegroup3.db.RatingDAO;
+import bounswegroup3.db.TagDAO;
 import bounswegroup3.db.UserDAO;
 import bounswegroup3.model.AccessToken;
 import bounswegroup3.model.Comment;
@@ -35,12 +37,16 @@ public class MealResource {
 	private NutritionixClient client;
 	private UserDAO userDao;
 	private CheckEatDAO checkeatDao;
+	private TagDAO tagDao;
+	private RatingDAO ratingDao;
 	
-	public MealResource(MealDAO mealDao, CommentDAO commentDao, CheckEatDAO checkeatDao, UserDAO userDao, NutritionixClient client) {
+	public MealResource(MealDAO mealDao, CommentDAO commentDao, CheckEatDAO checkeatDao, UserDAO userDao, TagDAO tagDao, RatingDAO ratingDao, NutritionixClient client) {
 		this.mealDao = mealDao;
 		this.commentDao = commentDao;
 		this.checkeatDao = checkeatDao;
 		this.userDao = userDao;
+		this.tagDao = tagDao;
+		this.ratingDao = ratingDao;
 		this.client = client;
 	}
 	
@@ -161,11 +167,11 @@ public class MealResource {
 	@POST
 	@Path("/{id}/rate/{rating}")
 	public Response rateMeal(@Auth AccessToken token, @PathParam("id") Long id, @PathParam("rating") Float rating) {
-		if(mealDao.ratedByUser(token.getUserId(), id)) {
+		if(ratingDao.ratedByUser(token.getUserId(), id)) {
 			return Response.notModified().build();
 		}
 		
-		mealDao.rateMeal(token.getUserId(), id, rating);
+		ratingDao.rateMeal(token.getUserId(), id, rating);
 		return Response.ok().build();
 	}
 	
@@ -179,7 +185,7 @@ public class MealResource {
 	@GET
 	@Path("/{id}/ratings")
 	public Ratings getRatings(@Auth AccessToken token, @PathParam("id") Long id) {
-		return new Ratings(mealDao.averageRating(id), mealDao.totalRatings(id), mealDao.ratingByUser(token.getUserId(), id));
+		return new Ratings(ratingDao.averageRating(id), ratingDao.totalRatings(id), ratingDao.ratingByUser(token.getUserId(), id));
 	}
 	
 	/**
@@ -191,7 +197,7 @@ public class MealResource {
 	@GET
 	@Path("/byTag/{tag}")
 	public List<Meal> mealsByTag(@PathParam("tag") String tag) {
-		return mealDao.getMealsByTag(tag);
+		return tagDao.getMealsByTag(tag);
 	}
 	
 	/**
@@ -203,7 +209,7 @@ public class MealResource {
 	@GET
 	@Path("/{id}/tags")
 	public List<String> tagsByMeal(@PathParam("id") Long id) {
-		return mealDao.getTagsByMeal(id);
+		return tagDao.getTagsByMeal(id);
 	}
 	
 	/**
@@ -236,10 +242,10 @@ public class MealResource {
 		Meal meal = mealDao.getMealById(tag.getRelationId());
 		
 		if(token.getUserId().equals(meal.getUserId())) {
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getRelationId()));
+			ArrayList<String> tags = new ArrayList<String>(tagDao.getTagsByMeal(tag.getRelationId()));
 						
 			if(!tags.contains(tag.getIdentifier())){
-				mealDao.tagMeal(tag.getRelationId(), tag.getDisplayName(), tag.getIdentifier());
+				tagDao.tagMeal(tag.getRelationId(), tag.getDisplayName(), tag.getIdentifier());
 				return Response.ok().build();
 			} else {
 				return Response.notModified().build();
@@ -267,9 +273,9 @@ public class MealResource {
 		Meal meal = mealDao.getMealById(tag.getRelationId());
 		
 		if(token.getUserId().equals(meal.getUserId())) {
-			ArrayList<String> tags = new ArrayList<String>(mealDao.getTagsByMeal(tag.getRelationId()));
+			ArrayList<String> tags = new ArrayList<String>(tagDao.getTagsByMeal(tag.getRelationId()));
 			if(tags.contains(tag.getIdentifier())){
-				mealDao.untagMeal(tag.getRelationId(), tag.getIdentifier());
+				tagDao.untagMeal(tag.getRelationId(), tag.getIdentifier());
 				return Response.ok().build();
 			} else {
 				return Response.notModified().build();
