@@ -250,7 +250,12 @@ var apiService = function(store) {
             break;
 
             case 'RATE_MEAL':
-             apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token});
+            
+            apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(){
+                 apiCall('/meal/'+action.mealId+"/ratings/", "GET" ,{"Authorization": "Bearer " + action.token}, req).success(function(res){
+                    next({type: 'RATINGS_LOADED', data: res});
+                 });
+            });
 
 
             break;
