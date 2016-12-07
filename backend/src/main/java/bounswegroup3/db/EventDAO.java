@@ -18,7 +18,7 @@ public abstract class EventDAO {
 	@SqlUpdate("insert into events (user_id, event_type, url, description, date) values (:userId, :type, :url, :description, NOW())")
 	abstract protected Long _createEvent(@BindBean Event event);
 
-	@SqlQuery("select events.* from events join follow where follow.follower_id = :uid and events.user_id = follow.followee_id")
+	@SqlQuery("select events.* from events join follow where follow.follower_id = :uid and events.user_id = follow.followee_id order by date limit 100")
 	abstract public List<Event> homepageEvents(@Bind("uid") Long userId);
 	
 	public void createEvent(Event event) {
