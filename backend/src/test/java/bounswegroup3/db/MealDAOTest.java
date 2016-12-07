@@ -4,7 +4,6 @@ import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -73,8 +72,6 @@ public class MealDAOTest {
 		dao.deleteMeal(1l);
 		assertThat(dao.getMealById(1l)).isNull();
 	}
-	
-	
 	
 	@Test
 	public void testSearch() throws Exception {

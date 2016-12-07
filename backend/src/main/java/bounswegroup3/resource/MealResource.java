@@ -1,6 +1,5 @@
 package bounswegroup3.resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -208,7 +207,7 @@ public class MealResource {
 	 */
 	@GET
 	@Path("/{id}/tags")
-	public List<String> tagsByMeal(@PathParam("id") Long id) {
+	public List<Tag> tagsByMeal(@PathParam("id") Long id) {
 		return tagDao.getTagsByMeal(id);
 	}
 	
@@ -241,15 +240,10 @@ public class MealResource {
 		
 		Meal meal = mealDao.getMealById(tag.getRelationId());
 		
-		if(token.getUserId().equals(meal.getUserId())) {
-			ArrayList<String> tags = new ArrayList<String>(tagDao.getTagsByMeal(tag.getRelationId()));
-						
-			if(!tags.contains(tag.getIdentifier())){
+		if(token.getUserId().equals(meal.getUserId()) && 
+				!tagDao.mealTaggedWith(meal.getId(), tag.getIdentifier())) {
 				tagDao.tagMeal(tag.getRelationId(), tag.getDisplayName(), tag.getIdentifier());
 				return Response.ok().build();
-			} else {
-				return Response.notModified().build();
-			}
 		} else {
 			return Response.notModified().build();
 		}
@@ -272,14 +266,10 @@ public class MealResource {
 		
 		Meal meal = mealDao.getMealById(tag.getRelationId());
 		
-		if(token.getUserId().equals(meal.getUserId())) {
-			ArrayList<String> tags = new ArrayList<String>(tagDao.getTagsByMeal(tag.getRelationId()));
-			if(tags.contains(tag.getIdentifier())){
-				tagDao.untagMeal(tag.getRelationId(), tag.getIdentifier());
-				return Response.ok().build();
-			} else {
-				return Response.notModified().build();
-			}
+		if(token.getUserId().equals(meal.getUserId()) &&
+				tagDao.mealTaggedWith(meal.getId(), tag.getIdentifier())) {
+			tagDao.untagMeal(tag.getRelationId(), tag.getIdentifier());
+			return Response.ok().build();
 		} else {
 			return Response.notModified().build(); 
 		}

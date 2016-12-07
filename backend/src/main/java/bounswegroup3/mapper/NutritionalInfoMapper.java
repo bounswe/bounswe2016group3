@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import bounswegroup3.model.NutritionalInfo;
 import io.dropwizard.jackson.Jackson;
 
-public class NutritionalInfoMapper {
+public class NutritionalInfoMapper{
 	public NutritionalInfo map(String json) throws Exception {
 		Double weight = 0.0;
 		Double calories = 0.0;

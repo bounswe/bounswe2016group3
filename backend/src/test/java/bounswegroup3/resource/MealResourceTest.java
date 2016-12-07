@@ -77,8 +77,11 @@ public class MealResourceTest {
 		ArrayList<Meal> meals = new ArrayList<Meal>();
 		meals.add(meal);
 		
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("tagged");
+		ArrayList<String> tagsStr = new ArrayList<String>();
+		tagsStr.add("tagged");
+		
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		tags.add(new Tag(2l, -1l, "tagged", "tagged"));
 		
 		when(mealDao.getMealById(any())).thenReturn(meal);
 		when(mealDao.createMeal(any())).thenReturn(1l);
@@ -100,11 +103,10 @@ public class MealResourceTest {
 		when(ratingDao.ratedByUser(any(), eq(42l))).thenReturn(true);
 		
 		when(tagDao.getMealsByTag(any())).thenReturn(meals);
+		when(tagDao.mealTaggedWith(any(), eq("tagged"))).thenReturn(true);
 		when(tagDao.getTagsByMeal(any())).thenReturn(tags);
 		
 		when(commentDao.commentsByMeal(any())).thenReturn(comments);
-		
-		when(tagDao.getTagsByMeal(any())).thenReturn(tags);
 		
 		when(mealDao.basicSearch(any())).thenReturn(meals);
 		when(mealDao.basicSearch(eq("nope"))).thenReturn(new ArrayList<Meal>());
@@ -330,11 +332,11 @@ public class MealResourceTest {
 				.header("Authorization", "Bearer test")
 				.get();
 		
-		@SuppressWarnings("unchecked")
-		ArrayList<String> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		ArrayList<LinkedHashMap> read = mapper.readValue(res.readEntity(String.class), ArrayList.class);
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(200);
-		assertThat(read.get(0)).isEqualTo("tagged");
+		assertThat(read.get(0).get("identifier")).isEqualTo("tagged");
 	}
 	
 	@Test

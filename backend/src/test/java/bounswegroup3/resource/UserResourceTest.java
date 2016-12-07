@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 
 import static bounswegroup3.utils.TestUtils.*;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -16,12 +15,7 @@ import javax.ws.rs.core.Response;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 
-import org.eclipse.jetty.util.MultiPartWriter;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.media.multipart.file.FileDataBodyPart;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

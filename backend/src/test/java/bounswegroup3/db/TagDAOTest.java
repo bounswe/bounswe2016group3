@@ -56,12 +56,21 @@ public class TagDAOTest {
 		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(1);
 		assertThat(dao.getMealsByTag("test").size()).isEqualTo(1);
 		
-		assertThat(dao.getTagsByMeal(1l).get(0)).isEqualTo("test");
+		assertThat(dao.getTagsByMeal(1l).get(0).getIdentifier()).isEqualTo("test");
 		assertThat(dao.getMealsByTag("test").get(0).getName()).isEqualTo("test meal");
 		
 		dao.untagMeal(1l, "test");
 		
 		assertThat(dao.getTagsByMeal(1l).size()).isEqualTo(0);
 		assertThat(dao.getMealsByTag("test").size()).isEqualTo(0);
+	}
+	
+	@Test
+	public void testMealTaggedWith() {
+		assertThat(dao.mealTaggedWith(1l, "test")).isEqualTo(false);
+		
+		dao.tagMeal(1l, "test", "test");
+		
+		assertThat(dao.mealTaggedWith(1l, "test")).isEqualTo(true);				
 	}
 }
