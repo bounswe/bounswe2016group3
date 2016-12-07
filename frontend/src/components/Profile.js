@@ -16,8 +16,6 @@ import PicEdit from './PicEdit';
 class Profile extends Component {
     componentDidMount(){
         this.props.actions.load(this.props.params.id);
-        console.log(this.props.profile);
-        console.log(this.props.currentUser);
     }
     state = {
     isOpen: false,
@@ -53,12 +51,11 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
-        let names=["onion","pepper","tomato","maydonoz"];
+        let names=["onion","pepper","tomato","GelBakalim"];
         var includeNames = () => {
-            if(this.props.token!==""){
-                alert(profile.id);
-                this.props.actions.include(profile.id, this.props.token,names);
-            }
+          if(this.props.token !== "") {
+            this.props.actions.include(profile.id, this.props.token,names);
+          }
         }
 
         let followersHtml = this.props.followers.map(function(u){
@@ -68,7 +65,6 @@ class Profile extends Component {
         let followingHtml = this.props.following.map(function(u){
             return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
         });
-        let includeHtml=this.props.include;
 
 
         let menusHtml = this.props.menus.map(function(m){
@@ -131,7 +127,7 @@ class Profile extends Component {
                         <div className="col-xs-6">
                             <h3>Preferences</h3>
                             <h4>Include</h4>
-                            {includeHtml}
+                            {this.props.include}
                             {updateIncludeModalButton}
                             <Modal isOpen={this.state.isOpen_Include} onRequestHide={this.hideModal_Include} id="updateInclude_modal">
                                 <ModalHeader>
@@ -150,7 +146,6 @@ class Profile extends Component {
                                     </div>
                                         </div>
                                     </div>
-
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={includeNames}>Update </button>
@@ -224,6 +219,7 @@ class Profile extends Component {
         );
     }
 }
+
 
 var mapStateToProps = function(state){
     return {
