@@ -37,11 +37,12 @@ var comment = function(token,mealId,userId,comment){
 
 };
 
-var rate = function(token,mealId,rating){
+var rate = function(token,mealId,id,rating){
 	return{
 
 		type:'RATE_MEAL',
 		mealId:mealId,
+		id:id,
 		rating:rating,
 		token
 	};

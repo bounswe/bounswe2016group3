@@ -51,9 +51,25 @@ class Profile extends Component {
                 this.props.actions.follow(this.props.token, profile, this.props.currentUser);
             }
         }
-        let include_names=["onion","pepper","tomato","heloo"];
+        var moreIngredient_include = () =>{
+            $("#ingredients_list_include").append('<div class="ingredients_list_element_include" id="ingredients_list_element_include"><div class="col-xs-8"><input type="text" id="name" class="form-control" placeholder="Name"/></div></div>')
+
+        }
+         var moreIngredient_exclude = () =>{
+            $("#ingredients_list_exclude").append('<div class="ingredients_list_element_exclude" id="ingredients_list_element_exclude"><div class="col-xs-8"><input type="text" id="name" class="form-control" placeholder="Name"/></div></div>')
+
+        }
+
+       let temp=["onion","pepper","tomato","ses"];
         var includeNames = () => {
           if(this.props.token !== "") {
+             var include_names =[];
+
+                $(".ingredients_list_element_include").each(function(){
+                    include_names.push($(this).find("#name").val());
+                })
+            console.log(typeof include_names);
+            console.log(include_names);
             this.props.actions.include(profile.id, this.props.token,include_names);
           }
         }
@@ -109,6 +125,8 @@ class Profile extends Component {
                       current.id === profile.id && <div>
                         <p></p>
                         <PicEdit />
+
+
                       </div>
                     }
                 </div>
@@ -118,40 +136,53 @@ class Profile extends Component {
 
                     <p>{followButton}</p>
                     <div className="row">
-                        <div className="col-xs-6">
+                        <div className="col-xs-4">
                             <h3>Followers: {followersHtml.length}</h3>
 
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-4">
                             <h3>Following: {followingHtml.length}</h3>
 
-                        </div>
+
+
+
+
+                        </div> 
+                        
+                            <div className="col-xs-4">
+                            <a href="/user/PersonalLog"><h3>Personal Log</h3></a>
+                            </div>
+
+
+
+
+
 
                     </div>
                     <hr></hr>
                     <div className="row">
                         <div className="col-xs-6">
-                            <h3>Preferences</h3>
+                            <h4>Preferences</h4>
                             <h4>Include</h4>
                             {this.props.include}
                             {updateIncludeModalButton}
                             <Modal isOpen={this.state.isOpen_Include} onRequestHide={this.hideModal_Include} id="updateInclude_modal">
                                 <ModalHeader>
                                     <ModalClose onClick={this.hideModal_Include}/>
-                                    <ModalTitle><h3>Include</h3></ModalTitle>
+                                    <ModalTitle>Include</ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
 
                                <div className="col-xs-12" id="ingredients_list_include">
-                                        <div className="ingredients_list_element" id="ingredients_list_element">
+                                        <div className="ingredients_list_element_include" id="ingredients_list_element_include">
                                             <div className="col-xs-8">
                                                 <input type="text" id="name" className="form-control" placeholder="Name"/>
                                             </div>
-                                           <div className="col-xs-12">
-                                    <button type="button" className="btn-success more_button" onClick={""}>More</button>
-                                    </div>
                                         </div>
-                                    </div>
+                                </div>
+                                 <div className="col-xs-12">
+                                                <button type="button" className="btn-success more_button" onClick={moreIngredient_include}>More</button>
+                                </div>
                                 </ModalBody>
                                 <ModalFooter>
                                     <button type="button" className="btn btn-default" onClick={includeNames}>Update </button>
@@ -159,26 +190,26 @@ class Profile extends Component {
 
                                 </ModalFooter>
                             </Modal>
+
                             <h4>Exclude</h4>
                              {this.props.exclude}
                              {updateExcludeModalButton}
                             <Modal isOpen={this.state.isOpen_Exclude} onRequestHide={this.hideModal_Exclude} id="updateExclude_modal">
                                 <ModalHeader>
                                     <ModalClose onClick={this.hideModal_Exclude}/>
-                                    <ModalTitle><h3>Exclude</h3></ModalTitle>
+                                    <ModalTitle>Exclude</ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
                                      <div className="col-xs-12" id="ingredients_list_exclude">
-                                        <div className="ingredients_list_element" id="ingredients_list_element">
+                                        <div className="ingredients_list_element_exclude" id="ingredients_list_element_exclude">
                                             <div className="col-xs-8">
                                                 <input type="text" id="name" className="form-control" placeholder="Name"/>
                                             </div>
-                                           <div className="col-xs-12">
-                                    <button type="button" className="btn-success more_button" onClick={""}>More</button>
-                                    </div>
                                         </div>
                                     </div>
-
+                                    <div className="col-xs-12">
+                                    <button type="button" className="btn-success more_button" onClick={moreIngredient_exclude}>More</button>
+                                    </div>
 
                                 </ModalBody>
                                 <ModalFooter>
@@ -198,7 +229,7 @@ class Profile extends Component {
                             <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal} id="updateDietType_modal">
                                 <ModalHeader>
                                     <ModalClose onClick={this.hideModal}/>
-                                    <ModalTitle><h3>Update Diet Type</h3></ModalTitle>
+                                    <ModalTitle>Update Diet Type</ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
 

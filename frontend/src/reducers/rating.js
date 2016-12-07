@@ -14,10 +14,9 @@ var rate = function(state=[], event) {
 	 switch(event.type) {
 
 		case 'MEAL_RATED':
-		alert("hello");
         return event.data;
 
-       default:
+        default:
         return state;
     }
 }

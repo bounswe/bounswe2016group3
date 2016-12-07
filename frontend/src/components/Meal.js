@@ -35,7 +35,7 @@ class Meal extends Component {
 		let rate = () => {
             if(this.props.token!==""){
             	
-            	this.props.actions.rate(this.props.token,this.props.params.id,rate_meal.value);
+            	this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
             	//ratingssHtml=this.props.ratings.average ;
             	//document.location.href = document.location.href  ;
             	//rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
