@@ -274,7 +274,7 @@ var apiService = function(store) {
                     names:action.names
 
                 };
-                alert(req.names);
+                
                 apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(){
                   apiCall("/user/"+action.id+"/include/", "GET", {"Authorization": "Bearer " + action.token}).success(function(res) {
                     next({type: 'LOAD_INCLUDE_SUCCESS', data:res});

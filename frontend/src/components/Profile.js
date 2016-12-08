@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import './profile.css';
 import {
   Modal,
   ModalHeader,
@@ -60,7 +61,7 @@ class Profile extends Component {
 
         }
 
-       let temp=["onion","pepper","tomato","ses"];
+      
         var includeNames = () => {
           if(this.props.token !== "") {
              var include_names =[];
@@ -73,9 +74,13 @@ class Profile extends Component {
             this.props.actions.include(profile.id, this.props.token,include_names);
           }
         }
-        let exclude_names=["onion","pepper","tomato","hic sevmem"];
+        
         var excludeNames = () => {
           if(this.props.token !== "") {
+            var exclude_names=[];
+            $(".ingredients_list_element_exclude").each(function(){
+                    exclude_names.push($(this).find("#name").val());
+            })
             this.props.actions.exclude(profile.id, this.props.token,exclude_names);
           }
         }
@@ -93,6 +98,15 @@ class Profile extends Component {
             return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
         });
 
+        let includeHtml = this.props.include.map(function(m){
+            return <label className="label-preferences"> {m} </label>;
+            
+        });
+        let excludeHtml = this.props.exclude.map(function(m){
+
+            return <label className="label-preferences"> {m}</label>
+            ;
+        });
         let followButton;
         let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
         let dietTypes_chbx= "";
@@ -125,8 +139,6 @@ class Profile extends Component {
                       current.id === profile.id && <div>
                         <p></p>
                         <PicEdit />
-
-
                       </div>
                     }
                 </div>
@@ -142,29 +154,18 @@ class Profile extends Component {
                         </div>
                         <div className="col-xs-4">
                             <h3>Following: {followingHtml.length}</h3>
-
-
-
-
-
                         </div> 
                         
                             <div className="col-xs-4">
                             <a href="/user/PersonalLog"><h3>Personal Log</h3></a>
                             </div>
-
-
-
-
-
-
                     </div>
                     <hr></hr>
                     <div className="row">
                         <div className="col-xs-6">
                             <h4>Preferences</h4>
                             <h4>Include</h4>
-                            {this.props.include}
+                            
                             {updateIncludeModalButton}
                             <Modal isOpen={this.state.isOpen_Include} onRequestHide={this.hideModal_Include} id="updateInclude_modal">
                                 <ModalHeader>
@@ -172,7 +173,7 @@ class Profile extends Component {
                                     <ModalTitle>Include</ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
-
+                                {includeHtml}
                                <div className="col-xs-12" id="ingredients_list_include">
                                         <div className="ingredients_list_element_include" id="ingredients_list_element_include">
                                             <div className="col-xs-8">
@@ -192,7 +193,7 @@ class Profile extends Component {
                             </Modal>
 
                             <h4>Exclude</h4>
-                             {this.props.exclude}
+                             
                              {updateExcludeModalButton}
                             <Modal isOpen={this.state.isOpen_Exclude} onRequestHide={this.hideModal_Exclude} id="updateExclude_modal">
                                 <ModalHeader>
@@ -200,6 +201,7 @@ class Profile extends Component {
                                     <ModalTitle>Exclude</ModalTitle>
                                 </ModalHeader>
                                 <ModalBody>
+                                {excludeHtml}
                                      <div className="col-xs-12" id="ingredients_list_exclude">
                                         <div className="ingredients_list_element_exclude" id="ingredients_list_element_exclude">
                                             <div className="col-xs-8">
@@ -257,7 +259,6 @@ class Profile extends Component {
         );
     }
 }
-
 
 var mapStateToProps = function(state){
     return {
