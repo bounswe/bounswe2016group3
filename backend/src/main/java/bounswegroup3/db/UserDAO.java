@@ -21,10 +21,11 @@ public abstract class UserDAO {
     @SqlUpdate("insert into users (email, password_hash, password_salt, "
             + "full_name, bio, user_type, diet_type, "
             + "secret_question, secret_answer_hash, secret_answer_salt,"
-            + "avatar_url) "
+            + "avatar_url, location)"
             + "values (:email, :passwordHash, :passwordSalt, "
             + ":fullName, :bio, :userType, :dietType, "
-            + ":secretQuestion, :secretAnswerHash, :secretAnswerSalt, :avatarUrl)")
+            + ":secretQuestion, :secretAnswerHash, :secretAnswerSalt, "
+            + ":avatarUrl, :location)")
     abstract public Long addUser(@BindBean User user);
 
     @SqlUpdate("update users set avatar_url = :url where id = :id")

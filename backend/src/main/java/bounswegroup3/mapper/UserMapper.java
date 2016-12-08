@@ -23,8 +23,12 @@ public class UserMapper implements ResultSetMapper<User> {
         final String saHash = rs.getString("secret_answer_hash");
         final String saSalt = rs.getString("secret_answer_salt");
         final String avatarUrl = rs.getString("avatar_url");
+        final String location = rs.getString("location");
         final Boolean isBanned = (rs.getInt("banned")==1)?true:false;
 
-        return new User(id, email, passwordHash, passwordSalt, fullName, bio, ut, dt, sq, saHash, saSalt, avatarUrl, isBanned);
+        return new User(id, email, passwordHash, passwordSalt, fullName, bio, 
+        		ut, dt, 
+        		sq, saHash, saSalt, 
+        		avatarUrl, location, isBanned);
     }
 }

@@ -25,11 +25,13 @@ import bounswegroup3.constant.UserType;
  * fields are updated via sending some plain text, but before being stored
  * in the database, they are hashed. Also, the avatar url field
  * cannot be modified directly, there is a separate API call for uploading a file 
- * as your avatar image
+ * as your avatar image. Location column is a latitude-longitude pair
+ * (preferrably supplied via a map input)
  * <br>
  * <code>{"id": Integer, "email": String, "password": String, "bio": String,
  *  "fullName": String, "userType": Integer, "dietType": Integer, 
- *  "secretQuestion": String, "secretAnswer": String, "avatarUrl": String}</code>
+ *  "secretQuestion": String, "secretAnswer": String,
+ *  "avatarUrl": String, "location":String}</code>
  */
 public class User {
     private Long id;
@@ -58,6 +60,8 @@ public class User {
 	
 	private String avatarUrl;
 	
+	private String location;
+	
 	private Boolean isBanned;
 
 	public User() {
@@ -73,7 +77,7 @@ public class User {
 
     public User(Long id, String email, String passwordHash, String passwordSalt, String fullName,
             String bio, UserType userType, DietType dietType, String secretQuestion, String secretAnswerHash, 
-            String secretAnswerSalt, String avatarUrl, Boolean isBanned) {
+            String secretAnswerSalt, String avatarUrl, String location, Boolean isBanned) {
         super();
         this.id = id;
         this.email = email;
@@ -87,6 +91,7 @@ public class User {
         this.secretAnswerHash = secretAnswerHash;
         this.secretAnswerSalt = secretAnswerSalt;
         this.avatarUrl = avatarUrl;
+        this.location = location;
         this.isBanned = isBanned;
     }
 
@@ -258,6 +263,16 @@ public class User {
 		this.avatarUrl = avatarUrl;
 	}
 	
+	@JsonGetter("location")
+	public String getLocation() {
+		return location;
+	}
+
+	@JsonSetter("location")
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	@JsonGetter("isBanned")
     public Boolean getIsBanned() {
 		return isBanned;

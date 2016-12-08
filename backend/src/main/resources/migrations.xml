@@ -269,4 +269,10 @@
 			<column name="identifier" type="text" />
 		</createTable>
 	</changeSet>
+	
+	<changeSet id="13" author="group3">
+		<addColumn tableName="users">
+			<column name="location" type="text" />
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>

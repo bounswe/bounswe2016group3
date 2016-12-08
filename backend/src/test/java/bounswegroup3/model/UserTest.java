@@ -20,6 +20,7 @@ public class UserTest {
 		final User user = new User(-1l, "test@deneme.com", "", "", "test deneme", 
 				"bio", UserType.ADMIN, DietType.OMNIVORE, "test", "", "",
 				"http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png",
+				"test lat, test long",
 				false);
 		
 		final User fixture = mapper.readValue(fixture("fixtures/user.json"), User.class);
@@ -30,6 +31,7 @@ public class UserTest {
 		assertThat(fixture.getUserType()).isEqualTo(user.getUserType());
 		assertThat(fixture.getDietType()).isEqualTo(user.getDietType());
 		assertThat(fixture.getAvatarUrl()).isEqualTo(user.getAvatarUrl());
+		assertThat(fixture.getLocation()).isEqualTo(user.getLocation());
 		assertThat(fixture.getIsBanned()).isEqualTo(user.getIsBanned());
 	}
 	
