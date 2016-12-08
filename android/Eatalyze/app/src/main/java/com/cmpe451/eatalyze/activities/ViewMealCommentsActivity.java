@@ -1,8 +1,11 @@
 package com.cmpe451.eatalyze.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -90,6 +93,29 @@ public class ViewMealCommentsActivity extends BaseActivity {
             @Override
             public void failure(RetrofitError error) {
                 Log.d("comment fetch failure", error.toString());
+            }
+        });
+
+        lvComments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Comment comment = (Comment) parent.getItemAtPosition(position);
+                apiService.getUserByID(comment.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        Log.d("user call success", response.toString());
+                        Intent intent = new Intent(ViewMealCommentsActivity.this, UserProfilePageActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userid", user.getId());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
             }
         });
 
