@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +62,12 @@ public class ViewMealActivity extends BaseActivity {
     TextView tvTotalCalorie;
     @Bind(R.id.btn_comments)
     Button btnComments;
+    @Bind(R.id.tv_meal_rating)
+    TextView tvMealRating;
+    @Bind(R.id.appBar)
+    Toolbar appBar;
+    @Bind(R.id.etv_description)
+    ExpandableTextView etvDescription;
 
     @Override
     public int getLayoutId() {
@@ -77,12 +84,12 @@ public class ViewMealActivity extends BaseActivity {
         apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
-                String totalCalorie="";
-                if(nutritionalInfo!=null)
-                    totalCalorie = "Total calories: " + nutritionalInfo.getCalories() + " kcal";
+                String totalCalorie = "";
+                if (nutritionalInfo != null)
+                    totalCalorie = nutritionalInfo.getCalories() + " kcal";
                 else
-                    totalCalorie = "Total calorie is not specified";
-                tvTotalCalorie.setText(totalCalorie);
+                    //totalCalorie = "Total calorie is not specified";
+                    tvTotalCalorie.setText(totalCalorie);
             }
 
             @Override
@@ -91,6 +98,8 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
 
+        if (meal.getDescription() == null) etvDescription.setText("Description is not available");
+        else etvDescription.setText(meal.getDescription());
 
 
         //TODO this with real clicked meal
@@ -105,7 +114,7 @@ public class ViewMealActivity extends BaseActivity {
 
             }
         });*/
-        if(meal.getIngredients()==null) etvIngredient.setText("Ingredients are not specified");
+        if (meal.getIngredients() == null) etvIngredient.setText("Ingredients are not specified");
         else etvIngredient.setText(meal.getIngredients());
 
 
@@ -113,8 +122,14 @@ public class ViewMealActivity extends BaseActivity {
             @Override
             public void success(Ratings ratings, Response response) {
                 Log.d("Ratings fetch success", response.toString());
-                if(ratings.getAverage() != null)
-                rbMealRating.setRating(ratings.getAverage());
+                if (ratings.getCurrentUser() != null)
+                    rbMealRating.setRating(ratings.getCurrentUser());
+                String overall = "/5.0";
+                if (ratings.getAverage() != null) {
+                    overall = String.format("%.1f", ratings.getAverage()) + overall;
+                }
+
+                tvMealRating.setText(overall);
             }
 
             @Override
@@ -124,12 +139,9 @@ public class ViewMealActivity extends BaseActivity {
         });
 
 
-
         tvMealName.setText(meal.getName());
 
-        //etvIngredient.setText(meal.getIngredients());
-
-        if(meal.getPhotoUrl()!="")
+        if (meal.getPhotoUrl() != "")
             Picasso.with(ViewMealActivity.this).load(meal.getPhotoUrl()).into(ivMealImage);
         /*else
             Picasso.with(ViewMealActivity.this).load("https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg).into(ivMealImage");
@@ -152,37 +164,20 @@ public class ViewMealActivity extends BaseActivity {
         rbMealRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
-
-                apiService.getRatings(eatalyzeApplication.getAccessToken(), meal.getId(), new Callback<Ratings>() {
+                apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
                     @Override
-                    public void success(Ratings ratings, Response response) {
-                        String rating1 = "" + rating;
-                        String rating2 = ""+ ratings.getAverage();
-                        Log.d("rating1", rating1);
-                        Log.d("rating2", rating2);
-                        if((rating < ratings.getAverage() - 0.1 ||  rating > ratings.getAverage() + 0.1) ){
-                            apiService.rateMeal(eatalyzeApplication.getAccessToken(), meal.getId(), rating, new Callback<ResponseBody>() {
-                                @Override
-                                public void success(ResponseBody responseBody, Response response) {
-                                    Log.d("Rating sent", response.toString());
-                                    CharSequence text = "You have rated " + rating + "/5!";
-                                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-
-                                @Override
-                                public void failure(RetrofitError error) {
-                                    Log.d("Rating sent failure", error.toString());
-                                    Toast toast = Toast.makeText(getApplicationContext(), "You have rated before, sorry!", Toast.LENGTH_SHORT);
-                                    toast.show();
-                                }
-                            });
-                        }
+                    public void success(ResponseBody responseBody, Response response) {
+                        Log.d("Rating sent", response.toString());
+                        CharSequence text = "You have rated " + rating + "/5!";
+                        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                        toast.show();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-
+                        Log.d("Rating sent failure", error.toString());
+                        //Toast toast = Toast.makeText(getApplicationContext(), "You have rated before, sorry!", Toast.LENGTH_SHORT);
+                        //toast.show();
                     }
                 });
 
@@ -190,9 +185,6 @@ public class ViewMealActivity extends BaseActivity {
             }
         });
     }
-
-
-
 
 
     @OnClick({R.id.btn_check_eat, R.id.btn_tag_meal, R.id.btn_nutrition_info, R.id.btn_comments})
