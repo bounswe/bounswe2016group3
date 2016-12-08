@@ -66,4 +66,10 @@ public class HomeResource {
 		
 		return res;
 	}
+	
+	@GET
+	@Path("/lastweek/meals")
+	public List<CheckEat> lastWeekCheckEats(@Auth AccessToken token) {
+		return checkeatDao.checkEatsFromLastWeek(token.getUserId());
+	}
 }
