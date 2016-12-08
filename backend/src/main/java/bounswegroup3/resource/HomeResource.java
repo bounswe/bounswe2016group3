@@ -43,6 +43,10 @@ public class HomeResource {
 		for(CheckEat ce : ces) {
 			NutritionalInfo ni = client.getNutrition(mealDao.getMealById(ce.getMealId()).getIngredients());
 			
+			if(ni == null) {
+				continue;
+			}
+			
 			res.setCalories(res.getCalories()+ni.getCalories());
 			res.setCholesterol(res.getCholesterol()+ni.getCholesterol());
 			res.setDietaryFiber(res.getDietaryFiber()+ni.getDietaryFiber());

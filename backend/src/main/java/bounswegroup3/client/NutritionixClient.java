@@ -66,7 +66,12 @@ public class NutritionixClient implements ServiceClient {
 	 */
 	public NutritionalInfo getNutrition(String ingredients) {
 		try {
-			return (new NutritionalInfoMapper()).map(this.searches.getUnchecked(ingredients));
+			String res = this.searches.getUnchecked(ingredients);
+			if (res == null) {
+				return new NutritionalInfo();
+			} else {
+				return (new NutritionalInfoMapper()).map(res);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
