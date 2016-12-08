@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bounswegroup3.client.NutritionixClient;
 import bounswegroup3.db.CheckEatDAO;
@@ -16,6 +18,7 @@ import bounswegroup3.model.NutritionalInfo;
 import io.dropwizard.auth.Auth;
 
 @Path("/home")
+@Produces(MediaType.APPLICATION_JSON)
 public class HomeResource {
 	private CheckEatDAO checkeatDao;
 	private MealDAO mealDao;
