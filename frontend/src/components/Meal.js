@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions/Meal';
+import './meal.css';
+import $ from 'jquery';
 
 class Meal extends Component {
     componentDidMount() {     
@@ -34,7 +36,13 @@ class Meal extends Component {
         let rate_meal=document.getElementById("rate_meal");
 		let rate = () => {
             if(this.props.token!==""){
-            	
+            	 $("#stars").find("rating5").each(function(){
+                     if ($(this).prop('checked')==true){ 
+                         
+               }
+               alert(this.name);
+});
+
             	this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
             	//ratingssHtml=this.props.ratings.average ;
             	//document.location.href = document.location.href  ;
@@ -43,7 +51,7 @@ class Meal extends Component {
         }        
 
         let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
-        
+       
       
         let commentsHtml = this.props.comments.map(function(u){
         
@@ -74,8 +82,21 @@ class Meal extends Component {
              <h3> Ratings </h3>
              {ratingssHtml} out of 5
              <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
-             <p>{rateButton}</p>
+             <p>{rateButton}</p> 
+
              </div>
+             <span className="starRating" id="stars">
+                  <input id="rating5" type="radio" name="rating" value="5"></input>
+                  <label for="rating5">5</label>
+                  <input id="rating4" type="radio" name="rating" value="4"></input>
+                  <label for="rating4">4</label>
+                  <input id="rating3" type="radio" name="rating" value="3"></input>
+                  <label for="rating3">3</label>
+                  <input id="rating2" type="radio" name="rating" value="2"></input>
+                  <label for="rating2">2</label>
+                  <input id="rating1" type="radio" name="rating" value="1"></input>
+                  <label for="rating1">1</label>
+                </span>  
               </div>
         
         </div>
