@@ -6,6 +6,7 @@ public class AdvancedSearchOptions {
 	public String nameLike;
 	public String userLike;
 	public List<String> tagsList;
+	public String currLocation;
 	public Float maxDistance;
 	
 	public Long searcherId;
