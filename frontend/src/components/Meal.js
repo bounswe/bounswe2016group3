@@ -29,21 +29,23 @@ class Meal extends Component {
             if(this.props.token!==""){
             	
             	this.props.actions.comment(this.props.token,this.props.params.id,this.props.currentUser.id,comment_meal.value);
-            	document.location.href = document.location.href  ;
+            	
             }
         }
 
         let rate_meal=document.getElementById("rate_meal");
+
 		let rate = () => {
             if(this.props.token!==""){
-            	 $("#stars").find("rating5").each(function(){
-                     if ($(this).prop('checked')==true){ 
-                         
+            	 $("#stars").find("#rating").each(function(){
+                    alert($(this).is(':checked'));
+                     if ($(this).is(':checked')==true){ 
+                       
                }
-               alert(this.name);
-});
 
-            	this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
+               
+        });
+            this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
             	//ratingssHtml=this.props.ratings.average ;
             	//document.location.href = document.location.href  ;
             	//rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
@@ -85,8 +87,8 @@ class Meal extends Component {
              <p>{rateButton}</p> 
 
              </div>
-             <span className="starRating" id="stars">
-                  <input id="rating5" type="radio" name="rating" value="5"></input>
+             <span className="starRating" id='stars'>
+                  <input id="rating5" type="button" name="rating" value="5" ></input>
                   <label for="rating5">5</label>
                   <input id="rating4" type="radio" name="rating" value="4"></input>
                   <label for="rating4">4</label>
@@ -97,10 +99,12 @@ class Meal extends Component {
                   <input id="rating1" type="radio" name="rating" value="1"></input>
                   <label for="rating1">1</label>
                 </span>  
+                
               </div>
         
         </div>
     }
+
 }
 
 var mapStateToProps = function(state) {

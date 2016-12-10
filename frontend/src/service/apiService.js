@@ -245,6 +245,9 @@ var apiService = function(store) {
                 content:action.content
             };
              apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token},req).success(function(){
+                  apiCall('/meal/'+action.mealId+"/comments/", "GET").success(function(res){
+                next({type: 'COMMENTS_LOADED', data: res});
+            });
 
             });
             break;
