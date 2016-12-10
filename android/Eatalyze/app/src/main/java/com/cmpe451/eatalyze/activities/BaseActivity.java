@@ -125,6 +125,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.id_advsearch:
+                startActivity(new Intent(BaseActivity.this, AdvancedSearchActivity.class));
+                break;
             case R.id.id_logout:
                 SharedPreferences preferences = eatalyzeApplication.getSp();
                 SharedPreferences.Editor editor = preferences.edit();

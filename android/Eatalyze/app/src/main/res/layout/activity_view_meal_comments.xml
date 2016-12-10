@@ -13,13 +13,14 @@
         android:layout_gravity="center"
         android:layout_margin="4dp"
         android:text="comments made on"
-        android:textSize="14sp"/>
+        android:textSize="20sp"
+        android:layout_marginTop="4dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"/>
 
