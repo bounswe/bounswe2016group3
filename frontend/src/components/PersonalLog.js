@@ -4,19 +4,41 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/PersonalLog';
 
 class PersonalLog extends Component {
-    componentDidMount() {
-        this.props.actions.load(this.props.params.id);
-    }
-
-	
+    componentWillReceiveProps(props) {
+    	console.log(this);
+        props.actions.load(props.params.id, props.token);
+    }	
 
 	render() {
+
+
 		return (
-			<div>
-			 <button type="button" className="btn btn-default" onClick={this.changeX}> Log </button>
+
+			<div className="container">
+			
+                        
+                        
+			<div className="col-xm-6">
+			<h3>Name of the meal:</h3>
+			</div>
+			<div className="col-xm-6">
+			<h3>Amount of Calories:</h3>
+			</div>
+			
+
 			</div>
 		);
 	}
 }
 
-export default PersonalLog;
+var mapStateToProps = function(state){
+    return {
+        token: state.token
+    };
+}
+
+var mapDispatchToProps = function(dispatch){
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalLog);

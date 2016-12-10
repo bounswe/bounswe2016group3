@@ -7,3 +7,5 @@ var personalLog = function(state={}, action) {
         return state;
     }
 };
+
+export { personalLog };

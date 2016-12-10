@@ -26,6 +26,8 @@ import { menu, menus } from './reducers/menu';
 import { meal, meals } from './reducers/meal';
 import { comments } from './reducers/comment';
 import { ratings,rate } from './reducers/rating';
+import { personalLog } from './reducers/personalLog';
+
 import { searchMeal,searchUser,userById } from './reducers/search';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
@@ -59,6 +61,7 @@ ReactDOM.render((
         //<Route path="serverSignup" component={() => <Signup userType="1" />} />
         <Route path="user/all" component={AllUsers} />
         <Route path="user/:id" component={Profile} />
+        <Route path="user/:id/logs" component={PersonalLog} />
          <Route path="foodServer/:id" component={FoodServerProfile} />
         <Route path="resetPassword" component={ResetPassword} />
         <Route path="menu/:id" component={Menu} />

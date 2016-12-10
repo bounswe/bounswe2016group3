@@ -157,7 +157,7 @@ class Profile extends Component {
                         </div> 
                         
                             <div className="col-xs-4">
-                            <a href="/user/PersonalLog"><h3>Personal Log</h3></a>
+                            <a href={`/user/${profile.id}/logs`}><h3>Personal Log</h3></a>
                             </div>
                     </div>
                     <hr></hr>
