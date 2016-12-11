@@ -15,33 +15,19 @@ import jQuery from 'jquery';
 import * as actions from '../actions/Profile';
 import PicEdit from './PicEdit';
 
-function Follow(id) {
-  console.log(id);
-  console.log('No :(');
-}
-
-function Unfollow() {
-  console.log('Yeap :)');
-}
 
 
-function isFollower(followers, currentUser, profile) {
-  if (followers.length === 0 || jQuery.isEmptyObject(currentUser)) {
-    return null;
-  }
-  if (followers.some((u) => (u.id === currentUser.id))) {
-    return {
-      text: 'Unfollow',
-      func: () => Unfollow()
-    };
-  }
-  return {
-    text: 'Follow',
-    func: () => Follow(profile.id)
-  };
-}
+
 
 class Profile extends Component {
+  constructor() {
+    super();
+    this.isFollower = this.isFollower.bind(this);
+    this.Follow = this.Follow.bind(this);
+    this.Unfollow = this.Unfollow.bind(this);
+  }
+
+
   componentDidMount(){
     this.props.actions.load(this.props.params.id);
   }
@@ -50,6 +36,34 @@ class Profile extends Component {
     isOpen_Include: false,
     isOpen_Exclude: false
   };
+
+
+  isFollower(followers, currentUser, profile) {
+    if (followers.length === 0 || jQuery.isEmptyObject(currentUser)) {
+      return null;
+    }
+    if (followers.some((u) => (u.id === currentUser.id))) {
+      return {
+        text: 'Unfollow',
+        func: () => this.Unfollow()
+      };
+    }
+    return {
+      text: 'Follow',
+      func: () => this.Follow()
+    };
+  }
+
+  Follow() {
+    if(this.props.token) {
+      this.props.actions.follow(this.props.token,
+        this.props.profile, this.props.currentUser);
+    }
+  }
+
+  Unfollow() {
+    console.log('Yeap :)');
+  }
 
   openModal = () => {this.setState({isOpen: true});};
   hideModal = () => { this.setState({isOpen: false});};
@@ -111,18 +125,6 @@ class Profile extends Component {
       }
     }
 
-    let followersHtml = this.props.followers.map(function(u){
-      return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
-    });
-
-    let followingHtml = this.props.following.map(function(u){
-      return <li key={u.id}><a href={`/user/${u.id}/`}>{u.fullName}</a></li>;
-    });
-
-    let menusHtml = this.props.menus.map(function(m){
-      return <li key={m.id}><a href={`/menu/${m.id}/`}>{m.name}</a></li>;
-    });
-
     let includeHtml = this.props.include.map(function(m){
       return <label className="label-preferences"> {m} </label>;
 
@@ -149,7 +151,7 @@ class Profile extends Component {
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
     } else {
       let content;
-      if (content = isFollower(this.props.followers, this.props.currentUser, this.props.profile)) {
+      if (content = this.isFollower(this.props.followers, this.props.currentUser, this.props.profile)) {
         followButton = <button type="button" className="btn btn-default"
           onClick={content.func}>{content.text}</button>;
         }
@@ -173,11 +175,11 @@ class Profile extends Component {
             {followButton}
             <div className="row">
               <div className="col-xs-4">
-                <h3>Followers: {followersHtml.length}</h3>
+                <h3>Followers: {this.props.followers.length}</h3>
 
               </div>
               <div className="col-xs-4">
-                <h3>Following: {followingHtml.length}</h3>
+                <h3>Following: {this.props.following.length}</h3>
               </div>
 
               <div className="col-xs-4">
