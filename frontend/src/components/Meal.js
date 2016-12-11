@@ -8,26 +8,29 @@ import './rateYo/jquery.rateyo';
 import $ from 'jquery';
 
 class RateStar extends Component {
-  constructor() {
-    super();
-    this.state = {rating : 3.6};
+  constructor(props) {
+    super(props);
+    this.changeNumber = this.changeNumber.bind(this);
   }
 
-  componentDidMount() {
-    var stars = this.refs.rateYo;
-    $(stars).rateYo({
-      rating: this.state.rating,
-      onSet: function(rating) {
-        this.setState({rating: rating});
-      }.bind(this)
-    });
+  changeNumber(rating) {
+    const rate = parseFloat(rating);
+    return parseFloat(rate.toFixed(1));
   }
+
   render() {
+    var stars = this.refs.rateYo;
+    var rating = this.changeNumber(this.props.rating)
+    if(!rating) return null;
+    $(stars).rateYo({
+      rating: rating
+    });
+
     return (
       <div>
         <p> Hello World ! </p>
         <div ref="rateYo"></div>
-        <p> Current rating : {this.state.rating} </p>
+        <p> Current rating : {rating} </p>
       </div>
     );
   }
@@ -91,6 +94,7 @@ class Meal extends Component {
     let ratingssHtml=this.props.ratings.average ;
     let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
     let rateButton=<button type="button" className="btn btn-default" onClick={rate}>Rate</button>;
+
     return  <div className="col-xs-6">
 
       <h2>{this.props.meal.name}</h2>
@@ -114,7 +118,7 @@ class Meal extends Component {
           {ratingssHtml} out of 5
           <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
           <p>{rateButton}</p>
-          <RateStar />
+          <RateStar rating={this.props.ratings.average}/>
         </div>
       </div>
 

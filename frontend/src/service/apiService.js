@@ -255,11 +255,12 @@ var apiService = function(store) {
 
             case 'RATE_MEAL':
 
+
             apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(){
                  apiCall('/meal/'+action.mealId+"/ratings/", "GET" ,{"Authorization": "Bearer " + action.token}, req).success(function(res){
                     next({type: 'RATINGS_LOADED', data: res});
                  });
-            });
+            }).error(function(){console.log('Failed!!!')});
 
 
             break;
@@ -278,7 +279,7 @@ var apiService = function(store) {
                     names:action.names
 
                 };
-                
+
                 apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(){
                   apiCall("/user/"+action.id+"/include/", "GET", {"Authorization": "Bearer " + action.token}).success(function(res) {
                     next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
