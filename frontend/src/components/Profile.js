@@ -16,15 +16,12 @@ import * as actions from '../actions/Profile';
 import PicEdit from './PicEdit';
 
 
-
-
-
 class Profile extends Component {
   constructor() {
     super();
     this.isFollower = this.isFollower.bind(this);
-    this.Follow = this.Follow.bind(this);
-    this.Unfollow = this.Unfollow.bind(this);
+    this.follow = this.follow.bind(this);
+    this.unfollow = this.unfollow.bind(this);
   }
 
 
@@ -39,29 +36,29 @@ class Profile extends Component {
 
 
   isFollower(followers, currentUser, profile) {
-    if (followers.length === 0 || jQuery.isEmptyObject(currentUser)) {
+    if (jQuery.isEmptyObject(currentUser)) {
       return null;
     }
     if (followers.some((u) => (u.id === currentUser.id))) {
       return {
         text: 'Unfollow',
-        func: () => this.Unfollow()
+        func: () => this.unfollow()
       };
     }
     return {
       text: 'Follow',
-      func: () => this.Follow()
+      func: () => this.follow()
     };
   }
 
-  Follow() {
+  follow() {
     if(this.props.token) {
       this.props.actions.follow(this.props.token,
         this.props.profile, this.props.currentUser);
     }
   }
 
-  Unfollow() {
+  unfollow() {
     console.log('Yeap :)');
   }
 
@@ -89,11 +86,6 @@ class Profile extends Component {
 
     const current = this.props.currentUser;
     const profile = this.props.profile;
-    var followUser = () => {
-      if(this.props.token!==""){
-        this.props.actions.follow(this.props.token, profile, this.props.currentUser);
-      }
-    }
     var moreIngredient_include = () =>{
       $("#ingredients_list_include").append('<div class="ingredients_list_element_include" id="ingredients_list_element_include"><div class="col-xs-8"><input type="text" id="name" class="form-control" placeholder="Name"/></div></div>')
 
