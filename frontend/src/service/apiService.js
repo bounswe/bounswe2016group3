@@ -165,7 +165,7 @@ var apiService = function(store) {
                 apiCall("/user/"+action.id+"/following", "GET").success(function(res){
                     next({type: 'FOLLOWING_LOADED', data: res});
                 });
-            });
+            }).error(() => {console.log('Failed!!!')});
             break;
 
             case 'LOAD_MENU':

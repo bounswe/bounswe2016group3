@@ -23,7 +23,8 @@ class RateStar extends Component {
     var rating = this.changeNumber(this.props.rating)
     if(!rating) return null;
     $(stars).rateYo({
-      rating: rating
+      rating: rating,
+      readOnly: true
     });
 
     return (
@@ -44,7 +45,6 @@ class Meal extends Component {
 
 
   render() {
-
 
     if(this.props.token!="" &&this.props.meal.ingredients===undefined){
       this.props.actions.load(this.props.token,this.props.params.id);
@@ -69,14 +69,6 @@ class Meal extends Component {
 
     let rate = () => {
       if(this.props.token!==""){
-        $("#stars").find("#rating").each(function(){
-          alert($(this).is(':checked'));
-          if ($(this).is(':checked')==true){
-
-          }
-
-
-        });
         this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
         //ratingssHtml=this.props.ratings.average ;
         //document.location.href = document.location.href  ;
