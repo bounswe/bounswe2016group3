@@ -16,10 +16,50 @@ import * as actions from '../actions/Profile';
 import PicEdit from './PicEdit';
 
 
+
+class FollowButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: "Following",
+      className: "btn btn-primary"
+    };
+    this.following = this.following.bind(this);
+    this.unfollowing = this.unfollowing.bind(this);
+  }
+
+  unfollowing() {
+    this.setState({
+      content: "Unfollow",
+      className: "btn btn-danger"
+    });
+  }
+
+  following() {
+    this.setState({
+      content: "Following",
+      className: "btn btn-primary"
+    });
+  }
+
+  render() {
+    if (this.props.isFollow === null)
+      return null;
+    if (this.props.isFollow === false) {
+      return <button type="button" className="btn btn-default"
+        onClick={this.props.follow}>Follow</button>
+    }
+    return <button type="button" className={this.state.className}
+      onClick={this.props.unfollow} onMouseEnter={this.unfollowing}
+      onMouseLeave={this.following}> {this.state.content} </button>;
+  }
+}
+
+
+
 class Profile extends Component {
   constructor() {
     super();
-    this.isFollower = this.isFollower.bind(this);
     this.follow = this.follow.bind(this);
     this.unfollow = this.unfollow.bind(this);
   }
@@ -35,21 +75,16 @@ class Profile extends Component {
   };
 
 
-  isFollower(followers, currentUser, profile) {
+  isFollower(followers, currentUser) {
     if (jQuery.isEmptyObject(currentUser)) {
       return null;
     }
     if (followers.some((u) => (u.id === currentUser.id))) {
-      return {
-        text: 'Unfollow',
-        func: () => this.unfollow()
-      };
+      return true;
     }
-    return {
-      text: 'Follow',
-      func: () => this.follow()
-    };
+    return false;
   }
+
 
   follow() {
     if(this.props.token) {
@@ -59,7 +94,10 @@ class Profile extends Component {
   }
 
   unfollow() {
-    console.log('Yeap :)');
+    console.log('Neler oluyor :/');
+    if(this.props.token) {
+      console.log('Yeap :)');
+    }
   }
 
   openModal = () => {this.setState({isOpen: true});};
@@ -142,13 +180,10 @@ class Profile extends Component {
       updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
     } else {
-      let content;
-      if (content = this.isFollower(this.props.followers, this.props.currentUser, this.props.profile)) {
-        followButton = <button type="button" className="btn btn-default"
-          onClick={content.func}>{content.text}</button>;
-        }
-      }
-
+      const isFollow = this.isFollower(this.props.followers, this.props.currentUser);
+      followButton = <FollowButton isFollow={isFollow} follow={this.follow}
+        unfollow={this.unfollow}/>
+    }
 
       return (
         <div>
