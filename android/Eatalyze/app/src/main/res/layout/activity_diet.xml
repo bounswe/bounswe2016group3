@@ -2,12 +2,14 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/pageBackground">
+        >
 
         <include layout="@layout/app_bar"/>
 
@@ -134,6 +136,27 @@
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/cb_paleo"
                 android:text="@string/paleo"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_no_nuts"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@id/rl_lactose">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_no_nuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_no_nuts"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/cb_no_nuts"
+                android:text="@string/no_nuts"
                 android:gravity="center_vertical"/>
         </LinearLayout>
 

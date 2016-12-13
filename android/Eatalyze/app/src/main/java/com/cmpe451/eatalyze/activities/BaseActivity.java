@@ -42,6 +42,10 @@ import retrofit.converter.GsonConverter;
  * This class is used for methods which are common for all other activities
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    public ApiService getApiService() {
+        return apiService;
+    }
+
     ApiService apiService;
     RestAdapter restAdapter; //may be private
     EatalyzeApplication eatalyzeApplication;

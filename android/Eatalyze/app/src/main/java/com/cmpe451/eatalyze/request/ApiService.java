@@ -125,4 +125,11 @@ public interface ApiService {
     @GET("/api/user")
     public void getUsers(Callback<List<User>> userListCallback);
 
+    @GET("/api/home/lastweek")
+    public void getWeeklyNutritionalInfo(Callback<NutritionalInfo> nutritionalInfoCallback);
+
+    /*
+    @GET("/api/home/lastweek/meals")
+    public void getWeeklyMeals(Callback<List<Meal>> mealListCallback);
+    */
 }

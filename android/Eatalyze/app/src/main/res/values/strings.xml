@@ -40,6 +40,8 @@
     <string name="celliac">Celliac Disease</string>
     <string name="lactose">Lactose Intolerant</string>
     <string name="paleo">Paleo</string>
+    <string name="no_nuts">No Nuts</string>
+
     <string name="save_btn">Save</string>
     <string name="Profil_Page">UserName</string>
 
