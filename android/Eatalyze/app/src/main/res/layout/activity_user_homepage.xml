@@ -1,69 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pageBackground">
-
-    <include layout="@layout/app_bar"/>
-
-    <TextView
-        android:id="@+id/tv_hello_name"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:text="@string/hello_name"/>
+        android:layout_height="match_parent"
+        android:background="@color/pageBackground">
 
-    <TextView
-        android:id="@+id/tv_rec_meals_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/rec_meal"/>
+        <include layout="@layout/app_bar"/>
 
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ListView
-            android:id="@+id/lv_rec_meals"
+        <TextView
+            android:id="@+id/tv_hello_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:focusable="false"
-            android:focusableInTouchMode="false">
+            android:textSize="24sp"
+            android:text="@string/hello_name"/>
 
-        </ListView>
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_recommended_server"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="20sp"
-        android:text="@string/rec_server"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ListView
-            android:id="@+id/lv_rec_food_servers"
+        <TextView
+            android:id="@+id/tv_rec_meals_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null">
+            android:textSize="20sp"
+            android:text="@string/rec_meal"/>
 
-        </ListView>
 
-    </RelativeLayout>
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ListView
+                android:id="@+id/lv_rec_meals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:focusableInTouchMode="false">
+
+            </ListView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_recommended_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:text="@string/rec_server"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ListView
+                android:id="@+id/lv_rec_food_servers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null">
+
+            </ListView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
