@@ -9,6 +9,35 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 
+
+class MealTags extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tags: ['banana', 'apple', 'go', 'nine', 'six', 'seven']
+    };
+
+    this.deleteTag = this.deleteTag.bind(this);
+  }
+
+  deleteTag() {
+    console.log('Good!!!');
+  }
+
+  render() {
+    return (
+      <ul className="list-group">
+        {this.state.tags.map((tag) => (
+          <div key={tag}>
+            <button class="link" onClick={this.deleteTag}> &#x2717; </button>
+            <li className="list-group-item list-group-item-info">{tag}</li>
+          </div>
+          ))}
+      </ul>
+    );
+  }
+}
+
 class ModalTags extends Component {
   render() {
     return (
@@ -18,15 +47,17 @@ class ModalTags extends Component {
           <ModalTitle>Tags</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          Deneyelim Bakalim
+          <MealTags />
         </ModalBody>
         <ModalFooter>
-          <button className='btn btn-default' onClick={this.props.close}>
-            Close
-          </button>
-          <button className='btn btn-primary'>
-            Save changes
-          </button>
+          <div>
+            <button className='btn btn-primary'>
+              Save changes
+            </button>
+            <button className='btn btn-default' onClick={this.props.close}>
+              Close
+            </button>
+          </div>
         </ModalFooter>
       </Modal>
     );
