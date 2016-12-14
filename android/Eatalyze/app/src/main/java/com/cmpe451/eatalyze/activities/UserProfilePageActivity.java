@@ -90,8 +90,10 @@ public class UserProfilePageActivity extends BaseActivity {
 
         bundle = getIntent().getExtras();
         userid = -1;
-        if(bundle != null){
+        btn_follow.setText("FOLLOW");
+        if(bundle != null && bundle.getLong("userid") != eatalyzeApplication.getUser().getId()){
             userid = bundle.getLong("userid");
+
 
             apiService.getUserComments(userid, new Callback<List<Comment>>() {
                 @Override
@@ -113,6 +115,7 @@ public class UserProfilePageActivity extends BaseActivity {
                                 apiService.getMealById(comments.get(0).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
+                                       // System.out.println("getMealByid :" + comments.get(0).getMealId());
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
                                         intent.putExtra("ClickedMeal", meal);
                                         startActivity(intent);
@@ -172,11 +175,12 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 1).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 1).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
                                         intent.putExtra("ClickedMeal", meal);
+                                       // System.out.println("getMealByid :" + comments.get(0).getMealId());
                                         startActivity(intent);
                                     }
 
@@ -191,11 +195,12 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 2).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 2).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
                                         intent.putExtra("ClickedMeal", meal);
+                                       // System.out.println("getMealByid :" + comments.get(0).getMealId());
                                         startActivity(intent);
                                     }
 
@@ -210,11 +215,12 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 3).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 3).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
                                         intent.putExtra("ClickedMeal", meal);
+                                       // System.out.println("getMealByid :" + comments.get(0).getMealId());
                                         startActivity(intent);
                                     }
 
@@ -395,7 +401,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                       // finish();
                     }
                     else{
                         startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
@@ -413,7 +419,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                       // finish();
                     }
                     else{
                         startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
@@ -507,7 +513,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 1).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 1).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
@@ -526,11 +532,12 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 2).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 2).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
                                         intent.putExtra("ClickedMeal", meal);
+                                       // System.out.println("Clickedmeal: " + meal.getName());
                                         startActivity(intent);
                                     }
 
@@ -545,7 +552,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         idExpandabletextView2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                apiService.getMealById(comments.get(a - 3).getId(), new Callback<Meal>() {
+                                apiService.getMealById(comments.get(a - 3).getMealId(), new Callback<Meal>() {
                                     @Override
                                     public void success(Meal meal, Response response) {
                                         Intent intent=new Intent(UserProfilePageActivity.this,ViewMealActivity.class);
@@ -610,7 +617,7 @@ public class UserProfilePageActivity extends BaseActivity {
             });
         }
 
-        if(bundle == null) {
+        if(bundle == null || bundle.getLong("userid") == eatalyzeApplication.getUser().getId()) {
 
             followers.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -622,7 +629,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                      //  finish();
                     } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
                     }
@@ -639,7 +646,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                       // finish();
                     } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
                     }
@@ -682,7 +689,7 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                       // finish();
                     } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowersListActivity.class));
                     }
@@ -699,80 +706,12 @@ public class UserProfilePageActivity extends BaseActivity {
                         bundle.putLong("userid", user_id);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                        finish();
+                       // finish();
                     } else {
                         startActivity(new Intent(UserProfilePageActivity.this, FollowingListActivity.class));
                     }
                 }
             });
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        if(bundle==null || userid == eatalyzeApplication.getUser().getId()) {
-            Intent intent=new Intent(UserProfilePageActivity.this, UserHomepageActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        }
-        else {  // on the another user's page
-           /* final Long currentId=eatalyzeApplication.getUser().getId();
-
-            ArrayList<User> followings=new ArrayList<>();
-
-            apiService.getfollowers(currentId, new Callback<List<User>>() {
-                @Override
-                public void success(List<User> users, Response response) {
-                    for(User user:users){
-                        if(user.getId().equals(userid)){
-                            Intent intent = new Intent(UserProfilePageActivity.this, FollowersListActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
-                            intent.putExtras(bundle);
-                            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                            startActivity(intent);
-                            finish();
-                            break;
-                        }
-                    }
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
-
-            apiService.getfollowing(currentId, new Callback<List<User>>() {
-                @Override
-                public void success(List<User> users, Response response) {
-                    for(User user:users){
-                        if(user.getId().equals(userid)) {
-
-                            Intent intent = new Intent(UserProfilePageActivity.this, FollowingListActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putLong("userid", eatalyzeApplication.getUser().getId());
-                            intent.putExtras(bundle);
-                           // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                            startActivity(intent);
-                            finish();
-                            break;
-                        }
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
-            */
         }
     }
 }

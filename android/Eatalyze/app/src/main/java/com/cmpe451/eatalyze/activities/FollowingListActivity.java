@@ -110,7 +110,7 @@ public class FollowingListActivity extends BaseActivity {
             bundle.putLong("userid", user_id);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+          //  finish();
         }
         else{
 
@@ -119,7 +119,7 @@ public class FollowingListActivity extends BaseActivity {
             bundle.putLong("userid", user_id);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+          //  finish();
 
         }
     }

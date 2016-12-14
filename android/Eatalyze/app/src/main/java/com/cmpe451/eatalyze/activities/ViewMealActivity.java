@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -77,8 +78,8 @@ public class ViewMealActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        System.out.println("MEAL : " + meal.getName());
 
         //TODO this with real clicked meal
         apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
