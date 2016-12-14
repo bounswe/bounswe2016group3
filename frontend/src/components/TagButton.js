@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
   Modal,
   ModalHeader,
@@ -14,22 +13,27 @@ class SearchBar extends Component {
     super();
     this.state = {
       query_tags: ['go', 'over', 'here', 'to', 'try', ':P'],
-      results: []
+      results: [],
     };
 
     this.tagConstruct = this.tagConstruct.bind(this);
     this.search = this.search.bind(this);
+    this.htmlQueryTags = this.htmlQueryTags.bind(this);
   }
 
-  tagConstruct(tag) {
+  tagConstruct(e) {
+    e.preventDefault();
+    console.log(this.state.query_tags);
+    const tag = this.input.value;
     //construct a new tag apiCall should be added...
     this.setState({
       query_tags: [...this.state.query_tags, tag]
     });
-    this.props.addTag(tag);
+    this.props.addTag(e, tag);
   }
 
   search() {
+    // BUG: when adding a found query it should be deleted...
     const query = this.input.value;
     var results = [];
     if (query === "") {
@@ -48,10 +52,26 @@ class SearchBar extends Component {
     });
   }
 
+  htmlQueryTags() {
+
+    if(!this.input || !this.input.value) return;
+    const value = this.input.value;
+    if(this.state.results.length === 0 && !this.props.tags.includes(value)) {
+      return <li className="list-group-item" key={value}>
+        {value} <button type="button" className="badge"
+          onClick={this.tagConstruct}> Add Tag </button>
+      </li>;
+    } else {
+      // Key part should change to values so that JS runs faster...
+      return this.state.results.map(result =>
+        <button className="list-group-item"
+          onClick={(e) => this.props.addTag(e, result)}
+          key={result}>{result}</button>);
+    }
+  }
 
   render(){
-    const rows = this.state.results.map(result =>
-       <li className="list-group-item" key={result}>{result}</li>);
+    const rows = this.htmlQueryTags();
     return (
       <div>
         <input type="text" id="TagInput"
@@ -79,16 +99,24 @@ class MealTags extends Component {
     this.addTag = this.addTag.bind(this);
   }
 
-  addTag(tag) {
+  addTag(e, tag) {
+    e.preventDefault();
     // should be changed to addTag apiCall
     this.setState({
       tags: [...this.state.tags, tag]
     });
   }
 
-  deleteTag() {
+  deleteTag(e, tag) {
+    e.preventDefault();
     console.log('Good!!!');
     console.log('DeleteTag call should be added.');
+    const arr = this.state.tags;
+    const index = arr.indexOf(tag);
+    arr.splice(index, 1);
+    this.setState({
+      tags: arr
+    });
   }
 
   render() {
@@ -98,7 +126,8 @@ class MealTags extends Component {
         <ul className="list-group">
           {this.state.tags.map((tag) => (
             <div key={tag}>
-              <button className="link" onClick={this.deleteTag}> &#x2717; </button>
+              <button className="link"
+                onClick={(e) => this.deleteTag(e, tag)}> &#x2717; </button>
               <li className="list-group-item list-group-item-info">{tag}</li>
             </div>
           ))}
