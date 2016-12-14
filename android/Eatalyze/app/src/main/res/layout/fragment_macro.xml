@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/sv_macros"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -17,5 +18,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"></LinearLayout>
         </ScrollView>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pc_macro_chart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.github.mikephil.charting.charts.PieChart>
     </LinearLayout>
 </ScrollView>
