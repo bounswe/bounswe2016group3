@@ -116,7 +116,7 @@ public class FollowersListActivity extends BaseActivity {
             bundle.putLong("userid", user_id);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+           // finish();
         }
         else{
 
@@ -125,7 +125,7 @@ public class FollowersListActivity extends BaseActivity {
             bundle.putLong("userid", user_id);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+           // finish();
 
         }
     }

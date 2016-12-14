@@ -178,8 +178,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activities.TagMealActivity"></activity>
         <activity android:name=".activities.AdvancedSearchActivity"></activity>
+        <activity android:name=".activities.TagMealActivity"></activity>
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>
