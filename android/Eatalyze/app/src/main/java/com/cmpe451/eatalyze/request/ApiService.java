@@ -132,4 +132,17 @@ public interface ApiService {
     @GET("/api/home/lastweek/meals")
     public void getWeeklyMeals(Callback<List<Meal>> mealListCallback);
     */
+
+    //TODO check
+    @POST("/api/user/{id}/include")
+    public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
+
+    @POST("/api/user/{id}/exclude")
+    public void updatedExludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
+
+    @GET("/api/user/{id}/include")
+    public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
+
+    @GET("/api/user/{id}/exclude")
+    public void getExclude(@Path("id") Long id, Callback<String[]> excludeListCallback);
 }

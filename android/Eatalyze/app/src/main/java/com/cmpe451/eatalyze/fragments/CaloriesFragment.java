@@ -41,6 +41,7 @@ public class CaloriesFragment extends Fragment {
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 tvMealDescription.setText(nutritionalInfo.getCalories()+"");
 
+                /*
                 ((LogActivity) getActivity()).getApiService().getWeeklyMeals(new Callback<List<Meal>>() {
                     @Override
                     public void success(List<Meal> meals, Response response) {
@@ -52,6 +53,7 @@ public class CaloriesFragment extends Fragment {
                         Log.d("weekly meals fail",error.toString());
                     }
                 });
+                */
             }
 
             @Override
