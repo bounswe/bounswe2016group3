@@ -133,7 +133,6 @@ public interface ApiService {
     public void getWeeklyMeals(Callback<List<Meal>> mealListCallback);
     */
 
-    //TODO check
     @POST("/api/user/{id}/include")
     public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
 

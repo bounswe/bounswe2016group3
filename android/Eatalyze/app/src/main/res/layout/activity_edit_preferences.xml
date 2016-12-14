@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pageBackground">
+    android:background="@color/pageBackground"
+    >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_include"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Include"/>
+        <RelativeLayout
+            android:id="@+id/rl_include_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_ingredient_title">
+            <TextView
+                android:id="@+id/tv_include_title"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/includes"
+                />
 
-    <TextView
-        android:id="@+id/tv_exclude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Exclude"
-        android:layout_below="@id/tv_include"/>
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_add_include_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add_icon"
+                android:layout_toRightOf="@+id/tv_include_title"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lv_include_list"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_below="@id/rl_include_title"></ListView>
+
+        <RelativeLayout
+            android:id="@+id/rl_exclude_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lv_include_list"
+            >
+            <TextView
+                android:id="@+id/tv_exclude_title"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/excludes"
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_add_exclude_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add_icon"
+                android:layout_toRightOf="@+id/tv_exclude_title"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lv_exclude_list"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_below="@id/rl_exclude_title"></ListView>
+
+
+    </RelativeLayout>
+</ScrollView>
