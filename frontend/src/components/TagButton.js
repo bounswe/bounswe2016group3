@@ -23,13 +23,13 @@ class SearchBar extends Component {
 
   tagConstruct(e) {
     e.preventDefault();
-    console.log(this.state.query_tags);
     const tag = this.input.value;
     //construct a new tag apiCall should be added...
     this.setState({
       query_tags: [...this.state.query_tags, tag]
     });
     this.props.addTag(e, tag);
+    this.input.value = "";
   }
 
   search() {
@@ -65,7 +65,8 @@ class SearchBar extends Component {
       // Key part should change to values so that JS runs faster...
       return this.state.results.map(result =>
         <button className="list-group-item"
-          onClick={(e) => this.props.addTag(e, result)}
+          onClick={(e) => { this.props.addTag(e, result);
+          this.input.value=""; }}
           key={result}>{result}</button>);
     }
   }
