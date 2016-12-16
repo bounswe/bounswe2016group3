@@ -7,8 +7,9 @@ class PersonalLog extends Component {
    
 	render() {	
  	  
-    if(this.props.token!=""){
+    if(this.props.token!=""&&this.props.personalLog.weight==undefined){
     	 this.props.actions.load(this.props.params.id, this.props.token);
+    	 alert("ger");
     	
     }
 
@@ -22,7 +23,7 @@ class PersonalLog extends Component {
 			</div>
 			<div className="col-xm-6">
 			<h3>Amount of Calories:</h3>
-			
+			{this.props.personalLog.weight}
 			</div>
 			
 

@@ -225,7 +225,7 @@ var apiService = function(store) {
 
             case 'CHECKEAT_MEAL':
 
-             apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(){
+             apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(res){
                     next({type: 'CHECKEAT_ADDED'});
 
                 });
