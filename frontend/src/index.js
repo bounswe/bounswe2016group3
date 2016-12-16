@@ -45,7 +45,7 @@ var signup = combineReducers({ loading, success, error });
 var pwdReset = combineReducers({ userId, secretQuestion });
 var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
-  users, profile,include, exclude,
+  users, profile,include, exclude,personalLog,
   followers, following,
   menu, meal,
   menus, meals, comments, ratings,rate, searchMeal,searchUser });

@@ -48,9 +48,9 @@ var apiService = function(store) {
 
             case 'LOAD_PERSONALLOG':
             console.log(action);
-            apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(user){
-                next({type: 'PERSONALLOG_LOADED', user: user});
-            }).error(function(error, response){
+            apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
+                next({type: 'PERSONALLOG_LOADED', data: res});
+            }).error(function(error, response){ 
                 next({type: 'PERSONALLOG_FAILED'});
             });
             break;

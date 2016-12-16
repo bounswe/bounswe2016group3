@@ -8,4 +8,4 @@ var load = function(id, token){
 
 
 
-export { load};
+export {load};

@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/PersonalLog';
 
 class PersonalLog extends Component {
-    componentWillReceiveProps(props) {
-    	console.log(this);
-        props.actions.load(props.params.id, props.token);
-    }	
-
-	render() {
+   
+	render() {	
+ 	  
+    if(this.props.token!=""){
+    	 this.props.actions.load(this.props.params.id, this.props.token);
+    	
+    }
 
 
 		return (
 
-			<div className="container">
-			
-                        
-                        
+			<div className="container">            	
+         
 			<div className="col-xm-6">
 			<h3>Name of the meal:</h3>
 			</div>
 			<div className="col-xm-6">
 			<h3>Amount of Calories:</h3>
+			
 			</div>
 			
 
@@ -33,12 +33,12 @@ class PersonalLog extends Component {
 
 var mapStateToProps = function(state){
     return {
-        token: state.token
+        token: state.token,
+        personalLog:state.personalLog
     };
 }
-
-var mapDispatchToProps = function(dispatch){
+var mapActionsToProps = function(dispatch) {
     return { actions: bindActionCreators(actions, dispatch) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonalLog);
+export default connect(mapStateToProps, mapActionsToProps)(PersonalLog);
