@@ -31,7 +31,7 @@ public abstract class UserDAO {
     @SqlUpdate("update users set avatar_url = :url where id = :id")
     abstract public void updateAvatar(@Bind("id") Long id, @Bind("url") String url);
     
-    @SqlUpdate("update users set password_hash = :passwordHash, password_salt = :passwordSalt,"
+    @SqlUpdate("update users set "
             + "full_name = :fullName, bio = :bio, user_type = :userType, diet_type = :dietType "
             + "where id = :id")
     abstract public void updateUser(@BindBean User user);
