@@ -4,6 +4,20 @@ var load = function(id){
         id: id
     };
 }
+var update_profile  = function(id, avatarUrl, email, fullname, bio, dietType,  secretQuestion, userType,token){
+    return {
+        type:'UPDATE_USER',
+         id: id,
+         avatarUrl:avatarUrl,
+         email:email,
+         fullname:fullname,
+         bio:bio,
+         dietType:dietType,
+         secretQuestion:secretQuestion,
+        userType:userType,
+        token
+   };
+}
 
 var follow = function(token, followee, follower){
     return {
@@ -42,4 +56,4 @@ var exclude =   function(id,token,names){
  };
 }
 
-export { load, follow, unfollow, include,exclude };
+export { load, follow, unfollow, include,exclude,update_profile };

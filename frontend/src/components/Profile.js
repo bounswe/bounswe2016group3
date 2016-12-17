@@ -117,6 +117,16 @@ class Profile extends Component {
       }
     }
 
+    var update_profile =()=> {
+      var fullname='sinem';
+      var bio="ssds";
+      var dietType=2;
+      var secretQuestion="name";
+      var userType=0;
+      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,fullname,bio, dietType, secretQuestion,userType, this.props.token);
+
+    }
+
     let includeHtml = this.props.include.map(function(m){
       return <label className="label-preferences"> {m} </label>;
 
@@ -167,10 +177,10 @@ class Profile extends Component {
                     
                     
                     <div className="col-xs-12">
-                    <input type="text" name="fullname" value={this.props.currentUser.fullName} />
+                    <input type="text" name="fullname" placeholder={this.props.currentUser.fullName} />
                     <input type="text" id="bio" className="form-control" value={this.props.currentUser.bio}/>
                    
-                      <button type="button" className="btn-success more_button" onClick={""}>Update</button>
+                      <button type="button" className="btn-success more_button" onClick={update_profile}>Update</button>
                     </div>
                   </ModalBody>
                   <ModalFooter>

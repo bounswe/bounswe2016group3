@@ -308,10 +308,13 @@ var apiService = function(store) {
 
             case 'UPDATE_USER':
             req = {
+                id: action.id,
+                avatarUrl: action.avatarUrl,
                 email: action.email,
-                password: action.pass,
-                fullName: action.name,
+                fullName: action.fullname,
                 bio:action.bio,
+                dietType: action.dietType,
+                secretQuestion: action.secretQuestion,
                 userType: action.userType
             };
 
