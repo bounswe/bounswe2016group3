@@ -50,7 +50,7 @@ var apiService = function(store) {
             console.log(action);
             apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
                 next({type: 'PERSONALLOG_LOADED', data: res});
-            }).error(function(error, response){ 
+            }).error(function(error, response){
                 next({type: 'PERSONALLOG_FAILED'});
             });
             break;
@@ -321,6 +321,15 @@ var apiService = function(store) {
                 next({type: 'UPDATE_USER__FAIL'});
             });
 
+            break;
+
+
+            case 'TAG_MEAL':
+            const token = action.token;
+            delete action.token;
+            apiCall("/meal/tag", "POST", {"Authorization": "Bearer " + token}, action).success(function(){
+              console.log("Accomplished!!!");
+            });
             break;
 
             default:
