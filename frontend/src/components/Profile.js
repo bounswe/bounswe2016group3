@@ -68,6 +68,9 @@ class Profile extends Component {
   openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });};
   hideModal_Exclude = () => { this.setState({ isOpen_Exclude: false});};
 
+  openModal_updateProfile = () => { this.setState({ isOpen_updateProfile: true });};
+  hideModal_updateProfile = () => { this.setState({ isOpen_updateProfile: false});};
+  
   render(){
     if(!this.props.profile || this.props.profile === {}){
       return (
@@ -129,10 +132,12 @@ class Profile extends Component {
     for (var i = dietTypes.length - 1; i >= 0; i--) {
       dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
     }
+    let updateProfileButton
     let updatePreferencesModalButton
     let updateIncludeModalButton
     let updateExcludeModalButton
     if(current.id === profile.id) {
+      updateProfileButton=<button type="button" className="btn btn-success" onClick={this.openModal_updateProfile}>Update Profile</button>
       updatePreferencesModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Update</button>
       updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
@@ -152,7 +157,28 @@ class Profile extends Component {
           </div>
           <div className="col-xs-8">
             <h1>{profile.fullName}</h1>
-            <p>{profile.bio}</p>
+            <p>{profile.bio}</p>{updateProfileButton}
+             <Modal isOpen={this.state.isOpen_updateProfile} onRequestHide={this.hideModal_updateProfile} id="updateProfile_modal">
+                  <ModalHeader>
+                    <ModalClose onClick={this.hideModal_updateProfile}/>
+                    <ModalTitle>Update Profile</ModalTitle>
+                  </ModalHeader>
+                  <ModalBody>
+                    
+                    
+                    <div className="col-xs-12">
+                    <input type="text" name="fullname" value={this.props.currentUser.fullName} />
+                    <input type="text" id="bio" className="form-control" value={this.props.currentUser.bio}/>
+                   
+                      <button type="button" className="btn-success more_button" onClick={""}>Update</button>
+                    </div>
+                  </ModalBody>
+                  <ModalFooter>
+                  
+                    <button className='btn btn-default' onClick={this.hideModal_updateProfile}>Cancel</button>
+
+                  </ModalFooter>
+                </Modal>
             <FollowButton isFollow={isFollow} follow={this.follow}
               unfollow={this.unfollow}/>
             <div className="row">

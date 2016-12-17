@@ -208,8 +208,6 @@ var apiService = function(store) {
                 description: action.description,
                 ingredients: action.ingredients,
                 photoUrl: action.photoUrl
-
-
             };
 
             apiCall("/meal/", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(res){
@@ -225,7 +223,7 @@ var apiService = function(store) {
 
             case 'CHECKEAT_MEAL':
 
-             apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(res){
+             apiCall('/meal/'+action.id+"/checkeat", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(res){
                     next({type: 'CHECKEAT_ADDED'});
 
                 });
@@ -308,6 +306,22 @@ var apiService = function(store) {
                 });
             break;
 
+            case 'UPDATE_USER':
+            req = {
+                email: action.email,
+                password: action.pass,
+                fullName: action.name,
+                bio:action.bio,
+                userType: action.userType
+            };
+
+            apiCall("/user/update", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(user){
+                next({type: 'UPDATE_USER_DONE'});
+            }).error(function(error, response){
+                next({type: 'UPDATE_USER__FAIL'});
+            });
+
+            break;
 
             default:
             break;
