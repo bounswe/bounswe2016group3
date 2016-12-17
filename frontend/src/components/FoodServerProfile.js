@@ -98,7 +98,7 @@ class Profile extends Component {
       if(this.props.token!==""){
         var ingredients="";
         $(".ingredients_list_element").each(function(){
-          ingredients=ingredients+","+$(this).find("#amount").val()+" grams of"+$(this).find("#name").val()
+          ingredients=ingredients+","+$(this).find("#amount").val()+" "+$(this).find("#name").val()
         })
         ingredients = ingredients.substring(1)
         this.props.actions.addmeal(this.props.token,this.props.profile.id, 1, meal_name.value,meal_description.value,ingredients,"");
