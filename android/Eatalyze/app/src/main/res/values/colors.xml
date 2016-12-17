@@ -8,7 +8,14 @@
     <color name="white">#FFFFFF</color>
     <color name="blue">#4FC3F7</color>
     <color name="gray">#CFD8DC</color>
+
     <color name="orange">#FFA914</color>
+    <color name="light_turqoise">#B8FDFF</color>
+    <color name="chocolade">#D2691E</color>
+    <color name="gold">#FFD700</color>
+    <color name="pale_gold">#E6BE8A</color>
+    <color name="light_golden_rod_yellow">#FAFAD2</color>
+    <color name="extra_virgin_olive_oil">#939927</color>
 
     <color name="pageBackground">#FFCC00</color>
 </resources>

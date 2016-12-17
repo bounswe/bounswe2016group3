@@ -61,7 +61,7 @@ public class TagMealActivity extends BaseActivity {
 
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
-        Tag tag = new Tag(meal.getId(), etTagName.getText().toString());
+        Tag tag = new Tag(new Long(meal.getId()), etTagName.getText().toString());
 
         if(tag.getTag().length() > 0) {
             //NOT WORKING

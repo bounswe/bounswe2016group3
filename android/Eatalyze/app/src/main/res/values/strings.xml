@@ -34,7 +34,7 @@
     <string name="logout">Logout</string>
 
     <!--Diet Page-->
-    <string name="vegeterian">Vegeterian</string>
+    <string name="vegeterian">Vegetarian</string>
     <string name="vegan">Vegan</string>
     <string name="gluten">Gluten Intolerant</string>
     <string name="celliac">Celliac Disease</string>
@@ -58,4 +58,15 @@
     <string name="send_btn">Send</string>
     <string name="check_eat">Check Eat</string>
     <string name="searchable">Search..</string>
+
+    <!--Advanced Search-->
+
+    <string-array name="diet_types_array">
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten Intolerant</item>
+        <item>Celliac Disease</item>
+        <item>Lactose Intolerant</item>
+        <item>Paleo</item>
+    </string-array>
 </resources>

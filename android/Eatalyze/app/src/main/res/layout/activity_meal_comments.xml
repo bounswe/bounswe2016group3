@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:text="Meal name"
         android:gravity="center_horizontal"
-        android:textSize="20sp"/>
+        android:textSize="30sp"
+        android:layout_marginTop="4dp"/>
 
     <ListView
         android:id="@+id/lv_comments"

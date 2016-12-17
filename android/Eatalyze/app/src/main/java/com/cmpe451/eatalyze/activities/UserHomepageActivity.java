@@ -65,7 +65,7 @@ public class UserHomepageActivity extends BaseActivity {
         tvHelloName.setText(welcomeText);
 
         //TODO make this for recommended meals, not random ones
-        apiService.getMealById(new Long(1), new Callback<Meal>() {
+        apiService.getMealById(new Long(51), new Callback<Meal>() {
             @Override
             public void success(Meal meal, Response response) {
                 Log.d("SUC meal call",meal.getName());

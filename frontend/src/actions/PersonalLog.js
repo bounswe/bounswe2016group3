@@ -1,10 +1,11 @@
-var load = function(id){
+var load = function(id, token){
     return {
         type: 'LOAD_PERSONALLOG',
-        id: id
+        id: id,
+        token: token
     };
 }
 
 
 
-export { load};
+export {load};

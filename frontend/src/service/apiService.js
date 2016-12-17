@@ -47,9 +47,10 @@ var apiService = function(store) {
             break;
 
             case 'LOAD_PERSONALLOG':
-            apiCall("/api/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(user){
-                next({type: 'PERSONALLOG_LOADED', user: user});
-            }).error(function(error, response){
+            console.log(action);
+            apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
+                next({type: 'PERSONALLOG_LOADED', data: res});
+            }).error(function(error, response){ 
                 next({type: 'PERSONALLOG_FAILED'});
             });
             break;
@@ -164,7 +165,16 @@ var apiService = function(store) {
                 apiCall("/user/"+action.id+"/following", "GET").success(function(res){
                     next({type: 'FOLLOWING_LOADED', data: res});
                 });
-            });
+            }).error(() => {console.log('Failed!!!')});
+            break;
+
+            case 'UNFOLLOW_USER':
+            apiCall("/user/"+action.id+"/unfollow", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
+              console.log('Success!!!');
+              apiCall("/user/"+action.id+"/followers", "GET").success(function(res) {
+                next({type: 'FOLLOWERS_LOADED', data: res});
+              }).error(() => {console.log('Followers not Loaded!!!')});
+            }).error(() => {console.log('Failed!!!')});
             break;
 
             case 'LOAD_MENU':
@@ -198,8 +208,6 @@ var apiService = function(store) {
                 description: action.description,
                 ingredients: action.ingredients,
                 photoUrl: action.photoUrl
-
-
             };
 
             apiCall("/meal/", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(res){
@@ -215,7 +223,7 @@ var apiService = function(store) {
 
             case 'CHECKEAT_MEAL':
 
-             apiCall('/meal/'+action.id+"/checkeat/", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(){
+             apiCall('/meal/'+action.id+"/checkeat", "POST" ,{"Authorization": "Bearer " + action.token}).success(function(res){
                     next({type: 'CHECKEAT_ADDED'});
 
                 });
@@ -245,17 +253,21 @@ var apiService = function(store) {
                 content:action.content
             };
              apiCall('/comment/', "POST" ,{"Authorization": "Bearer " + action.token},req).success(function(){
+                  apiCall('/meal/'+action.mealId+"/comments/", "GET").success(function(res){
+                next({type: 'COMMENTS_LOADED', data: res});
+            });
 
             });
             break;
 
             case 'RATE_MEAL':
 
+
             apiCall("/meal/"+action.mealId+"/rate/"+action.rating+"/","POST",{"Authorization": "Bearer " + action.token}).success(function(){
                  apiCall('/meal/'+action.mealId+"/ratings/", "GET" ,{"Authorization": "Bearer " + action.token}, req).success(function(res){
                     next({type: 'RATINGS_LOADED', data: res});
                  });
-            });
+            }).error(function(){console.log('Failed!!!')});
 
 
             break;
@@ -274,7 +286,7 @@ var apiService = function(store) {
                     names:action.names
 
                 };
-                
+
                 apiCall('/user/'+action.id+"/include/","POST", {"Authorization": "Bearer " + action.token}, req.names).success(function(){
                   apiCall("/user/"+action.id+"/include/", "GET", {"Authorization": "Bearer " + action.token}).success(function(res) {
                     next({type: 'LOAD_INCLUDE_SUCCESS', data:res});
@@ -294,6 +306,22 @@ var apiService = function(store) {
                 });
             break;
 
+            case 'UPDATE_USER':
+            req = {
+                email: action.email,
+                password: action.pass,
+                fullName: action.name,
+                bio:action.bio,
+                userType: action.userType
+            };
+
+            apiCall("/user/update", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(user){
+                next({type: 'UPDATE_USER_DONE'});
+            }).error(function(error, response){
+                next({type: 'UPDATE_USER__FAIL'});
+            });
+
+            break;
 
             default:
             break;
