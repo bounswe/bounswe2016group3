@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/Meal';
 import {
   Modal,
   ModalHeader,
@@ -33,7 +36,6 @@ class SearchBar extends Component {
   }
 
   search() {
-    // BUG: when adding a found query it should be deleted...
     const query = this.input.value;
     var results = [];
     if (query === "") {
@@ -121,6 +123,7 @@ class MealTags extends Component {
   }
 
   render() {
+    console.log(this.props.mealTag);
     return (
       <div>
         <SearchBar tags={this.state.tags} addTag={this.addTag}/>
@@ -137,6 +140,8 @@ class MealTags extends Component {
     );
   }
 }
+
+connect(mapStateToProps, mapActionsToProps)(MealTags);
 
 class ModalTags extends Component {
   render() {
@@ -165,11 +170,6 @@ class ModalTags extends Component {
 }
 
 class TagButton extends Component {
-  componentDidMount() {
-    console.log('Should be put there a viewTag call!');
-  }
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -189,6 +189,7 @@ class TagButton extends Component {
   }
 
   render() {
+    console.log(this.props.mealTag);
     return (
       <div>
         <button type="button" onClick={this.viewTags}
@@ -199,4 +200,18 @@ class TagButton extends Component {
   }
 }
 
-export default TagButton;
+var mapActionsToProps = function(dispatch) {
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+var mapStateToProps = function(state) {
+    return {
+        token: state.token,
+        profile: state.profile,
+        meal: state.meal,
+        currentUser: state.currentUser,
+        mealTag: state.mealTag
+    };
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(TagButton);

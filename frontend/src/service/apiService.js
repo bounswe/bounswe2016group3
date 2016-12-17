@@ -197,6 +197,11 @@ var apiService = function(store) {
             apiCall('/meal/'+action.id+"/ratings/", "GET" ,{"Authorization": "Bearer " + action.token}, req).success(function(res){
                 next({type: 'RATINGS_LOADED', data: res});
             });
+
+            apiCall("/meal/"+action.id+"/tags", "GET").success(function(res){
+              next({type: 'TAGS_LOADED', data: res});
+              console.log("Done :)");
+            });
             break;
 
             case 'ADD_MEAL':

@@ -61,4 +61,5 @@ var tag = function(token, mealId, displayName, identifier) {
   };
 };
 
+
 export { load, checkeat,comment, rate, load_rating, tag};
