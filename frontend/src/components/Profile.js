@@ -135,16 +135,25 @@ class Profile extends Component {
         this.props.actions.exclude(profile.id, this.props.token,exclude_names);
       }
     }
-
+    
     var check =() =>{
-      var dietType=null;
       
+      let checked_diet="";
     $(".diet_checkboxes").each(function(){
-        alert($(this).find("#").val() );
+      
+      for(var i = dietTypes.length - 1; i >= 0; i--){
+        //console.log($(this).find("#diet_"+i));
+       if(document.getElementById("diet_"+i).checked){
+        checked_diet=i;
+        break;
+       };
+      }
          })
-    this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,profile.fullName,profile.bio, 2, profile.secretQuestion,profile.userType, this.props.token);
+    
+    
+    this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,profile.fullName,profile.bio, checked_diet, profile.secretQuestion,profile.userType, this.props.token);
     }
-
+    
     var update_profile =(fullname_text,bio_text)=> {
       
       var fullname=$(".update_profile_inputs").find("#fullname_text").val();
