@@ -16,6 +16,8 @@
     <color name="pale_gold">#E6BE8A</color>
     <color name="light_golden_rod_yellow">#FAFAD2</color>
     <color name="extra_virgin_olive_oil">#939927</color>
+    <color name="green">#07CC00</color>
+    <color name="red">#CC0000</color>
 
     <color name="pageBackground">#FFCC00</color>
 </resources>
