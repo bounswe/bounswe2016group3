@@ -39,7 +39,7 @@ var Header = function(props){
             $("#search_results").append(listElement);
         }
     }
-var fillSearchResults = function(results){
+    var fillSearchResults = function(results){
     console.log(results);
     $("#search_results").show();
     $(".search_list_element").remove();
@@ -47,7 +47,7 @@ var fillSearchResults = function(results){
     for(i=0;i<results.length;i++){
         buildSearchListElement(results[i]);
     }
-}
+    }
     
     $("#search_input").keyup(function(event){
         $("#search_results").hide();
@@ -136,6 +136,13 @@ var fillSearchResults = function(results){
         $("#advance_search_div").hide();
     }
     var userHeader = null;
+
+    if(props.uid!=0){
+        $("#login_form").hide();
+    }
+    else{
+        $("#login_form").show()
+    }
     var submitForm1 = function(e) {
         let email = document.getElementById("login-email2");
         let password = document.getElementById("login-pass2");
@@ -173,10 +180,10 @@ if(props.success){
 
         return <li key={link.path} className={classes}><Link to={link.path}>{link.text}</Link></li>;
     });
-    
+
     if(props.uid == 0){
         userHeader = (
-            <ul className="nav navbar-nav navbar-right">
+            <ul className="nav navbar-nav navbar-right" id="login_form">
                 { loginLinkTags }
             </ul>
         );
@@ -322,7 +329,7 @@ if(props.success){
                 </div>
 
                 <div className="col-sm-7">
-                <ul className="nav navbar-nav navbar">
+                <ul className="nav navbar-nav navbar" id="login_form">
                     <li><input type="email" className="form-control" placeholder="E-mail" id="login-email2" /></li>
                     <li><input type="password" className="form-control" placeholder="Password" id="login-pass2"/></li>
                     <li><button className="btn btn-default" type="button" onClick={submitForm1} >Login</button></li>
