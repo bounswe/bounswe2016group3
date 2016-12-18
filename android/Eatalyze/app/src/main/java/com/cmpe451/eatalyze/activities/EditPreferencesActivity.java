@@ -1,23 +1,38 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
-import com.squareup.okhttp.ResponseBody;
 
-import java.util.Arrays;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by ASUS on 25.10.2016.
  */
 
 public class EditPreferencesActivity extends BaseActivity {
+    @Bind(R.id.tv_include_title)
+    TextView tvIncludeTitle;
+    @Bind(R.id.iv_add_include_icon)
+    ImageView ivAddIncludeIcon;
+    @Bind(R.id.rl_include_title)
+    RelativeLayout rlIncludeTitle;
+    @Bind(R.id.lv_include_list)
+    ListView lvIncludeList;
+    @Bind(R.id.tv_exclude_title)
+    TextView tvExcludeTitle;
+    @Bind(R.id.iv_add_exclude_icon)
+    ImageView ivAddExcludeIcon;
+    @Bind(R.id.rl_exclude_title)
+    RelativeLayout rlExcludeTitle;
+    @Bind(R.id.lv_exclude_list)
+    ListView lvExcludeList;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_edit_preferences;
@@ -95,5 +110,9 @@ public class EditPreferencesActivity extends BaseActivity {
         });
         */
 
+    }
+
+    @OnClick(R.id.iv_add_include_icon)
+    public void includeClicked() {
     }
 }
