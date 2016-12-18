@@ -135,35 +135,47 @@ class Profile extends Component {
         this.props.actions.exclude(profile.id, this.props.token,exclude_names);
       }
     }
-
+    
+    var check =() =>{
+      
+      let checked_diet="";
+    $(".diet_checkboxes").each(function(){
+      
+      for(var i = dietTypes.length - 1; i >= 0; i--){
+       
+       if(document.getElementById("diet_"+i).checked){
+        checked_diet=i;
+        break;
+       };
+      }
+    })
+      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,profile.fullName,profile.bio, checked_diet, profile.secretQuestion,profile.userType, this.props.token);
+      this.setState({isOpen: false});
+    }
+    
     var update_profile =(fullname_text,bio_text)=> {
       
       var fullname=$(".update_profile_inputs").find("#fullname_text").val();
       var bio=$(".update_profile_inputs").find("#bio_text").val();
-      var dietType=2;
-      var secretQuestion="name";
-      var userType=0;
-      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,fullname,bio, dietType, secretQuestion,userType, this.props.token);
-
+      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,fullname,bio, profile.dietType, profile.secretQuestion,profile.userType, this.props.token);
+      this.setState({ isOpen_updateProfile: false});
     }
 
     let includeHtml = this.props.include.map(function(m){
-
       return <label className="label-preferences"> {m} </label>;
-
-
     });
+
     let excludeHtml = this.props.exclude.map(function(m){
-
-      return <label className="label-preferences"> {m}</label>
-      ;
+      return <label className="label-preferences"> {m}</label>;
     });
-    let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
-    let dietTypes_chbx= "";
 
-    for (var i = dietTypes.length - 1; i >= 0; i--) {
-      dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
-    }
+    let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
+    
+    //let dietTypes_chbx= "";
+    //for (var i = dietTypes.length - 1; i >= 0; i--) {
+      //dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
+    //}
+   
     let updateProfileButton
     let updatePreferencesModalButton
     let updateIncludeModalButton
@@ -175,9 +187,10 @@ class Profile extends Component {
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
     }
     
-
     const isFollow = this.isFollower(this.props.followers,
       this.props.currentUser, this.props.profile);
+    
+    
       return (
         <div>
           <div className="col-xs-4">
@@ -303,19 +316,20 @@ class Profile extends Component {
                   </ModalHeader>
                   <ModalBody>
 
-                    <ul>
-                      <li> <input type="checkbox" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} </li>
-                      <li> <input type="checkbox" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} </li>
-                      <li> <input type="checkbox" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} </li>
-                      <li> <input type="checkbox" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} </li>
-                      <li> <input type="checkbox" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} </li>
-                      <li> <input type="checkbox" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]} </li>
-                      <li> <input type="checkbox" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]} </li>
-                    </ul>
+                    <div className="diet_checkboxes">
+                      <input type="radio" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} <br></br>
+                      <input type="radio" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} <br></br>
+                      <input type="radio" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} <br></br>
+                      <input type="radio" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} <br></br>
+                      <input type="radio" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} <br></br>
+                      <input type="radio" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]}<br></br>
+                      <input type="radio" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]}
+
+                    </div>
 
                   </ModalBody>
                   <ModalFooter>
-                    <button type="button" className="btn btn-default" onClick={""}>Update </button>
+                    <button type="button" className="btn btn-default" onClick={check}>Update </button>
                     <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
 
                   </ModalFooter>

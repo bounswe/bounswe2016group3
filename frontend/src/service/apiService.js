@@ -324,7 +324,9 @@ var apiService = function(store) {
             };
 
             apiCall("/user/update", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(user){
-                next({type: 'UPDATE_USER_DONE'});
+                 apiCall("/user/"+action.id+"/", "GET").success(function(res){
+                next({type: 'PROFILE_LOADED', user: res});
+            });
             }).error(function(error, response){
                 next({type: 'UPDATE_USER__FAIL'});
             });
