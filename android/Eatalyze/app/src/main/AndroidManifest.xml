@@ -144,7 +144,7 @@
             android:resource="@xml/searchable" />
 
         <activity
-            android:name=".activities.TagPeopleActivity"
+            android:name=".activities.CheckEatActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

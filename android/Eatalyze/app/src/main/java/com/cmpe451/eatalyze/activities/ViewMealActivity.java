@@ -2,7 +2,6 @@ package com.cmpe451.eatalyze.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -195,7 +194,7 @@ public class ViewMealActivity extends BaseActivity {
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         switch (view.getId()) {
             case R.id.btn_check_eat:
-                Intent intent = new Intent(ViewMealActivity.this, TagPeopleActivity.class);
+                Intent intent = new Intent(ViewMealActivity.this, CheckEatActivity.class);
                 intent.putExtra("ClickedMeal", meal);
                 startActivity(intent);
                 break;
