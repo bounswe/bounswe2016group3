@@ -11,7 +11,7 @@ import TagButton from './TagButton';
 class RateStar extends Component {
   constructor(props) {
     super(props);
-    this.changeNumber = this.changeNumber.bind(this.props.props.ratings.average);
+    this.changeNumber = this.changeNumber.bind(this);
 
   }
 
@@ -19,38 +19,36 @@ class RateStar extends Component {
     const rate = parseFloat(rating);
     return parseFloat(rate.toFixed(1));
   }
-  
+
   render() {
     var stars = this.refs.rateYo;
    var rating = this.changeNumber(this.props.props.ratings.average);
 
-   var rate = () => {
+   var rate = (e) => {
+     e.preventDefault();
       if(this.props.props.token!==""){
-        console.log({rating});
+        console.log(rating);
          this.props.props.actions.rate(this.props.props.token,this.props.props.params.id,this.props.props.currentUser.id,5);
-         
+
        }
     }
     if(this.props.props.ratings.average!=undefined){
-    if(!rating) rating=0;
-    $(stars).rateYo({
-    rating: rating, 
-    readOnly: false
-      
-    });
+      if(!rating) rating=0;
+      $(stars).rateYo({
+        rating: rating
+      });
       $(stars).rateYo()
               .on("rateyo.set", function (e, data) {
- 
-                var rating = data.rating;
-                $(this).next().text(rating);
-                
+                e.preventDefault();
+                $(this).next().text(data.rating);
+                rating = data.rating;
               });
     }
     return (
 
       <div>
         <p> Hello World ! </p>
-        <div ref="rateYo" onClick={rate}></div>
+        <div ref="rateYo" onClick={(e) => rate(e)}></div>
       <p> Current rating : {rating} </p>
       </div>
     );
@@ -86,8 +84,8 @@ class Meal extends Component {
     }
    // console.log(RateStar);
     //let rate_meal=document.getElementById("rate_meal");
-  
-    
+
+
 
     let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
 
@@ -123,7 +121,7 @@ class Meal extends Component {
           <h3> Ratings </h3>
           {ratingssHtml} out of 5
           <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
-          
+
 
           <RateStar props={this.props}/>
 
