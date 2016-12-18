@@ -168,3 +168,5 @@ dist/
 # IntelliJ
 .idea/
 *.iml
+
+frontend/src/actions/RateStar.js

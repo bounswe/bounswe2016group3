@@ -11,28 +11,47 @@ import TagButton from './TagButton';
 class RateStar extends Component {
   constructor(props) {
     super(props);
-    this.changeNumber = this.changeNumber.bind(this);
+    this.changeNumber = this.changeNumber.bind(this.props.props.ratings.average);
+
   }
 
   changeNumber(rating) {
     const rate = parseFloat(rating);
     return parseFloat(rate.toFixed(1));
   }
-
+  
   render() {
     var stars = this.refs.rateYo;
-    var rating = this.changeNumber(this.props.rating)
-    if(!rating) return null;
-    $(stars).rateYo({
-      rating: rating,
-      readOnly: true
-    });
+   var rating = this.changeNumber(this.props.props.ratings.average);
 
+   var rate = () => {
+      if(this.props.props.token!==""){
+        console.log({rating});
+         this.props.props.actions.rate(this.props.props.token,this.props.props.params.id,this.props.props.currentUser.id,5);
+         
+       }
+    }
+    if(this.props.props.ratings.average!=undefined){
+    if(!rating) rating=0;
+    $(stars).rateYo({
+    rating: rating, 
+    readOnly: false
+      
+    });
+      $(stars).rateYo()
+              .on("rateyo.set", function (e, data) {
+ 
+                var rating = data.rating;
+                $(this).next().text(rating);
+                
+              });
+    }
     return (
+
       <div>
         <p> Hello World ! </p>
-        <div ref="rateYo"></div>
-        <p> Current rating : {rating} </p>
+        <div ref="rateYo" onClick={rate}></div>
+      <p> Current rating : {rating} </p>
       </div>
     );
   }
@@ -65,17 +84,10 @@ class Meal extends Component {
 
       }
     }
-
-    let rate_meal=document.getElementById("rate_meal");
-
-    let rate = () => {
-      if(this.props.token!==""){
-        this.props.actions.rate(this.props.token,this.props.params.id,this.props.currentUser.id,rate_meal.value);
-        //ratingssHtml=this.props.ratings.average ;
-        //document.location.href = document.location.href  ;
-        //rateButton=<button type="button" className="btn btn-default disabled" onClick={""}>Rate</button>;
-      }
-    }
+   // console.log(RateStar);
+    //let rate_meal=document.getElementById("rate_meal");
+  
+    
 
     let checkeatButton=<button type="button" className="btn btn-default" onClick={checkeat}>Check Eat!</button>;
 
@@ -86,7 +98,7 @@ class Meal extends Component {
     });
     let ratingssHtml=this.props.ratings.average ;
     let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
-    let rateButton=<button type="button" className="btn btn-default" onClick={rate}>Rate</button>;
+   // let rateButton=<button type="button" className="btn btn-default" onClick={""}>Rate</button>;
 
     return  <div className="col-xs-6">
 
@@ -111,8 +123,10 @@ class Meal extends Component {
           <h3> Ratings </h3>
           {ratingssHtml} out of 5
           <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
-          <p>{rateButton}</p>
-          <RateStar rating={this.props.ratings.average}/>
+          
+
+          <RateStar props={this.props}/>
+
         </div>
       </div>
 
