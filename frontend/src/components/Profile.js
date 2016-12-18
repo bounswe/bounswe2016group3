@@ -18,16 +18,31 @@ import FollowButton  from './FollowButton';
 
 
 class Profile extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.follow = this.follow.bind(this);
     this.unfollow = this.unfollow.bind(this);
-  }
+    this.state = {
+         fullname: null,
+         bio:null
 
+    }
+    this.updateState = this.updateState.bind(this);
+    
+   // this.profile= this.profile.bind(this);
+  }
+  updateState(e) {
+      this.setState({fullname: e.target.value});
+   }
+   updateState_bio(e){
+     this.setState({bio: e.target.value});
+   }
 
   componentDidMount(){
+   
     this.props.actions.load(this.props.params.id);
   }
+
   state = {
     isOpen: false,
     isOpen_Include: false,
@@ -36,6 +51,7 @@ class Profile extends Component {
 
 
   isFollower(followers, currentUser, profile) {
+
     if (jQuery.isEmptyObject(currentUser) || profile.id === currentUser.id) {
       return null;
     }
@@ -68,11 +84,13 @@ class Profile extends Component {
   openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });};
   hideModal_Exclude = () => { this.setState({ isOpen_Exclude: false});};
 
-  openModal_updateProfile = () => { this.setState({ isOpen_updateProfile: true });};
+  openModal_updateProfile = () => { this.setState({ isOpen_updateProfile: true });  this.setState({fullname: this.props.profile.fullName, bio:this.props.profile.bio});};
   hideModal_updateProfile = () => { this.setState({ isOpen_updateProfile: false});};
   
   render(){
     if(!this.props.profile || this.props.profile === {}){
+
+      
       return (
         <article className="col-xs-12">
           <p>
@@ -80,6 +98,7 @@ class Profile extends Component {
             Loading...
           </p>
         </article>
+
       );
     }
 
@@ -117,9 +136,10 @@ class Profile extends Component {
       }
     }
 
-    var update_profile =()=> {
-      var fullname='sinem';
-      var bio="ssds";
+    var update_profile =(fullname_text,bio_text)=> {
+      
+      var fullname=$(".update_profile_inputs").find("#fullname_text").val();
+      var bio=$(".update_profile_inputs").find("#bio_text").val();
       var dietType=2;
       var secretQuestion="name";
       var userType=0;
@@ -128,7 +148,9 @@ class Profile extends Component {
     }
 
     let includeHtml = this.props.include.map(function(m){
+
       return <label className="label-preferences"> {m} </label>;
+
 
     });
     let excludeHtml = this.props.exclude.map(function(m){
@@ -152,6 +174,7 @@ class Profile extends Component {
       updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
     }
+    
 
     const isFollow = this.isFollower(this.props.followers,
       this.props.currentUser, this.props.profile);
@@ -165,6 +188,7 @@ class Profile extends Component {
               </div>
             }
           </div>
+
           <div className="col-xs-8">
             <h1>{profile.fullName}</h1>
             <p>{profile.bio}</p>{updateProfileButton}
@@ -175,10 +199,10 @@ class Profile extends Component {
                   </ModalHeader>
                   <ModalBody>
                     
-                    
-                    <div className="col-xs-12">
-                    <input type="text" name="fullname" placeholder={this.props.currentUser.fullName} />
-                    <input type="text" id="bio" className="form-control" value={this.props.currentUser.bio}/>
+              
+                    <div className="update_profile_inputs">
+                     <input type = "text" id="fullname_text" value = {this.state.fullname} onChange = {this.updateState} />
+                    <input type="text"  id="bio_text" value={this.state.bio} onChange = {this.updateState_bio} />
                    
                       <button type="button" className="btn-success more_button" onClick={update_profile}>Update</button>
                     </div>
@@ -305,6 +329,7 @@ class Profile extends Component {
   }
 
   var mapStateToProps = function(state){
+
     return {
       token: state.token,
       profile: state.profile,
