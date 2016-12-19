@@ -162,4 +162,9 @@ public class UserHomepageActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
+
 }

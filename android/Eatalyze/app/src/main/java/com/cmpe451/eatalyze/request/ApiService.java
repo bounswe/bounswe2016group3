@@ -1,5 +1,7 @@
 package com.cmpe451.eatalyze.request;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.cmpe451.eatalyze.models.AccessToken;
@@ -17,10 +19,13 @@ import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +35,13 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
+import retrofit.http.Headers;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 /**
@@ -144,4 +153,8 @@ public interface ApiService {
 
     @GET("/api/user/{id}/exclude")
     public void getExclude(@Path("id") Long id, Callback<String[]> excludeListCallback);
+
+    @Multipart
+    @POST("/api/user/avatar")
+    public void uploadPhoto(@Part("avatar") InputStream file,@Part("description") String description, Callback<String> responseCallback);
 }

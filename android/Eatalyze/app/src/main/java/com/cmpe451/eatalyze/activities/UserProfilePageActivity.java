@@ -1,10 +1,16 @@
 package com.cmpe451.eatalyze.activities;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.Comment;
@@ -21,8 +28,11 @@ import com.cmpe451.eatalyze.models.Unfollow;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.views.ExpandableTextView;
+import com.squareup.okhttp.ResponseBody;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +41,9 @@ import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+
+import static android.R.attr.data;
 
 /**
  * Created by Muharrem on 21.10.2016.
