@@ -8,9 +8,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.adapters.MealTagsAdapter;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -33,6 +35,8 @@ public class TagMealActivity extends BaseActivity {
     @Bind(R.id.gv_tags)
     GridView gvTags;
 
+    //List<Tag> tagsOnMeal = new ArrayList<>();
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_meal_tag;
@@ -42,18 +46,21 @@ public class TagMealActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
-        apiService.tagsByMeal(meal.getId(), new Callback<List<String>>() {
+        //TODO CHECK THIS IF WORKING
+        apiService.tagsByMeal(meal.getId(), new Callback<ArrayList<Tag>>() {
             @Override
-            public void success(List<String> strings, Response response) {
-                Log.d("tags fetch success", response.toString());
-                //TODO adapt to gridview
+            public void success(ArrayList<Tag> tags, Response response) {
+                MealTagsAdapter adapter = new MealTagsAdapter(TagMealActivity.this, tags);
+                gvTags.setAdapter(adapter);
+
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("tag fetch fail", error.toString());
+
             }
         });
+
 
     }
 

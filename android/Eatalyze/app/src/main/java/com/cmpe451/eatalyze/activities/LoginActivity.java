@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
-import com.cmpe451.eatalyze.constants.UserType;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
 import com.cmpe451.eatalyze.models.User;
@@ -50,11 +49,11 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (eatalyzeApplication.getAccessToken() != null) {
-            if(eatalyzeApplication.getUser().getUserType()==0){
+            if (eatalyzeApplication.getUser().getUserType() == 0) {
                 startActivity(new Intent(this, UserHomepageActivity.class));
-            }else if(eatalyzeApplication.getUser().getUserType()==1){
+            } else if (eatalyzeApplication.getUser().getUserType() == 1) {
                 startActivity(new Intent(this, FoodServerProfilePageActivity.class));
-            }else{//ADMIN
+            } else {//ADMIN
 
             }
             finish();
@@ -79,14 +78,14 @@ public class LoginActivity extends BaseActivity {
                                 apiService.getCurrentUser(accessToken, new Callback<User>() {
                                     @Override
                                     public void success(User user, Response response) {
-                                       eatalyzeApplication.setUser(user);
-                                        if(user.getUserType()== 0){
+                                        eatalyzeApplication.setUser(user);
+                                        if (user.getUserType() == 0) {
                                             startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
-                                        }else if(user.getUserType()==1){
+                                        } else if (user.getUserType() == 1) {
                                             //TODO call apiservice to create menu
-                                            startActivity(new Intent(LoginActivity.this,FoodServerProfilePageActivity.class));
-                                        }else{//ADMIN
-                                            Log.d("Admin check","Inside admin choice");
+                                            startActivity(new Intent(LoginActivity.this, FoodServerProfilePageActivity.class));
+                                        } else {//ADMIN
+                                            Log.d("Admin check", "Inside admin choice");
                                         }
                                         finish();
 
@@ -94,7 +93,7 @@ public class LoginActivity extends BaseActivity {
 
                                     @Override
                                     public void failure(RetrofitError error) {
-                                        Log.d("Getting current user er",error.toString());
+                                        Log.d("Getting current user er", error.toString());
                                     }
                                 });
 
@@ -111,18 +110,16 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-
-        tvSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-                finish();
-            }
-        });
     }
 
     @OnClick(R.id.tv_forgotPassword)
     public void onClick() {
         startActivity(new Intent(LoginActivity.this, EditPreferencesActivity.class));
+    }
+
+    @OnClick(R.id.tv_signup)
+    public void signupClicked() {
+        startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+        finish();
     }
 }

@@ -58,7 +58,7 @@
             android:layout_below="@+id/et_password"
             android:text="@string/lgn_btn"
             android:textColor="@color/pageBackground"
-            android:background="@drawable/login_btn"
+            android:background="@drawable/general_button_shape"
             />
 
         <TextView

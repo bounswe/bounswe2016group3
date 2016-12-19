@@ -25,7 +25,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:layout_margin="8dp"
-            android:text="Tag Meal"/>
+            android:text="Tag Meal"
+            android:textSize="15sp"
+            android:shadowColor="#000000"
+            android:shadowDx="-2"
+            android:shadowDy="-3"
+            android:shadowRadius="6"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/general_button_shape"/>
 
     </LinearLayout>
 

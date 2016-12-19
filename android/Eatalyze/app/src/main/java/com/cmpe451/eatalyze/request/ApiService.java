@@ -118,9 +118,8 @@ public interface ApiService {
     @GET("/api/meal/search/{query}")
     public void mealSearch(@Path("query") String query, Callback<List<Meal>> mealListCallback);
 
-
     @GET("/api/meal/{id}/tags")
-    public void tagsByMeal(@Path("id") Long id, Callback<List<String>> tagListCallback);
+    public void tagsByMeal(@Path("id") Long id, Callback<ArrayList<Tag>> tags);
 
     @POST("/api/meal/tag")
     public void tagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
@@ -146,7 +145,7 @@ public interface ApiService {
     public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
 
     @POST("/api/user/{id}/exclude")
-    public void updatedExludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
+    public void updatedExcludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
 
     @GET("/api/user/{id}/include")
     public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
