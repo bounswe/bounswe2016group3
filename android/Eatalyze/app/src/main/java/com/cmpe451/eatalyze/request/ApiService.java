@@ -146,7 +146,7 @@ public interface ApiService {
     public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
 
     @POST("/api/user/{id}/exclude")
-    public void updatedExludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
+    public void updatedExcludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
 
     @GET("/api/user/{id}/include")
     public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
