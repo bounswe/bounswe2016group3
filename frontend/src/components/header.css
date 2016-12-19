@@ -24,3 +24,41 @@
 	text-decoration:none;
 	padding: 3px 5px;
 }
+#advance_search_div{
+	position: relative;
+	width: 300px;
+	height: auto;
+	background-color: orange;
+	float:left;
+	display: none;
+	position: absolute;
+	top:100%;
+	padding:15px 15px;
+}
+#advance_search_div div{
+	width: 100%;
+	margin-top:10px;
+	font-size: 14px;
+	color:#000;
+}
+#add_included_div{
+	display: none;
+}
+#add_excluded_div{
+	display: none;
+}
+.range_input{
+	float: right;
+	width: 60px;
+	margin-left:20px;
+	border-radius: 8px;
+	text-indent: 5px;
+}
+#close_advance_search_button{
+	background: transparent;
+	position:absolute;
+	top:0px;
+	right: 3px;
+	border:1px solid #000;
+	border-radius: 50%;
+}

@@ -39,7 +39,7 @@ var Header = function(props){
             $("#search_results").append(listElement);
         }
     }
-var fillSearchResults = function(results){
+    var fillSearchResults = function(results){
     console.log(results);
     $("#search_results").show();
     $(".search_list_element").remove();
@@ -47,7 +47,7 @@ var fillSearchResults = function(results){
     for(i=0;i<results.length;i++){
         buildSearchListElement(results[i]);
     }
-}
+    }
     
     $("#search_input").keyup(function(event){
         $("#search_results").hide();
@@ -61,7 +61,7 @@ var fillSearchResults = function(results){
         var mealResults;
         var userResults;
         var query = $("#search_input").val();
-        if(query == null || query == ''){
+        if(query == null || query == '' || query.length<3){
             $(".search_list_element").remove();
             return;
         }
@@ -89,7 +89,60 @@ var fillSearchResults = function(results){
         });
     }
 
+    var openAdvanceSearch = function(){
+        $("#advance_search_div").show();
+    }
+
+    var addIncluded = function(){
+        $("#add_included_input").val('');
+        $("#add_included_div").show();
+    }
+    var addIncludedSubmit = function(){
+        var ingredient = $("#add_included_input").val();
+        if(ingredient == null || ingredient==""){
+            return false;
+        }
+        $("#advance_search_included_div").append("<div class='add_included_list_element'>"+ingredient+"</div>");
+        $("#add_included_div").hide();
+    }
+    var addExcluded = function(){
+        $("#add_excluded_input").val('');
+        $("#add_excluded_div").show();
+    }
+    var addExcludedSubmit = function(){
+        var ingredient = $("#add_excluded_input").val();
+        if(ingredient == null || ingredient==""){
+            return false;
+        }
+        $("#advance_search_excluded_div").append("<div class='add_excluded_list_element'>"+ingredient+"</div>");
+        $("#add_excluded_div").hide();
+    }
+    var submitAdvanceSearch = function(){
+
+    }
+    var closeAdvanceSearch = function (){
+        $(".add_excluded_list_element").remove();
+        $(".add_included_list_element").remove();
+        $("#add_included_input").val('');
+        $("#add_excluded_input").val('');
+        $("#calorie_min").val('');
+        $("#colorie_max").val('');
+        $("#cho_min").val('');
+        $("#cho_max").val('');
+        $("#protein_min").val('');
+        $("#protein_max").val('');
+        $("#fat_min").val('');
+        $("#fat_max").val('');
+        $("#advance_search_div").hide();
+    }
     var userHeader = null;
+
+    if(props.uid!=0){
+        $("#login_form").hide();
+    }
+    else{
+        $("#login_form").show()
+    }
     var submitForm1 = function(e) {
         let email = document.getElementById("login-email2");
         let password = document.getElementById("login-pass2");
@@ -127,10 +180,10 @@ if(props.success){
 
         return <li key={link.path} className={classes}><Link to={link.path}>{link.text}</Link></li>;
     });
-    
+
     if(props.uid == 0){
         userHeader = (
-            <ul className="nav navbar-nav navbar-right">
+            <ul className="nav navbar-nav navbar-right" id="login_form">
                 { loginLinkTags }
             </ul>
         );
@@ -185,6 +238,71 @@ if(props.success){
 
     return (
         <nav className="navbar navbar-inverse">
+        <div id="advance_search_div">
+                <button type = "button" id="close_advance_search_button" onClick={closeAdvanceSearch}>X</button>
+                <div>
+                <input className="form-control" type='text' placeholder="Keywords"/>
+                </div>
+                <div>
+                    <input type="radio" id="advance_search_preference_button"/> Change my preferences
+                </div>
+                <div>
+                    <div id="advance_search_included_div">
+                        <h4>Included Ingredients</h4>
+                        <div id="included_list">
+                        </div>
+                        <button type='button' className="btn btn-success" onClick={addIncluded}>+</button>
+                        <div id="add_included_div">
+                            <input type="text" placeholder="Ingredient" id="add_included_input"/>
+                            <button type="button" className="btn btn-success" onClick={addIncludedSubmit}>Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="advance_search_excluded_div">
+                        <h4>Excluded Ingredients</h4>
+                        <div id="excluded_list">
+                        </div>
+                        <button type='button' className="btn btn-danger" onClick={addExcluded}>+</button>
+                        <div id="add_excluded_div">
+                            <input type="text" placeholder="Ingredient" id="add_excluded_input"/>
+                            <button type="button" className="btn btn-success" onClick={addExcludedSubmit}>Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div id="advance_search_calorie_range_div">
+                        Calorie Range
+                        <input type="text" className="range_input" placeholder="Max" id="calorie_max"/>
+                        <input type="text" className="range_input" placeholder="Min" id="calorie_min"/>
+                    </div>
+                </div>
+                <div>
+                    <div id="advance_search_cho_range_div">
+                        CHO Range
+                        <input type="text" className="range_input" placeholder="Max" id="cho_max"/>
+                        <input type="text" className="range_input" placeholder="Min" id="cho_min"/>
+                    </div>
+                </div>
+                <div>
+                    <div id="advance_search_protein_range_div">
+                        Protein Range
+                        <input type="text" className="range_input" placeholder="Max" id="protein_max"/>
+                        <input type="text" className="range_input" placeholder="Min" id="protein_min"/>
+                    </div>
+                </div>
+                <div>
+                    <div id="advance_search_fat_range_div">
+                        Fat Range
+                        <input type="text" className="range_input" placeholder="Max" id="fat_max"/>
+                        <input type="text" className="range_input" placeholder="Min" id="fat_min"/>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" id="advance_search_submit_button" className="btn btn-info" onClick={submitAdvanceSearch}>Search</button>
+                </div>
+
+        </div>
             <div className="container-fluid">
             <div className="col-sm-1">
                 <div className="navbar-header">
@@ -202,7 +320,7 @@ if(props.success){
 
                 <ul className="nav navbar-nav navbar">
                     <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
-                    <li><button type = 'button' onClick={submitSearch}>Search</button></li>
+                    <li><button type = 'button' onClick={openAdvanceSearch}>Advance Search</button></li>
                     <li>
                         <div id="search_results">
                         </div>
@@ -211,13 +329,11 @@ if(props.success){
                 </div>
 
                 <div className="col-sm-7">
-                <ul className="nav navbar-nav navbar">
+                <ul className="nav navbar-nav navbar" id="login_form">
                     <li><input type="email" className="form-control" placeholder="E-mail" id="login-email2" /></li>
                     <li><input type="password" className="form-control" placeholder="Password" id="login-pass2"/></li>
                     <li><button className="btn btn-default" type="button" onClick={submitForm1} >Login</button></li>
-                </ul>
-                
-                
+                </ul>                
 
                 { userHeader }
 

@@ -24,7 +24,9 @@ import { users, profile, followers, following, include, exclude } from './reduce
 import { userId, secretQuestion } from './reducers/pwdReset';
 import { menu, menus } from './reducers/menu';
 import { meal, meals } from './reducers/meal';
+import { mealTag } from './reducers/mealTag';
 import { comments } from './reducers/comment';
+import { nutritionInfo } from './reducers/nutritioninfo';
 import { ratings,rate } from './reducers/rating';
 import { personalLog } from './reducers/personalLog';
 
@@ -47,8 +49,8 @@ var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
   users, profile,include, exclude,personalLog,
   followers, following,
-  menu, meal,
-  menus, meals, comments, ratings,rate, searchMeal,searchUser });
+  menu, meal, mealTag,
+  menus, meals, comments, ratings,rate,nutritionInfo, searchMeal,searchUser });
 var store = createStore(reducer, {}, middleware);
 
 ReactDOM.render((

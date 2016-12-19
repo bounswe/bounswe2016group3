@@ -50,7 +50,7 @@ var apiService = function(store) {
             console.log(action);
             apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
                 next({type: 'PERSONALLOG_LOADED', data: res});
-            }).error(function(error, response){ 
+            }).error(function(error, response){
                 next({type: 'PERSONALLOG_FAILED'});
             });
             break;
@@ -184,6 +184,7 @@ var apiService = function(store) {
             apiCall('/menu/'+action.id+"/meals/", "GET").success(function(res){
                 next({type: 'MEALS_LOADED', data: res});
             });
+
             break;
 
             case 'LOAD_MEAL':
@@ -197,6 +198,15 @@ var apiService = function(store) {
             apiCall('/meal/'+action.id+"/ratings/", "GET" ,{"Authorization": "Bearer " + action.token}, req).success(function(res){
                 next({type: 'RATINGS_LOADED', data: res});
             });
+
+            apiCall("/meal/"+action.id+"/tags", "GET").success(function(res){
+              next({type: 'TAGS_LOADED', data: res});
+              console.log("Done :)");
+            });
+            apiCall('/meal/'+action.id+"/nutrition/", "GET").success(function(res){
+                next({type: 'NUTRITION_INFO_LOADED', data: res});
+            });
+            
             break;
 
             case 'ADD_MEAL':
@@ -308,19 +318,33 @@ var apiService = function(store) {
 
             case 'UPDATE_USER':
             req = {
+                id: action.id,
+                avatarUrl: action.avatarUrl,
                 email: action.email,
-                password: action.pass,
-                fullName: action.name,
+                fullName: action.fullname,
                 bio:action.bio,
+                dietType: action.dietType,
+                secretQuestion: action.secretQuestion,
                 userType: action.userType
             };
 
             apiCall("/user/update", "POST", {"Authorization": "Bearer " + action.token}, req).success(function(user){
-                next({type: 'UPDATE_USER_DONE'});
+                 apiCall("/user/"+action.id+"/", "GET").success(function(res){
+                next({type: 'PROFILE_LOADED', user: res});
+            });
             }).error(function(error, response){
                 next({type: 'UPDATE_USER__FAIL'});
             });
 
+            break;
+
+
+            case 'TAG_MEAL':
+            const token = action.token;
+            delete action.token;
+            apiCall("/meal/tag", "POST", {"Authorization": "Bearer " + token}, action).success(function(){
+              console.log("Accomplished!!!");
+            });
             break;
 
             default:

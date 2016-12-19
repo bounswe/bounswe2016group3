@@ -18,16 +18,31 @@ import FollowButton  from './FollowButton';
 
 
 class Profile extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.follow = this.follow.bind(this);
     this.unfollow = this.unfollow.bind(this);
-  }
+    this.state = {
+         fullname: null,
+         bio:null
 
+    }
+    this.updateState = this.updateState.bind(this);
+    
+   // this.profile= this.profile.bind(this);
+  }
+  updateState(e) {
+      this.setState({fullname: e.target.value});
+   }
+   updateState_bio(e){
+     this.setState({bio: e.target.value});
+   }
 
   componentDidMount(){
+   
     this.props.actions.load(this.props.params.id);
   }
+
   state = {
     isOpen: false,
     isOpen_Include: false,
@@ -36,6 +51,7 @@ class Profile extends Component {
 
 
   isFollower(followers, currentUser, profile) {
+
     if (jQuery.isEmptyObject(currentUser) || profile.id === currentUser.id) {
       return null;
     }
@@ -68,11 +84,13 @@ class Profile extends Component {
   openModal_Exclude = () => { this.setState({ isOpen_Exclude: true });};
   hideModal_Exclude = () => { this.setState({ isOpen_Exclude: false});};
 
-  openModal_updateProfile = () => { this.setState({ isOpen_updateProfile: true });};
+  openModal_updateProfile = () => { this.setState({ isOpen_updateProfile: true });  this.setState({fullname: this.props.profile.fullName, bio:this.props.profile.bio});};
   hideModal_updateProfile = () => { this.setState({ isOpen_updateProfile: false});};
   
   render(){
     if(!this.props.profile || this.props.profile === {}){
+
+      
       return (
         <article className="col-xs-12">
           <p>
@@ -80,6 +98,7 @@ class Profile extends Component {
             Loading...
           </p>
         </article>
+
       );
     }
 
@@ -116,22 +135,47 @@ class Profile extends Component {
         this.props.actions.exclude(profile.id, this.props.token,exclude_names);
       }
     }
+    
+    var check =() =>{
+      
+      let checked_diet="";
+    $(".diet_checkboxes").each(function(){
+      
+      for(var i = dietTypes.length - 1; i >= 0; i--){
+       
+       if(document.getElementById("diet_"+i).checked){
+        checked_diet=i;
+        break;
+       };
+      }
+    })
+      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,profile.fullName,profile.bio, checked_diet, profile.secretQuestion,profile.userType, this.props.token);
+      this.setState({isOpen: false});
+    }
+    
+    var update_profile =(fullname_text,bio_text)=> {
+      
+      var fullname=$(".update_profile_inputs").find("#fullname_text").val();
+      var bio=$(".update_profile_inputs").find("#bio_text").val();
+      this.props.actions.update_profile(profile.id,profile.avatarUrl,profile.email,fullname,bio, profile.dietType, profile.secretQuestion,profile.userType, this.props.token);
+      this.setState({ isOpen_updateProfile: false});
+    }
 
     let includeHtml = this.props.include.map(function(m){
       return <label className="label-preferences"> {m} </label>;
-
     });
+
     let excludeHtml = this.props.exclude.map(function(m){
-
-      return <label className="label-preferences"> {m}</label>
-      ;
+      return <label className="label-preferences"> {m}</label>;
     });
-    let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
-    let dietTypes_chbx= "";
 
-    for (var i = dietTypes.length - 1; i >= 0; i--) {
-      dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
-    }
+    let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
+    
+    //let dietTypes_chbx= "";
+    //for (var i = dietTypes.length - 1; i >= 0; i--) {
+      //dietTypes_chbx= dietTypes_chbx+"<input type='checkbox' id='"+i+"' value='"+i+"' />"+ dietTypes[i]
+    //}
+   
     let updateProfileButton
     let updatePreferencesModalButton
     let updateIncludeModalButton
@@ -142,9 +186,11 @@ class Profile extends Component {
       updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
     }
-
+    
     const isFollow = this.isFollower(this.props.followers,
       this.props.currentUser, this.props.profile);
+    
+    
       return (
         <div>
           <div className="col-xs-4">
@@ -155,6 +201,7 @@ class Profile extends Component {
               </div>
             }
           </div>
+
           <div className="col-xs-8">
             <h1>{profile.fullName}</h1>
             <p>{profile.bio}</p>{updateProfileButton}
@@ -165,12 +212,12 @@ class Profile extends Component {
                   </ModalHeader>
                   <ModalBody>
                     
-                    
-                    <div className="col-xs-12">
-                    <input type="text" name="fullname" value={this.props.currentUser.fullName} />
-                    <input type="text" id="bio" className="form-control" value={this.props.currentUser.bio}/>
+              
+                    <div className="update_profile_inputs">
+                     <input type = "text" id="fullname_text" value = {this.state.fullname} onChange = {this.updateState} />
+                    <input type="text"  id="bio_text" value={this.state.bio} onChange = {this.updateState_bio} />
                    
-                      <button type="button" className="btn-success more_button" onClick={""}>Update</button>
+                      <button type="button" className="btn-success more_button" onClick={update_profile}>Update</button>
                     </div>
                   </ModalBody>
                   <ModalFooter>
@@ -269,19 +316,20 @@ class Profile extends Component {
                   </ModalHeader>
                   <ModalBody>
 
-                    <ul>
-                      <li> <input type="checkbox" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} </li>
-                      <li> <input type="checkbox" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} </li>
-                      <li> <input type="checkbox" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} </li>
-                      <li> <input type="checkbox" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} </li>
-                      <li> <input type="checkbox" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} </li>
-                      <li> <input type="checkbox" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]} </li>
-                      <li> <input type="checkbox" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]} </li>
-                    </ul>
+                    <div className="diet_checkboxes">
+                      <input type="radio" id="diet_0" value="0" name="diet_chkbx"/>  {dietTypes[0]} <br></br>
+                      <input type="radio" id="diet_1" value="1" name="diet_chkbx" />  {dietTypes[1]} <br></br>
+                      <input type="radio" id="diet_2" value="2" name="diet_chkbx" />  {dietTypes[2]} <br></br>
+                      <input type="radio" id="diet_3" value="3" name="diet_chkbx" />  {dietTypes[3]} <br></br>
+                      <input type="radio" id="diet_4" value="4" name="diet_chkbx"/>  {dietTypes[4]} <br></br>
+                      <input type="radio" id="diet_5" value="5" name="diet_chkbx"/>  {dietTypes[5]}<br></br>
+                      <input type="radio" id="diet_6" value="6" name="diet_chkbx"/>  {dietTypes[6]}
+
+                    </div>
 
                   </ModalBody>
                   <ModalFooter>
-                    <button type="button" className="btn btn-default" onClick={""}>Update </button>
+                    <button type="button" className="btn btn-default" onClick={check}>Update </button>
                     <button className='btn btn-default' onClick={this.hideModal}>Cancel</button>
 
                   </ModalFooter>
@@ -295,6 +343,7 @@ class Profile extends Component {
   }
 
   var mapStateToProps = function(state){
+
     return {
       token: state.token,
       profile: state.profile,

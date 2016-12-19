@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/Meal';
 import {
   Modal,
   ModalHeader,
@@ -7,6 +10,20 @@ import {
   ModalBody,
   ModalFooter
 } from 'react-modal-bootstrap';
+
+var mapActionsToProps = function(dispatch) {
+    return { actions: bindActionCreators(actions, dispatch) };
+}
+
+var mapStateToProps = function(state) {
+    return {
+        token: state.token,
+        profile: state.profile,
+        meal: state.meal,
+        currentUser: state.currentUser,
+        tags: state.mealTag
+    };
+};
 
 class SearchBar extends Component {
   constructor() {
@@ -33,7 +50,6 @@ class SearchBar extends Component {
   }
 
   search() {
-    // BUG: when adding a found query it should be deleted...
     const query = this.input.value;
     var results = [];
     if (query === "") {
@@ -86,11 +102,10 @@ class SearchBar extends Component {
   }
 }
 
-
 class MealTags extends Component {
   // tags should be a prop getting from reducers.
   // Actions for mealTags should be added...
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       tags: ['banana', 'apple', 'go', 'nine', 'six', 'seven'],
@@ -123,13 +138,14 @@ class MealTags extends Component {
   render() {
     return (
       <div>
-        <SearchBar tags={this.state.tags} addTag={this.addTag}/>
+        <SearchBar tags={this.props.tags} addTag={this.addTag}/>
         <ul className="list-group">
-          {this.state.tags.map((tag) => (
-            <div key={tag}>
+          {this.props.tags.map((tag) => (
+            <div key={tag.identifier}>
               <button className="link"
                 onClick={(e) => this.deleteTag(e, tag)}> &#x2717; </button>
-              <li className="list-group-item list-group-item-info">{tag}</li>
+              <li className="list-group-item list-group-item-info">
+                {tag.displayName}</li>
             </div>
           ))}
         </ul>
@@ -137,6 +153,8 @@ class MealTags extends Component {
     );
   }
 }
+
+MealTags = connect(mapStateToProps, mapActionsToProps)(MealTags);
 
 class ModalTags extends Component {
   render() {
@@ -165,11 +183,6 @@ class ModalTags extends Component {
 }
 
 class TagButton extends Component {
-  componentDidMount() {
-    console.log('Should be put there a viewTag call!');
-  }
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -193,10 +206,11 @@ class TagButton extends Component {
       <div>
         <button type="button" onClick={this.viewTags}
           className="btn btn-default">Tags</button>
-        <ModalTags isOpen={this.state.isOpen} close={this.closeTags} />
+        <ModalTags isOpen={this.state.isOpen} close={this.closeTags}/>
       </div>
     );
   }
 }
+
 
 export default TagButton;

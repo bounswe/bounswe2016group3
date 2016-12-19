@@ -899,8 +899,9 @@ window.jQuery = jQuery;
 
       var resultantRating = calculateRating(e).toFixed(options.precision);
       resultantRating = parseFloat(resultantRating);
-
+     // alert(resultantRating);
       that.rating(resultantRating);
+      
     }
 
     function onInit(e, data) {

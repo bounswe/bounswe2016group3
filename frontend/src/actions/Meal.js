@@ -49,4 +49,17 @@ var rate = function(token,mealId,id,rating){
 
 
 };
-export { load, checkeat,comment, rate,load_rating};
+
+var tag = function(token, mealId, displayName, identifier) {
+  return {
+    type: 'TAG_MEAL',
+    relationType: 2,
+    relationId: mealId,
+    displayName,
+    identifier,
+    token
+  };
+};
+
+
+export { load, checkeat,comment, rate, load_rating, tag};
