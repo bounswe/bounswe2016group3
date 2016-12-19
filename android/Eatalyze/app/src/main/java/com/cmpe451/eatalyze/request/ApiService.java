@@ -152,7 +152,7 @@ public interface ApiService {
     public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
 
     @GET("/api/user/{id}/exclude")
-    public void getExclude(@Path("id") Long id, Callback<String[]> excludeListCallback);
+    public void getExcludes(@Path("id") Long id, Callback<String[]> excludeListCallback);
 
     @Multipart
     @POST("/api/user/avatar")

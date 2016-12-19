@@ -109,6 +109,44 @@ public class UserProfilePageActivity extends BaseActivity {
             userid = bundle.getLong("userid");
 
 
+            apiService.getIncludes(userid, new Callback<String[]>() {
+                @Override
+                public void success(String[] strings, Response response) {
+
+                    String includeslist = "";
+                    for(int a = 0 ; a< strings.length; a++){
+                       includeslist = includeslist + strings[a] + ", ";
+                    }
+                    includeslist = includeslist.substring(0,includeslist.length()-2);
+                    includes.setText("Includes: " + includeslist);
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getExcludes(userid, new Callback<String[]>() {
+                @Override
+                public void success(String[] strings, Response response) {
+                    String excludesList = "";
+
+                    for(int a = 0 ; a< strings.length; a++){
+                        excludesList = excludesList + strings[a] + ", ";
+                    }
+                    excludesList = excludesList.substring(0,excludesList.length()-2);
+                    excludes.setText("Excludes: " + excludesList);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+
             apiService.getUserComments(userid, new Callback<List<Comment>>() {
                 @Override
                 public void success(final List<Comment> comments, Response response) {
@@ -446,6 +484,44 @@ public class UserProfilePageActivity extends BaseActivity {
 
 
             btn_follow.setText("Edit Profile");
+
+
+            apiService.getIncludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
+                @Override
+                public void success(String[] strings, Response response) {
+
+                    String includeslist = "";
+                    for(int a = 0 ; a< strings.length; a++){
+                        includeslist = includeslist + strings[a] + ", ";
+                    }
+                    includeslist = includeslist.substring(0,includeslist.length()-2);
+                    includes.setText("Includes: " + includeslist);
+
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+            apiService.getExcludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
+                @Override
+                public void success(String[] strings, Response response) {
+                    String excludesList = "";
+
+                    for(int a = 0 ; a< strings.length; a++){
+                        excludesList = excludesList + strings[a] + ", ";
+                    }
+                    excludesList = excludesList.substring(0,excludesList.length()-2);
+                    excludes.setText("Excludes: " + excludesList);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
 
             apiService.getUserComments(eatalyzeApplication.getUser().getId(), new Callback<List<Comment>>() {
                 @Override
