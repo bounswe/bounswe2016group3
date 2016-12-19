@@ -367,18 +367,6 @@ public class MealResourceTest {
 	}
 	
 	@Test
-	public void testCantTagMeal() throws Exception {
-		Response res = rule.getJerseyTest()
-				.target("/meal/tag")
-				.request(MediaType.APPLICATION_JSON_TYPE)
-				.header("Authorization", "Bearer test")
-				.post(Entity.json(invalidTag));
-		
-		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(tagDao, never()).tagMeal(any(), any(), any());
-	}
-	
-	@Test
 	public void testAlreadyTagged() throws Exception {
 		Response res = rule.getJerseyTest()
 				.target("/meal/tag")
@@ -400,30 +388,6 @@ public class MealResourceTest {
 		
 		assertThat(res.getStatusInfo().getStatusCode()).isBetween(200, 300);
 		verify(tagDao).untagMeal(any(), any());
-	}
-	
-	@Test
-	public void testCantUntagMeal() throws Exception {
-		Response res = rule.getJerseyTest()
-				.target("/meal/untag")
-				.request(MediaType.APPLICATION_JSON_TYPE)
-				.header("Authorization", "Bearer test")
-				.post(Entity.json(invalidTag));
-		
-		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(tagDao, never()).untagMeal(any(), any());
-	}
-	
-	@Test
-	public void testAlreadyUntagged() throws Exception {
-		Response res = rule.getJerseyTest()
-				.target("/meal/untag")
-				.request(MediaType.APPLICATION_JSON_TYPE)
-				.header("Authorization", "Bearer test")
-				.post(Entity.json(tag));
-		
-		assertThat(res.getStatusInfo().getStatusCode()).isEqualTo(304);
-		verify(tagDao, never()).untagMeal(any(), any());
 	}
 	
 	@Test
