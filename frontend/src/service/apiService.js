@@ -184,6 +184,7 @@ var apiService = function(store) {
             apiCall('/menu/'+action.id+"/meals/", "GET").success(function(res){
                 next({type: 'MEALS_LOADED', data: res});
             });
+
             break;
 
             case 'LOAD_MEAL':
@@ -202,6 +203,10 @@ var apiService = function(store) {
               next({type: 'TAGS_LOADED', data: res});
               console.log("Done :)");
             });
+            apiCall('/meal/'+action.id+"/nutrition/", "GET").success(function(res){
+                next({type: 'NUTRITION_INFO_LOADED', data: res});
+            });
+            
             break;
 
             case 'ADD_MEAL':

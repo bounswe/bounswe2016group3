@@ -97,7 +97,7 @@ class Meal extends Component {
     let ratingssHtml=this.props.ratings.average ;
     let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
    // let rateButton=<button type="button" className="btn btn-default" onClick={""}>Rate</button>;
-
+   console.log(this.props);
     return  <div className="col-xs-6">
 
       <h2>{this.props.meal.name}</h2>
@@ -107,7 +107,20 @@ class Meal extends Component {
 
       <h2>Ingredients</h2>
       <p>{this.props.meal.ingredients}</p>
-
+      <h2>Nutritional Info</h2>
+      <p>Weight: {this.props.nutritionInfo.weight} <br></br>
+      Calories: {this.props.nutritionInfo.calories} <br></br>
+      Total Fat: {this.props.nutritionInfo.totalFat} <br></br>
+      Saturated Fat: {this.props.nutritionInfo.saturatedFat} <br></br>
+      Cholesterol: {this.props.nutritionInfo.cholesterol} <br></br>
+      //bunlar da cekilcek ayni sekilde 
+      "sodium": 19459.2,
+      "totalCarbohydrate": 7.79,
+  "dietaryFiber": 2.4,
+  "sugars": 5.26,
+  "protein": 29.34,
+  "potassium": 767.99,
+  "phosphorus": 256.8</p>
       <img src={this.props.meal.photoUrl} alt="Avatar for user {props.uid}" className="avatar-m" />
 
       <div className="row">
@@ -121,8 +134,6 @@ class Meal extends Component {
           <h3> Ratings </h3>
           {ratingssHtml} out of 5
           <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
-
-
           <RateStar props={this.props}/>
 
         </div>
@@ -141,7 +152,8 @@ var mapStateToProps = function(state) {
         comments: state.comments,
         ratings: state.ratings,
         rate: state.rate,
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        nutritionInfo: state.nutritionInfo
 
     };
 };
