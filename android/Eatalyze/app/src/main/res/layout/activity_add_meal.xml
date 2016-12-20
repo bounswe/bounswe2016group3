@@ -30,7 +30,8 @@
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:text="Edit Image"
-                android:background="@color/blue"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/general_button_shape"
                 android:layout_below="@id/iv_meal_image"
                 android:layout_marginTop="10dp"/>
         </RelativeLayout>
@@ -115,7 +116,8 @@
             android:id="@+id/btn_add_meal"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:background="@color/blue"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/general_button_shape"
             android:text="Add Meal"
             android:layout_below="@id/lv_ingredients"
             android:layout_centerHorizontal="true"/>
