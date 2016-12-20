@@ -108,35 +108,24 @@ public class AddMealActivity extends BaseActivity {
             ingredient = ingredient + ingredientList.get(i).getAmount() + " grams of " + ingredientList.get(i).getName() + " ";
         }
 
-        final String mealName = etMealName.getText().toString();
-        final String desc = etMealDescription.getText().toString();
+        String mealName = etMealName.getText().toString();
+        String desc = etMealDescription.getText().toString();
         //TODO get menu of different users
-        final String finalIngredient = ingredient;
-        apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
+        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
             @Override
-            public void success(List<Menu> menus, Response response) {
-                apiService.addMeal(new Meal(null, menus.get(0).getId(), eatalyzeApplication.getUser().getId(), mealName, desc, finalIngredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
-                    @Override
-                    public void success(ResponseBody responseBody, Response response) {
-                        Log.d("Adding meal suc","SUC");
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("Adding meal fail",error.toString());
-                    }
-                });
-
-                Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
-                startActivity(intent);
+            public void success(ResponseBody responseBody, Response response) {
+                Toast.makeText(getApplicationContext(), " Meal added successfully..", Toast.LENGTH_SHORT).show();
+                Log.d("Add meal is: ", "WORKING");
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("Add meal is failed: ", error.toString());
             }
         });
 
+        //Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
+        //startActivity(intent);
     }
 
 
