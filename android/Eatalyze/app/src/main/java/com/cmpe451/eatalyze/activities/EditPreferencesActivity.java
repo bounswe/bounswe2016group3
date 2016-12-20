@@ -132,7 +132,7 @@ public class EditPreferencesActivity extends BaseActivity {
         });
 
         // EXCLUDES
-        apiService.getExclude(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
+        apiService.getExcludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
             @Override
             public void success(String[] strings, Response response) {
                 for (int i = 0; i < strings.length; i++) {
@@ -146,7 +146,7 @@ public class EditPreferencesActivity extends BaseActivity {
                     public void onChanged() {
                         super.onChanged();
                         if (adapterExcludes.check) {
-                            apiService.getExclude(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
+                            apiService.getExcludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
                                 @Override
                                 public void success(String[] strings, Response response) {
                                     String[] newList = new String[strings.length - 1];
@@ -243,7 +243,7 @@ public class EditPreferencesActivity extends BaseActivity {
         final String newExclude = etExcludeTag.getText().toString();
         excludeList.add(newExclude);
         etExcludeTag.setText("");
-        apiService.getExclude(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
+        apiService.getExcludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
             @Override
             public void success(String[] strings, Response response) {
                 String[] newList = new String[strings.length + 1];

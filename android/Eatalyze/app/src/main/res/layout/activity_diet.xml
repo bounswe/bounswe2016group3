@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pageBackground"
+    android:background="#E1F5FE"
     >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
@@ -162,14 +162,13 @@
 
         <Button
             android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/rl_paleo"
             android:text="@string/save_btn"
-            android:textColor="@color/pageBackground"
-            android:background="@drawable/login_btn"
+            android:background="@drawable/log_diet_button_shape"
             />
 
     </LinearLayout>
