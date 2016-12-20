@@ -46,4 +46,7 @@ public abstract class MealDAO {
 		
 		return _basicSearch(b.toString());
 	}
+	
+	@SqlQuery("select meals.* from meals join checkeat on meals.id = checkeat.meal_id where checkeat.user_id = :uid")
+	abstract public List<Meal> mealsEaten(@Bind("uid") Long id);
 }

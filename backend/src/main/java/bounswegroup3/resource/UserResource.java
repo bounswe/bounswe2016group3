@@ -396,4 +396,10 @@ public class UserResource {
     		return Response.notModified().build();
     	}
     }
+    
+    @GET
+    @Path("/{id}/checkeats")
+    public List<Meal> getEaten(@PathParam("id") Long id) {
+    	return mealDao.mealsEaten(id);
+    }
 }
