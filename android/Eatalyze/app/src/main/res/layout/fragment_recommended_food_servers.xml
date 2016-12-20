@@ -24,10 +24,14 @@
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/lv_rec_food_servers"
+            android:id="@+id/lv_rec_food_serverss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null">
+            android:divider="@null"
+            android:clickable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
         </ListView>
 
