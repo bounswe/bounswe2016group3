@@ -156,4 +156,7 @@ public interface ApiService {
     @Multipart
     @POST("/api/user/avatar")
     public void uploadPhoto(@Part("avatar") InputStream file,@Part("description") String description, Callback<String> responseCallback);
+
+    @POST("/api/user/update")
+    public void updateUser(@Body User user, Callback<User> userCallback);
 }
