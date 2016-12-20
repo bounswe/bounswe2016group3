@@ -9,15 +9,6 @@
         android:textSize="24sp"
         android:text="@string/hello_name"/>
 
-    <TextView
-        android:id="@+id/tv_rec_meals_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/rec_meal"/>
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

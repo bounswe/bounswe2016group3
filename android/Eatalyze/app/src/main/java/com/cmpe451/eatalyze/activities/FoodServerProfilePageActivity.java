@@ -106,7 +106,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                         apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
                             @Override
                             public void success(List<Meal> meals, Response response) {
-                             //   Log.d("succ meal list call. SIZE ->", meals.size() + "");
+                                Log.d("succ meal list call", meals.size() + "");
                                 FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
 
                                 final String[] foodServerName = {""};
@@ -309,14 +309,12 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                 @Override
                 public void success(final List<Menu> menus, Response response) {
                     if (!menus.isEmpty()) {
-                    //    Log.d("Menu server call success. # of meals ->", menus.get(0).getId() + "");
                         FoodServerProfilePageActivity.this.menus = (ArrayList<Menu>) menus;
 
-                        // TODO find a better way to do that and food server can have more than one menu
                         apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
                             @Override
                             public void success(List<Meal> meals, Response response) {
-                            //    Log.d("succ meal list call. SIZE ->", meals.size() + "");
+                                Log.d("succ meal list call.", meals.size() + "");
                                 FoodServerProfilePageActivity.this.mealOfMenu = (ArrayList<Meal>) meals;
 
                                 String currentFoodServer=eatalyzeApplication.getUser().getFullName();

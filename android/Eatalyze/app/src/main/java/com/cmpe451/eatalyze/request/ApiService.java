@@ -100,6 +100,9 @@ public interface ApiService {
     @GET("/api/menu/{menuId}/meals")
     public void getMealsOfMenu(@Path("menuId") Long menuId, Callback<List<Meal>> mealListCallBack);
 
+    @POST("/api/menu")
+    public void addNewMenu(@Body Menu menu, Callback<Menu> menuCallback);
+
     //TODO test after ingredient intake
     @GET("/api/meal/{id}/nutrition")
     public void getNutrition(@Path("id") Long id, Callback<NutritionalInfo> nutritionalInfoCallback);
@@ -159,7 +162,7 @@ public interface ApiService {
     @POST("/api/user/update")
     public void updateUser(@Body User user, Callback<User> userCallback);
 
-    @FormUrlEncoded
-    @POST("/api/meal/{id}")
-    public Meal getMealByIdSync(@Path("id") Long id);
+    @GET("/api/user/{id}/checkeats")
+    public void getEatenMeals(@Path("id") Long id, Callback<List<Meal>> mealListCallback);
+
 }

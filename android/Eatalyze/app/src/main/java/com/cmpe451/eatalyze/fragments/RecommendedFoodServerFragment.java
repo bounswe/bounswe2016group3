@@ -33,8 +33,6 @@ public class RecommendedFoodServerFragment extends Fragment {
     View view;
     @Bind(R.id.tv_hello_name)
     TextView tvHelloName;
-    @Bind(R.id.tv_recommended_server)
-    TextView tvRecommendedServer;
     @Bind(R.id.lv_rec_food_servers)
     ListView lvRecFoodServers;
 
