@@ -18,6 +18,7 @@ import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
+import com.cmpe451.eatalyze.models.WeeklyMeal;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
@@ -136,10 +137,8 @@ public interface ApiService {
     @GET("/api/home/lastweek")
     public void getWeeklyNutritionalInfo(Callback<NutritionalInfo> nutritionalInfoCallback);
 
-    /*
     @GET("/api/home/lastweek/meals")
-    public void getWeeklyMeals(Callback<List<Meal>> mealListCallback);
-    */
+    public void getWeeklyMeals(Callback<List<WeeklyMeal>> mealListCallback);
 
     @POST("/api/user/{id}/include")
     public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
@@ -159,4 +158,8 @@ public interface ApiService {
 
     @POST("/api/user/update")
     public void updateUser(@Body User user, Callback<User> userCallback);
+
+    @FormUrlEncoded
+    @POST("/api/meal/{id}")
+    public Meal getMealByIdSync(@Path("id") Long id);
 }

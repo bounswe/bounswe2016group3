@@ -31,7 +31,6 @@ public class LogActivity extends BaseActivity {
         return R.layout.activity_log;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -173,4 +173,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public EatalyzeApplication getEatalyzeApplication(){
+        return eatalyzeApplication;
+    }
 }
