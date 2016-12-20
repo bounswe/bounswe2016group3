@@ -6,6 +6,7 @@ import './meal.css';
 import './rateYo/jquery.rateyo.css';
 import './rateYo/jquery.rateyo';
 import $ from 'jquery';
+import TagButton from './TagButton';
 
 class RateStar extends Component {
   constructor(props) {
@@ -91,6 +92,7 @@ class Meal extends Component {
 
       <h2>{this.props.meal.name}</h2>
       {checkeatButton}
+      <TagButton token={this.props.token}/>
       <p>{this.props.meal.description}</p>
 
       <h2>Ingredients</h2>

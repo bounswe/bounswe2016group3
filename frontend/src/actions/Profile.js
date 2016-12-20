@@ -8,12 +8,22 @@ var load = function(id){
 var follow = function(token, followee, follower){
     return {
         type: 'FOLLOW_USER',
-        id: followee.id, 
+        id: followee.id,
         followee,
         follower,
         token
     };
 }
+
+var unfollow = function(token, unfollowee) {
+  return {
+    type: 'UNFOLLOW_USER',
+    id: unfollowee.id,
+    token
+  };
+}
+
+
 var include =   function(id,token,names){
     return {
     type: 'UPDATE_INCLUDE',
@@ -32,4 +42,4 @@ var exclude =   function(id,token,names){
  };
 }
 
-export { load, follow, include,exclude };
+export { load, follow, unfollow, include,exclude };

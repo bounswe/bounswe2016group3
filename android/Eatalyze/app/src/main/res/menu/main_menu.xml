@@ -12,9 +12,11 @@
         android:id="@+id/id_advsearch"
         android:title="Advanced Search" />
     <item
+        android:id="@+id/id_settings"
+        android:title="@string/Settings" />
+    <item
         android:id="@+id/id_logout"
         android:title="@string/logout" />
-
 
     <item
         android:id="@+id/menu_Search"

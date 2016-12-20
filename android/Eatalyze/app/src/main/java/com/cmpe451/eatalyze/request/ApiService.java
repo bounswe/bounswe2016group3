@@ -1,5 +1,7 @@
 package com.cmpe451.eatalyze.request;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.cmpe451.eatalyze.models.AccessToken;
@@ -17,10 +19,13 @@ import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +35,13 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
+import retrofit.http.Headers;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 /**
@@ -109,9 +118,8 @@ public interface ApiService {
     @GET("/api/meal/search/{query}")
     public void mealSearch(@Path("query") String query, Callback<List<Meal>> mealListCallback);
 
-
     @GET("/api/meal/{id}/tags")
-    public void tagsByMeal(@Path("id") Long id, Callback<List<String>> tagListCallback);
+    public void tagsByMeal(@Path("id") Long id, Callback<ArrayList<Tag>> tags);
 
     @POST("/api/meal/tag")
     public void tagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
@@ -137,11 +145,18 @@ public interface ApiService {
     public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
 
     @POST("/api/user/{id}/exclude")
-    public void updatedExludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
+    public void updatedExcludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
 
     @GET("/api/user/{id}/include")
     public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
 
     @GET("/api/user/{id}/exclude")
-    public void getExclude(@Path("id") Long id, Callback<String[]> excludeListCallback);
+    public void getExcludes(@Path("id") Long id, Callback<String[]> excludeListCallback);
+
+    @Multipart
+    @POST("/api/user/avatar")
+    public void uploadPhoto(@Part("avatar") InputStream file,@Part("description") String description, Callback<String> responseCallback);
+
+    @POST("/api/user/update")
+    public void updateUser(@Body User user, Callback<User> userCallback);
 }

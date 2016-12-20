@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.cmpe451.eatalyze.activities.AddMealActivity"
-        android:background="@color/pageBackground">
+        android:background="#E1F5FE">
 
         <include layout="@layout/app_bar"
             android:id="@+id/appBar"/>

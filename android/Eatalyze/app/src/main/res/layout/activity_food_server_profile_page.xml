@@ -114,25 +114,17 @@
                 android:weightSum="1">
 
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="#4FC3F7"
-                    android:text="RATE"
-                    android:background="@drawable/follow_button_shape"
-                    android:layout_weight="0.5"/>
+                    android:text="RATE / COMMENT"
+                    android:background="@drawable/follow_button_shape" />
                 <View
                     android:clickable="true"
                     android:layout_gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.03" />
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:textColor="#4FC3F7"
-                    android:text="COMMENT"
-                    android:background="@drawable/follow_button_shape"
-                    android:layout_weight="0.5"/>
 
             </LinearLayout>
 
@@ -153,8 +145,8 @@
             android:id="@+id/tv_bio"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:background="@color/gray"/>
+            android:layout_weight="0.17"
+            android:background="@color/white"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -170,7 +162,7 @@
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/gray"
+            android:background="@color/blue"
             android:layout_weight="0.03" />
 
         <ListView
@@ -178,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:divider="@null"
-            android:layout_weight="0.45">
+            android:layout_weight="0.48">
 
         </ListView>
 
@@ -186,7 +178,7 @@
             android:clickable="true"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:background="@color/gray"
+            android:background="@color/blue"
             android:layout_height="0dp"
             android:layout_weight="0.03" />
 
@@ -203,6 +195,7 @@
           android:layout_height="0dp"
           android:layout_weight="0.16"
           android:text="ADD MEAL"
+          android:background="@drawable/log_diet_button_shape"
           android:textStyle="bold"
           android:textSize="18sp"
           />

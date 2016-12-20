@@ -13,48 +13,8 @@ import {
 import $ from 'jquery';
 import jQuery from 'jquery';
 import * as actions from '../actions/Profile';
-import PicEdit from './PicEdit';
-
-
-
-class FollowButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: "Following",
-      className: "btn btn-primary"
-    };
-    this.following = this.following.bind(this);
-    this.unfollowing = this.unfollowing.bind(this);
-  }
-
-  unfollowing() {
-    this.setState({
-      content: "Unfollow",
-      className: "btn btn-danger"
-    });
-  }
-
-  following() {
-    this.setState({
-      content: "Following",
-      className: "btn btn-primary"
-    });
-  }
-
-  render() {
-    if (this.props.isFollow === null)
-      return null;
-    if (this.props.isFollow === false) {
-      return <button type="button" className="btn btn-default"
-        onClick={this.props.follow}>Follow</button>
-    }
-    return <button type="button" className={this.state.className}
-      onClick={this.props.unfollow} onMouseEnter={this.unfollowing}
-      onMouseLeave={this.following}> {this.state.content} </button>;
-  }
-}
-
+import PicEdit  from './PicEdit';
+import FollowButton  from './FollowButton';
 
 
 class Profile extends Component {
@@ -75,8 +35,8 @@ class Profile extends Component {
   };
 
 
-  isFollower(followers, currentUser) {
-    if (jQuery.isEmptyObject(currentUser)) {
+  isFollower(followers, currentUser, profile) {
+    if (jQuery.isEmptyObject(currentUser) || profile.id === currentUser.id) {
       return null;
     }
     if (followers.some((u) => (u.id === currentUser.id))) {
@@ -94,9 +54,8 @@ class Profile extends Component {
   }
 
   unfollow() {
-    console.log('Neler oluyor :/');
     if(this.props.token) {
-      console.log('Yeap :)');
+      this.props.actions.unfollow(this.props.token, this.props.profile);
     }
   }
 
@@ -164,7 +123,6 @@ class Profile extends Component {
       return <label className="label-preferences"> {m}</label>
       ;
     });
-    let followButton;
     let dietTypes=["EGG_DIARY_VEG","GLUTEN_FREE ","NO_MUSHROOM_OR_RED_MEAT ","NO_NUTS" ,"OMNIVORE" ,"PALEO" ,"VEGAN"];
     let dietTypes_chbx= "";
 
@@ -175,16 +133,13 @@ class Profile extends Component {
     let updateIncludeModalButton
     let updateExcludeModalButton
     if(current.id === profile.id) {
-      followButton = <div></div>;
       updatePreferencesModalButton =<button type="button" className="btn btn-success" onClick={this.openModal}>Update</button>
       updateIncludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Include}>Update</button>
       updateExcludeModalButton =<button type="button" className="btn btn-success" onClick={this.openModal_Exclude}>Update</button>
-    } else {
-      const isFollow = this.isFollower(this.props.followers, this.props.currentUser);
-      followButton = <FollowButton isFollow={isFollow} follow={this.follow}
-        unfollow={this.unfollow}/>
     }
 
+    const isFollow = this.isFollower(this.props.followers,
+      this.props.currentUser, this.props.profile);
       return (
         <div>
           <div className="col-xs-4">
@@ -198,8 +153,8 @@ class Profile extends Component {
           <div className="col-xs-8">
             <h1>{profile.fullName}</h1>
             <p>{profile.bio}</p>
-
-            {followButton}
+            <FollowButton isFollow={isFollow} follow={this.follow}
+              unfollow={this.unfollow}/>
             <div className="row">
               <div className="col-xs-4">
                 <h3>Followers: {this.props.followers.length}</h3>

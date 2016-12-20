@@ -69,7 +69,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.154"
+                android:layout_weight="0.158"
                 />
 
             <View
@@ -77,7 +77,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.05" />
+                android:layout_weight="0.03" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -93,7 +93,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.05" />
+                android:layout_weight="0.03" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -116,7 +116,7 @@
                 android:layout_weight="0.34"
                 android:layout_height="0dp"
                 android:id="@+id/tv_bio"
-                android:background="#E0E0E0" />
+                android:background="#FFFFFF" />
 
         </LinearLayout>
 
@@ -140,14 +140,14 @@
                 android:text="Preferences"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:background="@color/gray"
+                android:background="#E1F5FE"
                 android:id="@+id/id_preferences"/>
 
             <View
                 android:clickable="true"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:background="@color/gray"
+                android:background="@color/white"
                 android:layout_height="0dp"
                 android:layout_weight="0.02" />
 
@@ -157,14 +157,14 @@
                 android:layout_weight="0.1"
                 android:text="Includes:"
                 android:clickable="true"
+                android:background="#E1F5FE"
                 android:textSize="16sp"
-                android:background="@color/gray"
                 android:id="@+id/id_includes"/>
 
             <View
                 android:clickable="true"
                 android:layout_gravity="center"
-                android:background="@color/gray"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.02" />
@@ -174,9 +174,9 @@
             android:layout_height="0dp"
             android:layout_weight="0.1"
             android:text="Excludes: "
+            android:background="#E1F5FE"
             android:textSize="16sp"
             android:id="@+id/id_excludes"
-            android:background="@color/gray"
             android:clickable="true"/>
 
         <View
@@ -190,7 +190,8 @@
                 android:id="@+id/id_expandabletextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
+                android:textSize="16sp"
+                android:background="#E1F5FE"
                 android:gravity="center"
                 android:layout_weight="0.07" />
 
@@ -204,9 +205,10 @@
              <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView1"
                 android:layout_width="fill_parent"
-                android:background="@color/gray"
-                 android:gravity="center"
+                android:gravity="center"
+                 android:background="#E1F5FE"
                 android:layout_height="wrap_content"
+                 android:textSize="16sp"
                 android:layout_weight="0.07" />
 
             <View
@@ -218,10 +220,11 @@
 
             <com.cmpe451.eatalyze.views.ExpandableTextView
                 android:id="@+id/id_expandabletextView2"
+                android:background="#E1F5FE"
                 android:layout_width="fill_parent"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:layout_height="wrap_content"
-                android:background="@color/gray"
                 android:layout_weight="0.07" />
 
             <View
@@ -231,16 +234,17 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.005" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="Log"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:id="@+id/btn_log"
-                android:layout_weight="0.2"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Log"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/btn_log"
+            android:background="@drawable/log_diet_button_shape"
+            android:layout_weight="0.2"/>
 
-            <View
+        <View
                 android:clickable="true"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
@@ -252,12 +256,9 @@
                 android:layout_height="0dp"
                 android:id="@+id/btn_diet"
                 android:text="DIETS"
+                android:background="@drawable/log_diet_button_shape"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_weight="0.2"/>
-
-
     </LinearLayout>
-
-
 </LinearLayout>

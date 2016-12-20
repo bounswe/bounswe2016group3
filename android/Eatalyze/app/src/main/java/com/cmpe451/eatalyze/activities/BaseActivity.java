@@ -71,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
-                request.addHeader("Content-type", "application/json");
+                request.addHeader("Content-type","application/json");
                 if (eatalyzeApplication.getAccessToken() != null)
                     request.addHeader("Authorization", "Bearer " + eatalyzeApplication.getAccessToken().getAccessToken());
 
@@ -132,6 +132,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.id_advsearch:
                 startActivity(new Intent(BaseActivity.this, AdvancedSearchActivity.class));
                 break;
+
+            case R.id.id_settings:
+                startActivity(new Intent(BaseActivity.this, SettingsActivity.class));
+                break;
+
             case R.id.id_logout:
                 SharedPreferences preferences = eatalyzeApplication.getSp();
                 SharedPreferences.Editor editor = preferences.edit();

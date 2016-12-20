@@ -168,6 +168,15 @@ var apiService = function(store) {
             }).error(() => {console.log('Failed!!!')});
             break;
 
+            case 'UNFOLLOW_USER':
+            apiCall("/user/"+action.id+"/unfollow", "POST", {"Authorization": "Bearer " + action.token}).success(function(){
+              console.log('Success!!!');
+              apiCall("/user/"+action.id+"/followers", "GET").success(function(res) {
+                next({type: 'FOLLOWERS_LOADED', data: res});
+              }).error(() => {console.log('Followers not Loaded!!!')});
+            }).error(() => {console.log('Failed!!!')});
+            break;
+
             case 'LOAD_MENU':
             apiCall('/menu/'+action.id+"/", "GET").success(function(res){
                 next({type: 'MENU_LOADED', data: res});

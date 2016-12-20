@@ -9,23 +9,19 @@ import com.cmpe451.eatalyze.constants.UserType;
 
 public class User {
     private Long id;
-
-
     private String email;
-    private String passwordHash;
-    private String passwordSalt;
     private String bio;
     private String fullName;
     private int userType;
-    private DietType dietType;
+    private int dietType;
     //not null
     private String secretQuestion;
     //not null
-    private String secretAnswerHash;
     //not null
-    private String secretAnswerSalt;
     private String avatarUrl;
+    private String location;
     private Boolean isBanned;
+
 
 
     public User() {
@@ -33,24 +29,23 @@ public class User {
 
         this.bio = "";
         this.fullName = "";
+
         this.userType = 0;
-        this.dietType = DietType.OMNIVORE;
+        this.dietType=0;
         this.avatarUrl = "http://icons.iconarchive.com/icons/dakirby309/windows-8-metro/256/Folders-OS-User-No-Frame-Metro-icon.png";
         this.isBanned = false;
+        location="";
     }
 
-    public User(Long id, String email, String passwordHash, String passwordSalt, String bio, String fullName, int userType, DietType dietType, String secretQuestion, String secretAnswerHash, String secretAnswerSalt, String avatarUrl, Boolean isBanned) {
+    public User(Long id, String email, String bio, String fullName, int userType, int dietType, String secretQuestion, String avatarUrl, Boolean isBanned) {
         this.id = id;
         this.email = email;
-        this.passwordHash = passwordHash;
-        this.passwordSalt = passwordSalt;
+
         this.bio = bio;
         this.fullName = fullName;
         this.userType = userType;
         this.dietType = dietType;
         this.secretQuestion = secretQuestion;
-        this.secretAnswerHash = secretAnswerHash;
-        this.secretAnswerSalt = secretAnswerSalt;
         this.avatarUrl = avatarUrl;
         this.isBanned = isBanned;
     }
@@ -69,22 +64,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
     }
 
     public String getBio() {
@@ -111,36 +90,12 @@ public class User {
         this.userType = userType;
     }
 
-    public DietType getDietType() {
-        return dietType;
-    }
-
-    public void setDietType(DietType dietType) {
-        this.dietType = dietType;
-    }
-
     public String getSecretQuestion() {
         return secretQuestion;
     }
 
     public void setSecretQuestion(String secretQuestion) {
         this.secretQuestion = secretQuestion;
-    }
-
-    public String getSecretAnswerHash() {
-        return secretAnswerHash;
-    }
-
-    public void setSecretAnswerHash(String secretAnswerHash) {
-        this.secretAnswerHash = secretAnswerHash;
-    }
-
-    public String getSecretAnswerSalt() {
-        return secretAnswerSalt;
-    }
-
-    public void setSecretAnswerSalt(String secretAnswerSalt) {
-        this.secretAnswerSalt = secretAnswerSalt;
     }
 
     public String getAvatarUrl() {
@@ -157,5 +112,21 @@ public class User {
 
     public void setBanned(Boolean banned) {
         isBanned = banned;
+    }
+
+    public int getDietType() {
+        return dietType;
+    }
+
+    public void setDietType(int dietType) {
+        this.dietType = dietType;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

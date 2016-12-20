@@ -46,8 +46,8 @@ public class FoodServerHomePage extends BaseActivity {
             @Override
             public void success(List<Comment> comments, Response response) {
                 Log.d("Comment size check-->",comments.size()+"");
-                //CommentAdapter adapter=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
-                //lvComments.setAdapter(adapter);
+                //CommentAdapter adapterIncludes=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
+                //lvComments.setAdapter(adapterIncludes);
             }
 
             @Override
@@ -56,16 +56,6 @@ public class FoodServerHomePage extends BaseActivity {
             }
         });
         //apiService.commentsByMeal();
-
-        //CommentAdapter adapter=new CommentAdapter()
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+        //CommentAdapter adapterIncludes=new CommentAdapter()
     }
 }

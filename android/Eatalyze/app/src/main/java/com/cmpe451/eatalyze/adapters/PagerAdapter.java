@@ -3,6 +3,7 @@ package com.cmpe451.eatalyze.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.cmpe451.eatalyze.fragments.FoodServerSignupFragment;
 import com.cmpe451.eatalyze.fragments.UserSignupFragment;
@@ -25,6 +26,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 UserSignupFragment tab1 = new UserSignupFragment();
+                Log.d("Signup Tab Check","user selected");
                 return tab1;
             case 1:
                 FoodServerSignupFragment tab2 = new FoodServerSignupFragment();

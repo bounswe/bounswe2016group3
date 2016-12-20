@@ -3,6 +3,7 @@
     package="com.cmpe451.eatalyze">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".EatalyzeApplication"
@@ -144,7 +145,7 @@
             android:resource="@xml/searchable" />
 
         <activity
-            android:name=".activities.TagPeopleActivity"
+            android:name=".activities.CheckEatActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -178,8 +179,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activities.TagMealActivity"></activity>
         <activity android:name=".activities.AdvancedSearchActivity"></activity>
+        <activity android:name=".activities.TagMealActivity"></activity>
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>
