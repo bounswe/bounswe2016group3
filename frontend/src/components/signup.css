@@ -1,3 +1,8 @@
-.signup_h1{
-	color: #fff;
+.signup_h1 {
+    color: #777;
+    margin-top: 100px;
 }
+.btn.btn-primary.btn-block{
+	background:  orange;
+}
+

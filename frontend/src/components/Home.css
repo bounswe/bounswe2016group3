@@ -2,6 +2,7 @@
 .container{
 	text-align: center;
 	height: 700px;
+
 	
 
 }
@@ -14,4 +15,5 @@
 }
 .row{
 	background-color: white;
+	border-radius:inherit;
 }
