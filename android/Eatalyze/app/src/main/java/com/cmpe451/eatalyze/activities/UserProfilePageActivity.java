@@ -113,12 +113,12 @@ public class UserProfilePageActivity extends BaseActivity {
                 @Override
                 public void success(String[] strings, Response response) {
 
-                    String includeslist = "";
+                    String includeslist = "  ";
                     for(int a = 0 ; a< strings.length; a++){
                        includeslist = includeslist + strings[a] + ", ";
                     }
                     includeslist = includeslist.substring(0,includeslist.length()-2);
-                    includes.setText("Includes: " + includeslist);
+                    includes.setText("Includes:" + includeslist);
 
                 }
 
@@ -131,13 +131,13 @@ public class UserProfilePageActivity extends BaseActivity {
             apiService.getExcludes(userid, new Callback<String[]>() {
                 @Override
                 public void success(String[] strings, Response response) {
-                    String excludesList = "";
+                    String excludesList = "  ";
 
                     for(int a = 0 ; a< strings.length; a++){
                         excludesList = excludesList + strings[a] + ", ";
                     }
                     excludesList = excludesList.substring(0,excludesList.length()-2);
-                    excludes.setText("Excludes: " + excludesList);
+                    excludes.setText("Excludes:" + excludesList);
                 }
 
                 @Override
@@ -490,12 +490,12 @@ public class UserProfilePageActivity extends BaseActivity {
                 @Override
                 public void success(String[] strings, Response response) {
 
-                    String includeslist = "";
+                    String includeslist = "  ";
                     for(int a = 0 ; a< strings.length; a++){
                         includeslist = includeslist + strings[a] + ", ";
                     }
                     includeslist = includeslist.substring(0,includeslist.length()-2);
-                    includes.setText("Includes: " + includeslist);
+                    includes.setText("Includes:" + includeslist);
 
                 }
 
@@ -508,13 +508,13 @@ public class UserProfilePageActivity extends BaseActivity {
             apiService.getExcludes(eatalyzeApplication.getUser().getId(), new Callback<String[]>() {
                 @Override
                 public void success(String[] strings, Response response) {
-                    String excludesList = "";
+                    String excludesList = "  ";
 
                     for(int a = 0 ; a< strings.length; a++){
                         excludesList = excludesList + strings[a] + ", ";
                     }
                     excludesList = excludesList.substring(0,excludesList.length()-2);
-                    excludes.setText("Excludes: " + excludesList);
+                    excludes.setText("Excludes:" + excludesList);
                 }
 
                 @Override
