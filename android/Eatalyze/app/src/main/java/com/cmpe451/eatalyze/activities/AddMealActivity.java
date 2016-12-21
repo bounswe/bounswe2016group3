@@ -112,17 +112,18 @@ public class AddMealActivity extends BaseActivity {
         apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
             @Override
             public void success(ResponseBody responseBody, Response response) {
-
+                Toast.makeText(getApplicationContext(), " Meal added successfully..", Toast.LENGTH_SHORT).show();
+                Log.d("Add meal is: ", "WORKING");
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("Add meal is failed: ", error.toString());
             }
         });
 
-        Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
-        startActivity(intent);
+        //Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
+        //startActivity(intent);
     }
 
 
@@ -171,11 +172,5 @@ public class AddMealActivity extends BaseActivity {
         }
 
     }
-
-
-
-
-
-
 
 }
