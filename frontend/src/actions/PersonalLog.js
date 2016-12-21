@@ -7,5 +7,4 @@ var load = function(id, token){
 }
 
 
-
 export {load};

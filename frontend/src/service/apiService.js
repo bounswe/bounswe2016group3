@@ -47,12 +47,16 @@ var apiService = function(store) {
             break;
 
             case 'LOAD_PERSONALLOG':
-            console.log(action);
             apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
                 next({type: 'PERSONALLOG_LOADED', data: res});
             }).error(function(error, response){
                 next({type: 'PERSONALLOG_FAILED'});
             });
+            apiCall("/home/lastweek/meals", "GET", {"Authorization": "Bearer " + action.token}).success(function(data){
+              console.log(data);
+              next({type: 'MEALS_EATEN_LOADED', data: data});
+            }).error(() => console.log(action));
+
             break;
 
             case 'SIGNUP_REQ':
@@ -362,7 +366,6 @@ var apiService = function(store) {
               });
             }).error(() => console.log(action));
             break;
-
 
 
             default:
