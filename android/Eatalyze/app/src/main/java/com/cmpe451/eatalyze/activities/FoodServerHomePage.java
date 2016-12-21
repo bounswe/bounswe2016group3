@@ -33,8 +33,6 @@ public class FoodServerHomePage extends BaseActivity {
 
     List<User> userList = new ArrayList<User>();
 
-    List<Meal> mealList = new ArrayList<Meal>();
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_food_server_home_page;
@@ -44,6 +42,8 @@ public class FoodServerHomePage extends BaseActivity {
     public void onCreate(Bundle savedInstances) {
 
         super.onCreate(savedInstances);
+
+
 
         userid = eatalyzeApplication.getUser().getId();
 
@@ -60,6 +60,11 @@ public class FoodServerHomePage extends BaseActivity {
                                     public void success(final List<Comment> comments, Response response) {
                                         Log.d("Comment size check-->",comments.size()+"");
                                         if(!comments.isEmpty()){
+                                            String welcome =   "Welcome "
+                                                                +eatalyzeApplication.getUser().getFullName()+
+                                                                ".\nThere are "+comments.size()+
+                                                                " comments made on your meals.";
+                                            tvWelcomeText.setText(welcome);
                                             apiService.getUsers(new Callback<List<User>>() {
                                                 @Override
                                                 public void success(List<User> users, Response response) {
@@ -85,6 +90,11 @@ public class FoodServerHomePage extends BaseActivity {
 
                                                 }
                                             });
+                                        } else {
+                                            String welcome = "Welcome "
+                                                             +eatalyzeApplication.getUser().getFullName()+
+                                                             ".\nThere are 0 comments made on your meals.";
+                                            tvWelcomeText.setText(welcome);
                                         }
 
 
