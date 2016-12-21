@@ -108,11 +108,10 @@ public class AddMealActivity extends BaseActivity {
             ingredient = ingredient + ingredientList.get(i).getAmount() + " grams of " + ingredientList.get(i).getName() + " ";
         }
 
-        final String mealName = etMealName.getText().toString();
-        final String desc = etMealDescription.getText().toString();
+        String mealName = etMealName.getText().toString();
+        String desc = etMealDescription.getText().toString();
         //TODO get menu of different users
-        final String finalIngredient = ingredient;
-        apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
+        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
             @Override
             public void success(ResponseBody responseBody, Response response) {
                 Toast.makeText(getApplicationContext(), " Meal added successfully..", Toast.LENGTH_SHORT).show();
@@ -127,14 +126,6 @@ public class AddMealActivity extends BaseActivity {
 
         //Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
         //startActivity(intent);
-    }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
-
     }
 
 

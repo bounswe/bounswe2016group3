@@ -33,7 +33,7 @@ public class RecommendedFoodServerFragment extends Fragment {
     View view;
     @Bind(R.id.tv_hello_name)
     TextView tvHelloName;
-    @Bind(R.id.lv_rec_food_servers)
+    @Bind(R.id.lv_rec_food_serverss)
     ListView lvRecFoodServers;
 
     List<User> recFoodServerList = new ArrayList<User>();
