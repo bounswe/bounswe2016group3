@@ -1,6 +1,5 @@
 package com.cmpe451.eatalyze.activities;
 
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -10,11 +9,14 @@ import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +77,8 @@ public class AddMealActivity extends BaseActivity {
     EditText etAmount;
     @Bind(R.id.rl_add_ingredient_item)
     RelativeLayout rlAddIngredientItem;
+    @Bind(R.id.sp_amount)
+    Spinner spAmount;
 
     @Override
     public int getLayoutId() {
@@ -84,6 +88,24 @@ public class AddMealActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstances) {
         super.onCreate(savedInstances);
+
+        Spinner spinner = (Spinner) spAmount;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getApplicationContext(),
+                R.array.amount_array,
+                R.layout.support_simple_spinner_dropdown_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
 
         adapter = new IngredientAdapter(AddMealActivity.this, ingredientList);
         lvIngredients.setAdapter(adapter);
@@ -98,7 +120,7 @@ public class AddMealActivity extends BaseActivity {
         etIndgredient.setText("");
         etAmount.setText("");
         etIndgredient.setHint("ingredient");
-        etAmount.setHint("gr");
+        etAmount.setHint("Amount");
     }
 
 
@@ -197,5 +219,5 @@ public class AddMealActivity extends BaseActivity {
         startActivityForResult(
                 Intent.createChooser(intent, "Select File"),
                 1);//SELECT_FILE);
-          }
+    }
 }

@@ -3,11 +3,13 @@ package com.cmpe451.eatalyze.models;
 import com.cmpe451.eatalyze.constants.DietType;
 import com.cmpe451.eatalyze.constants.UserType;
 
+import java.io.Serializable;
+
 /**
  * Created by ekrem on 13/10/2016.
  */
 
-public class User {
+public class User implements Serializable{
     private Long id;
     private String email;
     private String bio;

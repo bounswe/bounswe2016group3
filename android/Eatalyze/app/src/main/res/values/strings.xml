@@ -74,6 +74,13 @@
         <item>No Nuts</item>
     </string-array>
 
+    <string-array name="amount_array">
+        <item>gr</item>
+        <item>spoon</item>
+        <item>glass</item>
+        <item>piece</item>
+    </string-array>
+
 
     <!--Edit Preferences Page-->
     <string name="includes"><b>INCLUDES</b></string>

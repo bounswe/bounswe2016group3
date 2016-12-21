@@ -82,7 +82,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:hint="ingredient"
-                android:layout_margin="10dp"
+                android:layout_margin="4dp"
                 />
 
 
@@ -90,17 +90,26 @@
                 android:id="@+id/et_amount"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
-                android:hint="gr"
+                android:hint="Amount"
                 android:layout_toRightOf="@id/et_indgredient"
-                android:layout_margin="10dp"
+                android:layout_margin="4dp"
                 />
+
+            <Spinner
+                android:id="@+id/sp_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/et_amount"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
 
             <ImageView
                 android:id="@+id/iv_add_icon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/add_icon"
-                android:layout_toRightOf="@+id/et_amount"
+                android:layout_toRightOf="@+id/sp_amount"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                />

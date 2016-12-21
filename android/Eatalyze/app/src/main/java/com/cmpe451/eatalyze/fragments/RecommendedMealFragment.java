@@ -53,13 +53,93 @@ public class RecommendedMealFragment extends Fragment {
         tvHelloName.setText(welcomeText);
 
         //TODO make this for recommended meals, not random ones
-        ((UserHomepageActivity) getActivity()).getApiService().getMealById(new Long(51), new Callback<Meal>() {
+        ((UserHomepageActivity) getActivity()).getApiService().getMealById(new Long(94), new Callback<Meal>() {
             @Override
             public void success(Meal meal, Response response) {
                 Log.d("SUC meal call", meal.getName());
-                for (int i = 0; i < 3; i++) {
+
                     recMealList.add(meal);
-                }
+
+                ((UserHomepageActivity) getActivity()).getApiService().getUserByID(meal.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        MealAdapter adapter = new MealAdapter(getContext(), (ArrayList<Meal>) recMealList, user.getFullName());
+                        lvRecMeals.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("FAIL meal call", error.toString());
+            }
+        });
+
+        ((UserHomepageActivity) getActivity()).getApiService().getMealById(new Long(97), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+                Log.d("SUC meal call", meal.getName());
+                    recMealList.add(meal);
+
+                ((UserHomepageActivity) getActivity()).getApiService().getUserByID(meal.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        MealAdapter adapter = new MealAdapter(getContext(), (ArrayList<Meal>) recMealList, user.getFullName());
+                        lvRecMeals.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("FAIL meal call", error.toString());
+            }
+        });
+
+        ((UserHomepageActivity) getActivity()).getApiService().getMealById(new Long(96), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+                Log.d("SUC meal call", meal.getName());
+                recMealList.add(meal);
+
+                ((UserHomepageActivity) getActivity()).getApiService().getUserByID(meal.getUserId(), new Callback<User>() {
+                    @Override
+                    public void success(User user, Response response) {
+                        MealAdapter adapter = new MealAdapter(getContext(), (ArrayList<Meal>) recMealList, user.getFullName());
+                        lvRecMeals.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("FAIL meal call", error.toString());
+            }
+        });
+
+        ((UserHomepageActivity) getActivity()).getApiService().getMealById(new Long(95), new Callback<Meal>() {
+            @Override
+            public void success(Meal meal, Response response) {
+                Log.d("SUC meal call", meal.getName());
+                recMealList.add(meal);
 
                 ((UserHomepageActivity) getActivity()).getApiService().getUserByID(meal.getUserId(), new Callback<User>() {
                     @Override

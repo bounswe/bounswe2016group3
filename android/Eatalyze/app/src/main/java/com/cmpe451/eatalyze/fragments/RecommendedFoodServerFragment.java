@@ -56,7 +56,7 @@ public class RecommendedFoodServerFragment extends Fragment {
 
         ApiService apiService=((UserHomepageActivity) getActivity()).getApiService();
         //TODO get list of food server instead of only one
-        apiService.getUserByID(new Long(95), new Callback<User>() {
+        apiService.getUserByID(new Long(215), new Callback<User>() {
 
             @Override
             public void success(User user, retrofit.client.Response response) {
@@ -92,7 +92,7 @@ public class RecommendedFoodServerFragment extends Fragment {
             }
         });
 
-        apiService.getUserByID(new Long(100), new Callback<User>() {
+        apiService.getUserByID(new Long(211), new Callback<User>() {
 
 
             @Override
@@ -111,20 +111,16 @@ public class RecommendedFoodServerFragment extends Fragment {
             }
         });
 
-        FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
-        lvRecFoodServers.setAdapter(adapter);
+        //FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
+        //lvRecFoodServers.setAdapter(adapter);
         Log.d("asdasdads",recFoodServerList.size() + "");
         lvRecFoodServers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Basıldı", Toast.LENGTH_SHORT).show();
-                User clickedUser = (User) parent.getItemAtPosition(position);
-                long userid = clickedUser.getId();
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                User clickedUser= (User) adapterView.getItemAtPosition(i);
+                Log.d("clickedServer", ""+i);
                 Intent intent=new Intent(getContext(), FoodServerProfilePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putLong("userid", userid);
-                intent.putExtras(bundle);
+                intent.putExtra("ClickedUser", clickedUser);
                 startActivity(intent);
             }
         });
