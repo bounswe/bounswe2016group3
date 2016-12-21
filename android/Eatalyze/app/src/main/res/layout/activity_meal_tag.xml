@@ -21,11 +21,12 @@
             android:hint="Enter tag..."/>
 
         <EditText
+            android:id="@+id/et_identifier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="0.5"
-            android:hint="Identifier"/>
+            android:hint="Identifier..."/>
 
         <Button
             android:id="@+id/btn_tag_meal"

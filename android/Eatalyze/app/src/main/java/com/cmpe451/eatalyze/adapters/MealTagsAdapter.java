@@ -35,7 +35,7 @@ public class MealTagsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return tags.size();
     }
 
     @Override
@@ -62,6 +62,7 @@ public class MealTagsAdapter extends BaseAdapter {
         String displayName = tag.getDisplayName();
 
         viewHolder.tvTag.setText(displayName);
+
 
         viewHolder.btnUntag.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -72,9 +72,7 @@ public class FoodServerHomePage extends BaseActivity {
                                                         for (User user:users){
                                                             if(user.getId().equals(comments.get(i).getUserId())){
 
-                                                                User ekrem = new User();
-                                                                ekrem.setFullName(user.getFullName());
-                                                                userList.add(ekrem);
+                                                                userList.add(user);
                                                                 break;
                                                             }
                                                         }
@@ -90,7 +88,7 @@ public class FoodServerHomePage extends BaseActivity {
 
                                                 }
                                             });
-                                        } else {
+                                        } else if(comments.isEmpty()) {
                                             String welcome = "Welcome "
                                                              +eatalyzeApplication.getUser().getFullName()+
                                                              ".\nThere are 0 comments made on your meals.";
