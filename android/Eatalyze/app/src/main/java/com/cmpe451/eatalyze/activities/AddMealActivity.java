@@ -1,5 +1,6 @@
 package com.cmpe451.eatalyze.activities;
 
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -92,7 +93,7 @@ public class AddMealActivity extends BaseActivity {
     //TODO add ingredients
     @OnClick(R.id.iv_add_icon)
     public void addButtonClicked() {
-        ingredientList.add(new Ingredient(etIndgredient.getText().toString(),Double.parseDouble(etAmount.getText().toString())));
+        ingredientList.add(new Ingredient(etIndgredient.getText().toString(), Double.parseDouble(etAmount.getText().toString())));
         adapter.notifyDataSetChanged();
         etIndgredient.setText("");
         etAmount.setText("");
@@ -118,17 +119,17 @@ public class AddMealActivity extends BaseActivity {
                 apiService.addMeal(new Meal(null, menus.get(0).getId(), eatalyzeApplication.getUser().getId(), mealName, desc, finalIngredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
                     @Override
                     public void success(ResponseBody responseBody, Response response) {
-                        Log.d("Adding meal suc","SUC");
+                        Log.d("Adding meal suc", "SUC");
                     }
 
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("Adding meal fail",error.toString());
+                        Log.d("Adding meal fail", error.toString());
                     }
                 });
 
-                Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
+                Intent intent = new Intent(AddMealActivity.this, FoodServerProfilePageActivity.class);
                 startActivity(intent);
             }
 
@@ -141,11 +142,10 @@ public class AddMealActivity extends BaseActivity {
     }
 
 
-
     public void loadImagefromGallery(View view) {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
@@ -160,7 +160,7 @@ public class AddMealActivity extends BaseActivity {
                 // Get the Image from data
 
                 selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                 // Get the cursor
                 Cursor cursor = getContentResolver().query(selectedImage,
@@ -187,10 +187,15 @@ public class AddMealActivity extends BaseActivity {
 
     }
 
-
-
-
-
-
-
+    //TODO will be implemented
+    @OnClick(R.id.btn_edit_meal)
+    public void onClick() {
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(
+                Intent.createChooser(intent, "Select File"),
+                1);//SELECT_FILE);
+          }
 }

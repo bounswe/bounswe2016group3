@@ -47,13 +47,11 @@
 
     <!--AddMealPage-->
     <string name="ingredients"><b>Ingredients</b></string>
-    <string-array name="planets_array">
-        <item>Tomato</item>
-        <item>Egg planet</item>
-        <item>Onion</item>
-        <item>Salt</item>
-        <item>Oil</item>
-        <item>Pepper</item>
+    <string-array name="amount">
+        <item>Grams</item>
+        <item>Spoon</item>
+        <item>Glass</item>
+        <item>Piece</item>
     </string-array>
 
     <!--View meal page-->
