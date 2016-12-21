@@ -9,13 +9,12 @@
 
     <include layout="@layout/app_bar"/>
 
-
     <LinearLayout
         android:id="@+id/ll_top_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_weight="6"
+        android:layout_weight="6.5"
         android:baselineAligned="false"
         android:padding="10dp"
         android:weightSum="1">
@@ -25,39 +24,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:layout_weight="0.4"
+            android:layout_weight="0.5"
             android:weightSum="1">
 
             <ImageView
                 android:id="@+id/iv_profile_photo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="1"
                 android:contentDescription="@string/image_view_content"
-                android:layout_weight="0.65"
+
                 />
-            <View
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1" />
-
-            <Button
-                android:id="@+id/btn_follow"
-                android:text="Edit Profile"
-                android:background="@drawable/follow_button_shape"
-                android:layout_weight="0.25"
-                android:padding="10dp"
-                android:textColor="#4FC3F7"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:elevation="0dp" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.5"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
@@ -69,7 +51,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.18"
+                android:layout_weight="0.3"
                 />
             <View
                 android:clickable="true"
@@ -85,7 +67,7 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:padding="5dp"
-                android:layout_weight="0.18"
+                android:layout_weight="0.3"
                 android:clickable="true" />
             <View
                 android:clickable="true"
@@ -93,40 +75,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.04" />
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.27"
-                />
-
-            <View
-                android:clickable="true"
-                android:layout_gravity="center"
+            <Button
+                android:id="@+id/btn_follow"
+                android:text="Edit Profile"
+                android:background="@drawable/follow_button_shape"
+                android:layout_weight="0.3"
+                android:padding="10dp"
+                android:textColor="#4FC3F7"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.03" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="0.23"
-                android:weightSum="1">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#4FC3F7"
-                    android:text="RATE / COMMENT"
-                    android:background="@drawable/follow_button_shape" />
-                <View
-                    android:clickable="true"
-                    android:layout_gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.03" />
-
-            </LinearLayout>
+                android:elevation="0dp" />
 
         </LinearLayout>
 
@@ -137,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:padding="10dp"
         android:weightSum="1">
 
@@ -145,7 +103,7 @@
             android:id="@+id/tv_bio"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.17"
+            android:layout_weight="0.13"
             android:background="@color/white"/>
 
         <TextView
@@ -170,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:divider="@null"
-            android:layout_weight="0.48">
+            android:layout_weight="0.52">
 
         </ListView>
 

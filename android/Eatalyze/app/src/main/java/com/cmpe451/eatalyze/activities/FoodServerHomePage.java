@@ -39,15 +39,15 @@ public class FoodServerHomePage extends BaseActivity {
         super.onCreate(savedInstances);
 
         final ArrayList<User> userList=new ArrayList<>();
-        userList.add(eatalyzeApplication.getUser());
+        //userList.add(eatalyzeApplication.getUser());
 
         ArrayList<Comment> commentList=new ArrayList<>();
         apiService.commentsByMeal(new Long(1), new Callback<List<Comment>>() {
             @Override
             public void success(List<Comment> comments, Response response) {
                 Log.d("Comment size check-->",comments.size()+"");
-                //CommentAdapter adapterIncludes=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
-                //lvComments.setAdapter(adapterIncludes);
+                CommentAdapter adapterIncludes=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
+                lvComments.setAdapter(adapterIncludes);
             }
 
             @Override
@@ -57,5 +57,10 @@ public class FoodServerHomePage extends BaseActivity {
         });
         //apiService.commentsByMeal();
         //CommentAdapter adapterIncludes=new CommentAdapter()
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }

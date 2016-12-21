@@ -10,24 +10,20 @@
         android:textSize="24sp"
         android:text="@string/hello_name"/>
 
-    <TextView
-        android:id="@+id/tv_recommended_server"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="20sp"
-        android:text="@string/rec_server"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/lv_rec_food_servers"
+            android:id="@+id/lv_rec_food_serverss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null">
+            android:divider="@null"
+            android:clickable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
         </ListView>
 
