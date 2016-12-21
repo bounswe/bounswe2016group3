@@ -48,7 +48,7 @@ var Header = function(props){
         buildSearchListElement(results[i]);
     }
     }
-    
+
     $("#search_input").keyup(function(event){
         $("#search_results").hide();
         submitSearch();
@@ -147,8 +147,8 @@ var Header = function(props){
         let email = document.getElementById("login-email2");
         let password = document.getElementById("login-pass2");
 
-        if(email&&password){       
-            props.actions.submit(email.value , password.value);     
+        if(email&&password){
+            props.actions.submit(email.value , password.value);
         }
 
         e.preventDefault();
@@ -156,10 +156,9 @@ var Header = function(props){
 if(props.success){
         props.history.pushState(null,"/user/1");
     }
-     
+
     let links = [
         { text: "Home", path: "/" },
-        { text: "All users", path: "/user/all" }
     ];
 
     let loginLinks = [
@@ -188,7 +187,7 @@ if(props.success){
             </ul>
         );
     } else {
-        
+
         if(props.name){
             if(props.userType == 0){ //user
                  userHeader = (
@@ -206,9 +205,9 @@ if(props.success){
                     </li>
                 </ul>
             );
-            } 
+            }
              else{ //food server
-            
+
             userHeader = (
                 <ul className="nav navbar-nav navbar-right">
 
@@ -225,7 +224,7 @@ if(props.success){
                 </ul>
             );
         }
-        } 
+        }
 
         else {
             userHeader = (
@@ -333,7 +332,7 @@ if(props.success){
                     <li><input type="email" className="form-control" placeholder="E-mail" id="login-email2" /></li>
                     <li><input type="password" className="form-control" placeholder="Password" id="login-pass2"/></li>
                     <li><button className="btn btn-default" type="button" onClick={submitForm1} >Login</button></li>
-                </ul>                
+                </ul>
 
                 { userHeader }
 
@@ -345,10 +344,10 @@ if(props.success){
 
 
 var mapStateToProps = function(state){
-    return { 
+    return {
         token: state.token,
-        uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0, 
-        name: state.currentUser.fullName, 
+        uid: state.currentUser.hasOwnProperty('id')?state.currentUser.id:0,
+        name: state.currentUser.fullName,
         userType: state.currentUser.userType,
         avatar: state.currentUser.avatarUrl,
         searchMeal: state.searchMeal,
