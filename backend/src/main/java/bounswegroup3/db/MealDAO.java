@@ -49,4 +49,10 @@ public abstract class MealDAO {
 	
 	@SqlQuery("select meals.* from meals join checkeat on meals.id = checkeat.meal_id where checkeat.user_id = :uid")
 	abstract public List<Meal> mealsEaten(@Bind("uid") Long id);
+	
+	@SqlQuery("select * from meals order by random() limit 20")
+	abstract public List<Meal> advancedSearch(@Bind("uid") Long id);
+	
+	@SqlQuery("select * from meals order by random() limit 5")
+	abstract public List<Meal> recommend(@Bind("mid") Long id);
 }
