@@ -2,6 +2,7 @@ package com.cmpe451.eatalyze.request;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.cmpe451.eatalyze.models.AccessToken;
