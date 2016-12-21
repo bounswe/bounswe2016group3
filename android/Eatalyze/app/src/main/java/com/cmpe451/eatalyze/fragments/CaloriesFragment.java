@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cmpe451.eatalyze.EatalyzeApplication;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.activities.LogActivity;
 import com.cmpe451.eatalyze.adapters.MealAdapter;
@@ -18,8 +19,10 @@ import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.WeeklyMeal;
+import com.cmpe451.eatalyze.request.ApiService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -53,16 +56,45 @@ public class CaloriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calories, container, false);
         ButterKnife.bind(this, view);
 
-        ((LogActivity) getActivity()).getApiService().getWeeklyNutritionalInfo(new Callback<NutritionalInfo>() {
+        final ApiService apiService=((LogActivity) getActivity()).getApiService();
+        final EatalyzeApplication eatalyzeApplication=((LogActivity)getActivity()).getEatalyzeApplication();
+        final User user=eatalyzeApplication.getUser();
+
+        apiService.getWeeklyNutritionalInfo(new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 tvMealDescription.setText(nutritionalInfo.getCalories() + "");
 
 
-                ((LogActivity) getActivity()).getApiService().getWeeklyMeals(new Callback<List<WeeklyMeal>>() {
+                apiService.getWeeklyMeals(new Callback<List<WeeklyMeal>>() {
                     @Override
                     public void success(List<WeeklyMeal> meals, Response response) {
                         Log.d("weekly meals suc", meals.size() + "");
+
+                        apiService.getEatenMeals(user.getId(), new Callback<List<Meal>>() {
+                            @Override
+                            public void success(List<Meal> meals, Response response) {
+                                HashMap<Long,Meal> mealMap=new HashMap<Long,Meal>();
+
+                                for(int i=0; i<meals.size(); i++){
+                                    mealMap.put(meals.get(i).getId(),meals.get(i));
+                                }
+
+
+                                for(int i=0; i<weeklyMeals.size(); i++){
+                                    mealList.add(mealMap.get(weeklyMeals.get(i).getMealId()));
+                                }
+
+                                Log.d("SIZE MAP",mealList.size()+"");
+                                MealAdapter adapter = new MealAdapter(getContext(), (ArrayList<Meal>) mealList,user.getFullName());
+                                lvDailyCalories.setAdapter(adapter);
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Log.d("Get eaten FAIL", error.toString());
+                            }
+                        });
                         /*
                         weeklyMeals=meals;
                         User user=((LogActivity)getActivity()).getEatalyzeApplication().getUser();

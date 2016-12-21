@@ -12,8 +12,12 @@ import android.widget.TextView;
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.models.AccessToken;
 import com.cmpe451.eatalyze.models.LoginCredentials;
+import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.utils.Utils;
+import com.squareup.okhttp.ResponseBody;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -52,7 +56,9 @@ public class LoginActivity extends BaseActivity {
             if (eatalyzeApplication.getUser().getUserType() == 0) {
                 startActivity(new Intent(this, UserHomepageActivity.class));
             } else if (eatalyzeApplication.getUser().getUserType() == 1) {
-                startActivity(new Intent(this, FoodServerProfilePageActivity.class));
+                Log.d("INSIDE FOOD SERVER","SUCCESSFUL");
+                startActivity(new Intent(LoginActivity.this, FoodServerProfilePageActivity.class));
+
             } else {//ADMIN
 
             }
@@ -82,7 +88,36 @@ public class LoginActivity extends BaseActivity {
                                         if (user.getUserType() == 0) {
                                             startActivity(new Intent(LoginActivity.this, UserProfilePageActivity.class));
                                         } else if (user.getUserType() == 1) {
-                                            //TODO call apiservice to create menu
+                                            apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
+                                                @Override
+                                                public void success(List<Menu> menus, Response response) {
+                                                    Log.d("Get menus suc",menus.size()+"lala");
+                                                    if(menus.size()==0){
+                                                        Menu firstMenu=new Menu(new Long(1),eatalyzeApplication.getUser().getId(), "first menu");
+                                                        apiService.addNewMenu(firstMenu, new Callback<Menu>() {
+                                                            @Override
+                                                            public void success(Menu menu, Response response) {
+                                                                Log.d("Adding first menu suc",eatalyzeApplication.getUser().getId()+"");
+                                                                startActivity(new Intent(LoginActivity.this, FoodServerProfilePageActivity.class));
+
+                                                            }
+
+                                                            @Override
+                                                            public void failure(RetrofitError error) {
+                                                                Log.d("Adding first menu FAIL",error.toString());
+                                                            }
+                                                        });
+                                                    }else{
+                                                    }
+
+                                                }
+
+                                                @Override
+                                                public void failure(RetrofitError error) {
+                                                    Log.d("Get menus fail",error.toString());
+                                                }
+                                            });
+
                                             startActivity(new Intent(LoginActivity.this, FoodServerProfilePageActivity.class));
                                         } else {//ADMIN
                                             Log.d("Admin check", "Inside admin choice");

@@ -1,21 +1,16 @@
 package com.cmpe451.eatalyze.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
-import com.cmpe451.eatalyze.activities.FoodServerProfilePageActivity;
 import com.cmpe451.eatalyze.activities.UserHomepageActivity;
-import com.cmpe451.eatalyze.activities.ViewMealActivity;
 import com.cmpe451.eatalyze.adapters.FoodServerAdapter;
 import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.User;
@@ -38,9 +33,7 @@ public class RecommendedFoodServerFragment extends Fragment {
     View view;
     @Bind(R.id.tv_hello_name)
     TextView tvHelloName;
-    @Bind(R.id.tv_recommended_server)
-    TextView tvRecommendedServer;
-    @Bind(R.id.lv_rec_food_serverss)
+    @Bind(R.id.lv_rec_food_servers)
     ListView lvRecFoodServers;
 
     List<User> recFoodServerList = new ArrayList<User>();
@@ -66,6 +59,8 @@ public class RecommendedFoodServerFragment extends Fragment {
 
                 recFoodServerList.add(user);
 
+                FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
+                lvRecFoodServers.setAdapter(adapter);
             }
 
             @Override
@@ -82,6 +77,8 @@ public class RecommendedFoodServerFragment extends Fragment {
 
                 recFoodServerList.add(user);
 
+                FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
+                lvRecFoodServers.setAdapter(adapter);
             }
 
             @Override
@@ -99,6 +96,8 @@ public class RecommendedFoodServerFragment extends Fragment {
 
                 recFoodServerList.add(user);
 
+                FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
+                lvRecFoodServers.setAdapter(adapter);
             }
 
             @Override
@@ -107,25 +106,9 @@ public class RecommendedFoodServerFragment extends Fragment {
             }
         });
 
-        FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
-        lvRecFoodServers.setAdapter(adapter);
-        Log.d("asdasdads",recFoodServerList.size() + "");
-        lvRecFoodServers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "Basıldı", Toast.LENGTH_SHORT).show();
-                User clickedUser = (User) parent.getItemAtPosition(position);
-                long userid = clickedUser.getId();
-
-                Intent intent=new Intent(getContext(), FoodServerProfilePageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putLong("userid", userid);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
         return view;
+
     }
 
     @Override

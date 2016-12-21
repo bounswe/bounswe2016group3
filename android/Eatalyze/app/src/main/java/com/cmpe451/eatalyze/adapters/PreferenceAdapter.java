@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmpe451.eatalyze.R;
@@ -29,12 +30,14 @@ public class PreferenceAdapter extends BaseAdapter {
 
     public ViewHolder holder;
     public int changedId;
-    public boolean check=false;
+    public boolean check = false;
+    String type;
 
-    public PreferenceAdapter(Context context, ArrayList<String> preferenceList) {
+    public PreferenceAdapter(Context context, ArrayList<String> preferenceList, String type) {
         this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.preferenceList = preferenceList;
+        this.type = type;
     }
 
     @Override
@@ -54,7 +57,7 @@ public class PreferenceAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        check=false;
+        check = false;
         holder = null;
 
         if (view == null) {
@@ -65,19 +68,29 @@ public class PreferenceAdapter extends BaseAdapter {
 
         holder.tvTag.setText(preferenceList.get(i));
 
+        if (type.equals("excludes")) {
+            holder.btnUntag.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.tvTag.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.cvTag.setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.llInclude.setBackgroundColor(context.getResources().getColor(R.color.red));
+
+        }
+
         holder.btnUntag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                check=true;
-                Log.d("CLICKED X","YESS");
+                check = true;
+                Log.d("CLICKED X", "YESS");
                 preferenceList.remove(i);
-                changedId =i;
+                changedId = i;
                 notifyDataSetChanged();
             }
         });
 
         return view;
     }
+
+
 
     static class ViewHolder {
         @Bind(R.id.tv_tag)
@@ -86,13 +99,16 @@ public class PreferenceAdapter extends BaseAdapter {
         Button btnUntag;
         @Bind(R.id.cv_tag)
         CardView cvTag;
+        @Bind(R.id.ll_include)
+        LinearLayout llInclude;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
-        Button getBtn(){
+        Button getBtn() {
             return btnUntag;
         }
+
     }
 }

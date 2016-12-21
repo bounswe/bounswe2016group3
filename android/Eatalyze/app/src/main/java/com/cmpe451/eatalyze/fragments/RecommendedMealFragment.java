@@ -36,8 +36,6 @@ public class RecommendedMealFragment extends Fragment {
     View view;
     @Bind(R.id.tv_hello_name)
     TextView tvHelloName;
-    @Bind(R.id.tv_rec_meals_title)
-    TextView tvRecMealsTitle;
     @Bind(R.id.lv_rec_meals)
     ListView lvRecMeals;
 

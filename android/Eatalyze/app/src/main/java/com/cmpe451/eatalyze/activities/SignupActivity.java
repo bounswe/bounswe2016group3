@@ -72,7 +72,7 @@ public class SignupActivity extends BaseActivity {
         });
     }
 
-    public void signupAct(String email, String password, String fullName, String secretQuestion, String secretAnswer, UserType userType){
+    public void signupAct(String email, String password, String fullName, String secretQuestion, String secretAnswer, final UserType userType){
         UserRequest userRequest=new UserRequest();
         userRequest.setEmail(email);
         userRequest.setPassword(password);

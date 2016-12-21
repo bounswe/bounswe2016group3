@@ -21,9 +21,11 @@ import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.IngredientAdapter;
 import com.cmpe451.eatalyze.models.Ingredient;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Menu;
 import com.squareup.okhttp.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -106,10 +108,11 @@ public class AddMealActivity extends BaseActivity {
             ingredient = ingredient + ingredientList.get(i).getAmount() + " grams of " + ingredientList.get(i).getName() + " ";
         }
 
-        String mealName = etMealName.getText().toString();
-        String desc = etMealDescription.getText().toString();
+        final String mealName = etMealName.getText().toString();
+        final String desc = etMealDescription.getText().toString();
         //TODO get menu of different users
-        apiService.addMeal(new Meal(null, new Long(1), eatalyzeApplication.getUser().getId(), mealName, desc, ingredient, "https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg"), new Callback<ResponseBody>() {
+        final String finalIngredient = ingredient;
+        apiService.getMenus(eatalyzeApplication.getUser().getId(), new Callback<List<Menu>>() {
             @Override
             public void success(ResponseBody responseBody, Response response) {
                 Toast.makeText(getApplicationContext(), " Meal added successfully..", Toast.LENGTH_SHORT).show();
@@ -124,6 +127,14 @@ public class AddMealActivity extends BaseActivity {
 
         //Intent intent=new Intent(AddMealActivity.this,FoodServerProfilePageActivity.class);
         //startActivity(intent);
+    }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
     }
 
 
@@ -172,5 +183,11 @@ public class AddMealActivity extends BaseActivity {
         }
 
     }
+
+
+
+
+
+
 
 }

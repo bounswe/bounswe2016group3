@@ -58,4 +58,9 @@ public class FoodServerHomePage extends BaseActivity {
         //apiService.commentsByMeal();
         //CommentAdapter adapterIncludes=new CommentAdapter()
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }

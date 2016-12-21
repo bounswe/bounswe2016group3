@@ -72,7 +72,7 @@ public class EditPreferencesActivity extends BaseActivity {
                 for (int i = 0; i < strings.length; i++) {
                     includeList.add(strings[i]);
                 }
-                adapterIncludes = new PreferenceAdapter(EditPreferencesActivity.this, includeList);
+                adapterIncludes = new PreferenceAdapter(EditPreferencesActivity.this, includeList,"includes");
                 gvIncludes.setAdapter(adapterIncludes);
 
                 adapterIncludes.registerDataSetObserver(new DataSetObserver() {
@@ -138,7 +138,7 @@ public class EditPreferencesActivity extends BaseActivity {
                 for (int i = 0; i < strings.length; i++) {
                     excludeList.add(strings[i]);
                 }
-                adapterExcludes = new PreferenceAdapter(EditPreferencesActivity.this, excludeList);
+                adapterExcludes = new PreferenceAdapter(EditPreferencesActivity.this, excludeList,"excludes");
                 gvExcludes.setAdapter(adapterExcludes);
 
                 adapterExcludes.registerDataSetObserver(new DataSetObserver() {
@@ -269,7 +269,6 @@ public class EditPreferencesActivity extends BaseActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("ZOO", "ZOO");
                 Log.d("Getting include list", error.toString());
             }
         });
