@@ -121,6 +121,7 @@ public class AddMealActivity extends BaseActivity {
                         Log.d("Adding meal suc","SUC");
                     }
 
+
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d("Adding meal fail",error.toString());
