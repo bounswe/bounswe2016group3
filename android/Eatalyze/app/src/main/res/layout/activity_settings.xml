@@ -4,7 +4,8 @@
     android:id="@+id/activity_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cmpe451.eatalyze.activities.SettingsActivity">
+    tools:context="com.cmpe451.eatalyze.activities.SettingsActivity"
+    android:background="@color/white">
 
     <include layout="@layout/app_bar"/>
 

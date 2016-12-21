@@ -68,9 +68,7 @@ public class ViewMealCommentsActivity extends BaseActivity {
                                 for (User user:users){
                                     if(user.getId().equals(comments.get(i).getUserId())){
                                         commentsOnMeal.add(comments.get(i));
-                                        User ekrem = new User();
-                                        ekrem.setFullName(user.getFullName());
-                                        userList.add(ekrem);
+                                        userList.add(user);
                                         break;
                                     }
                                 }

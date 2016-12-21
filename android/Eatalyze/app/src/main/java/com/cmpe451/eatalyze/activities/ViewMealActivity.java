@@ -85,11 +85,11 @@ public class ViewMealActivity extends BaseActivity {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 String totalCalorie = "";
-                if (nutritionalInfo != null)
+                if (nutritionalInfo != null){
                     totalCalorie = nutritionalInfo.getCalories() + " kcal";
-                else
-                    //totalCalorie = "Total calorie is not specified";
                     tvTotalCalorie.setText(totalCalorie);
+                }
+
             }
 
             @Override

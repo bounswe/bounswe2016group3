@@ -3,6 +3,7 @@
     <string name="base_url">http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/</string>
 
     <!--Login-->
+    <string name="app_title_name"><b>EATALYZE</b></string>
     <string name="mail_hint">E-Mail Address</string>
     <string name="pswd">Password</string>
     <string name="lgn_btn">LOGIN</string>
@@ -63,12 +64,14 @@
     <!--Advanced Search-->
 
     <string-array name="diet_types_array">
+        <item>All</item>
         <item>Vegetarian</item>
         <item>Vegan</item>
         <item>Gluten Intolerant</item>
         <item>Celliac Disease</item>
         <item>Lactose Intolerant</item>
         <item>Paleo</item>
+        <item>No Nuts</item>
     </string-array>
 
 

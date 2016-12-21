@@ -40,8 +40,6 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @Bind(R.id.tv_signup)
     TextView tvSignup;
-    @Bind(R.id.tv_forgotPassword)
-    TextView tvForgotPassword;
 
     @Override
     public int getLayoutId() {
@@ -145,11 +143,6 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    @OnClick(R.id.tv_forgotPassword)
-    public void onClick() {
-        startActivity(new Intent(LoginActivity.this, EditPreferencesActivity.class));
     }
 
     @OnClick(R.id.tv_signup)
