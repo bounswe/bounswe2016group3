@@ -32,28 +32,21 @@ class RateStar extends Component {
        }
     }
 
-    if(!rating) rating=0;
-    $(stars).rateYo({
-      rating: rating,
-      readOnly: false
-    });
-    /*
-    if (this.props.ratings.current) {
-      $(stars).rateYo("option", "readOnly", true);
-
-    }
-    else {
-      $(stars).rateYo()
-      .on("rateyo.set", function (e, data) {
-        e.preventDefault();
-        $(this).next().text(data.rating);
-        rating = data.rating;
+      if(!rating) rating=0;
+      $(stars).rateYo({
+        rating: rating
       });
-    }
-    */
+      $(stars).rateYo()
+              .on("rateyo.set", function (e, data) {
+                e.preventDefault();
+                $(this).next().text(data.rating);
+                rating = data.rating;
+              });
+
     return (
 
       <div>
+        <p> Hello World ! </p>
         <div ref="rateYo" onClick={(e) => rate(e)}></div>
       <p> Current rating : {rating} </p>
       </div>
@@ -100,6 +93,7 @@ class Meal extends Component {
     let ratingssHtml=this.props.ratings.average ;
     let commentButton=<button type="button" className="btn btn-default" onClick={comment}>Comment</button>;
    // let rateButton=<button type="button" className="btn btn-default" onClick={""}>Rate</button>;
+   console.log(this.props.nutritionInfo);
 
     return  <div className="col-xs-6">
 
