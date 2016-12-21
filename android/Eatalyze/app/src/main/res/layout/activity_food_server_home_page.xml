@@ -4,6 +4,7 @@
     android:id="@+id/activity_food_server_home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.cmpe451.eatalyze.activities.FoodServerHomePage">
 
     <include layout="@layout/app_bar"

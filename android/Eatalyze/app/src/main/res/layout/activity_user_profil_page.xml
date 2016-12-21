@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/id_big_layout"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="@color/white">
 
     <include layout="@layout/app_bar"/>
 
