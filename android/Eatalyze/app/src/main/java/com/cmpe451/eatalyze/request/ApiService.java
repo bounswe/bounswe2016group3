@@ -165,4 +165,5 @@ public interface ApiService {
     @GET("/api/user/{id}/checkeats")
     public void getEatenMeals(@Path("id") Long id, Callback<List<Meal>> mealListCallback);
 
+
 }

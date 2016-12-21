@@ -11,6 +11,7 @@ import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.CommentAdapter;
 import com.cmpe451.eatalyze.models.Comment;
 import com.cmpe451.eatalyze.models.Meal;
+import com.cmpe451.eatalyze.models.Menu;
 import com.cmpe451.eatalyze.models.User;
 
 import java.util.ArrayList;
@@ -27,6 +28,12 @@ public class FoodServerHomePage extends BaseActivity {
     TextView tvWelcomeText;
     @Bind(R.id.lv_comments)
     ListView lvComments;
+    
+    static long userid;
+
+    List<User> userList = new ArrayList<User>();
+
+    List<Meal> mealList = new ArrayList<Meal>();
 
     @Override
     public int getLayoutId() {
@@ -38,23 +45,74 @@ public class FoodServerHomePage extends BaseActivity {
 
         super.onCreate(savedInstances);
 
-        final ArrayList<User> userList=new ArrayList<>();
-        //userList.add(eatalyzeApplication.getUser());
+        userid = eatalyzeApplication.getUser().getId();
 
-        ArrayList<Comment> commentList=new ArrayList<>();
-        apiService.commentsByMeal(new Long(1), new Callback<List<Comment>>() {
-            @Override
-            public void success(List<Comment> comments, Response response) {
-                Log.d("Comment size check-->",comments.size()+"");
-                CommentAdapter adapterIncludes=new CommentAdapter(FoodServerHomePage.this,userList, (ArrayList<Comment>) comments);
-                lvComments.setAdapter(adapterIncludes);
-            }
+            apiService.getMenus(userid, new Callback<List<Menu>>() {
+                @Override
+                public void success(List<Menu> menus, Response response) {
+                    Log.d("menu size:", ""+menus.size());
+                    apiService.getMealsOfMenu(menus.get(0).getId(), new Callback<List<Meal>>() {
+                        @Override
+                        public void success(List<Meal> meals, Response response) {
+                            for(int mealSize = 0; mealSize < meals.size(); mealSize++){
+                                apiService.commentsByMeal(meals.get(mealSize).getId(), new Callback<List<Comment>>() {
+                                    @Override
+                                    public void success(final List<Comment> comments, Response response) {
+                                        Log.d("Comment size check-->",comments.size()+"");
+                                        if(!comments.isEmpty()){
+                                            apiService.getUsers(new Callback<List<User>>() {
+                                                @Override
+                                                public void success(List<User> users, Response response) {
+                                                    for (int i = 0; i < comments.size(); i++) {
+                                                        for (User user:users){
+                                                            if(user.getId().equals(comments.get(i).getUserId())){
 
-            @Override
-            public void failure(RetrofitError error) {
+                                                                User ekrem = new User();
+                                                                ekrem.setFullName(user.getFullName());
+                                                                userList.add(ekrem);
+                                                                break;
+                                                            }
+                                                        }
 
-            }
-        });
+                                                    }
+
+                                                    CommentAdapter adapterIncludes=new CommentAdapter(FoodServerHomePage.this, (ArrayList<User>) userList, (ArrayList<Comment>) comments);
+                                                    lvComments.setAdapter(adapterIncludes);
+                                                }
+
+                                                @Override
+                                                public void failure(RetrofitError error) {
+
+                                                }
+                                            });
+                                        }
+
+
+
+                                    }
+
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+
+
         //apiService.commentsByMeal();
         //CommentAdapter adapterIncludes=new CommentAdapter()
     }
