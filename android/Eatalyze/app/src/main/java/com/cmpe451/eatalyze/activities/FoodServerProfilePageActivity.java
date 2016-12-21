@@ -77,7 +77,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
 
 
         //**************************VIEWER**************************************//
-        if(bundle != null){
+        if(bundle != null && bundle.getLong("userid") != eatalyzeApplication.getUser().getId()){
 
             userid = bundle.getLong("userid");
 
@@ -115,7 +115,7 @@ public class FoodServerProfilePageActivity extends BaseActivity {
                                     public void success(User user, Response response) {
                                         Log.d("User by id call is SUC", user.getFullName());
                                         foodServerName[0] = user.getFullName();
-                                        Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
+                                       // Log.d("URL", mealOfMenu.get(0).getPhotoUrl());
 
                                         //TODO put ingredients and nutritional info
 

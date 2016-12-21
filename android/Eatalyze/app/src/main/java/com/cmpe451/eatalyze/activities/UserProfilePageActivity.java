@@ -356,12 +356,15 @@ public class UserProfilePageActivity extends BaseActivity {
                     apiService.getUserByID(userid, new Callback<User>() {
                         @Override
                         public void success(User user, Response response) {
-                            for(int a = 0; a < userList.size(); a++){
+                            /*for(int a = 0; a < userList.size(); a++){
                                 if(userList.get(a).getId().equals(user.getId()) && eatalyzeApplication.getUser().getUserType()==1){
                                     btn_follow.setText("FOLLOWING YOU");
                                     break;
                                 }
-                            }
+                            }*/
+                           // if(eatalyzeApplication.getUser().getUserType() ==1){
+                                btn_follow.setText("");
+                           // }
                         }
 
                         @Override
