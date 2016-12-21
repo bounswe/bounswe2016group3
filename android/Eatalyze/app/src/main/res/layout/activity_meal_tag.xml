@@ -15,15 +15,22 @@
             android:id="@+id/et_tag_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="0.4"
             android:layout_margin="8dp"
             android:hint="Enter tag..."/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="0.5"
+            android:hint="Identifier"/>
 
         <Button
             android:id="@+id/btn_tag_meal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.1"
             android:layout_margin="8dp"
             android:text="Tag Meal"
             android:textSize="15sp"
