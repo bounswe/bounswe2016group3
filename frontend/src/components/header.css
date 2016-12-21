@@ -1,5 +1,5 @@
 .container-fluid{
-	background-color: orange;
+	background-color: #DAA520;
 }
 .form-control.login{
 	display: block;
@@ -61,4 +61,22 @@
 	right: 3px;
 	border:1px solid #000;
 	border-radius: 50%;
+}
+.btn-default{
+	margin-top: 10px;
+}
+.form-control#login-email2 {
+
+	margin-top: 10px;
+	max-width: 150px;
+}
+.form-control#login-pass2 {
+
+	margin-top: 10px;
+	max-width: 150px;
+}
+.form-control#search_input {
+
+	margin-top: 10px;
+	max-width: 150px;
 }

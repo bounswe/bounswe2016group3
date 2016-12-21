@@ -72,8 +72,14 @@ var Signup = function(props) {
     
 
     return (
-        <div>
-          <article className="col-xs-5">
+        
+        <div className="container">
+
+        <article className="col-xs-1">
+        </article>
+
+          
+          <article className="col-xs-4">
            <h1 className="signup_h1"> User</h1> 
 		
 
@@ -98,7 +104,7 @@ var Signup = function(props) {
             </p>
 
             <p>
-                <button className="btn btn-default" type="button" onClick={submitFormUser}>Signup</button>
+                <button className="btn btn-primary btn-block" type="button" onClick={submitFormUser}>Signup</button>
             </p>
            
             </article>
@@ -108,8 +114,8 @@ var Signup = function(props) {
             </article>
 
 
-            <article className="col-xs-5">
-           <h1> Food Server </h1> 
+            <article className="col-xs-4">
+           <h1 className="signup_h1"> Food Server</h1> 
             <p>
                 <input type="text" className="form-control" placeholder="Username" id="signup-email2" />
             </p>
@@ -134,9 +140,13 @@ var Signup = function(props) {
             </p>
 
             <p>
-                <button className="btn btn-default" type="button" onClick={submitFormFoodServer}>Signup</button>
+                <button className="btn btn-primary btn-block" type="button" onClick={submitFormFoodServer}>Signup</button>
             </p>
             </article>
+
+        <article className="col-xs-1">
+        </article>
+
         </div>
     );
 }

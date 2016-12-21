@@ -192,7 +192,7 @@ class Profile extends Component {
     
     
       return (
-        <div>
+        <div className="container">
           <div className="col-xs-4">
             <img src={profile.avatarUrl} alt="avatar"/>
             {
@@ -338,7 +338,7 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-      );
+              );
     }
   }
 

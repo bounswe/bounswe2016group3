@@ -1,0 +1,19 @@
+
+.container{
+	text-align: center;
+	height: 700px;
+
+	
+
+}
+.container h3{
+	color: orange;
+}
+
+.container #this{
+	margin-top: 200px;
+}
+.row{
+	background-color: white;
+	border-radius:inherit;
+}
