@@ -47,12 +47,15 @@ var apiService = function(store) {
             break;
 
             case 'LOAD_PERSONALLOG':
-            console.log(action);
             apiCall("/home/lastweek", "GET", {"Authorization": "Bearer " + action.token}).success(function(res){
                 next({type: 'PERSONALLOG_LOADED', data: res});
             }).error(function(error, response){
                 next({type: 'PERSONALLOG_FAILED'});
             });
+            apiCall("/user/"+action.id+"/checkeats", "GET").success(function(data){
+              next({type: 'MEALS_EATEN_LOADED', data: data});
+            }).error(() => console.log(action));
+
             break;
 
             case 'SIGNUP_REQ':
@@ -206,7 +209,7 @@ var apiService = function(store) {
             apiCall('/meal/'+action.id+"/nutrition/", "GET").success(function(res){
                 next({type: 'NUTRITION_INFO_LOADED', data: res});
             });
-            
+
             break;
 
             case 'ADD_MEAL':
@@ -340,12 +343,29 @@ var apiService = function(store) {
 
 
             case 'TAG_MEAL':
-            const token = action.token;
+            var token = action.token;
             delete action.token;
+            delete action.type;
             apiCall("/meal/tag", "POST", {"Authorization": "Bearer " + token}, action).success(function(){
               console.log("Accomplished!!!");
-            });
+              apiCall("/meal/"+action.relationId+"/tags", "GET").success(function(res){
+                next({type: 'TAGS_LOADED', data: res});
+              });
+            }).error(() => console.log(action));
             break;
+
+            case 'UNTAG_MEAL':
+            token = action.token;
+            delete action.token;
+            delete action.type;
+            apiCall("/meal/untag", "POST", {"Authorization": "Bearer " + token}, action).success(function(){
+              console.log("Accomplished!!!");
+              apiCall("/meal/"+action.relationId+"/tags", "GET").success(function(res){
+                next({type: 'TAGS_LOADED', data: res});
+              });
+            }).error(() => console.log(action));
+            break;
+
 
             default:
             break;

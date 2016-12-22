@@ -156,7 +156,7 @@ class Profile extends Component {
           </div>
           <div className="col-xs-8">
             <h1>{profile.fullName}</h1>
-            <p>{profile.bio}Hello from the otherside..</p>
+            <p>{profile.bio}</p>
             <FollowButton isFollow={isFollow} follow={this.follow}
               unfollow={this.unfollow}/>
 

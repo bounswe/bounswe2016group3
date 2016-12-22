@@ -118,21 +118,16 @@ class MealTags extends Component {
   addTag(e, tag) {
     e.preventDefault();
     // should be changed to addTag apiCall
-    this.setState({
-      tags: [...this.state.tags, tag]
-    });
+    const mealId = this.props.meal.id;
+    const token = this.props.token;
+    this.props.actions.tag(token, mealId, tag, tag);
   }
 
   deleteTag(e, tag) {
     e.preventDefault();
     console.log('Good!!!');
-    console.log('DeleteTag call should be added.');
-    const arr = this.state.tags;
-    const index = arr.indexOf(tag);
-    arr.splice(index, 1);
-    this.setState({
-      tags: arr
-    });
+    const token = this.props.token;
+    this.props.actions.untag(token, tag);
   }
 
   render() {

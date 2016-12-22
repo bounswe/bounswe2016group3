@@ -28,7 +28,7 @@ import { mealTag } from './reducers/mealTag';
 import { comments } from './reducers/comment';
 import { nutritionInfo } from './reducers/nutritioninfo';
 import { ratings,rate } from './reducers/rating';
-import { personalLog } from './reducers/personalLog';
+import { personalLog, lastWeekEaten } from './reducers/personalLog';
 
 import { searchMeal,searchUser,userById } from './reducers/search';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -47,7 +47,7 @@ var signup = combineReducers({ loading, success, error });
 var pwdReset = combineReducers({ userId, secretQuestion });
 var reducer = combineReducers({ token, currentUser,
   login, signup, pwdReset,
-  users, profile,include, exclude,personalLog,
+  users, profile,include, exclude,personalLog, lastWeekEaten,
   followers, following,
   menu, meal, mealTag,
   menus, meals, comments, ratings,rate,nutritionInfo, searchMeal,searchUser });

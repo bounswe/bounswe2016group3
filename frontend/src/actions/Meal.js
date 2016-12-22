@@ -61,5 +61,13 @@ var tag = function(token, mealId, displayName, identifier) {
   };
 };
 
+var untag = function(token, tag) {
+  return {
+    type: 'UNTAG_MEAL',
+    ...tag,
+    token
+  };
+};
 
-export { load, checkeat,comment, rate, load_rating, tag};
+
+export { load, checkeat,comment, rate, load_rating, tag, untag};
