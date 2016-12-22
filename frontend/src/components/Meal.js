@@ -57,7 +57,17 @@ class RateStar extends Component {
 
 
 class Meal extends Component {
+  constructor(){
+    super();
+    this.changeNumber = this.changeNumber.bind(this);
+  }
+
   componentDidMount() {
+  }
+
+  changeNumber(rating) {
+    const rate = parseFloat(rating);
+    return parseFloat(rate.toFixed(1));
   }
 
 
@@ -105,18 +115,18 @@ class Meal extends Component {
       <h2>Ingredients</h2>
       <p>{this.props.meal.ingredients}</p>
       <h2>Nutritional Info</h2>
-      <p>Weight: {this.props.nutritionInfo.weight} g<br></br>
-      Calories: {this.props.nutritionInfo.calories} kcal<br></br>
-      Total Fat: {this.props.nutritionInfo.totalFat}g<br></br>
-      Saturated Fat: {this.props.nutritionInfo.saturatedFat}g<br></br>
-      Cholesterol: {this.props.nutritionInfo.cholesterol}mg<br></br>
-      Sodium: {this.props.nutritionInfo.sodium}mg<br></br>
-      Total Carbohydrate: {this.props.nutritionInfo.totalCarbohydrate}g<br></br>
-      Dietary Fiber: {this.props.nutritionInfo.dietaryFiber}g<br></br>
-      Sugars: {this.props.nutritionInfo.sugars}g <br></br>
-      Protein: {this.props.nutritionInfo.protein}g <br></br>
-      Potassium: {this.props.nutritionInfo.potassium}mg <br></br>
-      Phosphorus: {this.props.nutritionInfo.phosphorus}mg <br></br> </p>
+      <p>Weight: {this.changeNumber(this.props.nutritionInfo.weight)} g<br></br>
+      Calories: {this.changeNumber(this.props.nutritionInfo.calories)} kcal<br></br>
+      Total Fat: {this.changeNumber(this.props.nutritionInfo.totalFat)}g<br></br>
+      Saturated Fat: {this.changeNumber(this.props.nutritionInfo.saturatedFat)}g<br></br>
+      Cholesterol: {this.changeNumber(this.props.nutritionInfo.cholesterol)}mg<br></br>
+      Sodium: {this.changeNumber(this.props.nutritionInfo.sodium)}mg<br></br>
+      Total Carbohydrate: {this.changeNumber(this.props.nutritionInfo.totalCarbohydrate)}g<br></br>
+      Dietary Fiber: {this.changeNumber(this.props.nutritionInfo.dietaryFiber)}g<br></br>
+      Sugars: {this.changeNumber(this.props.nutritionInfo.sugars)}g <br></br>
+      Protein: {this.changeNumber(this.props.nutritionInfo.protein)}g <br></br>
+      Potassium: {this.changeNumber(this.props.nutritionInfo.potassium)}mg <br></br>
+      Phosphorus: {this.changeNumber(this.props.nutritionInfo.phosphorus)}mg <br></br> </p>
       <img src={this.props.meal.photoUrl} alt="Avatar for user {props.uid}" className="avatar-m" />
 
       <div className="row">

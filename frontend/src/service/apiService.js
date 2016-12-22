@@ -52,8 +52,7 @@ var apiService = function(store) {
             }).error(function(error, response){
                 next({type: 'PERSONALLOG_FAILED'});
             });
-            apiCall("/home/lastweek/meals", "GET", {"Authorization": "Bearer " + action.token}).success(function(data){
-              console.log(data);
+            apiCall("/user/"+action.id+"/checkeats", "GET").success(function(data){
               next({type: 'MEALS_EATEN_LOADED', data: data});
             }).error(() => console.log(action));
 
