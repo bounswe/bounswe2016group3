@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="DAILY INTAKES"
+            android:text="WEEKLY INTAKES"
             android:layout_below="@id/rl_weekly_info"
             android:textStyle="bold"/>
 

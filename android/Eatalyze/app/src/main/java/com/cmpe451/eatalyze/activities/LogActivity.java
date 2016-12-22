@@ -7,7 +7,14 @@ import android.util.Log;
 
 import com.cmpe451.eatalyze.R;
 import com.cmpe451.eatalyze.adapters.LogAdapter;
+import com.cmpe451.eatalyze.adapters.MealAdapter;
+import com.cmpe451.eatalyze.models.Meal;
 import com.cmpe451.eatalyze.models.NutritionalInfo;
+import com.cmpe451.eatalyze.models.WeeklyMeal;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import retrofit.Callback;
@@ -23,6 +30,9 @@ public class LogActivity extends BaseActivity {
     TabLayout tabLayout;
     @Bind(R.id.pager)
     ViewPager pager;
+
+    List<WeeklyMeal> weeklyMeals = new ArrayList<WeeklyMeal>();
+    public List<Meal> mealList = new ArrayList<Meal>();
 
     public NutritionalInfo nutritionalInfo=new NutritionalInfo();
 
@@ -40,6 +50,78 @@ public class LogActivity extends BaseActivity {
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 Log.d("Suc Nutritional Info",nutritionalInfo.getCalories()+"");
                 LogActivity.this.nutritionalInfo=nutritionalInfo;
+
+
+                apiService.getWeeklyMeals(new Callback<List<WeeklyMeal>>() {
+                    @Override
+                    public void success(final List<WeeklyMeal> weekMeal, Response response) {
+                        Log.d("weekly meals suc", weekMeal.size() + "");
+
+                        apiService.getEatenMeals(eatalyzeApplication.getUser().getId(), new Callback<List<Meal>>() {
+                            @Override
+                            public void success(List<Meal> eatenMeals, Response response) {
+                                Log.d("Eaten meal",eatenMeals.size()+"");
+
+                                ArrayList<Long> ids=new ArrayList<Long>();
+                                for(int i=0; i<weekMeal.size(); i++){
+                                    ids.add(weekMeal.get(i).getMealId());
+                                }
+
+                                for(int i=0; i<ids.size(); i++){
+                                    for(int k=0; k<eatenMeals.size(); k++){
+                                        if(ids.get(i).equals(eatenMeals.get(k).getId())){
+                                            mealList.add(eatenMeals.get(k));
+                                        }
+                                    }
+                                }
+
+                                Log.d("MAP SIZE",mealList.size()+"");
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                            }
+                        });
+                        /*
+                        apiService.getEatenMeals(eatalyzeApplication.getUser().getId(), new Callback<List<Meal>>() {
+                            @Override
+                            public void success(List<Meal> meals, Response response) {
+                                HashMap<Long,Meal> mealMap=new HashMap<Long,Meal>();
+
+                                String str = "";
+                                for(int i=0; i<meals.size(); i++){
+                                    mealMap.put(meals.get(i).getId(),meals.get(i));
+                                    str+=meals.get(i).getId()+" ";
+                                }
+
+                                Log.d("ALL EATEN ",str);
+
+                                String str2="";
+                                for(int i=0; i<weekMeal.size(); i++){
+                                    mealList.add(mealMap.get(weeklyMeals.get(i).getMealId()));
+                                    str2+=weeklyMeals.get(i).getMealId()+" ";
+
+                                }
+
+                                Log.d("Weekly eaten ",str2);
+
+
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Log.d("Get eaten FAIL", error.toString());
+                            }
+                        });
+                        */
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("weekly meals fail", error.toString());
+                    }
+                });
             }
 
             @Override
