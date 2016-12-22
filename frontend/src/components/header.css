@@ -12,17 +12,28 @@
 	margin-left: 0;
 }
 #search_results{
+	position: absolute;
+	top: 100%;
+	width: 400px;
+	max-height: 400px;
+	overflow-y:scroll;
 	display: none;
+	z-index: 99;
 }
 .search_list_element{
 	width: 100%;
 	font-size: 12px;
 	border-bottom:0.5px solid #000;
-	background-color: #fff;
+	background-color:orange;
+	color:#fff;
 	display: block;
 	float: left;
 	text-decoration:none;
 	padding: 3px 5px;
+}
+#open_advance_search_button{
+	margin:10px 0 0 10px;
+	border-radius:10px;
 }
 #advance_search_div{
 	position: relative;
@@ -34,6 +45,7 @@
 	position: absolute;
 	top:100%;
 	padding:15px 15px;
+	z-index: 99;
 }
 #advance_search_div div{
 	width: 100%;
@@ -59,8 +71,10 @@
 	position:absolute;
 	top:0px;
 	right: 3px;
-	border:1px solid #000;
+	border:1px solid #fff;
 	border-radius: 50%;
+	color:#fff;
+	font-size: 12px;
 }
 .btn-default{
 	margin-top: 10px;

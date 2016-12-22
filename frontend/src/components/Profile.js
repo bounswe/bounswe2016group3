@@ -194,7 +194,7 @@ class Profile extends Component {
       return (
         <div className="container">
           <div className="col-xs-4">
-            <img src={profile.avatarUrl} alt="avatar"/>
+            <img src={profile.avatarUrl} alt="avatar" className="avatar"/>
             {
               current.id === profile.id && <div>
                 <PicEdit />
@@ -238,10 +238,9 @@ class Profile extends Component {
               </div>
 
               <div className="col-xs-4">
-                <a href={`/user/${profile.id}/logs`}><h3>Personal Log</h3></a>
+                <a href={`/user/${profile.id}/logs`} className="btn btn-info">Personal Log</a>
               </div>
             </div>
-            <hr></hr>
             <div className="row">
               <div className="col-xs-6">
                 <h4>Preferences</h4>

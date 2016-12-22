@@ -40,7 +40,6 @@ var Header = function(props){
         }
     }
     var fillSearchResults = function(results){
-    console.log(results);
     $("#search_results").show();
     $(".search_list_element").remove();
     var i;

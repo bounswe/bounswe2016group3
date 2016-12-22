@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions/PersonalLog';
+import './personalLog.css'
 import jQuery from 'jquery';
 
 class ListMeals extends Component {
@@ -44,24 +45,26 @@ class PersonalLog extends Component {
 		return (
 
       <div className="container">
-        <div className="col-xm-6">
+        <div className="col-xm-6" className="log_div">
           <h3>Meals Checkate for one week</h3>
           <ul> {eaten} </ul>
         </div>
-        <div className="col-xm-6">
+        <div className="col-xm-6" className="log_div">
           <h3>Total Nutrients for one week</h3>
-          <p>Weight: {this.changeNumber(this.props.personalLog.weight)} g<br></br>
-          Calories: {this.changeNumber(this.props.personalLog.calories)} kcal<br></br>
-          Total Fat: {this.changeNumber(this.props.personalLog.totalFat)}g<br></br>
-          Saturated Fat: {this.changeNumber(this.props.personalLog.saturatedFat)}g<br></br>
-          Cholesterol: {this.changeNumber(this.props.personalLog.cholesterol)}mg<br></br>
-          Sodium: {this.changeNumber(this.props.personalLog.sodium)}mg<br></br>
-          Total Carbohydrate: {this.changeNumber(this.props.personalLog.totalCarbohydrate)}g<br></br>
-          Dietary Fiber: {this.changeNumber(this.props.personalLog.dietaryFiber)}g<br></br>
-          Sugars: {this.changeNumber(this.props.personalLog.sugars)}g <br></br>
-          Protein: {this.changeNumber(this.props.personalLog.protein)}g <br></br>
-          Potassium: {this.changeNumber(this.props.personalLog.potassium)}mg <br></br>
-          Phosphorus: {this.changeNumber(this.props.personalLog.phosphorus)}mg <br></br> </p>
+          <ul className="nutritients">
+          <li>Weight:<span> {this.changeNumber(this.props.personalLog.weight)} g</span></li>
+          <li>Calories:<span> {this.changeNumber(this.props.personalLog.calories)} kcal</span></li>
+          <li>Total Fat:<span> {this.changeNumber(this.props.personalLog.totalFat)} g</span></li>
+          <li>Saturated Fat:<span> {this.changeNumber(this.props.personalLog.saturatedFat)} g</span></li>
+          <li>Cholesterol:<span> {this.changeNumber(this.props.personalLog.cholesterol)} mg</span></li>
+          <li>Sodium:<span> {this.changeNumber(this.props.personalLog.sodium)} mg</span></li>
+          <li>Total Carbohydrate:<span> {this.changeNumber(this.props.personalLog.totalCarbohydrate)} g</span></li>
+          <li>Dietary Fiber:<span> {this.changeNumber(this.props.personalLog.dietaryFiber)} g</span></li>
+          <li>Sugars:<span> {this.changeNumber(this.props.personalLog.sugars)} g</span></li>
+          <li>Protein:<span> {this.changeNumber(this.props.personalLog.protein)} g</span></li>
+          <li>Potassium:<span> {this.changeNumber(this.props.personalLog.potassium)} mg</span></li>
+          <li>Phosphorus:<span> {this.changeNumber(this.props.personalLog.phosphorus)} mg</span></li>
+          </ul>
         </div>
 
       </div>

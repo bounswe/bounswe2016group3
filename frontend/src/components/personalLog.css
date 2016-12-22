@@ -1,0 +1,28 @@
+.log_div{
+	border-bottom: 1px solid orange;
+}
+ul li {
+	color:#000;
+	text-align: left;
+	margin-left: 20px;
+}
+p{
+	color:#000;
+	text-align: left;
+	margin-left: 20px !important;
+	margin-top: 20px !important;
+}
+h3{
+	text-align: left;
+}
+.nutritients{
+	width: 300px;
+	list-style: none;
+}
+.nutritients li{
+	width: 100%;
+	margin-top: 10px;
+}
+.nutritients li span{
+	float: right;
+}

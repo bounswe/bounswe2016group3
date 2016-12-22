@@ -28,7 +28,13 @@
 	margin-top: 10px;
 }
 .container{
-
-
 height: 700px;
+}
+.row{
+    border-bottom: 1px solid orange
+}
+.avatar{
+    width: 100%;
+    height: auto;
+    display: block;
 }
