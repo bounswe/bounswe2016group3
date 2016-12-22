@@ -83,38 +83,6 @@ public class LogActivity extends BaseActivity {
 
                             }
                         });
-                        /*
-                        apiService.getEatenMeals(eatalyzeApplication.getUser().getId(), new Callback<List<Meal>>() {
-                            @Override
-                            public void success(List<Meal> meals, Response response) {
-                                HashMap<Long,Meal> mealMap=new HashMap<Long,Meal>();
-
-                                String str = "";
-                                for(int i=0; i<meals.size(); i++){
-                                    mealMap.put(meals.get(i).getId(),meals.get(i));
-                                    str+=meals.get(i).getId()+" ";
-                                }
-
-                                Log.d("ALL EATEN ",str);
-
-                                String str2="";
-                                for(int i=0; i<weekMeal.size(); i++){
-                                    mealList.add(mealMap.get(weeklyMeals.get(i).getMealId()));
-                                    str2+=weeklyMeals.get(i).getMealId()+" ";
-
-                                }
-
-                                Log.d("Weekly eaten ",str2);
-
-
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                Log.d("Get eaten FAIL", error.toString());
-                            }
-                        });
-                        */
                     }
 
                     @Override

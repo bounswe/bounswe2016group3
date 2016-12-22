@@ -65,6 +65,7 @@ public class CaloriesFragment extends Fragment {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 Log.d("Suc Nutritional Info",nutritionalInfo.getCalories()+"");
+                tvMealDescription.setText(nutritionalInfo.getCalories()+"");
 
                 apiService.getWeeklyMeals(new Callback<List<WeeklyMeal>>() {
                     @Override

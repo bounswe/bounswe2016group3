@@ -56,7 +56,7 @@ public class RecommendedFoodServerFragment extends Fragment {
 
         ApiService apiService=((UserHomepageActivity) getActivity()).getApiService();
         //TODO get list of food server instead of only one
-        apiService.getUserByID(new Long(215), new Callback<User>() {
+        apiService.getUserByID(new Long(225), new Callback<User>() {
 
             @Override
             public void success(User user, retrofit.client.Response response) {
@@ -113,6 +113,7 @@ public class RecommendedFoodServerFragment extends Fragment {
 
         //FoodServerAdapter adapter = new FoodServerAdapter(getContext(), (ArrayList<User>) recFoodServerList);
         //lvRecFoodServers.setAdapter(adapter);
+        /*
         Log.d("asdasdads",recFoodServerList.size() + "");
         lvRecFoodServers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,6 +125,7 @@ public class RecommendedFoodServerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        */
 
         return view;
 

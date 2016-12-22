@@ -71,7 +71,7 @@ public class MealAdapter extends BaseAdapter {
         Picasso.with(context).load(meal.getPhotoUrl()).into(holder.ivMealImage);
         holder.tvMealName.setText(meal.getName());
         if(servername.equals("weekly")){
-            servername="";
+            holder.tvServerName.setText("");
         }else{
             holder.tvServerName.setText("@"+servername);
 

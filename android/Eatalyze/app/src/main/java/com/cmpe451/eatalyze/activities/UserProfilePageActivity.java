@@ -362,9 +362,9 @@ public class UserProfilePageActivity extends BaseActivity {
                                     break;
                                 }
                             }*/
-                           // if(eatalyzeApplication.getUser().getUserType() ==1){
+                            if(eatalyzeApplication.getUser().getUserType() ==1){
                                 btn_follow.setText("");
-                           // }
+                            }
                         }
 
                         @Override
