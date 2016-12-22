@@ -146,7 +146,7 @@ class Profile extends Component {
       return (
         <div>
           <div className="col-xs-4">
-            <img src={profile.avatarUrl} alt="avatar"/>
+            <img src={profile.avatarUrl} alt="avatar" className="avatar"/>
             {
               current.id === profile.id && <div>
                 <p></p>

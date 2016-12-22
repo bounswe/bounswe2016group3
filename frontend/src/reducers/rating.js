@@ -1,5 +1,5 @@
-var ratings = function(state=[], action) {
-	
+var ratings = function(state={}, action) {
+
     switch(action.type) {
         case 'RATINGS_LOADED':
 

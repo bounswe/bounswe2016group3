@@ -6,6 +6,7 @@ import './meal.css';
 import './rateYo/jquery.rateyo.css';
 import './rateYo/jquery.rateyo';
 import $ from 'jquery';
+import jQuery from 'jquery';
 import TagButton from './TagButton';
 
 class RateStar extends Component {
@@ -22,31 +23,39 @@ class RateStar extends Component {
 
   render() {
     var stars = this.refs.rateYo;
-   var rating = this.changeNumber(this.props.props.ratings.average);
+   var rating = this.changeNumber(this.props.props.ratings.currentUser);
+
+   if(jQuery.isEmptyObject(this.props.props.ratings)) {
+     return <p> Loading... </p>;
+   }
 
    var rate = (e) => {
      e.preventDefault();
+     $(stars).rateYo("option", "readOnly", "true");
       if(this.props.props.token!==""){
-         this.props.props.actions.rate(this.props.props.token,this.props.props.params.id,this.props.props.currentUser.id,5);
-
+         this.props.props.actions.rate(this.props.props.token,this.props.props.params.id,this.props.props.currentUser.id,rating);
        }
     }
 
-      if(!rating) rating=0;
-      $(stars).rateYo({
-        rating: rating
-      });
-      $(stars).rateYo()
+    if(!rating) {
+      rating=0;
+      $(stars).rateYo({rating: this.changeNumber(this.props.props.ratings.average)})
               .on("rateyo.set", function (e, data) {
                 e.preventDefault();
                 $(this).next().text(data.rating);
                 rating = data.rating;
               });
+    } else {
+      $(stars).rateYo({
+          rating: rating,
+          readOnly: true
+        });
+    }
+
 
     return (
 
       <div>
-        <p> Hello World ! </p>
         <div ref="rateYo" onClick={(e) => rate(e)}></div>
       <p> Current rating : {rating} </p>
       </div>
@@ -138,10 +147,7 @@ class Meal extends Component {
         </div>
         <div className="col-xs-6">
           <h3> Ratings </h3>
-          {ratingssHtml} out of 5
-          <input type="text" className="form-control" placeholder="Rate" id="rate_meal" />
           <RateStar props={this.props}/>
-
         </div>
       </div>
 
