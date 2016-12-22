@@ -1,20 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pageBackground">
 
-    <TextView
-        android:id="@+id/tv_include"
-        android:layout_width="wrap_content"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Include"/>
+        android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tv_exclude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Exclude"
-        android:layout_below="@id/tv_include"/>
+        <include layout="@layout/app_bar"
+            android:id="@+id/appBar"/>
 
-</RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_include_title"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/appBar"
+            android:text="@string/includes"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_add_include"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_include_title">
+
+            <EditText
+                android:id="@+id/et_include_tag"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter include item"
+                android:layout_margin="10dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_add_include_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add_icon"
+                android:layout_toRightOf="@+id/et_include_tag"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/gv_includes"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
+            android:layout_below="@id/rl_add_include"
+            >
+        </GridView>
+
+        <TextView
+            android:id="@+id/tv_exclude_title"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/excludes"
+            android:layout_below="@id/gv_includes"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_add_exclude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_exclude_title">
+
+            <EditText
+                android:id="@+id/et_exclude_tag"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter exclude item"
+                android:layout_margin="10dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_add_exclude_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add_icon"
+                android:layout_toRightOf="@+id/et_exclude_tag"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/gv_excludes"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
+            android:layout_below="@id/rl_add_exclude"
+            >
+        </GridView>
+
+
+    </RelativeLayout>
+</ScrollView>

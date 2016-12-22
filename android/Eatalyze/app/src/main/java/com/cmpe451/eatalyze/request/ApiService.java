@@ -1,5 +1,8 @@
 package com.cmpe451.eatalyze.request;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.cmpe451.eatalyze.models.AccessToken;
@@ -16,11 +19,15 @@ import com.cmpe451.eatalyze.models.User;
 import com.cmpe451.eatalyze.models.UserList;
 import com.cmpe451.eatalyze.models.UserRequest;
 import com.cmpe451.eatalyze.models.UserResponse;
+import com.cmpe451.eatalyze.models.WeeklyMeal;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +37,13 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Header;
+import retrofit.http.Headers;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
 /**
@@ -90,6 +101,9 @@ public interface ApiService {
     @GET("/api/menu/{menuId}/meals")
     public void getMealsOfMenu(@Path("menuId") Long menuId, Callback<List<Meal>> mealListCallBack);
 
+    @POST("/api/menu")
+    public void addNewMenu(@Body Menu menu, Callback<Menu> menuCallback);
+
     //TODO test after ingredient intake
     @GET("/api/meal/{id}/nutrition")
     public void getNutrition(@Path("id") Long id, Callback<NutritionalInfo> nutritionalInfoCallback);
@@ -109,9 +123,8 @@ public interface ApiService {
     @GET("/api/meal/search/{query}")
     public void mealSearch(@Path("query") String query, Callback<List<Meal>> mealListCallback);
 
-
     @GET("/api/meal/{id}/tags")
-    public void tagsByMeal(@Path("id") Long id, Callback<List<String>> tagListCallback);
+    public void tagsByMeal(@Path("id") Long id, Callback<ArrayList<Tag>> tags);
 
     @POST("/api/meal/tag")
     public void tagMeal(@Query("accessToken") AccessToken token, @Body Tag tag, Callback<Tag> tagCallback);
@@ -124,5 +137,34 @@ public interface ApiService {
 
     @GET("/api/user")
     public void getUsers(Callback<List<User>> userListCallback);
+
+    @GET("/api/home/lastweek")
+    public void getWeeklyNutritionalInfo(Callback<NutritionalInfo> nutritionalInfoCallback);
+
+    @GET("/api/home/lastweek/meals")
+    public void getWeeklyMeals(Callback<List<WeeklyMeal>> mealListCallback);
+
+    @POST("/api/user/{id}/include")
+    public void updatedIncludes(@Path("id") Long id, @Body String[] includeList, Callback<ResponseBody> responseBodyCallback);
+
+    @POST("/api/user/{id}/exclude")
+    public void updatedExcludes(@Path("id") Long id, @Body String[] excludeList, Callback<ResponseBody> responseBodyCallback);
+
+    @GET("/api/user/{id}/include")
+    public void getIncludes(@Path("id") Long id, Callback<String[]> includeListCallback);
+
+    @GET("/api/user/{id}/exclude")
+    public void getExcludes(@Path("id") Long id, Callback<String[]> excludeListCallback);
+
+    @Multipart
+    @POST("/api/user/avatar")
+    public void uploadPhoto(@Part("avatar") InputStream file,@Part("description") String description, Callback<String> responseCallback);
+
+    @POST("/api/user/update")
+    public void updateUser(@Body User user, Callback<User> userCallback);
+
+    @GET("/api/user/{id}/checkeats")
+    public void getEatenMeals(@Path("id") Long id, Callback<List<Meal>> mealListCallback);
+
 
 }

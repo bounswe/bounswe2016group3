@@ -42,6 +42,10 @@ import retrofit.converter.GsonConverter;
  * This class is used for methods which are common for all other activities
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    public ApiService getApiService() {
+        return apiService;
+    }
+
     ApiService apiService;
     RestAdapter restAdapter; //may be private
     EatalyzeApplication eatalyzeApplication;
@@ -67,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         RequestInterceptor requestInterceptor = new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
-                request.addHeader("Content-type", "application/json");
+                request.addHeader("Content-type","application/json");
                 if (eatalyzeApplication.getAccessToken() != null)
                     request.addHeader("Authorization", "Bearer " + eatalyzeApplication.getAccessToken().getAccessToken());
 
@@ -128,6 +132,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             case R.id.id_advsearch:
                 startActivity(new Intent(BaseActivity.this, AdvancedSearchActivity.class));
                 break;
+
+            case R.id.id_settings:
+                startActivity(new Intent(BaseActivity.this, SettingsActivity.class));
+                break;
+
             case R.id.id_logout:
                 SharedPreferences preferences = eatalyzeApplication.getSp();
                 SharedPreferences.Editor editor = preferences.edit();
@@ -163,5 +172,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public EatalyzeApplication getEatalyzeApplication(){
+        return eatalyzeApplication;
     }
 }

@@ -1,81 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/pageBackground"
+    android:background="@color/colorPrimaryDark"
     >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_logo_eatalyze"/>
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_title_name"
+                android:layout_toRightOf="@+id/iv_logo"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
 
 
-    <!---->
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="80dp"
-        android:layout_centerHorizontal="true"
-        />
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rl_logo"
+            android:gravity="center"
+            android:hint="@string/mail_hint"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/login_textbox"/>
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/iv_logo"
-        android:gravity="center"
-        android:hint="@string/mail_hint"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/login_textbox"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_email"
+            android:gravity="center"
+            android:hint="@string/pswd"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:background="@drawable/login_textbox"/>
 
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_email"
-        android:gravity="center"
-        android:hint="@string/pswd"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:inputType="textPassword"
-        android:background="@drawable/login_textbox"/>
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_password"
+            android:text="@string/lgn_btn"
+            android:textColor="@color/white"
+            android:background="@drawable/general_button_shape"
+            />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_password"
-        android:text="@string/lgn_btn"
-        android:textColor="@color/pageBackground"
-        android:background="@drawable/login_btn"
-        />
+        <TextView
+            android:id="@+id/tv_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signup"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_login"
+            android:textColor="@color/white"
+            />
 
-    <TextView
-        android:id="@+id/tv_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signup"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_login"
-        android:textColor="@color/white"
-        />
-
-    <TextView
-        android:id="@+id/tv_forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tv_signup"
-        android:textColor="@color/white"
-        />
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

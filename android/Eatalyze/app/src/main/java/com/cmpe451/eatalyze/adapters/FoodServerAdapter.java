@@ -1,6 +1,8 @@
 package com.cmpe451.eatalyze.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cmpe451.eatalyze.R;
+import com.cmpe451.eatalyze.activities.FoodServerProfilePageActivity;
 import com.cmpe451.eatalyze.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -63,9 +67,10 @@ public class FoodServerAdapter extends BaseAdapter {
             view.setTag(holder);
         } else holder = (ViewHolder) view.getTag();
 
-        User foodServer = foodServerList.get(i);
+        final User foodServer = foodServerList.get(i);
         Picasso.with(context).load(foodServer.getAvatarUrl()).into(holder.ivFoodServerImage);
         holder.tvFoodServerName.setText(foodServer.getFullName());
+
         //TODO get location for food server
         //holder.tvFoodServerLocation.setText();
         return view;

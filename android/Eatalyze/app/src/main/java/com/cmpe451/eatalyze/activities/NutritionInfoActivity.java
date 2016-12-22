@@ -81,7 +81,7 @@ public class NutritionInfoActivity extends BaseActivity {
 
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
 
-        String mealName = "Nuritional Info of " + meal.getName();
+        String mealName = "Nutritional Info of " + meal.getName();
 
         tvMealName.setText(mealName);
 
@@ -100,7 +100,7 @@ public class NutritionInfoActivity extends BaseActivity {
                     tvFatAmount.setText(amount);
                     amount = "" + nutritionalInfo.getSaturatedFat() + " grams";
                     tvSatfatAmount.setText(amount);
-                    amount = "" + nutritionalInfo.getCholesterol();
+                    amount = "" + nutritionalInfo.getCholesterol() + " milligram";
                     tvCholesterolAmount.setText(amount);
                     amount = "" + nutritionalInfo.getSodium() + " milligram";
                     tvSodiumAmount.setText(amount);

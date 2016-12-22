@@ -70,7 +70,12 @@ public class MealAdapter extends BaseAdapter {
             meal.setPhotoUrl("https://image.freepik.com/free-icon/fork-and-knife-in-cross_318-61306.jpg");
         Picasso.with(context).load(meal.getPhotoUrl()).into(holder.ivMealImage);
         holder.tvMealName.setText(meal.getName());
-        holder.tvServerName.setText("@"+servername);
+        if(servername.equals("weekly")){
+            holder.tvServerName.setText("");
+        }else{
+            holder.tvServerName.setText("@"+servername);
+
+        }
         holder.tvMealDescription.setText(meal.getDescription());
         return view;
     }

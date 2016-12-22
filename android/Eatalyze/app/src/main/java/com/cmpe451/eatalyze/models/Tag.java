@@ -5,30 +5,51 @@ package com.cmpe451.eatalyze.models;
  */
 
 public class Tag {
-    private Long mealId;
-    private String tag;
+    private Long relationType;
+    private Long relationId;
+
+    private String displayName;
+    private String identifier;
 
     public Tag() {
     }
 
-    public Tag(Long mealId, String tag) {
-        this.mealId = mealId;
-        this.tag = tag;
+    public Tag(Long relationType, Long relationId, String displayName, String identifier) {
+        this.relationType = relationType;
+        this.relationId = relationId;
+        this.displayName = displayName;
+        this.identifier = identifier;
     }
 
-    public Long getMealId() {
-        return mealId;
+    public Long getRelationType() {
+        return relationType;
     }
 
-    public void setMealId(Long mealId) {
-        this.mealId = mealId;
+    public void setRelationType(Long relationType) {
+        this.relationType = relationType;
     }
 
-    public String getTag() {
-        return tag;
+    public Long getRelationId() {
+        return relationId;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setRelationId(Long relationId) {
+        this.relationId = relationId;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

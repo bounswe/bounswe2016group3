@@ -3,6 +3,7 @@
     <string name="base_url">http://ec2-52-57-126-127.eu-central-1.compute.amazonaws.com:8080/</string>
 
     <!--Login-->
+    <string name="app_title_name"><b>EATALYZE</b></string>
     <string name="mail_hint">E-Mail Address</string>
     <string name="pswd">Password</string>
     <string name="lgn_btn">LOGIN</string>
@@ -40,33 +41,48 @@
     <string name="celliac">Celliac Disease</string>
     <string name="lactose">Lactose Intolerant</string>
     <string name="paleo">Paleo</string>
+    <string name="no_nuts">No Nuts</string>
+
     <string name="save_btn">Save</string>
     <string name="Profil_Page">UserName</string>
 
     <!--AddMealPage-->
     <string name="ingredients"><b>Ingredients</b></string>
-    <string-array name="planets_array">
-        <item>Tomato</item>
-        <item>Egg planet</item>
-        <item>Onion</item>
-        <item>Salt</item>
-        <item>Oil</item>
-        <item>Pepper</item>
+    <string-array name="amount">
+        <item>Grams</item>
+        <item>Spoon</item>
+        <item>Glass</item>
+        <item>Piece</item>
     </string-array>
 
     <!--View meal page-->
     <string name="send_btn">Send</string>
     <string name="check_eat">Check Eat</string>
     <string name="searchable">Search..</string>
+    <string name="Settings">Settings</string>
 
     <!--Advanced Search-->
 
     <string-array name="diet_types_array">
+        <item>All</item>
         <item>Vegetarian</item>
         <item>Vegan</item>
         <item>Gluten Intolerant</item>
         <item>Celliac Disease</item>
         <item>Lactose Intolerant</item>
         <item>Paleo</item>
+        <item>No Nuts</item>
     </string-array>
+
+    <string-array name="amount_array">
+        <item>gr</item>
+        <item>spoon</item>
+        <item>glass</item>
+        <item>piece</item>
+    </string-array>
+
+
+    <!--Edit Preferences Page-->
+    <string name="includes"><b>INCLUDES</b></string>
+    <string name="excludes"><b>EXCLUDES</b></string>
 </resources>

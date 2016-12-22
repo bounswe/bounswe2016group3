@@ -1,118 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cmpe451.eatalyze.activities.AddMealActivity"
-    android:background="@color/pageBackground">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/app_bar"
-        android:id="@+id/appBar"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.cmpe451.eatalyze.activities.AddMealActivity"
+        android:background="@color/white">
 
-    <RelativeLayout
-        android:id="@+id/rl_meal_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appBar"
-        android:layout_margin="10dp">
-        <ImageView
-            android:id="@+id/iv_meal_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/saksuka"/>
+        <include layout="@layout/app_bar"
+            android:id="@+id/appBar"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_meal_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appBar"
+            android:layout_margin="10dp">
+            <ImageView
+                android:id="@+id/iv_meal_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/saksuka"/>
+            <Button
+                android:id="@+id/btn_edit_meal"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="Edit Image"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/general_button_shape"
+                android:layout_below="@id/iv_meal_image"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_meal_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/rl_meal_image"
+            android:layout_below="@+id/appBar"
+            android:layout_margin="10dp">
+            <EditText
+                android:id="@+id/et_meal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Meal Name"/>
+            <EditText
+                android:id="@+id/et_meal_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Meal description"
+                android:layout_below="@+id/et_meal_name"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_ingredient_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_meal_image"
+            >
+            <TextView
+                android:id="@+id/tv_ingredient_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INGREDIENTS"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_add_ingredient_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_ingredient_title">
+            <EditText
+                android:id="@+id/et_indgredient"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="ingredient"
+                android:layout_margin="4dp"
+                />
+
+
+            <EditText
+                android:id="@+id/et_amount"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:layout_toRightOf="@id/et_indgredient"
+                android:layout_margin="4dp"
+                />
+
+            <Spinner
+                android:id="@+id/sp_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/et_amount"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
+
+            <ImageView
+                android:id="@+id/iv_add_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add_icon"
+                android:layout_toRightOf="@+id/sp_amount"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+               />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lv_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_below="@id/rl_add_ingredient_item"></ListView>
+
         <Button
-            android:id="@+id/btn_edit_meal"
+            android:id="@+id/btn_add_meal"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:text="Edit Image"
-            android:background="@color/blue"
-            android:layout_below="@id/iv_meal_image"
-            android:layout_marginTop="10dp"/>
+            android:textColor="#FFFFFF"
+            android:background="@drawable/general_button_shape"
+            android:text="Add Meal"
+            android:layout_below="@id/lv_ingredients"
+            android:layout_centerHorizontal="true"/>
+
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_meal_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/rl_meal_image"
-        android:layout_below="@+id/appBar"
-        android:layout_margin="10dp">
-        <EditText
-            android:id="@+id/et_meal_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Meal Name"/>
-        <EditText
-            android:id="@+id/et_meal_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Meal description"
-            android:layout_below="@+id/et_meal_name"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_ingredient_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_meal_image"
-        >
-        <TextView
-            android:id="@+id/tv_ingredient_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="INGREDIENTS"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="10dp"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_add_ingredient_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_ingredient_title">
-        <EditText
-            android:id="@+id/et_indgredient"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:hint="ingredient"
-            android:layout_margin="10dp"
-            />
-
-
-        <EditText
-            android:id="@+id/et_amount"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:hint="gr"
-            android:layout_toRightOf="@id/et_indgredient"
-            android:layout_margin="10dp"
-            />
-
-        <ImageView
-            android:id="@+id/iv_add_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/add_icon"
-            android:layout_toRightOf="@+id/et_amount"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-           />
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/lv_ingredients"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_below="@id/rl_add_ingredient_item"></ListView>
-
-    <Button
-        android:id="@+id/btn_add_meal"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:background="@color/blue"
-        android:text="Add Meal"
-        android:layout_below="@id/lv_ingredients"
-        android:layout_centerHorizontal="true"/>
-
-</RelativeLayout>
+</ScrollView>

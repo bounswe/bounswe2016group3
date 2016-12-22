@@ -77,19 +77,19 @@ public class ViewMealActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         final Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
+        System.out.println("MEAL : " + meal.getName());
 
         //TODO this with real clicked meal
         apiService.getNutrition(meal.getId(), new Callback<NutritionalInfo>() {
             @Override
             public void success(NutritionalInfo nutritionalInfo, Response response) {
                 String totalCalorie = "";
-                if (nutritionalInfo != null)
+                if (nutritionalInfo != null){
                     totalCalorie = nutritionalInfo.getCalories() + " kcal";
-                else
-                    //totalCalorie = "Total calorie is not specified";
                     tvTotalCalorie.setText(totalCalorie);
+                }
+
             }
 
             @Override
@@ -194,7 +194,7 @@ public class ViewMealActivity extends BaseActivity {
         Meal meal = (Meal) getIntent().getSerializableExtra("ClickedMeal");
         switch (view.getId()) {
             case R.id.btn_check_eat:
-                Intent intent = new Intent(ViewMealActivity.this, TagPeopleActivity.class);
+                Intent intent = new Intent(ViewMealActivity.this, CheckEatActivity.class);
                 intent.putExtra("ClickedMeal", meal);
                 startActivity(intent);
                 break;

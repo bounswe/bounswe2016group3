@@ -4,6 +4,7 @@
     android:id="@+id/activity_food_server_home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.cmpe451.eatalyze.activities.FoodServerHomePage">
 
     <include layout="@layout/app_bar"
@@ -14,11 +15,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBar"
+        android:textStyle="bold"
+        android:layout_margin="8dp"
         />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_below="@id/tv_welcome_text"/>
 
     <ListView
         android:id="@+id/lv_comments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"></ListView>
 
 </RelativeLayout>
