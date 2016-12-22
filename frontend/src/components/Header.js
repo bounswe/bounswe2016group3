@@ -139,9 +139,11 @@ var Header = function(props){
 
     if(props.uid!=0){
         $("#login_form").hide();
+        $("#open_advance_search_button").show();
     }
     else{
-        $("#login_form").show()
+        $("#login_form").show();
+        $("#open_advance_search_button").hide();
     }
     var submitForm1 = function(e) {
         let email = document.getElementById("login-email2");
@@ -315,11 +317,11 @@ if(props.success){
                     { linkTags }
                 </ul>
                 </div>
-                <div className="col-sm-2">
+                <div className="col-sm-4">
 
                 <ul className="nav navbar-nav navbar">
-                    <li><input type="search" className="form-control" placeholder="Search" id="search_input" /></li>
-                    <li><button type = 'button' onClick={openAdvanceSearch}>Advance Search</button></li>
+                    <li><input type="search" className="form-control" id="search_input" placeholder="Search" id="search_input" /></li>
+                    <li><button type = 'button' className="btn btn-info" id="open_advance_search_button" onClick={openAdvanceSearch}>Advance Search</button></li>
                     <li>
                         <div id="search_results">
                         </div>
@@ -327,7 +329,7 @@ if(props.success){
                 </ul>
                 </div>
 
-                <div className="col-sm-7">
+                <div className="col-sm-4">
                 <ul className="nav navbar-nav navbar" id="login_form">
                     <li><input type="email" className="form-control" placeholder="E-mail" id="login-email2" /></li>
                     <li><input type="password" className="form-control" placeholder="Password" id="login-pass2"/></li>

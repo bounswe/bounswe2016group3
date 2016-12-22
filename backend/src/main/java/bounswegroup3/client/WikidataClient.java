@@ -40,7 +40,6 @@ public class WikidataClient implements ServiceClient {
 
 	@Override
 	public boolean checkValidity() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 }
