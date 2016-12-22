@@ -31,6 +31,7 @@ class RateStar extends Component {
 
    var rate = (e) => {
      e.preventDefault();
+     $(stars).rateYo("option", "readOnly", "true");
       if(this.props.props.token!==""){
          this.props.props.actions.rate(this.props.props.token,this.props.props.params.id,this.props.props.currentUser.id,rating);
        }
