@@ -49,6 +49,5 @@ public class CheckEatDAOTest {
 		assertThat(dao.checkAte(1l, 1l));
 	}
 	
-	//TODO test the last week method
 	
 }

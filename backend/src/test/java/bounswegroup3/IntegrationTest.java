@@ -18,6 +18,5 @@ public class IntegrationTest {
 	*/
 	@Test
 	public void dummyTest() {
-		// TODO actually write that
 	}
 }
