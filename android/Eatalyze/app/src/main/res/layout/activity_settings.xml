@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_settings"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cmpe451.eatalyze.activities.SettingsActivity"
-    android:background="@color/white">
+    android:orientation="vertical" >
 
-    <include layout="@layout/app_bar"/>
+    <com.numetriclabz.numandroidcharts.PieChartL
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/pie_chart"/>
 
 </LinearLayout>
